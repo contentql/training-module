@@ -14,7 +14,7 @@ export default function ElearningCourseList({ courses, loading }) {
       <Stack spacing={4}>
         {(loading ? [...Array(9)] : courses).map((course, index) =>
           course ? (
-            <ElearningCourseItem key={course.id} course={course} />
+            <ElearningCourseItem key={course.id} course={course} id={course.id} />
           ) : (
             <ElearningCourseItemSkeleton key={index} />
           )

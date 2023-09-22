@@ -100,29 +100,29 @@ export default function ElearningCourseView() {
 
             <Divider sx={{ my: 5 }} />
 
-            <ElearningCourseDetailsTeachersInfo teachers={_mockCourse.teachers} />
+            {/* <ElearningCourseDetailsTeachersInfo teachers={_mockCourse.teachers} /> */}
           </Grid>
 
           <Grid xs={12} md={5} lg={4}>
             <Stack spacing={5}>
               {mdUp && <ElearningCourseDetailsInfo course={_mockCourse} />}
 
-              <Advertisement
+              {/* <Advertisement
                 advertisement={{
                   title: 'Advertisement',
                   description: 'Duis leo. Donec orci lectus, aliquam ut, faucibus non',
                   imageUrl: _mock.image.course(7),
                   path: '',
                 }}
-              />
+              /> */}
             </Stack>
           </Grid>
         </Grid>
       </Container>
 
-      {mdUp && <Divider />}
+      {/* {mdUp && <Divider />} */}
 
-      <ReviewElearning />
+      {/* <ReviewElearning /> */}
 
       <ElearningCourseListSimilar courses={courseSimilar} />
 

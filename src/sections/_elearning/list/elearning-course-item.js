@@ -18,7 +18,8 @@ import { fCurrency, fShortenNumber } from 'src/utils/format-number';
 
 // ----------------------------------------------------------------------
 
-export default function ElearningCourseItem({ course, vertical }) {
+// eslint-disable-next-line react/prop-types
+export default function ElearningCourseItem({ course, vertical, id }) {
   const {
     slug,
     level,
@@ -107,7 +108,7 @@ export default function ElearningCourseItem({ course, vertical }) {
           </Stack>
 
           <Stack spacing={1}>
-            <Link component={RouterLink} href={paths.eLearning.course} color="inherit">
+            <Link component={RouterLink} href={`/course/${id}`} color="inherit">
               <TextMaxLine variant="h6" line={1}>
                 {slug}
               </TextMaxLine>
