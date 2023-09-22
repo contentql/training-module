@@ -43,6 +43,7 @@ export default function ElearningLandingHero() {
             imgUrl: '/assets/background/overlay_1.jpg',
           }),
           overflow: 'hidden',
+          paddingTop: 4,
         }}
       >
         <Container

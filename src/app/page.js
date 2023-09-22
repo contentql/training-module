@@ -1,5 +1,5 @@
 import MainLayout from 'src/layouts/main';
-import HomeView from 'src/sections/_home/view/home-view';
+import ElearningLandingView from 'src/sections/_elearning/view/elearning-landing-view';
 
 // ----------------------------------------------------------------------
 
@@ -10,7 +10,7 @@ export const metadata = {
 export default function HomePage() {
   return (
     <MainLayout>
-      <HomeView />
+      <ElearningLandingView />
     </MainLayout>
   );
 }

@@ -6,13 +6,14 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-import Container from '@mui/material/Container';
 import { useTheme } from '@mui/material/styles';
+import Container from '@mui/material/Container';
 
 import { bgBlur } from 'src/theme/css';
 import Logo from 'src/components/logo';
 import { paths } from 'src/routes/paths';
 import Label from 'src/components/label';
+import { RouterLink } from 'src/routes/components';
 import { useResponsive } from 'src/hooks/use-responsive';
 import { useOffSetTop } from 'src/hooks/use-off-set-top';
 
@@ -65,7 +66,7 @@ export default function Header({ headerOnDark }) {
           <Box sx={{ lineHeight: 0, position: 'relative' }}>
             <Logo />
 
-            <Link href="#">
+            {/* <Link href="#">
               <Label
                 color="info"
                 sx={{
@@ -81,28 +82,24 @@ export default function Header({ headerOnDark }) {
               >
                 v2.1.0
               </Label>
-            </Link>
+            </Link> */}
           </Box>
 
           {mdUp && <NavDesktop data={navConfig} />}
 
           <Stack spacing={2} direction="row" alignItems="center" justifyContent="flex-end">
-            <Stack spacing={1} direction="row" alignItems="center">
+            {/* <Stack spacing={1} direction="row" alignItems="center">
               <Searchbar />
 
               <SettingsButton />
-            </Stack>
+            </Stack> */}
 
             {mdUp && (
-              <Button
-                variant="contained"
-                color="inherit"
-                href={paths.zoneStore}
-                target="_blank"
-                rel="noopener"
-              >
-                Buy Now
-              </Button>
+              <Link component={RouterLink} href={paths.loginBackground}>
+                <Button variant="contained" color="inherit">
+                  Login
+                </Button>
+              </Link>
             )}
           </Stack>
 
