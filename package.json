@@ -78,7 +78,6 @@
   },
   "engines": {
     "npm": "please-use-yarn",
-    "yarn": ">1",
-    "bun": ">=1.0.0"
+    "yarn": ">=1"
   }
 }
