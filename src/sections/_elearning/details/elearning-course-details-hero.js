@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { useState, useCallback } from 'react';
 
 import Box from '@mui/material/Box';
 import Fab from '@mui/material/Fab';
@@ -22,8 +23,8 @@ import { PlayerDialog } from 'src/components/player';
 import { fShortenNumber } from 'src/utils/format-number';
 import { useResponsive } from 'src/hooks/use-responsive';
 import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
+
 import ElearningCourseDetailsLessonsDialog from './elearning-course-details-lessons-dialog';
-import { useCallback, useState } from 'react';
 
 // ----------------------------------------------------------------------
 
@@ -188,7 +189,7 @@ export default function ElearningCourseDetailsHero({ course }) {
                     <Button
                       variant="contained"
                       color="primary"
-                      onClick={() => setSelectedLesson(lessons.at(0))}
+                      onClick={() => handleSelectedLesson(lessons[0])}
                     >
                       Start Now
                     </Button>
