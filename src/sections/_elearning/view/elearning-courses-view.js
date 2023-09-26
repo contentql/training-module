@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
@@ -22,6 +22,8 @@ export default function ElearningCoursesView() {
   const mobileOpen = useBoolean();
 
   const loading = useBoolean(true);
+
+  const [search, setSearch] = useState('');
 
   useEffect(() => {
     const fakeLoading = async () => {
@@ -58,7 +60,12 @@ export default function ElearningCoursesView() {
         </Stack>
 
         <Stack direction={{ xs: 'column', md: 'row' }}>
-          <ElearningFilters open={mobileOpen.value} onClose={mobileOpen.onFalse} />
+          <ElearningFilters
+            open={mobileOpen.value}
+            onClose={mobileOpen.onFalse}
+            search={search}
+            setSearch={setSearch}
+          />
 
           <Box
             sx={{
@@ -67,7 +74,7 @@ export default function ElearningCoursesView() {
               width: { md: `calc(100% - ${280}px)` },
             }}
           >
-            <ElearningCourseList courses={_courses} loading={loading.value} />
+            <ElearningCourseList courses={_courses} loading={loading.value} search={search} />
           </Box>
         </Stack>
       </Container>

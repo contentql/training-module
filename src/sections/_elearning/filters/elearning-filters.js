@@ -28,7 +28,7 @@ const defaultValues = {
   filterLanguage: [],
 };
 
-export default function ElearningFilters({ open, onClose }) {
+export default function ElearningFilters({ open, onClose, search, setSearch }) {
   const mdUp = useResponsive('up', 'md');
 
   const [filters, setFilters] = useState(defaultValues);
@@ -102,6 +102,10 @@ export default function ElearningFilters({ open, onClose }) {
     [filters]
   );
 
+  const handleChangeSearch = (event) => {
+    setSearch(event.target.value);
+  };
+
   const renderContent = (
     <Stack
       spacing={2.5}
@@ -121,6 +125,8 @@ export default function ElearningFilters({ open, onClose }) {
             </InputAdornment>
           ),
         }}
+        value={search}
+        onChange={handleChangeSearch}
       />
 
       <Block title="Ratings">
@@ -185,6 +191,8 @@ export default function ElearningFilters({ open, onClose }) {
 ElearningFilters.propTypes = {
   onClose: PropTypes.func,
   open: PropTypes.bool,
+  search: PropTypes.string,
+  setSearch: PropTypes.func,
 };
 
 // ----------------------------------------------------------------------
