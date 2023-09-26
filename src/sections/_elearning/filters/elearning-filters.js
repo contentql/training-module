@@ -141,20 +141,20 @@ export default function ElearningFilters({ open, onClose }) {
         />
       </Block>
 
-      <Block title="Level">
+      {/* <Block title="Level">
         <FilterLevel filterLevel={filters.filterLevel} onChangeLevel={handleChangeLevel} />
-      </Block>
+      </Block> */}
 
       <Block title="Fee">
         <FilterFee filterFee={filters.filterFee} onChangeFee={handleChangeFee} />
       </Block>
 
-      <Block title="Language">
+      {/* <Block title="Language">
         <FilterLanguage
           filterLanguage={filters.filterLanguage}
           onChangeLanguage={handleChangeLanguage}
         />
-      </Block>
+      </Block> */}
     </Stack>
   );
 
