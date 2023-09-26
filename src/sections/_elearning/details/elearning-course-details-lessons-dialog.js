@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Stack from '@mui/material/Stack';
 import Dialog from '@mui/material/Dialog';
 import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemButton from '@mui/material/ListItemButton';
 
@@ -28,8 +29,9 @@ export default function ElearningCourseDetailsLessonsDialog({
       alignItems="center"
       justifyContent="center"
       sx={{
-        width: { xs: 1, md: 1 },
-        height: { xs: 320, md: 1 },
+        width: 1,
+        height: 1,
+        minHeight: 1,
       }}
     >
       {selectedLesson?.videoPath ? (
@@ -57,6 +59,19 @@ export default function ElearningCourseDetailsLessonsDialog({
           No Data
         </Stack>
       )}
+    </Stack>
+  );
+
+  const renderDescription = (
+    <Stack
+      spacing={1}
+      sx={{
+        p: 2,
+        width: 1,
+        height: 1,
+      }}
+    >
+      <Typography>{selectedLesson?.description}</Typography>
     </Stack>
   );
 
@@ -138,7 +153,10 @@ export default function ElearningCourseDetailsLessonsDialog({
       </IconButton>
 
       <Stack direction={{ xs: 'column', md: 'row' }} sx={{ height: 1 }}>
-        {renderVideo}
+        <Stack className="overflow-y-auto">
+          {renderVideo}
+          {renderDescription}
+        </Stack>
 
         {renderList}
       </Stack>
