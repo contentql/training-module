@@ -1,4 +1,5 @@
-import * as React from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
@@ -99,3 +100,13 @@ export default function QuestionCard(props) {
     </Box>
   );
 }
+
+QuestionCard.propTypes = {
+  question: PropTypes.object.isRequired,
+  questionNumber: PropTypes.number.isRequired,
+  submitAnswer: PropTypes.func.isRequired,
+  islastQuestion: PropTypes.bool.isRequired,
+  goToPrevious: PropTypes.func.isRequired,
+  selectedValue: PropTypes.number,
+  goToNext: PropTypes.func.isRequired,
+};

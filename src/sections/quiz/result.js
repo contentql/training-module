@@ -1,5 +1,4 @@
-'use client';
-
+import PropTypes from 'prop-types';
 import React, { useMemo } from 'react';
 
 import { Card, Button, Typography, CardContent, CardActions } from '@mui/material';
@@ -40,3 +39,8 @@ export default function Result(props) {
     </Card>
   );
 }
+
+Result.propTypes = {
+  answers: PropTypes.array.isRequired,
+  restartQuiz: PropTypes.func.isRequired,
+};
