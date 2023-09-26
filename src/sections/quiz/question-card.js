@@ -46,7 +46,7 @@ export default function QuestionCard(props) {
   };
 
   return (
-    <Box sx={{ minWidth: 275 }}>
+    <Box>
       <Card variant="outlined">
         <CardContent>
           <Typography variant="h5" component="div">
@@ -70,28 +70,28 @@ export default function QuestionCard(props) {
             </RadioGroup>
           </FormControl>
         </CardContent>
-        <CardActions>
+        <CardActions className="w-full">
           <Button
             disabled={questionNumber === 1}
             onClick={handlePreview}
-            fullWidth
             variant="outlined"
             size="small"
+            className="w-1/2"
           >
             Preview
           </Button>
           {!selectedValue ? (
             <Button
               disabled={!value}
+              className="w-1/2"
               onClick={handleSubmit}
-              fullWidth
               variant="outlined"
               size="small"
             >
               {islastQuestion ? 'Submit Quiz' : 'Submit & Next'}
             </Button>
           ) : (
-            <Button onClick={handleNext} fullWidth variant="outlined" size="small">
+            <Button onClick={handleNext} className="w-1/2" variant="outlined" size="small">
               Next
             </Button>
           )}
