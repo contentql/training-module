@@ -1,5 +1,5 @@
+import { useMemo } from 'react';
 import PropTypes from 'prop-types';
-import React, { useMemo } from 'react';
 
 import { Card, Button, Typography, CardContent, CardActions } from '@mui/material';
 

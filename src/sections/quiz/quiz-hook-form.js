@@ -1,18 +1,6 @@
 'use client';
 
-import PropTypes from 'prop-types';
-import React, { useState } from 'react';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useForm, Controller } from 'react-hook-form';
-
-import { lightBlue } from '@mui/material/colors';
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
-import LoadingButton from '@mui/lab/LoadingButton';
-import InputAdornment from '@mui/material/InputAdornment';
-import { Box, Container, CssBaseline } from '@mui/material';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import CircularProgress from '@mui/material/CircularProgress';
+import { useState } from 'react';
 
 import all_questions from 'src/_mock/_questions';
 
