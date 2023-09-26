@@ -3,14 +3,12 @@ import React, { useMemo } from 'react';
 
 import { Card, Button, Typography, CardContent, CardActions } from '@mui/material';
 
-import questions from 'src/_mock/_questions';
-
 export default function Result(props) {
-  const { answers, restartQuiz } = props;
+  const { answers, restartQuiz, questions } = props;
 
   const correctAnswers = useMemo(
     () => questions.filter((q, i) => q.correctAnswer === parseInt(answers[i], 10)).length,
-    [answers]
+    [answers, questions]
   );
 
   return (
@@ -43,4 +41,5 @@ export default function Result(props) {
 Result.propTypes = {
   answers: PropTypes.array.isRequired,
   restartQuiz: PropTypes.func.isRequired,
+  questions: PropTypes.array.isRequired,
 };

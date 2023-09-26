@@ -43,7 +43,7 @@ export default function QuizForm() {
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
         open={open}
-        className="w-screen h-screen"
+        maxWidth="lg"
       >
         <QuizHookForm />
       </BootstrapDialog>

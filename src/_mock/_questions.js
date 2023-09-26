@@ -1,165 +1,165 @@
 const questions = [
   {
-    title: "What's the national flower of Japan?",
+    title: "What's the nat",
     options: [
       {
-        description: "Cherry Blossom",
+        description: 'Cherry Blossom',
       },
       {
-        description: "Rose",
+        description: 'Rose',
       },
       {
-        description: "Jasmine",
+        description: 'Jasmine',
       },
       {
-        description: "Lavender",
+        description: 'Lavender',
       },
     ],
-    correctAnswer: 1,
+    correctAnswer: 'Cherry Blossom',
   },
   {
     title: "What's the national animal of Australia?",
     options: [
       {
-        description: "Lion",
+        description: 'Lion',
       },
       {
-        description: "Cat",
+        description: 'Cat',
       },
       {
-        description: "Red Kangaroo",
+        description: 'Red Kangaroo',
       },
       {
-        description: "Elephant",
+        description: 'Elephant',
       },
     ],
-    correctAnswer: 3,
+    correctAnswer: 'Red Kangaroo',
   },
   {
-    title: "Which of the following is used in pencils",
+    title: 'Which of the following is used in pencils',
     options: [
       {
-        description: "Phosphorous",
+        description: 'Phosphorous',
       },
       {
-        description: "Silicon",
+        description: 'Silicon',
       },
       {
-        description: "Charcoal",
+        description: 'Charcoal',
       },
       {
-        description: "Graphite",
+        description: 'Graphite',
       },
     ],
-    correctAnswer: 4,
+    correctAnswer: 'Graphite',
   },
   {
     title: "Which planet is known as the 'Red Planet'?",
     options: [
       {
-        description: "Mars",
+        description: 'Mars',
       },
       {
-        description: "Venus",
+        description: 'Venus',
       },
       {
-        description: "Jupiter",
+        description: 'Jupiter',
       },
       {
-        description: "Saturn",
+        description: 'Saturn',
       },
     ],
-    correctAnswer: 1,
+    correctAnswer: 'Mars',
   },
   {
-    title: "In which year did the Titanic sink?",
+    title: 'In which year did the Titanic sink?',
     options: [
       {
-        description: "1912",
+        description: '1912',
       },
       {
-        description: "1923",
+        description: '1923',
       },
       {
-        description: "1905",
+        description: '1905',
       },
       {
-        description: "1931",
+        description: '1931',
       },
     ],
-    correctAnswer: 1,
+    correctAnswer: '1912',
   },
   {
-    title: "What is the tallest mountain in the world?",
+    title: 'What is the tallest mountain in the world?',
     options: [
       {
-        description: "Mount Everest",
+        description: 'Mount Everest',
       },
       {
-        description: "K2",
+        description: 'K2',
       },
       {
-        description: "Kangchenjunga",
+        description: 'Kangchenjunga',
       },
       {
-        description: "Lhotse",
+        description: 'Lhotse',
       },
     ],
-    correctAnswer: 1,
+    correctAnswer: 'Mount Everest',
   },
   {
-    title: "Which famous scientist developed the theory of relativity?",
+    title: 'Which famous scientist developed the theory of relativity?',
     options: [
       {
-        description: "Isaac Newton",
+        description: 'Isaac Newton',
       },
       {
-        description: "Albert Einstein",
+        description: 'Albert Einstein',
       },
       {
-        description: "Galileo Galilei",
+        description: 'Galileo Galilei',
       },
       {
-        description: "Stephen Hawking",
+        description: 'Stephen Hawking',
       },
     ],
-    correctAnswer: 2,
+    correctAnswer: 'Albert Einstein',
   },
   {
-    title: "What is the capital of France?",
+    title: 'What is the capital of France?',
     options: [
       {
-        description: "Berlin",
+        description: 'Berlin',
       },
       {
-        description: "Rome",
+        description: 'Rome',
       },
       {
-        description: "Madrid",
+        description: 'Madrid',
       },
       {
-        description: "Paris",
+        description: 'Paris',
       },
     ],
-    correctAnswer: 4,
+    correctAnswer: 'Paris',
   },
   {
-    title: "Which musical instrument has black and white keys?",
+    title: 'Which musical instrument has black and white keys?',
     options: [
       {
-        description: "Guitar",
+        description: 'Guitar',
       },
       {
-        description: "Violin",
+        description: 'Violin',
       },
       {
-        description: "Piano",
+        description: 'Piano',
       },
       {
-        description: "Flute",
+        description: 'Flute',
       },
     ],
-    correctAnswer: 3,
+    correctAnswer: 'Piano',
   },
 ];
 

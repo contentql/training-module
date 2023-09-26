@@ -14,13 +14,20 @@ import { Box, Container, CssBaseline } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import CircularProgress from '@mui/material/CircularProgress';
 
-import questions from 'src/_mock/_questions';
+import all_questions from 'src/_mock/_questions';
 
 import Result from './result';
 import QuestionCard from './question-card';
+import { shuffleArray } from './utils/shuffle-array';
 // ----------------------------------------------------------------------
 
 export default function QuizHookForm() {
+  const questions = shuffleArray(all_questions).slice(0, Math.max(5, all_questions.length / 2));
+
+  questions.forEach((question) => {
+    question.options = shuffleArray(question.options);
+  });
+
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState([]);
   const finishedQuiz = currentQuestionIndex === questions.length;
@@ -47,7 +54,7 @@ export default function QuizHookForm() {
   return (
     <>
       {finishedQuiz ? (
-        <Result restartQuiz={restartQuiz} answers={answers} />
+        <Result restartQuiz={restartQuiz} answers={answers} questions={questions} />
       ) : (
         <QuestionCard
           question={currentQuestion}
