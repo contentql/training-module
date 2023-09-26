@@ -5,6 +5,8 @@ import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Radio from '@mui/material/Radio';
 import Button from '@mui/material/Button';
+import Checkbox from '@mui/material/Checkbox';
+import FormGroup from '@mui/material/FormGroup';
 import Typography from '@mui/material/Typography';
 import RadioGroup from '@mui/material/RadioGroup';
 import CardActions from '@mui/material/CardActions';
@@ -30,6 +32,20 @@ export default function QuestionCard(props) {
 
   const handleChangeRadio = (e) => {
     setValue(e.target.value);
+  };
+  const handleChangeCheckbox = (e) => {
+    if (e.target.checked) {
+      setValue((prev) => {
+        if (!prev) return [e.target.value];
+        if (prev.includes(e.target.value)) return prev;
+        return [...prev, e.target.value];
+      });
+    } else {
+      setValue((prev) => {
+        if (!prev) return null;
+        return prev.filter((p) => p !== e.target.value);
+      });
+    }
   };
 
   const handlePreview = () => {
@@ -58,16 +74,29 @@ export default function QuestionCard(props) {
           </Typography>
 
           <FormControl disabled={Boolean(selectedValue)}>
-            <RadioGroup name="radio-group-quiz" value={value} onChange={handleChangeRadio}>
-              {question.options.map((o, i) => (
-                <FormControlLabel
-                  key={i + 1}
-                  value={i + 1}
-                  control={<Radio />}
-                  label={o.description}
-                />
-              ))}
-            </RadioGroup>
+            {typeof question.correctAnswer === 'object' ? (
+              <FormGroup name="checkbox-group-quiz" value={value} onChange={handleChangeCheckbox}>
+                {question.options.map((o, i) => (
+                  <FormControlLabel
+                    key={i + 1}
+                    value={o.description}
+                    control={<Checkbox />}
+                    label={o.description}
+                  />
+                ))}
+              </FormGroup>
+            ) : (
+              <RadioGroup name="radio-group-quiz" value={value} onChange={handleChangeRadio}>
+                {question.options.map((o, i) => (
+                  <FormControlLabel
+                    key={i + 1}
+                    value={o.description}
+                    control={<Radio />}
+                    label={o.description}
+                  />
+                ))}
+              </RadioGroup>
+            )}
           </FormControl>
         </CardContent>
         <CardActions className="w-full">

@@ -1,13 +1,19 @@
 import { useMemo } from 'react';
 import PropTypes from 'prop-types';
 
+import { areArraysEqual } from '@mui/base';
 import { Card, Button, Typography, CardContent, CardActions } from '@mui/material';
 
 export default function Result(props) {
   const { answers, restartQuiz, questions } = props;
 
   const correctAnswers = useMemo(
-    () => questions.filter((q, i) => q.correctAnswer === parseInt(answers[i], 10)).length,
+    () =>
+      questions.filter((q, i) =>
+        typeof answers[i] === 'object'
+          ? areArraysEqual(q.correctAnswer, answers[i])
+          : q.correctAnswer === answers[i]
+      ).length,
     [answers, questions]
   );
 
