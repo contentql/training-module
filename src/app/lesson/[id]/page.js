@@ -1,6 +1,6 @@
 // import ElearningLessonView from 'src/sections/_elearning/view/elearning-lesson-view';
 
-import { _mock, _socials, _courses } from 'src/_mock';
+import { _courses } from 'src/_mock';
 
 import ElearningCourseDetailsLessonList from '../../../sections/_elearning/details/elearning-course-details-lesson-list';
 

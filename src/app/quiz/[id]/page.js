@@ -1,5 +1,3 @@
-import { Container } from '@mui/system';
-
 import Quiz from 'src/sections/quiz/';
 
 // ----------------------------------------------------------------------
