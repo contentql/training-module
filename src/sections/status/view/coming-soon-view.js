@@ -17,8 +17,8 @@ import { useCountdown } from 'src/hooks/use-countdown';
 
 // ----------------------------------------------------------------------
 
-export default function ComingSoonView() {
-  const { days, hours, minutes, seconds } = useCountdown(new Date('07/07/2024 21:30'));
+export default function ComingSoonView({ date }) {
+  const { days, hours, minutes, seconds } = useCountdown(new Date(date));
 
   return (
     <>
@@ -81,6 +81,10 @@ export default function ComingSoonView() {
     </>
   );
 }
+
+ComingSoonView.propTypes = {
+  date: PropTypes.string,
+};
 
 // ----------------------------------------------------------------------
 
