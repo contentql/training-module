@@ -11,19 +11,16 @@ import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
 
 import Iconify from 'src/components/iconify';
+import { _socials, _courses } from 'src/_mock';
 import { useBoolean } from 'src/hooks/use-boolean';
-import { _mock, _socials, _courses } from 'src/_mock';
 import { useResponsive } from 'src/hooks/use-responsive';
 import { SplashScreen } from 'src/components/loading-screen';
 
-import Advertisement from '../../advertisement';
 import ElearningNewsletter from '../elearning-newsletter';
-import ReviewElearning from '../../review/elearning/review-elearning';
 import ElearningCourseListSimilar from '../list/elearning-course-list-similar';
 import ElearningCourseDetailsHero from '../details/elearning-course-details-hero';
 import ElearningCourseDetailsInfo from '../details/elearning-course-details-info';
 import ElearningCourseDetailsSummary from '../details/elearning-course-details-summary';
-import ElearningCourseDetailsTeachersInfo from '../details/elearning-course-details-teachers-info';
 
 // ----------------------------------------------------------------------
 

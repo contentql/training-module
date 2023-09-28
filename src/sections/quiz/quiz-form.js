@@ -6,12 +6,20 @@ import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import { styled } from '@mui/material/styles';
 
+import { _questions } from 'src/_mock';
 import { useResponsive } from 'src/hooks/use-responsive';
 
 import QuizHookForm from './quiz-hook-form';
+import { shuffleArray } from './utils/shuffle-array';
 
 export default function QuizForm() {
   const [open, setOpen] = useState(false);
+
+  const questions = shuffleArray(_questions).slice(0, Math.max(5, _questions.length / 2));
+
+  questions.forEach((question) => {
+    question.options = shuffleArray(question.options);
+  });
 
   const mdUp = useResponsive('up', 'md');
 
@@ -54,7 +62,7 @@ export default function QuizForm() {
         maxWidth="lg"
         {...bootstrapDialogProperties[!mdUp && 'mobile']}
       >
-        <QuizHookForm />
+        <QuizHookForm questions={questions} />
       </BootstrapDialog>
     </>
   );

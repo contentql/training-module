@@ -1,20 +1,14 @@
 'use client';
 
 import { useState } from 'react';
-
-import all_questions from 'src/_mock/_questions';
+import PropTypes from 'prop-types';
 
 import Result from './result';
 import QuestionCard from './question-card';
-import { shuffleArray } from './utils/shuffle-array';
 // ----------------------------------------------------------------------
 
-export default function QuizHookForm() {
-  const questions = shuffleArray(all_questions).slice(0, Math.max(5, all_questions.length / 2));
-
-  questions.forEach((question) => {
-    question.options = shuffleArray(question.options);
-  });
+export default function QuizHookForm(props) {
+  const { questions } = props;
 
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState([]);
@@ -57,3 +51,7 @@ export default function QuizHookForm() {
     </>
   );
 }
+
+QuizHookForm.propTypes = {
+  questions: PropTypes.array.isRequired,
+};
