@@ -1,4 +1,5 @@
 import Quiz from 'src/sections/quiz/';
+import { _questions } from 'src/_mock';
 
 // ----------------------------------------------------------------------
 
@@ -7,5 +8,5 @@ export const metadata = {
 };
 
 export default function FormValidationPage() {
-  return <Quiz />;
+  return <Quiz _questions={_questions} />;
 }

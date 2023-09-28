@@ -1,18 +1,21 @@
 'use client';
 
 import { useState } from 'react';
+import { PropTypes } from 'prop-types';
 
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import { styled } from '@mui/material/styles';
 
-import { _questions } from 'src/_mock';
 import { useResponsive } from 'src/hooks/use-responsive';
+import ElearningCourseDetailsLessonItem from 'src/sections/_elearning/details/elearning-course-details-quiz-item';
 
 import QuizHookForm from './quiz-hook-form';
 import { shuffleArray } from './utils/shuffle-array';
 
-export default function QuizForm() {
+export default function QuizForm(props) {
+  const { _questions } = props;
+
   const [open, setOpen] = useState(false);
 
   const questions = shuffleArray(_questions).slice(0, Math.max(5, _questions.length / 2));
@@ -52,9 +55,12 @@ export default function QuizForm() {
 
   return (
     <>
-      <Button variant="outlined" onClick={handleClickOpen}>
+      <ElearningCourseDetailsLessonItem
+        handleClickOpen={handleClickOpen}
+        questionsLength={questions.length}
+      >
         Start Test
-      </Button>
+      </ElearningCourseDetailsLessonItem>
       <BootstrapDialog
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
@@ -67,3 +73,7 @@ export default function QuizForm() {
     </>
   );
 }
+
+QuizForm.propTypes = {
+  _questions: PropTypes.array.isRequired,
+};

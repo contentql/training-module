@@ -15,7 +15,7 @@ import ElearningCourseDetailsLessonList from './elearning-course-details-lesson-
 export default function ElearningCourseDetailsSummary({ course }) {
   return (
     <Stack spacing={5}>
-      <ElearningCourseDetailsLessonList lessons={course.lessons} />
+      <ElearningCourseDetailsLessonList lessons={course.lessons} questions={course.questions} />
 
       <Stack spacing={3}>
         <Typography variant="h4">What You Will Learn</Typography>
@@ -74,5 +74,6 @@ ElearningCourseDetailsSummary.propTypes = {
     learnList: PropTypes.array,
     lessons: PropTypes.array,
     skills: PropTypes.array,
+    questions: PropTypes.array,
   }),
 };
