@@ -106,7 +106,7 @@ function ElearningHeroIllustration({ sx, ...other }) {
         />
       </Box>
 
-      <Box
+      {/* <Box
         {...varUp}
         component={m.div}
         sx={{ zIndex: 9, left: 120, bottom: 168, position: 'absolute' }}
@@ -132,11 +132,11 @@ function ElearningHeroIllustration({ sx, ...other }) {
             )}`,
           }}
         />
-      </Box>
+      </Box> */}
 
       {/* Icon */}
 
-      <Box
+      {/* <Box
         {...varLeft}
         component={m.div}
         sx={{ top: 88, right: 72, zIndex: 8, position: 'absolute' }}
@@ -146,25 +146,25 @@ function ElearningHeroIllustration({ sx, ...other }) {
           content={<Typography sx={{ ...styleIconContent }}>Dw</Typography>}
           sx={{ transform: 'scale(1.2) rotate(15deg)' }}
         />
-      </Box>
+      </Box> */}
 
-      <Box {...varRight} component={m.div} sx={{ zIndex: 8, bottom: 160, position: 'absolute' }}>
+      {/* <Box {...varRight} component={m.div} sx={{ zIndex: 8, bottom: 160, position: 'absolute' }}>
         <Icon
           color={YELLOW}
           content={<Typography sx={{ ...styleIconContent }}>Ai</Typography>}
           sx={{ transform: 'translateX(40px) scale(1.2) rotate(-15deg)' }}
         />
-      </Box>
+      </Box> */}
 
-      <Box {...varUp} component={m.div} sx={{ zIndex: 8, right: 90, position: 'absolute' }}>
+      {/* <Box {...varUp} component={m.div} sx={{ zIndex: 8, right: 90, position: 'absolute' }}>
         <Icon
           color={PURPLE}
           content={<Typography sx={{ ...styleIconContent, color: 'common.white' }}>Ae</Typography>}
           sx={{ transform: 'scale(1.2) translateY(20px) rotate(15deg)' }}
         />
-      </Box>
+      </Box> */}
 
-      <Box {...varDown} component={m.div} sx={{ zIndex: 8, position: 'absolute' }}>
+      {/* <Box {...varDown} component={m.div} sx={{ zIndex: 8, position: 'absolute' }}>
         <Icon
           color={BLUE}
           content={<Typography sx={{ ...styleIconContent, color: 'common.white' }}>Ps</Typography>}
@@ -172,7 +172,7 @@ function ElearningHeroIllustration({ sx, ...other }) {
             transform: 'scale(1.2) translate(-135px, -75px) rotate(15deg)',
           }}
         />
-      </Box>
+      </Box> */}
 
       <Pattern01 sx={{ left: 0, top: 0 }} />
       <Pattern02 sx={{ top: 0, left: 0, opacity: 0.24, transform: 'scale(1.2)' }} />

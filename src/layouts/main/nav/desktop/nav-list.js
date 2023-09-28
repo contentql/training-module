@@ -25,7 +25,7 @@ export default function NavList({ item }) {
 
   const menuOpen = useBoolean();
 
-  const active = useActiveLink(item.path, false);
+  const active = useActiveLink(item.path, item.path !== '/');
 
   const externalLink = item.path.includes('http');
 

@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { useState, useCallback } from 'react';
 
 import Box from '@mui/material/Box';
 import Fab from '@mui/material/Fab';
@@ -23,6 +24,8 @@ import { fShortenNumber } from 'src/utils/format-number';
 import { useResponsive } from 'src/hooks/use-responsive';
 import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
 
+import ElearningCourseDetailsLessonsDialog from './elearning-course-details-lessons-dialog';
+
 // ----------------------------------------------------------------------
 
 export default function ElearningCourseDetailsHero({ course }) {
@@ -43,11 +46,30 @@ export default function ElearningCourseDetailsHero({ course }) {
     teachers = [],
   } = course;
 
+  const [selectedLesson, setSelectedLesson] = useState(null);
+
   const theme = useTheme();
 
   const mdUp = useResponsive('up', 'md');
 
   const videoOpen = useBoolean();
+
+  const videoPlay = useBoolean();
+
+  const handleSelectedLesson = useCallback((lesson) => {
+    if (lesson.unLocked) {
+      setSelectedLesson(lesson);
+    }
+  }, []);
+
+  const handleClose = useCallback(() => {
+    setSelectedLesson(null);
+    videoPlay.onFalse();
+  }, [videoPlay]);
+
+  const handleReady = useCallback(() => {
+    setTimeout(() => videoPlay.onTrue(), 500);
+  }, [videoPlay]);
 
   return (
     <>
@@ -163,6 +185,15 @@ export default function ElearningCourseDetailsHero({ course }) {
                       + {teachers.length} teachers
                     </Link>
                   )}
+                  <Stack className="ml-2 md:ml-12">
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={() => handleSelectedLesson(lessons[0])}
+                    >
+                      Start Now
+                    </Button>
+                  </Stack>
                 </Stack>
 
                 <Divider sx={{ borderStyle: 'dashed' }} />
@@ -221,6 +252,19 @@ export default function ElearningCourseDetailsHero({ course }) {
       </Box>
 
       <PlayerDialog open={videoOpen.value} onClose={videoOpen.onFalse} videoPath={_mock.video(0)} />
+
+      <ElearningCourseDetailsLessonsDialog
+        lessons={lessons}
+        selectedLesson={selectedLesson}
+        onSelectedLesson={(lesson) => setSelectedLesson(lesson)}
+        open={!!selectedLesson?.unLocked}
+        onClose={handleClose}
+        playing={videoPlay.value}
+        onReady={handleReady}
+        onEnded={videoPlay.onFalse}
+        onPlay={videoPlay.onTrue}
+        onPause={videoPlay.onFalse}
+      />
     </>
   );
 }

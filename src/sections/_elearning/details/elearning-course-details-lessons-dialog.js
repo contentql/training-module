@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Stack from '@mui/material/Stack';
 import Dialog from '@mui/material/Dialog';
 import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemButton from '@mui/material/ListItemButton';
 
@@ -28,8 +29,9 @@ export default function ElearningCourseDetailsLessonsDialog({
       alignItems="center"
       justifyContent="center"
       sx={{
-        width: { xs: 1, md: 0.5 },
-        height: { xs: 320, md: 640 },
+        width: 1,
+        height: 1,
+        minHeight: 1,
       }}
     >
       {selectedLesson?.videoPath ? (
@@ -60,6 +62,19 @@ export default function ElearningCourseDetailsLessonsDialog({
     </Stack>
   );
 
+  const renderDescription = (
+    <Stack
+      spacing={1}
+      sx={{
+        p: 2,
+        width: 1,
+        height: 1,
+      }}
+    >
+      <Typography>{selectedLesson?.description}</Typography>
+    </Stack>
+  );
+
   const renderList = (
     <Stack
       spacing={0.5}
@@ -67,7 +82,7 @@ export default function ElearningCourseDetailsLessonsDialog({
         p: 1,
         overflowY: 'scroll',
         width: { xs: 1, md: 0.5 },
-        height: { xs: 320, md: 640 },
+        height: 1,
       }}
     >
       {lessons?.map((lesson) => {
@@ -128,7 +143,9 @@ export default function ElearningCourseDetailsLessonsDialog({
       PaperProps={{
         sx: {
           overflow: 'hidden',
+          borderRadius: 0,
         },
+        className: 'min-h-screen min-w-full aspect-video m-0',
       }}
     >
       <IconButton onClick={onClose} sx={{ top: 8, left: 8, zIndex: 9, position: 'absolute' }}>
@@ -136,7 +153,10 @@ export default function ElearningCourseDetailsLessonsDialog({
       </IconButton>
 
       <Stack direction={{ xs: 'column', md: 'row' }} sx={{ height: 1 }}>
-        {renderVideo}
+        <Stack className="overflow-y-auto">
+          {renderVideo}
+          {renderDescription}
+        </Stack>
 
         {renderList}
       </Stack>

@@ -14,7 +14,7 @@ const TEACHERS = [...Array(5)].map((_, index) => ({
   ratingNumber: _mock.number.rating(index),
 }));
 
-const LESSONS = [...Array(9)].map((_, index) => ({
+const LESSONS = [...Array(13)].map((_, index) => ({
   id: _mock.id(index),
   duration: 60 - index,
   title: `Lesson ${index + 1}`,
