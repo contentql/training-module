@@ -8,11 +8,13 @@ export const metadata = {
 };
 
 export default function ComingSoonPage() {
+  const completedOn = '10/08/2023 23:59';
+
   return (
     <MainLayout>
       <div className="flex justify-center text-center">
         <div>
-          <ComingSoonView />
+          <ComingSoonView date={completedOn} />
         </div>
       </div>
     </MainLayout>
