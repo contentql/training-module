@@ -108,7 +108,7 @@ export default function ElearningCourseItem({ course, vertical, id }) {
           </Stack>
 
           <Stack spacing={1}>
-            <Link component={RouterLink} href={`/course/${id}`} color="inherit">
+            <Link component={RouterLink} href={`${id}`} color="inherit">
               <TextMaxLine variant="h6" line={1}>
                 {slug}
               </TextMaxLine>
