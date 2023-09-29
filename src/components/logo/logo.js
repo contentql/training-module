@@ -28,7 +28,24 @@ function Logo({ single = false, sx }) {
     //     d="M114.742 355.332H256v66.097H24v-61.376l140.323-203.956H24V90h232v61.376L114.742 355.332z"
     //   />
     // </svg>
-    <img src="/favicon/favicon.png" alt="Logo" className="w-full h-full" />
+    <svg
+      width="100%"
+      height="100%"
+      viewBox="0 0 30 30"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g clipPath="url(#clip0_3_1976)">
+        <path d="M28.6804 6.39832H7.40686L0 0H21.2673L28.6804 6.39832Z" fill="#0D5992" />
+        <path d="M0 13.6447H21.2673L28.6804 6.39844H7.40686L0 13.6447Z" fill="#FF774C" />
+        <path d="M28.6741 21.4712H7.40686L0 13.6445H21.2673L28.6741 21.4712Z" fill="#0D5992" />
+      </g>
+      <defs>
+        <clipPath id="clip0_3_1976">
+          <rect width="141" height="28" fill="white" />
+        </clipPath>
+      </defs>
+    </svg>
   );
 
   const fullLogo = (
