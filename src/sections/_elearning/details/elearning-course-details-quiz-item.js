@@ -1,0 +1,57 @@
+import PropTypes from 'prop-types';
+
+import Typography from '@mui/material/Typography';
+import Accordion, { accordionClasses } from '@mui/material/Accordion';
+import AccordionSummary, { accordionSummaryClasses } from '@mui/material/AccordionSummary';
+
+import Iconify from 'src/components/iconify';
+
+// ----------------------------------------------------------------------
+
+export default function ElearningCourseDetailsLessonItem({ handleClickOpen, questionsLength }) {
+  return (
+    <Accordion
+      sx={{
+        [`&.${accordionClasses.expanded}`]: {
+          borderRadius: 0,
+        },
+      }}
+      onClick={handleClickOpen}
+    >
+      <AccordionSummary
+        sx={{
+          px: 1,
+          minHeight: 64,
+          [`& .${accordionSummaryClasses.content}`]: {
+            p: 0,
+            m: 0,
+          },
+          [`&.${accordionSummaryClasses.expanded}`]: {
+            bgcolor: 'action.selected',
+          },
+        }}
+      >
+        <Iconify width={24} icon="carbon:play" />
+
+        <Typography
+          variant="subtitle1"
+          sx={{
+            pl: 2,
+            flexGrow: 1,
+          }}
+        >
+          Start Test
+        </Typography>
+
+        <Typography variant="body2">{questionsLength} q</Typography>
+
+        <Iconify icon="carbon:chevron-right" sx={{ ml: 2 }} />
+      </AccordionSummary>
+    </Accordion>
+  );
+}
+
+ElearningCourseDetailsLessonItem.propTypes = {
+  handleClickOpen: PropTypes.func,
+  questionsLength: PropTypes.number,
+};

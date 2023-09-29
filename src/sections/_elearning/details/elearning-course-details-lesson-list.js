@@ -5,6 +5,7 @@ import { useState, useCallback } from 'react';
 
 import Typography from '@mui/material/Typography';
 
+import Quiz from 'src/sections/quiz';
 import { useBoolean } from 'src/hooks/use-boolean';
 
 import ElearningCourseDetailsLessonItem from './elearning-course-details-lesson-item';
@@ -12,7 +13,7 @@ import ElearningCourseDetailsLessonsDialog from './elearning-course-details-less
 
 // ----------------------------------------------------------------------
 
-export default function ElearningCourseDetailsLessonList({ lessons }) {
+export default function ElearningCourseDetailsLessonList({ lessons, questions }) {
   const videoPlay = useBoolean();
 
   const [expanded, setExpanded] = useState(false);
@@ -47,17 +48,22 @@ export default function ElearningCourseDetailsLessonList({ lessons }) {
         Lessons
       </Typography>
 
-      {lessons.map((lesson) => (
-        <ElearningCourseDetailsLessonItem
-          key={lesson.id}
-          lesson={lesson}
-          expanded={expanded === lesson.id}
-          onExpanded={handleExpandedLesson(lesson.id)}
-          selected={selectedLesson?.id === lesson.id}
-          onSelected={() => {
-            handleSelectedLesson(lesson);
-          }}
-        />
+      {lessons.map((lesson, index) => (
+        <>
+          {index > 1 && lessons[index - 1].unLocked && !lesson.unLocked && (
+            <Quiz _questions={questions} />
+          )}
+          <ElearningCourseDetailsLessonItem
+            key={lesson.id}
+            lesson={lesson}
+            expanded={expanded === lesson.id}
+            onExpanded={handleExpandedLesson(lesson.id)}
+            selected={selectedLesson?.id === lesson.id}
+            onSelected={() => {
+              handleSelectedLesson(lesson);
+            }}
+          />
+        </>
       ))}
 
       <ElearningCourseDetailsLessonsDialog
@@ -78,4 +84,5 @@ export default function ElearningCourseDetailsLessonList({ lessons }) {
 
 ElearningCourseDetailsLessonList.propTypes = {
   lessons: PropTypes.array,
+  questions: PropTypes.array,
 };

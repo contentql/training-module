@@ -63,6 +63,7 @@ export const _courses = [...Array(12)].map((_, index) => {
     coverUrl: _mock.image.course(index),
     ratingNumber: _mock.number.rating(index),
     description: _mock.description(index),
+    questions: _mock.questions,
     price: (index % 2 && 159.99) || 269.99,
     priceSale: (index === 2 && 89.99) || (index === 5 && 69.99) || 0,
     shareLinks: {
