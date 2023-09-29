@@ -33,9 +33,9 @@ function Logo({ single = false, sx }) {
 
   const fullLogo = (
     <svg
-      width="141"
-      height="28"
-      viewBox="0 0 141 28"
+      width="180"
+      height="50"
+      viewBox="0 0 180 20"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -87,7 +87,7 @@ function Logo({ single = false, sx }) {
     >
       <Box
         sx={{
-          width: single ? 64 : 75,
+          width: single ? 64 : 200,
           lineHeight: 0,
           cursor: 'pointer',
           display: 'inline-flex',
