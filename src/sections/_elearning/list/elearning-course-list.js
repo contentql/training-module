@@ -8,13 +8,18 @@ import ElearningCourseItemSkeleton from './elearning-course-item-skeleton';
 
 // ----------------------------------------------------------------------
 
-export default function ElearningCourseList({ courses, loading, search }) {
+export default function ElearningCourseList({ courses, loading, filters }) {
   return (
     <>
       <Stack spacing={4}>
         {(loading
           ? [...Array(9)]
-          : courses.filter((course) => course.slug.toLowerCase().includes(search.toLowerCase()))
+          : courses.filter(
+              (course) =>
+                (filters.text !== '' &&
+                  course.slug.toLowerCase().includes(filters.text.toLowerCase())) ||
+                Number(course.ratingNumber) >= Number(filters.rating)
+            )
         ).map((course, index) =>
           course ? (
             <ElearningCourseItem key={course.id} course={course} id={course.id} />
@@ -41,5 +46,5 @@ export default function ElearningCourseList({ courses, loading, search }) {
 ElearningCourseList.propTypes = {
   courses: PropTypes.array,
   loading: PropTypes.bool,
-  search: PropTypes.string,
+  filters: PropTypes.object,
 };
