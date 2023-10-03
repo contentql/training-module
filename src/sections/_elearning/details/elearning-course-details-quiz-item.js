@@ -8,7 +8,13 @@ import Iconify from 'src/components/iconify';
 
 // ----------------------------------------------------------------------
 
-export default function ElearningCourseDetailsLessonItem({ handleClickOpen, questionsLength }) {
+export default function ElearningCourseDetailsLessonItem({
+  handleClickOpen,
+  questionsLength,
+  isTest,
+}) {
+  const icon = isTest ? 'material-symbols:quiz-outline' : 'carbon:play';
+
   return (
     <Accordion
       sx={{
@@ -31,7 +37,7 @@ export default function ElearningCourseDetailsLessonItem({ handleClickOpen, ques
           },
         }}
       >
-        <Iconify width={24} icon="carbon:play" />
+        <Iconify width={24} icon={icon} />
 
         <Typography
           variant="subtitle1"
@@ -51,7 +57,12 @@ export default function ElearningCourseDetailsLessonItem({ handleClickOpen, ques
   );
 }
 
+ElearningCourseDetailsLessonItem.defaultProps = {
+  isTest: false,
+};
+
 ElearningCourseDetailsLessonItem.propTypes = {
   handleClickOpen: PropTypes.func,
   questionsLength: PropTypes.number,
+  isTest: PropTypes.bool,
 };

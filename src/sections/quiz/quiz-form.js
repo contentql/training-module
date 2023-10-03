@@ -42,15 +42,13 @@ export default function QuizForm(props) {
     '& .MuiDialogActions-root': {
       padding: theme.spacing(1),
     },
-    '& .MuiDialog-container>.MuiPaper-root': {
+    '& .MuiDialog-container>.MuiPaper-root': mdUp && {
       minWidth: '600px',
     },
   }));
 
   const bootstrapDialogProperties = {
-    mobile: {
-      fullWidth: true,
-    },
+    fullWidth: true,
   };
 
   return (
@@ -58,6 +56,7 @@ export default function QuizForm(props) {
       <ElearningCourseDetailsLessonItem
         handleClickOpen={handleClickOpen}
         questionsLength={questions.length}
+        isTest="true"
       >
         Start Test
       </ElearningCourseDetailsLessonItem>
@@ -66,7 +65,7 @@ export default function QuizForm(props) {
         aria-labelledby="customized-dialog-title"
         open={open}
         maxWidth="lg"
-        {...bootstrapDialogProperties[!mdUp && 'mobile']}
+        {...(!mdUp && bootstrapDialogProperties)}
       >
         <QuizHookForm questions={questions} />
       </BootstrapDialog>
