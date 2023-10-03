@@ -16,6 +16,7 @@ import FilterRating from './filter-rating';
 import FilterLanguage from './filter-language';
 import FilterDuration from './filter-duration';
 import FilterCategories from './filter-categories';
+import FilterMultiSelect from './filter-multiselect';
 
 // ----------------------------------------------------------------------
 
@@ -146,19 +147,21 @@ export default function ElearningFilters({ open, onClose, filters, setFilters })
       </Block>
 
       <Block title="Duration">
-        <FilterDuration
+        <FilterMultiSelect
           name="duration"
-          filterDuration={filters.duration}
-          onChangeDuration={handleFilterChange}
+          filterSelect={filters.duration}
+          onChangeSelect={handleFilterChange}
+          type="duration"
         />
       </Block>
 
       <Block title="Category">
-        {/* <FilterCategories
+        <FilterMultiSelect
           name="category"
-          filterCategories={filters.category}
-          onChangeCategory={handleFilterChange}
-        /> */}
+          filterSelect={filters.category}
+          onChangeSelect={handleFilterChange}
+          type="category"
+        />
       </Block>
 
       {/* <Block title="Level">

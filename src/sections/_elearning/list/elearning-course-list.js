@@ -30,6 +30,11 @@ export default function ElearningCourseList({ courses, loading, filters }) {
     );
   };
 
+  const filterByCategory = (course) => {
+    if (filters.category.length === 0) return true;
+    return filters.category.includes(course.category);
+  };
+
   const filterByFee = (course) => {
     if (filters.fee.length === 0) return true;
 
@@ -55,6 +60,7 @@ export default function ElearningCourseList({ courses, loading, filters }) {
               .filter(filterCourseByText)
               .filter(filterByRating)
               .filter(filterByDuration)
+              .filter(filterByCategory)
               .filter(filterByFee)
         ).map((course, index) =>
           course ? (
