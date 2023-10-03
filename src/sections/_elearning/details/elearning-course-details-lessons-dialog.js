@@ -32,6 +32,7 @@ export default function ElearningCourseDetailsLessonsDialog({
         width: 1,
         height: 1,
         minHeight: 1,
+        aspectRatio: 16 / 9,
       }}
     >
       {selectedLesson?.videoPath ? (
@@ -69,6 +70,7 @@ export default function ElearningCourseDetailsLessonsDialog({
         p: 2,
         width: 1,
         height: 1,
+        aspectRatio: 16 / 9,
       }}
     >
       <Typography>{selectedLesson?.description}</Typography>
@@ -137,7 +139,7 @@ export default function ElearningCourseDetailsLessonsDialog({
   return (
     <Dialog
       fullWidth
-      maxWidth="lg"
+      fullScreen
       open={open}
       onClose={onClose}
       PaperProps={{
@@ -145,20 +147,19 @@ export default function ElearningCourseDetailsLessonsDialog({
           overflow: 'hidden',
           borderRadius: 0,
         },
-        className: 'min-h-screen min-w-full aspect-video m-0',
       }}
     >
       <IconButton onClick={onClose} sx={{ top: 8, left: 8, zIndex: 9, position: 'absolute' }}>
         <Iconify icon="carbon:close" />
       </IconButton>
 
-      <Stack direction={{ xs: 'column', md: 'row' }} sx={{ height: 1 }}>
+      <Stack direction={{ xs: 'column-reverse', md: 'row' }} sx={{ height: 1 }}>
+        {renderList}
+
         <Stack className="overflow-y-auto">
           {renderVideo}
           {renderDescription}
         </Stack>
-
-        {renderList}
       </Stack>
     </Dialog>
   );
