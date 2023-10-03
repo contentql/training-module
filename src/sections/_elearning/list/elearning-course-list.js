@@ -15,7 +15,15 @@ export default function ElearningCourseList({ courses, loading, filters }) {
         {(loading
           ? [...Array(9)]
           : courses.filter((course) => {
-              console.log(1);
+              if (
+                filters.text === '' &&
+                filters.rating === null &&
+                filters.duration.length === 0 &&
+                filters.category === '' &&
+                filters.fee === ''
+              )
+                return true;
+
               return (
                 (filters.text !== '' &&
                   course.slug.toLowerCase().includes(filters.text.toLowerCase())) ||
