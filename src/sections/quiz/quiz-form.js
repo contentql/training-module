@@ -42,7 +42,7 @@ export default function QuizForm(props) {
     '& .MuiDialogActions-root': {
       padding: theme.spacing(1),
     },
-    '& .css-18d06lz-MuiPaper-root-MuiDialog-paper': {
+    '& .MuiDialog-container>.MuiPaper-root': {
       minWidth: '600px',
     },
   }));
