@@ -27,8 +27,8 @@ export default function ElearningCoursesView() {
     text: '',
     rating: null,
     duration: [],
-    category: '',
-    fee: '',
+    category: [],
+    fee: [],
   });
 
   useEffect(() => {

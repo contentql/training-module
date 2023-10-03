@@ -9,11 +9,12 @@ import { _tags } from 'src/_mock';
 
 // ----------------------------------------------------------------------
 
-export default function FilterCategories({ filterCategories, onChangeCategory }) {
+export default function FilterCategories({ filterCategories, onChangeCategory, name }) {
   return (
     <Autocomplete
       multiple
       limitTags={2}
+      name={name}
       disableCloseOnSelect
       options={_tags}
       getOptionLabel={(option) => option}
@@ -69,4 +70,5 @@ export default function FilterCategories({ filterCategories, onChangeCategory })
 FilterCategories.propTypes = {
   filterCategories: PropTypes.arrayOf(PropTypes.string),
   onChangeCategory: PropTypes.func,
+  name: PropTypes.string,
 };

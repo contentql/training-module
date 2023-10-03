@@ -155,8 +155,9 @@ export default function ElearningFilters({ open, onClose, filters, setFilters })
 
       <Block title="Category">
         {/* <FilterCategories
-          filterCategories={filters.filterCategories}
-          onChangeCategory={handleChangeCategory}
+          name="category"
+          filterCategories={filters.category}
+          onChangeCategory={handleFilterChange}
         /> */}
       </Block>
 
@@ -165,10 +166,7 @@ export default function ElearningFilters({ open, onClose, filters, setFilters })
       </Block> */}
 
       <Block title="Fee">
-        {/* <FilterFee
-          filterFee={filters.filterFee}
-          onChangeFee={handleChangeFee}
-        /> */}
+        <FilterFee name="fee" filterFee={filters.fee} onChangeFee={handleFilterChange} />
       </Block>
 
       {/* <Block title="Language">

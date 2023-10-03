@@ -31,6 +31,7 @@ export default function FilterRating({ filterRating, onChangeRating, name }) {
               >
                 <Rating
                   size="small"
+                  readOnly
                   value={rating}
                   sx={{
                     mr: 1,

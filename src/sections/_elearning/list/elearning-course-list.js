@@ -9,40 +9,59 @@ import ElearningCourseItemSkeleton from './elearning-course-item-skeleton';
 // ----------------------------------------------------------------------
 
 export default function ElearningCourseList({ courses, loading, filters }) {
-  const filterCourse = (course) => {
-    if (
-      filters.text === '' &&
-      filters.rating === null &&
-      filters.duration.length === 0 &&
-      filters.category === '' &&
-      filters.fee === ''
-    )
-      return true;
+  const filterCourseByText = (course) => {
+    if (filters.text.length === 0) return true;
+    return course.title.toLowerCase().includes(filters.text.toLowerCase());
+  };
 
+  const filterByRating = (course) => {
+    if (filters.rating === null) return true;
+    return Number(course.ratingNumber) >= Number(filters.rating);
+  };
+
+  const filterByDuration = (course) => {
+    if (filters.duration.length === 0) return true;
     return (
-      (filters.text !== '' && course.slug.toLowerCase().includes(filters.text.toLowerCase())) ||
-      (filters.rating && Number(course.ratingNumber) >= Number(filters.rating)) ||
-      (filters.duration.length > 0 &&
-        filters.duration.filter(
-          (duration) =>
-            (duration === '0 - 1 Hour' && course.totalHours <= 1) ||
-            (duration === '1 - 3 Hours' && course.totalHours <= 3) ||
-            (duration === '3 - 6 Hours' && course.totalHours <= 6) ||
-            (duration === '6 - 18 Hours' && course.totalHours <= 18) ||
-            (duration === '18+ Hours' && course.totalHours > 18)
-        ).length === 1)
+      (filters.duration.includes('0 - 1 Hour') && course.totalHours <= 1) ||
+      (filters.duration.includes('1 - 3 Hours') && course.totalHours <= 3) ||
+      (filters.duration.includes('3 - 6 Hours') && course.totalHours <= 6) ||
+      (filters.duration.includes('6 - 18 Hours') && course.totalHours <= 18) ||
+      (filters.duration.includes('18+ Hours') && course.totalHours > 18)
     );
   };
+
+  const filterByFee = (course) => {
+    if (filters.fee.length === 0) return true;
+
+    if (course.priceSale) {
+      return (
+        (filters.fee.includes('Free') && course.priceSale === 0) ||
+        (filters.fee.includes('Paid') && course.priceSale !== 0)
+      );
+    }
+
+    return (
+      (filters.fee.includes('Free') && course.price === 0) ||
+      (filters.fee.includes('Paid') && course.price !== 0)
+    );
+  };
+
   return (
     <>
       <Stack spacing={4}>
-        {(loading ? [...Array(9)] : courses.filter((course) => filterCourse(course))).map(
-          (course, index) =>
-            course ? (
-              <ElearningCourseItem key={course.id} course={course} id={course.id} />
-            ) : (
-              <ElearningCourseItemSkeleton key={index} />
-            )
+        {(loading
+          ? [...Array(9)]
+          : courses
+              .filter(filterCourseByText)
+              .filter(filterByRating)
+              .filter(filterByDuration)
+              .filter(filterByFee)
+        ).map((course, index) =>
+          course ? (
+            <ElearningCourseItem key={course.id} course={course} id={course.id} />
+          ) : (
+            <ElearningCourseItemSkeleton key={index} />
+          )
         )}
       </Stack>
 
