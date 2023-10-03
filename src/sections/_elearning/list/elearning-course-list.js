@@ -14,12 +14,23 @@ export default function ElearningCourseList({ courses, loading, filters }) {
       <Stack spacing={4}>
         {(loading
           ? [...Array(9)]
-          : courses.filter(
-              (course) =>
+          : courses.filter((course) => {
+              console.log(1);
+              return (
                 (filters.text !== '' &&
                   course.slug.toLowerCase().includes(filters.text.toLowerCase())) ||
-                Number(course.ratingNumber) >= Number(filters.rating)
-            )
+                (filters.rating && Number(course.ratingNumber) >= Number(filters.rating)) ||
+                (filters.duration.length > 0 &&
+                  filters.duration.filter(
+                    (duration) =>
+                      (duration === '0 - 1 Hour' && course.totalHours <= 1) ||
+                      (duration === '1 - 3 Hours' && course.totalHours <= 3) ||
+                      (duration === '3 - 6 Hours' && course.totalHours <= 6) ||
+                      (duration === '6 - 18 Hours' && course.totalHours <= 18) ||
+                      (duration === '18+ Hours' && course.totalHours > 18)
+                  ).length === 1)
+              );
+            })
         ).map((course, index) =>
           course ? (
             <ElearningCourseItem key={course.id} course={course} id={course.id} />

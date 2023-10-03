@@ -146,10 +146,11 @@ export default function ElearningFilters({ open, onClose, filters, setFilters })
       </Block>
 
       <Block title="Duration">
-        {/* <FilterDuration
-          filterDuration={filters.filterDuration}
-          onChangeDuration={handleChangeDuration}
-        /> */}
+        <FilterDuration
+          name="duration"
+          filterDuration={filters.duration}
+          onChangeDuration={handleFilterChange}
+        />
       </Block>
 
       <Block title="Category">

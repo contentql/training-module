@@ -12,12 +12,13 @@ const DURATIONS = ['0 - 1 Hour', '1 - 3 Hours', '3 - 6 Hours', '6 - 18 Hours', '
 
 // ----------------------------------------------------------------------
 
-export default function FilterDuration({ filterDuration, onChangeDuration }) {
+export default function FilterDuration({ filterDuration, onChangeDuration, name }) {
   return (
     <FormControl fullWidth hiddenLabel>
       <Select
         multiple
         displayEmpty
+        name={name}
         value={filterDuration}
         onChange={onChangeDuration}
         renderValue={(selected) => {
@@ -58,4 +59,5 @@ export default function FilterDuration({ filterDuration, onChangeDuration }) {
 FilterDuration.propTypes = {
   filterDuration: PropTypes.arrayOf(PropTypes.string),
   onChangeDuration: PropTypes.func,
+  name: PropTypes.string,
 };

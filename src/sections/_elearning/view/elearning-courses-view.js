@@ -25,8 +25,8 @@ export default function ElearningCoursesView() {
 
   const [filters, setFilters] = useState({
     text: '',
-    rating: '0',
-    duration: '',
+    rating: null,
+    duration: [],
     category: '',
     fee: '',
   });
