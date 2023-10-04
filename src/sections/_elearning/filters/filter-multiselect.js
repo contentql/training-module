@@ -6,26 +6,30 @@ import Typography from '@mui/material/Typography';
 import FormControl from '@mui/material/FormControl';
 import Checkbox, { checkboxClasses } from '@mui/material/Checkbox';
 
+import { _tags } from 'src/_mock';
+
 // ----------------------------------------------------------------------
 
 const DURATIONS = ['0 - 1 Hour', '1 - 3 Hours', '3 - 6 Hours', '6 - 18 Hours', '18+ Hours'];
 
 // ----------------------------------------------------------------------
 
-export default function FilterDuration({ filterDuration, onChangeDuration, name }) {
+export default function FilterDuration({ filterSelect, onChangeSelect, name, type }) {
+  const ITEM = type === 'duration' ? DURATIONS : _tags;
+
   return (
     <FormControl fullWidth hiddenLabel>
       <Select
         multiple
         displayEmpty
         name={name}
-        value={filterDuration}
-        onChange={onChangeDuration}
+        value={filterSelect}
+        onChange={onChangeSelect}
         renderValue={(selected) => {
           if (!selected.length) {
             return (
               <Typography variant="body2" sx={{ color: 'text.disabled' }}>
-                All Duration
+                All {type.charAt(0).toUpperCase() + type.slice(1)}
               </Typography>
             );
           }
@@ -36,11 +40,11 @@ export default function FilterDuration({ filterDuration, onChangeDuration, name 
           );
         }}
       >
-        {DURATIONS.map((duration) => (
+        {ITEM.map((duration) => (
           <MenuItem key={duration} value={duration}>
             <Checkbox
               size="small"
-              checked={filterDuration.includes(duration)}
+              checked={filterSelect.includes(duration)}
               sx={{
                 [`&.${checkboxClasses.root}`]: {
                   p: 0,
@@ -57,7 +61,8 @@ export default function FilterDuration({ filterDuration, onChangeDuration, name 
 }
 
 FilterDuration.propTypes = {
-  filterDuration: PropTypes.arrayOf(PropTypes.string),
-  onChangeDuration: PropTypes.func,
+  filterSelect: PropTypes.arrayOf(PropTypes.string),
+  onChangeSelect: PropTypes.func,
   name: PropTypes.string,
+  type: PropTypes.string,
 };
