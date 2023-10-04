@@ -1,12 +1,12 @@
 import MainLayout from 'src/layouts/main';
-import ElearningCoursesView from 'src/sections/_elearning/view/elearning-courses-view';
+import ElearningCartView from 'src/sections/_elearning/view/elearning-cart-view';
 
 // ----------------------------------------------------------------------
 
 export default function ElearningCoursesPage() {
   return (
     <MainLayout>
-      <ElearningCoursesView />
+      <ElearningCartView />
     </MainLayout>
   );
 }
