@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import Box from '@mui/material/Box';
@@ -7,11 +8,20 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
 import Iconify from 'src/components/iconify';
+import { useCartStore } from 'src/states/cart';
 import { fCurrency } from 'src/utils/format-number';
 
 // ----------------------------------------------------------------------
 
 export default function ElearningCourseDetailsInfo({ course }) {
+  const [cart, addToCart, removeFromCart] = useCartStore((state) => [
+    state.cart,
+    state.addToCart,
+    state.removeFromCart,
+  ]);
+
+  useEffect(() => console.log(cart), [cart]);
+
   return (
     <Card sx={{ p: 3, borderRadius: 2 }}>
       <Stack spacing={3}>
@@ -70,16 +80,20 @@ export default function ElearningCourseDetailsInfo({ course }) {
         <Button variant="contained" size="large" color="inherit">
           Enrol Now
         </Button>
+
+        <Button
+          variant="contained"
+          size="large"
+          color="inherit"
+          onClick={() => (cart.includes(course) ? removeFromCart(course) : addToCart(course))}
+        >
+          {cart.includes(course) ? 'Remove from cart' : 'Add to cart'}
+        </Button>
       </Stack>
     </Card>
   );
 }
 
 ElearningCourseDetailsInfo.propTypes = {
-  course: PropTypes.shape({
-    lessons: PropTypes.array,
-    price: PropTypes.number,
-    priceSale: PropTypes.number,
-    resources: PropTypes.number,
-  }),
+  course: PropTypes.object,
 };
