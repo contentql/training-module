@@ -11,7 +11,7 @@ import ElearningCourseItemSkeleton from './elearning-course-item-skeleton';
 export default function ElearningCourseList({ courses, loading, filters }) {
   const filterCourseByText = (course) => {
     if (filters.text.length === 0) return true;
-    return course.title.toLowerCase().includes(filters.text.toLowerCase());
+    return course.slug.toLowerCase().includes(filters.text.toLowerCase());
   };
 
   const filterByRating = (course) => {
