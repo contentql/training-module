@@ -31,7 +31,7 @@ export default function ElearningCourseDetailsLessonsDialog({
       sx={{
         width: 1,
         height: 1,
-        minHeight: 1,
+        minHeight: { xs: 1, md: 0.8 },
         aspectRatio: 16 / 9,
       }}
     >
