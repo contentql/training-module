@@ -83,7 +83,7 @@ export default function ElearningCourseDetailsLessonsDialog({
       sx={{
         p: 1,
         overflowY: 'scroll',
-        width: { xs: 1, md: 0.5 },
+        width: { xs: 1, md: 0.4 },
         height: 1,
       }}
     >
@@ -149,7 +149,21 @@ export default function ElearningCourseDetailsLessonsDialog({
         },
       }}
     >
-      <IconButton onClick={onClose} sx={{ top: 8, left: 8, zIndex: 9, position: 'absolute' }}>
+      <IconButton
+        onClick={onClose}
+        sx={{
+          top: 6,
+          right: 24,
+          zIndex: 9,
+          position: 'absolute',
+          backgroundColor: 'white',
+          opacity: 0.3,
+          '&:hover': {
+            backgroundColor: 'white',
+            opacity: 0.8,
+          },
+        }}
+      >
         <Iconify icon="carbon:close" />
       </IconButton>
 
