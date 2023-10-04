@@ -3,33 +3,30 @@ import { m } from 'framer-motion';
 import PropTypes from 'prop-types';
 
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import { alpha, useTheme } from '@mui/material/styles';
+// import Typography from '@mui/material/Typography';
+// import { useTheme } from '@mui/material/styles';
 
 import Image from 'src/components/image';
 
-import Icon from './pattern/icon';
-import Label from './pattern/label';
+// import Icon from './pattern/icon';
+// import Label from './pattern/label';
 import Shape from './pattern/shape';
 import Pattern01 from './pattern/pattern-01';
 import Pattern02 from './pattern/pattern-02';
 
 // ----------------------------------------------------------------------
 
-const varUp = {
-  animate: { y: [-8, 8, -8], x: [-4, 4, -4] },
-  transition: { duration: 8, repeat: Infinity },
-};
+// const varUp = {
+//   animate: { y: [-8, 8, -8], x: [-4, 4, -4] },
+//   transition: { duration: 8, repeat: Infinity },
+// };
 
 const varDown = {
   animate: { y: [8, -8, 8], x: [4, -4, 4] },
   transition: { duration: 8, repeat: Infinity },
 };
 
-const varLeft = {
-  animate: { x: [8, -8, 8], y: [4, -4, 4] },
-  transition: { duration: 7, repeat: Infinity },
-};
+// const varLeft = {w
 
 const varRight = {
   animate: { x: [8, -8, 8], y: [4, -4, 4] },
@@ -39,21 +36,21 @@ const varRight = {
 // ----------------------------------------------------------------------
 
 function ElearningHeroIllustration({ sx, ...other }) {
-  const theme = useTheme();
+  // const theme = useTheme();
 
-  const GREEN = theme.palette.success.main;
+  // const GREEN = theme.palette.success.main;
 
-  const YELLOW = theme.palette.warning.main;
+  // const YELLOW = theme.palette.warning.main;
 
-  const BLUE = '#355EC9';
+  // const BLUE = '#355EC9';
 
-  const PURPLE = '#9B3AB1';
+  // const PURPLE = '#9B3AB1';
 
-  const styleIconContent = {
-    fontSize: 22,
-    color: 'common.black',
-    fontWeight: 'fontWeightBold',
-  };
+  // const styleIconContent = {
+  //   fontSize: 22,
+  //   color: 'common.black',
+  //   fontWeight: 'fontWeightBold',
+  // };
 
   return (
     <Box

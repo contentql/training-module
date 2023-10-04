@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useState, useCallback } from 'react';
+// import { useState, useCallback } from 'react';
 
 import Stack from '@mui/material/Stack';
 import Drawer from '@mui/material/Drawer';
@@ -11,23 +11,23 @@ import Iconify from 'src/components/iconify';
 import { useResponsive } from 'src/hooks/use-responsive';
 
 import FilterFee from './filter-fee';
-import FilterLevel from './filter-level';
+// import FilterLevel from './filter-level';
 import FilterRating from './filter-rating';
-import FilterLanguage from './filter-language';
-import FilterDuration from './filter-duration';
-import FilterCategories from './filter-categories';
+// import FilterLanguage from './filter-language';
+// import FilterDuration from './filter-duration';
+// import FilterCategories from './filter-categories';
 import FilterMultiSelect from './filter-multiselect';
 
 // ----------------------------------------------------------------------
 
-const defaultValues = {
-  filterDuration: [],
-  filterCategories: [],
-  filterRating: null,
-  filterFee: [],
-  filterLevel: [],
-  filterLanguage: [],
-};
+// const defaultValues = {
+//   filterDuration: [],
+//   filterCategories: [],
+//   filterRating: null,
+//   filterFee: [],
+//   filterLevel: [],
+//   filterLanguage: [],
+// };
 
 export default function ElearningFilters({ open, onClose, filters, setFilters }) {
   const mdUp = useResponsive('up', 'md');

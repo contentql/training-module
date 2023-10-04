@@ -15,7 +15,7 @@ import Iconify from 'src/components/iconify';
 import { useCartStore } from 'src/states/cart';
 import { RouterLink } from 'src/routes/components';
 import { useBoolean } from 'src/hooks/use-boolean';
-import { fCurrency, fShortenNumber } from 'src/utils/format-number';
+import { fCurrency } from 'src/utils/format-number';
 
 import ElearningNewsletter from '../elearning-newsletter';
 import ElearningFilters from '../filters/elearning-filters';
