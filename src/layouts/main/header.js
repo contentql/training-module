@@ -13,14 +13,16 @@ import { bgBlur } from 'src/theme/css';
 import Logo from 'src/components/logo';
 import { paths } from 'src/routes/paths';
 import Label from 'src/components/label';
+import Iconify from 'src/components/iconify';
+import { useCartStore } from 'src/states/cart';
 import { RouterLink } from 'src/routes/components';
 import { useResponsive } from 'src/hooks/use-responsive';
 import { useOffSetTop } from 'src/hooks/use-off-set-top';
 
 import { HEADER } from '../config-layout';
-import Searchbar from '../common/searchbar';
+// import Searchbar from '../common/searchbar';
 import HeaderShadow from '../common/header-shadow';
-import SettingsButton from '../common/settings-button';
+// import SettingsButton from '../common/settings-button';
 
 import NavMobile from './nav/mobile';
 import NavDesktop from './nav/desktop';
@@ -29,6 +31,8 @@ import { navConfig } from './config-navigation';
 // ----------------------------------------------------------------------
 
 export default function Header({ headerOnDark }) {
+  const cart = useCartStore((state) => state.cart);
+
   const theme = useTheme();
 
   const offset = useOffSetTop();
@@ -101,6 +105,26 @@ export default function Header({ headerOnDark }) {
                 </Button>
               </Link>
             )}
+
+            <Link component={RouterLink} href={paths.eLearning.cart} className="relative">
+              <Iconify icon="mi:shopping-cart" />
+              <div>
+                <Label
+                  sx={{
+                    ml: 0.5,
+                    px: 0.5,
+                    bottom: -10,
+                    left: 5,
+                    height: 20,
+                    fontSize: 11,
+                    cursor: 'pointer',
+                    position: 'absolute',
+                  }}
+                >
+                  {cart.length > 99 ? '99+' : cart.length}
+                </Label>
+              </div>
+            </Link>
           </Stack>
 
           {!mdUp && <NavMobile data={navConfig} />}

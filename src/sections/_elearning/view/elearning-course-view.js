@@ -102,9 +102,7 @@ export default function ElearningCourseView() {
 
           <Grid xs={12} md={5} lg={4}>
             <Stack spacing={5}>
-              {mdUp && (
-                <ElearningCourseDetailsInfo course={_mockCourse} />
-              )}
+              {mdUp && <ElearningCourseDetailsInfo course={_mockCourse} />}
 
               {/* <Advertisement
                 advertisement={{

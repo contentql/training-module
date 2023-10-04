@@ -82,7 +82,7 @@ export default function ElearningCourseDetailsInfo({ course }) {
         </Button>
 
         <Button
-          variant="contained"
+          variant={cart.includes(course) ? 'outlined' : 'contained'}
           size="large"
           color="inherit"
           onClick={() => (cart.includes(course) ? removeFromCart(course) : addToCart(course))}
