@@ -16,6 +16,7 @@ import FilterRating from './filter-rating';
 import FilterLanguage from './filter-language';
 import FilterDuration from './filter-duration';
 import FilterCategories from './filter-categories';
+import FilterMultiSelect from './filter-multiselect';
 
 // ----------------------------------------------------------------------
 
@@ -28,82 +29,89 @@ const defaultValues = {
   filterLanguage: [],
 };
 
-export default function ElearningFilters({ open, onClose, search, setSearch }) {
+export default function ElearningFilters({ open, onClose, filters, setFilters }) {
   const mdUp = useResponsive('up', 'md');
 
-  const [filters, setFilters] = useState(defaultValues);
+  // const [filters, setFilters] = useState(defaultValues);
 
-  const handleChangeRating = useCallback(
-    (event) => {
-      setFilters({
-        ...filters,
-        filterRating: event.target.value,
-      });
-    },
-    [filters]
-  );
+  // const handleChangeRating = useCallback(
+  //   (event) => {
+  //     setFilters({
+  //       ...filters,
+  //       filterRating: event.target.value,
+  //     });
+  //   },
+  //   [filters]
+  // );
 
-  const handleChangeCategory = useCallback(
-    (newValue) => {
-      setFilters({
-        ...filters,
-        filterCategories: newValue,
-      });
-    },
-    [filters]
-  );
+  // const handleChangeCategory = useCallback(
+  //   (newValue) => {
+  //     setFilters({
+  //       ...filters,
+  //       filterCategories: newValue,
+  //     });
+  //   },
+  //   [filters]
+  // );
 
-  const handleChangeLevel = useCallback(
-    (event) => {
-      const {
-        target: { value },
-      } = event;
-      setFilters({
-        ...filters,
-        filterLevel: typeof value === 'string' ? value.split(',') : value,
-      });
-    },
-    [filters]
-  );
+  // const handleChangeLevel = useCallback(
+  //   (event) => {
+  //     const {
+  //       target: { value },
+  //     } = event;
+  //     setFilters({
+  //       ...filters,
+  //       filterLevel: typeof value === 'string' ? value.split(',') : value,
+  //     });
+  //   },
+  //   [filters]
+  // );
 
-  const handleChangeFee = useCallback(
-    (event) => {
-      const {
-        target: { value },
-      } = event;
-      setFilters({
-        ...filters,
-        filterFee: typeof value === 'string' ? value.split(',') : value,
-      });
-    },
-    [filters]
-  );
+  // const handleChangeFee = useCallback(
+  //   (event) => {
+  //     const {
+  //       target: { value },
+  //     } = event;
+  //     setFilters({
+  //       ...filters,
+  //       filterFee: typeof value === 'string' ? value.split(',') : value,
+  //     });
+  //   },
+  //   [filters]
+  // );
 
-  const handleChangeDuration = useCallback(
-    (event) => {
-      const {
-        target: { value },
-      } = event;
-      setFilters({
-        ...filters,
-        filterDuration: typeof value === 'string' ? value.split(',') : value,
-      });
-    },
-    [filters]
-  );
+  // const handleChangeDuration = useCallback(
+  //   (event) => {
+  //     const {
+  //       target: { value },
+  //     } = event;
+  //     setFilters({
+  //       ...filters,
+  //       filterDuration: typeof value === 'string' ? value.split(',') : value,
+  //     });
+  //   },
+  //   [filters]
+  // );
 
-  const handleChangeLanguage = useCallback(
-    (newValue) => {
-      setFilters({
-        ...filters,
-        filterLanguage: newValue,
-      });
-    },
-    [filters]
-  );
+  // const handleChangeLanguage = useCallback(
+  //   (newValue) => {
+  //     setFilters({
+  //       ...filters,
+  //       filterLanguage: newValue,
+  //     });
+  //   },
+  //   [filters]
+  // );
 
-  const handleChangeSearch = (event) => {
-    setSearch(event.target.value);
+  // const handleChangeSearch = (event) => {
+  //   setSearch(event.target.value);
+  // };
+
+  const handleFilterChange = (event) => {
+    setFilters((prev) => ({
+      ...prev,
+      [event.target.name]: event.target.value,
+    }));
   };
 
   const renderContent = (
@@ -125,25 +133,34 @@ export default function ElearningFilters({ open, onClose, search, setSearch }) {
             </InputAdornment>
           ),
         }}
-        value={search}
-        onChange={handleChangeSearch}
+        name="text"
+        value={filters.text}
+        onChange={handleFilterChange}
       />
 
       <Block title="Ratings">
-        <FilterRating filterRating={filters.filterRating} onChangeRating={handleChangeRating} />
+        <FilterRating
+          name="rating"
+          filterRating={filters.filterRating}
+          onChangeRating={handleFilterChange}
+        />
       </Block>
 
       <Block title="Duration">
-        <FilterDuration
-          filterDuration={filters.filterDuration}
-          onChangeDuration={handleChangeDuration}
+        <FilterMultiSelect
+          name="duration"
+          filterSelect={filters.duration}
+          onChangeSelect={handleFilterChange}
+          type="duration"
         />
       </Block>
 
       <Block title="Category">
-        <FilterCategories
-          filterCategories={filters.filterCategories}
-          onChangeCategory={handleChangeCategory}
+        <FilterMultiSelect
+          name="category"
+          filterSelect={filters.category}
+          onChangeSelect={handleFilterChange}
+          type="category"
         />
       </Block>
 
@@ -152,7 +169,7 @@ export default function ElearningFilters({ open, onClose, search, setSearch }) {
       </Block> */}
 
       <Block title="Fee">
-        <FilterFee filterFee={filters.filterFee} onChangeFee={handleChangeFee} />
+        <FilterFee name="fee" filterFee={filters.fee} onChangeFee={handleFilterChange} />
       </Block>
 
       {/* <Block title="Language">
@@ -191,8 +208,8 @@ export default function ElearningFilters({ open, onClose, search, setSearch }) {
 ElearningFilters.propTypes = {
   onClose: PropTypes.func,
   open: PropTypes.bool,
-  search: PropTypes.string,
-  setSearch: PropTypes.func,
+  filters: PropTypes.object,
+  setFilters: PropTypes.func,
 };
 
 // ----------------------------------------------------------------------

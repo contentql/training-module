@@ -12,12 +12,13 @@ const FEES = ['Free', 'Paid'];
 
 // ----------------------------------------------------------------------
 
-export default function FilterFee({ filterFee, onChangeFee }) {
+export default function FilterFee({ filterFee, onChangeFee, name }) {
   return (
     <FormControl fullWidth hiddenLabel>
       <Select
         multiple
         displayEmpty
+        name={name}
         value={filterFee}
         onChange={onChangeFee}
         renderValue={(selected) => {
@@ -58,4 +59,5 @@ export default function FilterFee({ filterFee, onChangeFee }) {
 FilterFee.propTypes = {
   filterFee: PropTypes.arrayOf(PropTypes.string),
   onChangeFee: PropTypes.func,
+  name: PropTypes.string,
 };

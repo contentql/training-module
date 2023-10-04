@@ -8,11 +8,11 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 
 // ----------------------------------------------------------------------
 
-const RATINGS = ['up_4_stars', 'up_3_stars', 'up_2_stars'];
+const RATINGS = [4, 2, 0];
 
-export default function FilterRating({ filterRating, onChangeRating }) {
+export default function FilterRating({ filterRating, onChangeRating, name }) {
   return (
-    <RadioGroup value={filterRating} onChange={onChangeRating}>
+    <RadioGroup value={filterRating} onChange={onChangeRating} name={name}>
       <Stack spacing={2} alignItems="flex-start">
         {RATINGS.map((rating) => (
           <FormControlLabel
@@ -31,8 +31,8 @@ export default function FilterRating({ filterRating, onChangeRating }) {
               >
                 <Rating
                   size="small"
-                  value={3}
                   readOnly
+                  value={rating}
                   sx={{
                     mr: 1,
                     ...(filterRating === rating && {
@@ -57,4 +57,5 @@ export default function FilterRating({ filterRating, onChangeRating }) {
 FilterRating.propTypes = {
   filterRating: PropTypes.string,
   onChangeRating: PropTypes.func,
+  name: PropTypes.string,
 };

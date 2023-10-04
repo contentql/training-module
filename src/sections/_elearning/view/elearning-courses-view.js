@@ -23,7 +23,13 @@ export default function ElearningCoursesView() {
 
   const loading = useBoolean(true);
 
-  const [search, setSearch] = useState('');
+  const [filters, setFilters] = useState({
+    text: '',
+    rating: null,
+    duration: [],
+    category: [],
+    fee: [],
+  });
 
   useEffect(() => {
     const fakeLoading = async () => {
@@ -63,8 +69,8 @@ export default function ElearningCoursesView() {
           <ElearningFilters
             open={mobileOpen.value}
             onClose={mobileOpen.onFalse}
-            search={search}
-            setSearch={setSearch}
+            filters={filters}
+            setFilters={setFilters}
           />
 
           <Box
@@ -74,7 +80,7 @@ export default function ElearningCoursesView() {
               width: { md: `calc(100% - ${280}px)` },
             }}
           >
-            <ElearningCourseList courses={_courses} loading={loading.value} search={search} />
+            <ElearningCourseList courses={_courses} loading={loading.value} filters={filters} />
           </Box>
         </Stack>
       </Container>
