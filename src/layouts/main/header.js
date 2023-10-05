@@ -3,16 +3,18 @@ import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
+import Badge from '@mui/material/Badge';
 import Button from '@mui/material/Button';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import { useTheme } from '@mui/material/styles';
 import Container from '@mui/material/Container';
+import IconButton from '@mui/material/IconButton';
 
 import { bgBlur } from 'src/theme/css';
 import Logo from 'src/components/logo';
 import { paths } from 'src/routes/paths';
-import Label from 'src/components/label';
+// import Label from 'src/components/label';
 import Iconify from 'src/components/iconify';
 import { useCartStore } from 'src/states/cart';
 import { RouterLink } from 'src/routes/components';
@@ -91,7 +93,7 @@ export default function Header({ headerOnDark }) {
 
           {mdUp && <NavDesktop data={navConfig} />}
 
-          <Stack spacing={2} direction="row" alignItems="center" justifyContent="flex-end">
+          <Stack spacing={4} direction="row" alignItems="center" justifyContent="flex-end">
             {/* <Stack spacing={1} direction="row" alignItems="center">
               <Searchbar />
 
@@ -106,24 +108,12 @@ export default function Header({ headerOnDark }) {
               </Link>
             )}
 
-            <Link component={RouterLink} href={paths.eLearning.cart} className="relative">
-              <Iconify icon="mi:shopping-cart" />
-              <div>
-                <Label
-                  sx={{
-                    ml: 0.5,
-                    px: 0.5,
-                    bottom: -10,
-                    left: 5,
-                    height: 20,
-                    fontSize: 11,
-                    cursor: 'pointer',
-                    position: 'absolute',
-                  }}
-                >
-                  {cart.length > 99 ? '99+' : cart.length}
-                </Label>
-              </div>
+            <Link component={RouterLink} href={paths.eLearning.cart}>
+              <Badge badgeContent={cart.length > 99 ? '99+' : cart.length} color="primary">
+                <IconButton size="small" sx={{ p: 0 }}>
+                  <Iconify icon="carbon:shopping-cart" width={24} />
+                </IconButton>
+              </Badge>
             </Link>
           </Stack>
 
