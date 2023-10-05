@@ -13,18 +13,18 @@ import InputAdornment from '@mui/material/InputAdornment';
 
 import Image from 'src/components/image';
 import Iconify from 'src/components/iconify';
+import { useCartStore } from 'src/states/cart';
 import TextMaxLine from 'src/components/text-max-line';
 import { fPercent, fCurrency } from 'src/utils/format-number';
 
 // ----------------------------------------------------------------------
 
 export default function ElearningCheckoutOrderSummary({
-  tax,
+  taxPercent,
   total,
   subtotal,
-  shipping,
   discount,
-  products,
+  courses,
   loading,
 }) {
   return (
@@ -38,10 +38,10 @@ export default function ElearningCheckoutOrderSummary({
     >
       <Typography variant="h6"> Order Summary </Typography>
 
-      {!!products?.length && (
+      {!!courses?.length && (
         <>
-          {products.map((product) => (
-            <ProductItem key={product.id} product={product} />
+          {courses.map((course) => (
+            <CourseItem key={courses.id} course={course} />
           ))}
 
           <Divider sx={{ borderStyle: 'dashed' }} />
@@ -51,11 +51,9 @@ export default function ElearningCheckoutOrderSummary({
       <Stack spacing={2}>
         <Row label="Subtotal" value={fCurrency(subtotal)} />
 
-        <Row label="Shipping" value={fCurrency(shipping)} />
+        <Row label="Discount (15%)" value={`${fCurrency(discount)}`} />
 
-        <Row label="Discount (15%)" value={`-${fCurrency(discount)}`} />
-
-        <Row label="Tax" value={fPercent(tax)} />
+        <Row label="Tax" value={fPercent(taxPercent)} />
       </Stack>
 
       <TextField
@@ -88,7 +86,7 @@ export default function ElearningCheckoutOrderSummary({
         type="submit"
         loading={loading}
       >
-        Order Now
+        Buy Now
       </LoadingButton>
     </Stack>
   );
@@ -97,20 +95,21 @@ export default function ElearningCheckoutOrderSummary({
 ElearningCheckoutOrderSummary.propTypes = {
   discount: PropTypes.number,
   loading: PropTypes.bool,
-  products: PropTypes.array,
-  shipping: PropTypes.number,
+  courses: PropTypes.array,
   subtotal: PropTypes.number,
-  tax: PropTypes.number,
+  taxPercent: PropTypes.number,
   total: PropTypes.number,
 };
 
 // ----------------------------------------------------------------------
 
-function ProductItem({ product, ...other }) {
+function CourseItem({ course, ...other }) {
+  const removeCourseFromCart = useCartStore((state) => state.removeFromCart);
+
   return (
     <Stack direction="row" alignItems="flex-start" {...other}>
       <Image
-        src={product.coverUrl}
+        src={course.coverUrl}
         sx={{
           mr: 2,
           width: 64,
@@ -123,41 +122,25 @@ function ProductItem({ product, ...other }) {
 
       <Stack flexGrow={1}>
         <TextMaxLine variant="body2" line={1} sx={{ fontWeight: 'fontWeightMedium' }}>
-          {product.name}
+          {course.slug}
         </TextMaxLine>
 
         <Typography variant="subtitle2" sx={{ mt: 0.5, mb: 1.5 }}>
-          {fCurrency(product.price)}
+          {fCurrency(course.price)}
         </Typography>
-
-        <TextField
-          select
-          size="small"
-          variant="outlined"
-          SelectProps={{
-            native: true,
-          }}
-          sx={{ width: 80 }}
-        >
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((option) => (
-            <option key={option} value={option}>
-              {option}
-            </option>
-          ))}
-        </TextField>
       </Stack>
 
-      <IconButton>
+      <IconButton onClick={() => removeCourseFromCart(course)}>
         <Iconify icon="carbon:trash-can" />
       </IconButton>
     </Stack>
   );
 }
 
-ProductItem.propTypes = {
-  product: PropTypes.shape({
+CourseItem.propTypes = {
+  course: PropTypes.shape({
     coverUrl: PropTypes.string,
-    name: PropTypes.string,
+    slug: PropTypes.string,
     price: PropTypes.number,
   }),
 };
