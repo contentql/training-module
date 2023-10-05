@@ -11,7 +11,7 @@ import { fCurrency } from 'src/utils/format-number';
 
 // ----------------------------------------------------------------------
 
-export default function ElearningCartItem({ course, wishlist }) {
+export default function ElearningCartItem({ course }) {
   return (
     <Stack
       direction="row"
@@ -42,17 +42,11 @@ export default function ElearningCartItem({ course, wishlist }) {
         </Stack>
       </Stack>
 
-      <Stack sx={{ width: 120, typography: 'subtitle2' }}> {fCurrency(course.price)} </Stack>
+      <Stack sx={{ width: 220, typography: 'subtitle2' }}> {fCurrency(course.price)} </Stack>
 
       <IconButton>
         <Iconify icon="carbon:trash-can" />
       </IconButton>
-
-      {wishlist && (
-        <IconButton>
-          <Iconify icon="carbon:shopping-cart-plus" />
-        </IconButton>
-      )}
     </Stack>
   );
 }
@@ -63,5 +57,4 @@ ElearningCartItem.propTypes = {
     slug: PropTypes.string,
     price: PropTypes.number,
   }),
-  wishlist: PropTypes.bool,
 };

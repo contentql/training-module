@@ -8,27 +8,25 @@ import ElearningCartItem from './elearning-cart-item';
 
 // ----------------------------------------------------------------------
 
-export default function ElearningCartList({ courses, wishlist = false }) {
+export default function ElearningCartList({ courses }) {
   return (
     <Scrollbar>
       <Stack
         direction="row"
         alignItems="center"
         sx={{
-          py: 2,
+          py: 3,
           minWidth: 720,
           typography: 'subtitle2',
           borderBottom: (theme) => `solid 1px ${theme.palette.divider}`,
         }}
       >
         <Stack flexGrow={1}>Item</Stack>
-        <Stack sx={{ width: 120 }}>Subtotal</Stack>
-        <Stack sx={{ width: 36 }} />
-        {wishlist && <Stack sx={{ width: 36 }} />}
+        <Stack sx={{ width: 255 }}>Subtotal</Stack>
       </Stack>
 
       {courses.map((course) => (
-        <ElearningCartItem key={course.id} course={course} wishlist={wishlist} />
+        <ElearningCartItem key={course.id} course={course} />
       ))}
     </Scrollbar>
   );
@@ -36,5 +34,4 @@ export default function ElearningCartList({ courses, wishlist = false }) {
 
 ElearningCartList.propTypes = {
   courses: PropTypes.array,
-  wishlist: PropTypes.bool,
 };

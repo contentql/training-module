@@ -53,77 +53,6 @@ export default function ElearningCoursesView() {
 
   return (
     <>
-      {/* <Container>
-        <Stack
-          direction="row"
-          alignItems="center"
-          justifyContent="space-between"
-          sx={{
-            py: 5,
-          }}
-        >
-          <Typography variant="h2">Cart</Typography>
-
-          <Button
-            color="inherit"
-            variant="contained"
-            startIcon={<Iconify icon="carbon:filter" width={18} />}
-            onClick={mobileOpen.onTrue}
-            sx={{
-              display: { md: 'none' },
-            }}
-          >
-            Filters
-          </Button>
-        </Stack>
-
-        <Stack direction={{ xs: 'column', md: 'row' }}>
-          <ElearningFilters
-            open={mobileOpen.value}
-            onClose={mobileOpen.onFalse}
-            filters={filters}
-            setFilters={setFilters}
-          />
-
-          <Box
-            sx={{
-              flexGrow: 1,
-              pl: { md: 8 },
-              width: { md: `calc(100% - ${280}px)` },
-            }}
-          >
-            <ElearningCourseList courses={_courses} loading={loading.value} filters={filters} />
-
-            <Divider
-              sx={{
-                mb: 2,
-              }}
-            />
-
-            <Box
-              direction="row"
-              sx={{
-                flexGrow: 1,
-                mb: 5,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-              }}
-            >
-              <Typography>
-                Total Price: <strong>{fCurrency(totalPrice)}</strong>
-              </Typography>
-
-              <Link component={RouterLink} href={paths.eLearning.checkout}>
-                <Button variant="contained" color="primary">
-                  Proceed to Buy
-                </Button>
-              </Link>
-            </Box>
-          </Box>
-        </Stack>
-      </Container> */}
-
       <Container
         sx={{
           overflow: 'hidden',
@@ -135,12 +64,12 @@ export default function ElearningCoursesView() {
           Shopping Cart
         </Typography>
 
-        <Grid container spacing={{ xs: 5, md: 8 }}>
-          <Grid xs={12} md={8}>
+        <Grid container spacing={{ xs: 5, md: 4 }}>
+          <Grid xs={12} md={8} sx={{ p: 4 }}>
             <ElearningCartList courses={_courses} />
           </Grid>
 
-          <Grid xs={12} md={4}>
+          <Grid xs={12} md={4} sx={{ p: 4 }}>
             <ElearningCartSummary
               tax={7}
               total={357.09}
