@@ -10,22 +10,21 @@ import Iconify from 'src/components/iconify';
 
 // ----------------------------------------------------------------------
 
-export default function ElearningCourseDetailsQuestionList({ question, index, goToIndex }) {
+export default function ElearningCourseDetailsQuestionList({
+  question,
+  answers,
+  index,
+  goToIndex,
+}) {
   const [expanded, setExpanded] = useState(false);
-  const [selected, setSelectedLesson] = useState(null);
 
-  const onSelected = useCallback((currentQuestion) => {
-    setSelectedLesson(currentQuestion);
-  }, []);
+  const onExpanded = () => {
+    if (answers[index]) setExpanded(!expanded);
+  };
 
-  const onExpanded = useCallback(
-    (panel) => (event, isExpanded) => {
-      setExpanded(isExpanded ? panel : false);
-    },
-    []
-  );
-
-  const playIcon = selected ? 'carbon:pause-outline' : 'carbon:play';
+  const playIcon = 'carbon:play';
+  const isCorrectAnswer =
+    answers[index] && answers[index] === question.correctAnswer ? 'success' : 'error';
 
   return (
     <Accordion
@@ -35,6 +34,7 @@ export default function ElearningCourseDetailsQuestionList({ question, index, go
         [`&.${accordionClasses.expanded}`]: {
           borderRadius: 0,
         },
+        bgcolor: `${isCorrectAnswer}`,
       }}
       onClick={() => goToIndex(index)}
       className="w-full"
@@ -61,7 +61,7 @@ export default function ElearningCourseDetailsQuestionList({ question, index, go
             flexGrow: 1,
           }}
         >
-          {question.title}
+          <p className="line-clamp-1 w-5/6">{question.title}</p>
         </Typography>
 
         <Typography variant="body2">{question.duration} m</Typography>
@@ -76,7 +76,7 @@ export default function ElearningCourseDetailsQuestionList({ question, index, go
           color: 'text.secondary',
         }}
       >
-        {question.description}
+        {question.correctAnswer}
       </AccordionDetails>
     </Accordion>
   );
@@ -84,6 +84,7 @@ export default function ElearningCourseDetailsQuestionList({ question, index, go
 
 ElearningCourseDetailsQuestionList.propTypes = {
   question: PropTypes.object,
+  answers: PropTypes.array,
   index: PropTypes.number,
   goToIndex: PropTypes.func,
 };

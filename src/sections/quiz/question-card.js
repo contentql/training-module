@@ -57,7 +57,7 @@ export default function QuestionCard(props) {
   };
 
   const handleSubmit = () => {
-    submitAnswer(value);
+    submitAnswer(questionNumber - 1, value);
     setValue(null);
   };
 
