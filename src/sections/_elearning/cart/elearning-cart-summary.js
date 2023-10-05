@@ -39,7 +39,7 @@ export default function ElearningCartSummary({
 
         <Row label={`Discount (${discountPercent}%)`} value={`${fCurrency(discount)}`} />
 
-        <Row label={`Tax (${taxPercent}%)`} value={fPercent(tax)} />
+        <Row label="Tax" value={fPercent(taxPercent)} />
       </Stack>
 
       <TextField
@@ -67,7 +67,7 @@ export default function ElearningCartSummary({
 
       <Button
         component={RouterLink}
-        href={paths.eCommerce.checkout}
+        href={paths.eLearning.checkout}
         size="large"
         variant="contained"
         color="inherit"

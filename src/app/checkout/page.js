@@ -1,16 +1,16 @@
 import MainLayout from 'src/layouts/main';
-import ElearningCartView from 'src/sections/_elearning/view/elearning-cart-view';
+import ElearningCheckoutView from 'src/sections/_elearning/view/elearning-checkout-view';
 
 // ----------------------------------------------------------------------
 
 export const metadata = {
-  title: 'Cart',
+  title: 'Checkout',
 };
 
 export default function ElearningCoursesPage() {
   return (
     <MainLayout>
-      <ElearningCartView />
+      <ElearningCheckoutView />
     </MainLayout>
   );
 }
