@@ -29,27 +29,26 @@ import ElearningCartSummary from '../cart/elearning-cart-summary';
 export default function ElearningCoursesView() {
   const _courses = useCartStore((state) => state.cart);
 
-  const totalPrice = _courses.map((course) => course.price).reduce((a, b) => a + b, 0);
+  const cost = _courses.map((course) => course.price).reduce((a, b) => a + b, 0);
+  const discountPercent = cost && 7;
+  const taxPercent = cost && 7;
 
-  const mobileOpen = useBoolean();
+  const subTotal = cost;
+  const discount = cost && cost * (discountPercent / -16.17);
+  const tax = cost && cost * (taxPercent / 100);
+  const total = cost && subTotal + discount + tax;
 
-  const loading = useBoolean(true);
+  // const mobileOpen = useBoolean();
 
-  const [filters, setFilters] = useState({
-    text: '',
-    rating: null,
-    duration: [],
-    category: [],
-    fee: [],
-  });
+  // const loading = useBoolean(true);
 
-  useEffect(() => {
-    const fakeLoading = async () => {
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      loading.onFalse();
-    };
-    fakeLoading();
-  }, [loading]);
+  // useEffect(() => {
+  //   const fakeLoading = async () => {
+  //     await new Promise((resolve) => setTimeout(resolve, 500));
+  //     loading.onFalse();
+  //   };
+  //   fakeLoading();
+  // }, [loading]);
 
   return (
     <>
@@ -69,13 +68,14 @@ export default function ElearningCoursesView() {
             <ElearningCartList courses={_courses} />
           </Grid>
 
-          <Grid xs={12} md={4} sx={{ p: 4 }}>
+          <Grid xs={12} md={4} sx={{ py: 4, pl: 4 }}>
             <ElearningCartSummary
-              tax={7}
-              total={357.09}
-              subtotal={89.09}
-              shipping={55.47}
-              discount={16.17}
+              tax={tax}
+              taxPercent={taxPercent}
+              total={total}
+              subtotal={subTotal}
+              discountPercent={discountPercent}
+              discount={discount}
             />
           </Grid>
         </Grid>

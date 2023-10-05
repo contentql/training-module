@@ -15,7 +15,14 @@ import { fPercent, fCurrency } from 'src/utils/format-number';
 
 // ----------------------------------------------------------------------
 
-export default function ElearningCartSummary({ tax, total, subtotal, shipping, discount }) {
+export default function ElearningCartSummary({
+  tax,
+  taxPercent,
+  total,
+  subtotal,
+  discountPercent,
+  discount,
+}) {
   return (
     <Stack
       spacing={3}
@@ -30,11 +37,9 @@ export default function ElearningCartSummary({ tax, total, subtotal, shipping, d
       <Stack spacing={2}>
         <Row label="Subtotal" value={fCurrency(subtotal)} />
 
-        <Row label="Shipping" value={fCurrency(shipping)} />
+        <Row label={`Discount (${discountPercent}%)`} value={`${fCurrency(discount)}`} />
 
-        <Row label="Discount (15%)" value={`-${fCurrency(discount)}`} />
-
-        <Row label="Tax" value={fPercent(tax)} />
+        <Row label={`Tax (${taxPercent}%)`} value={fPercent(tax)} />
       </Stack>
 
       <TextField
@@ -75,9 +80,10 @@ export default function ElearningCartSummary({ tax, total, subtotal, shipping, d
 
 ElearningCartSummary.propTypes = {
   tax: PropTypes.number,
+  taxPercent: PropTypes.number,
   total: PropTypes.number,
   discount: PropTypes.number,
-  shipping: PropTypes.number,
+  discountPercent: PropTypes.number,
   subtotal: PropTypes.number,
 };
 
