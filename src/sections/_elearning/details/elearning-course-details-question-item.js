@@ -7,7 +7,6 @@ import Accordion, { accordionClasses } from '@mui/material/Accordion';
 import AccordionSummary, { accordionSummaryClasses } from '@mui/material/AccordionSummary';
 
 import Iconify from 'src/components/iconify';
-import { Chela_One } from 'next/font/google';
 
 // ----------------------------------------------------------------------
 
