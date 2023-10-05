@@ -30,7 +30,7 @@ export default function ElearningCartItem({ course }) {
           src={course.coverUrl}
           alt={course.slug}
           sx={{
-            width: 160,
+            width: 100,
             height: 80,
             backgroundSize: 'cover',
             borderRadius: 1.5,
