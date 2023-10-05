@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+// import { useState, useEffect } from 'react';
 
 // import Box from '@mui/material/Box';
 // import Link from '@mui/material/Link';
@@ -15,7 +15,7 @@ import { paths } from 'src/routes/paths';
 import Iconify from 'src/components/iconify';
 import { useCartStore } from 'src/states/cart';
 import { RouterLink } from 'src/routes/components';
-import { useBoolean } from 'src/hooks/use-boolean';
+// import { useBoolean } from 'src/hooks/use-boolean';
 // import { fCurrency } from 'src/utils/format-number';
 
 import ElearningNewsletter from '../elearning-newsletter';
@@ -82,7 +82,7 @@ export default function ElearningCoursesView() {
 
         <Button
           component={RouterLink}
-          href={paths.eCommerce.products}
+          href={paths.eLearning.courses}
           color="inherit"
           startIcon={<Iconify icon="carbon:chevron-left" />}
           sx={{ mt: 3 }}

@@ -7,11 +7,14 @@ import Typography from '@mui/material/Typography';
 
 import Image from 'src/components/image';
 import Iconify from 'src/components/iconify';
+import { useCartStore } from 'src/states/cart';
 import { fCurrency } from 'src/utils/format-number';
 
 // ----------------------------------------------------------------------
 
 export default function ElearningCartItem({ course }) {
+  const removeCourseFromCart = useCartStore((state) => state.removeFromCart);
+
   return (
     <Stack
       direction="row"
@@ -44,7 +47,7 @@ export default function ElearningCartItem({ course }) {
 
       <Stack sx={{ width: 220, typography: 'subtitle2' }}> {fCurrency(course.price)} </Stack>
 
-      <IconButton>
+      <IconButton onClick={() => removeCourseFromCart(course)}>
         <Iconify icon="carbon:trash-can" />
       </IconButton>
     </Stack>
