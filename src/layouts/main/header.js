@@ -109,11 +109,11 @@ export default function Header({ headerOnDark }) {
             )}
 
             <Link component={RouterLink} href={paths.eLearning.cart}>
-              <Badge badgeContent={cart.length > 99 ? '99+' : cart.length} color="primary">
-                <IconButton size="small" sx={{ p: 0 }}>
+              <IconButton size="small" sx={{ p: 1.2 }}>
+                <Badge badgeContent={cart.length > 99 ? '99+' : cart.length} color="primary">
                   <Iconify icon="carbon:shopping-cart" width={24} />
-                </IconButton>
-              </Badge>
+                </Badge>
+              </IconButton>
             </Link>
           </Stack>
 
