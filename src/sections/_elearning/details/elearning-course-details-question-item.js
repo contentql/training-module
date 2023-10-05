@@ -7,6 +7,7 @@ import Accordion, { accordionClasses } from '@mui/material/Accordion';
 import AccordionSummary, { accordionSummaryClasses } from '@mui/material/AccordionSummary';
 
 import Iconify from 'src/components/iconify';
+import { Chela_One } from 'next/font/google';
 
 // ----------------------------------------------------------------------
 
@@ -24,7 +25,8 @@ export default function ElearningCourseDetailsQuestionList({
 
   const playIcon = 'carbon:play';
   const isCorrectAnswer =
-    answers[index] && answers[index] === question.correctAnswer ? 'success' : 'error';
+    answers[index] && (answers[index] === question.correctAnswer ? 'success' : 'error');
+  console.log(answers[index], question.correctAnswer);
 
   return (
     <Accordion
@@ -34,7 +36,7 @@ export default function ElearningCourseDetailsQuestionList({
         [`&.${accordionClasses.expanded}`]: {
           borderRadius: 0,
         },
-        bgcolor: `${isCorrectAnswer}`,
+        bgcolor: `${isCorrectAnswer}.main`,
       }}
       onClick={() => goToIndex(index)}
       className="w-full"
