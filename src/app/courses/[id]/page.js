@@ -1,16 +1,18 @@
+import PropTypes from 'prop-types';
+
 import MainLayout from 'src/layouts/main';
 import ElearningCourseView from 'src/sections/_elearning/view/elearning-course-view';
 
 // ----------------------------------------------------------------------
 
-export const metadata = {
-  title: 'Design Masterclass Course',
-};
-
-export default function ElearningCoursePage() {
+export default function ElearningCoursePage({ params }) {
   return (
     <MainLayout>
-      <ElearningCourseView />
+      <ElearningCourseView courseId={params.id} />
     </MainLayout>
   );
 }
+
+ElearningCoursePage.propTypes = {
+  params: PropTypes.object,
+};

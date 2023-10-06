@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import PropTypes from 'prop-types';
 
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
@@ -24,14 +25,16 @@ import ElearningCourseDetailsSummary from '../details/elearning-course-details-s
 
 // ----------------------------------------------------------------------
 
-const _mockCourse = _courses[0];
+// const _mockCourse = _courses[0];
 
-export default function ElearningCourseView() {
+export default function ElearningCourseView({ courseId }) {
   const mdUp = useResponsive('up', 'md');
 
   const loading = useBoolean(true);
 
   const courseSimilar = _courses.slice(-3);
+
+  const _mockCourse = _courses.filter((course) => course.id === courseId).at(0);
 
   useEffect(() => {
     const fakeLoading = async () => {
@@ -127,3 +130,7 @@ export default function ElearningCourseView() {
     </>
   );
 }
+
+ElearningCourseView.propTypes = {
+  courseId: PropTypes.string,
+};

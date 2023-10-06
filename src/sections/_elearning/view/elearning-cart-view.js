@@ -21,7 +21,7 @@ export default function ElearningCoursesView() {
 
   const cost = _courses.map((course) => course.price).reduce((a, b) => a + b, 0);
   const discountPercent = cost && 7;
-  const taxPercent = cost && 7;
+  const taxPercent = cost && 18;
 
   const subTotal = cost;
   const discount = cost && cost * (discountPercent / -16.17);
