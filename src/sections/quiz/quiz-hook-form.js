@@ -86,36 +86,34 @@ export default function QuizHookForm(props) {
         {finishedQuiz ? (
           <Result restartQuiz={restartQuiz} answers={answers} questions={questions} />
         ) : (
-          <Card variant="outlined">
-            <Grid direction={{ xs: 'column', md: 'row' }} container className="h-full">
-              <Grid item md={8}>
-                <QuestionCard
-                  question={currentQuestion}
-                  questionNumber={currentQuestionIndex + 1}
-                  submitAnswer={submitAnswer}
-                  islastQuestion={currentQuestionIndex + 1 === questions.length}
-                  goToPrevious={goToPrevious}
-                  selectedValue={answers[currentQuestionIndex] || null}
-                  goToNext={goToNext}
-                />
-              </Grid>
-              <Grid item md={4}>
-                <Card variant="outlined">
-                  <Stack direction="column" className="w-full">
-                    {questions.map((question, index) => (
-                      <ElearningCourseDetailsQuestionList
-                        key={question.id}
-                        question={question}
-                        answers={answers}
-                        index={index}
-                        goToIndex={goToIndex}
-                      />
-                    ))}
-                  </Stack>
-                </Card>
-              </Grid>
+          <Grid direction={{ xs: 'column', md: 'row' }} container className="h-full">
+            <Grid item md={8}>
+              <QuestionCard
+                question={currentQuestion}
+                questionNumber={currentQuestionIndex + 1}
+                submitAnswer={submitAnswer}
+                islastQuestion={currentQuestionIndex + 1 === questions.length}
+                goToPrevious={goToPrevious}
+                selectedValue={answers[currentQuestionIndex] || null}
+                goToNext={goToNext}
+              />
             </Grid>
-          </Card>
+            <Grid item md={4}>
+              <Card variant="outlined">
+                <Stack direction="column" className="w-full">
+                  {questions.map((question, index) => (
+                    <ElearningCourseDetailsQuestionList
+                      key={question.id}
+                      question={question}
+                      answers={answers}
+                      index={index}
+                      goToIndex={goToIndex}
+                    />
+                  ))}
+                </Stack>
+              </Card>
+            </Grid>
+          </Grid>
         )}
       </div>
     </>

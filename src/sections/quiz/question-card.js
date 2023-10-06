@@ -62,68 +62,70 @@ export default function QuestionCard(props) {
   };
 
   return (
-    <Box className="w-full h-full" md={7}>
-      <CardContent>
-        <Typography variant="h5" component="div">
-          Question {questionNumber}
-        </Typography>
+    <Box className="w-full h-full pb-10 md:pb-0 md:px-5" md={7}>
+      <Card variant="outlined">
+        <CardContent>
+          <Typography variant="h5" component="div">
+            Question {questionNumber}
+          </Typography>
 
-        <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          {question.title}
-        </Typography>
+          <Typography sx={{ mb: 1.5 }} color="text.secondary">
+            {question.title}
+          </Typography>
 
-        <FormControl disabled={Boolean(selectedValue)}>
-          {typeof question.correctAnswer === 'object' ? (
-            <FormGroup name="checkbox-group-quiz" value={value} onChange={handleChangeCheckbox}>
-              {question.options.map((o, i) => (
-                <FormControlLabel
-                  key={i + 1}
-                  value={o.description}
-                  control={<Checkbox />}
-                  label={o.description}
-                />
-              ))}
-            </FormGroup>
-          ) : (
-            <RadioGroup name="radio-group-quiz" value={value} onChange={handleChangeRadio}>
-              {question.options.map((o, i) => (
-                <FormControlLabel
-                  key={i + 1}
-                  value={o.description}
-                  control={<Radio />}
-                  label={o.description}
-                />
-              ))}
-            </RadioGroup>
-          )}
-        </FormControl>
-      </CardContent>
-      <CardActions className="w-full">
-        <Button
-          disabled={questionNumber === 1}
-          onClick={handlePreview}
-          variant="outlined"
-          size="small"
-          className="w-1/2"
-        >
-          Preview
-        </Button>
-        {!selectedValue ? (
+          <FormControl disabled={Boolean(selectedValue)}>
+            {typeof question.correctAnswer === 'object' ? (
+              <FormGroup name="checkbox-group-quiz" value={value} onChange={handleChangeCheckbox}>
+                {question.options.map((o, i) => (
+                  <FormControlLabel
+                    key={i + 1}
+                    value={o.description}
+                    control={<Checkbox />}
+                    label={o.description}
+                  />
+                ))}
+              </FormGroup>
+            ) : (
+              <RadioGroup name="radio-group-quiz" value={value} onChange={handleChangeRadio}>
+                {question.options.map((o, i) => (
+                  <FormControlLabel
+                    key={i + 1}
+                    value={o.description}
+                    control={<Radio />}
+                    label={o.description}
+                  />
+                ))}
+              </RadioGroup>
+            )}
+          </FormControl>
+        </CardContent>
+        <CardActions className="w-full">
           <Button
-            disabled={!value}
-            className="w-1/2"
-            onClick={handleSubmit}
+            disabled={questionNumber === 1}
+            onClick={handlePreview}
             variant="outlined"
             size="small"
+            className="w-1/2"
           >
-            {islastQuestion ? 'Submit Quiz' : 'Submit & Next'}
+            Preview
           </Button>
-        ) : (
-          <Button onClick={handleNext} className="w-1/2" variant="outlined" size="small">
-            Next
-          </Button>
-        )}
-      </CardActions>
+          {!selectedValue ? (
+            <Button
+              disabled={!value}
+              className="w-1/2"
+              onClick={handleSubmit}
+              variant="outlined"
+              size="small"
+            >
+              {islastQuestion ? 'Submit Quiz' : 'Submit & Next'}
+            </Button>
+          ) : (
+            <Button onClick={handleNext} className="w-1/2" variant="outlined" size="small">
+              Next
+            </Button>
+          )}
+        </CardActions>
+      </Card>
     </Box>
   );
 }

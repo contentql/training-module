@@ -7,6 +7,7 @@ import Accordion, { accordionClasses } from '@mui/material/Accordion';
 import AccordionSummary, { accordionSummaryClasses } from '@mui/material/AccordionSummary';
 
 import Iconify from 'src/components/iconify';
+import { isArray } from 'sys';
 
 // ----------------------------------------------------------------------
 
@@ -23,9 +24,16 @@ export default function ElearningCourseDetailsQuestionList({
   };
 
   const playIcon = 'carbon:play';
-  const isCorrectAnswer =
-    answers[index] && (answers[index] === question.correctAnswer ? 'success' : 'error');
-  console.log(answers[index], question.correctAnswer);
+  const isCorrectAnswer = answers[index] === question.correctAnswer;
+
+  let colors = '';
+  if (answers[index]) {
+    if (isCorrectAnswer) {
+      colors = 'bg-green-100 text-green-800';
+    } else {
+      colors = 'bg-red-100 text-red-800';
+    }
+  }
 
   return (
     <Accordion
@@ -33,51 +41,50 @@ export default function ElearningCourseDetailsQuestionList({
       onChange={onExpanded}
       sx={{
         [`&.${accordionClasses.expanded}`]: {
-          borderRadius: 0,
+          bgcolor: 'inherit',
+          color: 'inherit',
         },
-        bgcolor: `${isCorrectAnswer}.main`,
       }}
       onClick={() => goToIndex(index)}
-      className="w-full"
     >
-      <AccordionSummary
-        sx={{
-          px: 1,
-          minHeight: 64,
-          [`& .${accordionSummaryClasses.content}`]: {
-            p: 0,
-            m: 0,
-          },
-          [`&.${accordionSummaryClasses.expanded}`]: {
-            bgcolor: 'action.selected',
-          },
-        }}
-      >
-        <Iconify width={24} icon={playIcon} />
-
-        <Typography
-          variant="subtitle1"
+      <div className={`rounded ${colors}`}>
+        <AccordionSummary
           sx={{
-            pl: 2,
-            flexGrow: 1,
+            px: 1,
+            minHeight: 64,
+            [`& .${accordionSummaryClasses.content}`]: {
+              p: 0,
+              m: 0,
+            },
           }}
+          className={colors}
         >
-          <p className="line-clamp-1 w-5/6">{question.title}</p>
-        </Typography>
+          <Iconify width={24} icon={playIcon} />
 
-        <Typography variant="body2">{question.duration} m</Typography>
+          <Typography
+            variant="subtitle1"
+            sx={{
+              pl: 2,
+              flexGrow: 1,
+            }}
+          >
+            <p className="line-clamp-1 w-5/6">{question.title}</p>
+          </Typography>
 
-        <Iconify icon={expanded ? 'carbon:chevron-down' : 'carbon:chevron-right'} sx={{ ml: 2 }} />
-      </AccordionSummary>
+          <Iconify icon={expanded ? 'carbon:chevron-down' : 'carbon:chevron-right'} />
+        </AccordionSummary>
+      </div>
 
       <AccordionDetails
         sx={{
           p: 2,
           typography: 'body',
-          color: 'text.secondary',
         }}
       >
-        {question.correctAnswer}
+        Correct Answer:{' '}
+        {Array.isArray(question.correctAnswer)
+          ? question.correctAnswer.join(', ')
+          : question.correctAnswer}
       </AccordionDetails>
     </Accordion>
   );
