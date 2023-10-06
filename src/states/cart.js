@@ -8,6 +8,7 @@ export const useCartStore = create(
       addToCart: (course) => set((state) => ({ cart: [...state.cart, course] })),
       removeFromCart: (course) =>
         set((state) => ({ cart: state.cart.filter((courseItem) => courseItem !== course) })),
+      emptyCart: () => set({ cart: [] }),
     }),
     {
       name: 'cart-storage',

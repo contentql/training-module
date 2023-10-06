@@ -20,7 +20,7 @@ export default function ElearningCourseDetailsInfo({ course }) {
     state.removeFromCart,
   ]);
 
-  useEffect(() => console.log(cart), [cart]);
+  const isCartContainCourse = cart.filter((cartItem) => cartItem.id === course.id).length === 0;
 
   return (
     <Card sx={{ p: 3, borderRadius: 2 }}>
@@ -82,12 +82,12 @@ export default function ElearningCourseDetailsInfo({ course }) {
         </Button>
 
         <Button
-          variant={cart.includes(course) ? 'outlined' : 'contained'}
+          variant={isCartContainCourse ? 'contained' : 'outlined'}
           size="large"
           color="inherit"
-          onClick={() => (cart.includes(course) ? removeFromCart(course) : addToCart(course))}
+          onClick={() => (isCartContainCourse ? addToCart(course) : removeFromCart(course))}
         >
-          {cart.includes(course) ? 'Remove from cart' : 'Add to cart'}
+          {isCartContainCourse ? 'Add to cart' : 'Remove from cart'}
         </Button>
       </Stack>
     </Card>

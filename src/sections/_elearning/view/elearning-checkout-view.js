@@ -55,6 +55,7 @@ export default function ElearningCheckoutView() {
   const formOpen = useBoolean();
 
   const _courses = useCartStore((state) => state.cart);
+  const emptyCart = useCartStore((state) => state.emptyCart);
 
   const cost = _courses.map((course) => course.price).reduce((a, b) => a + b, 0);
   const discountPercent = cost && 7;
@@ -103,6 +104,7 @@ export default function ElearningCheckoutView() {
     try {
       await new Promise((resolve) => setTimeout(resolve, 500));
       reset();
+      emptyCart();
       router.push(paths.eLearning.purchaseCompleted);
       console.log('DATA', data);
     } catch (error) {
