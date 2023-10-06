@@ -42,11 +42,11 @@ export default function ElearningCoursesView() {
         </Typography>
 
         <Grid container spacing={4}>
-          <Grid xs={13} md={8} sx={{ p: 4 }}>
+          <Grid item xs={13} md={8} sx={{ p: 4 }}>
             <ElearningCartList courses={_courses} />
           </Grid>
 
-          <Grid xs={12} md={4} sx={{ py: 4, pl: 4 }}>
+          <Grid item xs={12} md={4} sx={{ py: 4, pl: 4 }}>
             <ElearningCartSummary
               tax={tax}
               taxPercent={taxPercent}

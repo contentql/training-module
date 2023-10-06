@@ -1,10 +1,16 @@
 import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 
-import { _courses } from 'src/_mock';
-
-export const useCartStore = create((set) => ({
-  cart: [_courses[0], _courses[1]],
-  addToCart: (course) => set((state) => ({ cart: [...state.cart, course] })),
-  removeFromCart: (course) =>
-    set((state) => ({ cart: state.cart.filter((courseItem) => courseItem !== course) })),
-}));
+export const useCartStore = create(
+  persist(
+    (set) => ({
+      cart: [],
+      addToCart: (course) => set((state) => ({ cart: [...state.cart, course] })),
+      removeFromCart: (course) =>
+        set((state) => ({ cart: state.cart.filter((courseItem) => courseItem !== course) })),
+    }),
+    {
+      name: 'cart-storage',
+    }
+  )
+);

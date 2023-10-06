@@ -103,7 +103,7 @@ export default function ElearningCheckoutView() {
     try {
       await new Promise((resolve) => setTimeout(resolve, 500));
       reset();
-      router.push(paths.elearning.purchaseCompleted);
+      router.push(paths.eLearning.purchaseCompleted);
       console.log('DATA', data);
     } catch (error) {
       console.error(error);

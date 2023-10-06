@@ -45,6 +45,7 @@ export const paths = {
     contact: '/e-learning/contact',
     cart: '/cart',
     checkout: '/checkout',
+    purchaseCompleted: '/purchase-completed',
   },
   // E-commerce
   eCommerce: {
