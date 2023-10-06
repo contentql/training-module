@@ -12,6 +12,7 @@ import IconButton from '@mui/material/IconButton';
 
 import Iconify from 'src/components/iconify';
 import ElearningCourseDetailsQuestionList from 'src/sections/_elearning/details/elearning-course-details-question-item';
+import ElearningCourseDetailsQuestionSubmit from 'src/sections/_elearning/details/elearning-course-details-question-submit';
 
 import Result from './result';
 import QuestionCard from './question-card';
@@ -23,7 +24,7 @@ export default function QuizHookForm(props) {
 
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState([...Array(questions.length)]);
-  const finishedQuiz = currentQuestionIndex === questions.length;
+  const [finishedQuiz, setFinishedQuiz] = useState(false);
   const currentQuestion = questions[currentQuestionIndex];
 
   // Snackbar
@@ -46,7 +47,9 @@ export default function QuizHookForm(props) {
   };
 
   const goToNext = () => {
-    setCurrentQuestionIndex((prevState) => prevState + 1);
+    if (currentQuestionIndex + 1 !== questions.length) {
+      setCurrentQuestionIndex((prevState) => prevState + 1);
+    }
   };
 
   const goToIndex = (index) => {
@@ -62,9 +65,14 @@ export default function QuizHookForm(props) {
     goToNext();
   };
 
+  const submitQuiz = () => {
+    setFinishedQuiz(true);
+  };
+
   const restartQuiz = () => {
     setCurrentQuestionIndex(0);
     setAnswers([]);
+    setFinishedQuiz(false);
   };
 
   return (
@@ -72,7 +80,7 @@ export default function QuizHookForm(props) {
       <IconButton
         edge="start"
         color="inherit"
-        onClick={areAllAnswersMarked ? handleModalClose : handleSnackbarOpen}
+        onClick={finishedQuiz ? handleModalClose : handleSnackbarOpen}
         aria-label="close"
       >
         <Iconify icon="mdi:close" className="absolute left-5 top-3 z-10" />
@@ -110,6 +118,7 @@ export default function QuizHookForm(props) {
                       goToIndex={goToIndex}
                     />
                   ))}
+                  <ElearningCourseDetailsQuestionSubmit submitQuiz={submitQuiz} />
                 </Stack>
               </Card>
             </Grid>
