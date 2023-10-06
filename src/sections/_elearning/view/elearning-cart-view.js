@@ -1,5 +1,7 @@
 'use client';
 
+import { useEffect } from 'react';
+
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
@@ -8,7 +10,9 @@ import Typography from '@mui/material/Typography';
 import { paths } from 'src/routes/paths';
 import Iconify from 'src/components/iconify';
 import { useCartStore } from 'src/states/cart';
+import { useBoolean } from 'src/hooks/use-boolean';
 import { RouterLink } from 'src/routes/components';
+import { SplashScreen } from 'src/components/loading-screen';
 
 import ElearningNewsletter from '../elearning-newsletter';
 import ElearningCartList from '../cart/elearning-cart-list';
@@ -19,6 +23,8 @@ import ElearningCartSummary from '../cart/elearning-cart-summary';
 export default function ElearningCoursesView() {
   const _courses = useCartStore((state) => state.cart);
 
+  const loading = useBoolean(true);
+
   const cost = _courses.map((course) => course.price).reduce((a, b) => a + b, 0);
   const discountPercent = cost && 7;
   const taxPercent = cost && 18;
@@ -27,6 +33,18 @@ export default function ElearningCoursesView() {
   const discount = cost && cost * (discountPercent / -16.17);
   const tax = cost && cost * (taxPercent / 100);
   const total = cost && subTotal + discount + tax;
+
+  useEffect(() => {
+    const fakeLoading = async () => {
+      await new Promise((resolve) => setTimeout(resolve, 500));
+      loading.onFalse();
+    };
+    fakeLoading();
+  }, [loading]);
+
+  if (loading.value) {
+    return <SplashScreen />;
+  }
 
   return (
     <>

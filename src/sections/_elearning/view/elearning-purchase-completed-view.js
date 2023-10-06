@@ -1,6 +1,7 @@
 'use client';
 
 import { m } from 'framer-motion';
+import { useEffect } from 'react';
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
@@ -11,11 +12,27 @@ import Typography from '@mui/material/Typography';
 import { paths } from 'src/routes/paths';
 import Iconify from 'src/components/iconify';
 import { RouterLink } from 'src/routes/components';
+import { useBoolean } from 'src/hooks/use-boolean';
+import { SplashScreen } from 'src/components/loading-screen';
 import { varBounce, MotionContainer } from 'src/components/animate';
 
 // ----------------------------------------------------------------------
 
 export default function ElearningPurchaseCompletedView() {
+  const loading = useBoolean(true);
+
+  useEffect(() => {
+    const fakeLoading = async () => {
+      await new Promise((resolve) => setTimeout(resolve, 500));
+      loading.onFalse();
+    };
+    fakeLoading();
+  }, [loading]);
+
+  if (loading.value) {
+    return <SplashScreen />;
+  }
+
   return (
     <Container
       component={MotionContainer}

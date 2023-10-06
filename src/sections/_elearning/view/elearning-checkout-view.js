@@ -1,6 +1,7 @@
 'use client';
 
 import * as Yup from 'yup';
+import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -20,6 +21,7 @@ import { useRouter } from 'src/routes/hooks';
 import { useCartStore } from 'src/states/cart';
 import { useBoolean } from 'src/hooks/use-boolean';
 import FormProvider from 'src/components/hook-form';
+import { SplashScreen } from 'src/components/loading-screen';
 
 import ElearningNewsletter from '../elearning-newsletter';
 import ElearningCheckoutNewCardForm from '../checkout/elearning-checkout-new-card-form';
@@ -50,6 +52,8 @@ const PAYMENT_OPTIONS = [
 // ----------------------------------------------------------------------
 
 export default function ElearningCheckoutView() {
+  const loading = useBoolean(true);
+
   const router = useRouter();
 
   const formOpen = useBoolean();
@@ -111,6 +115,18 @@ export default function ElearningCheckoutView() {
       console.error(error);
     }
   });
+
+  useEffect(() => {
+    const fakeLoading = async () => {
+      await new Promise((resolve) => setTimeout(resolve, 500));
+      loading.onFalse();
+    };
+    fakeLoading();
+  }, [loading]);
+
+  if (loading.value) {
+    return <SplashScreen />;
+  }
 
   return (
     <>
