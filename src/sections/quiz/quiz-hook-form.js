@@ -1,14 +1,19 @@
 'use client';
 
-import { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useState, useEffect } from 'react';
 
 import Card from '@mui/material/Card';
 import Grid from '@mui/material/Grid';
-import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
-import Snackbar from '@mui/material/Snackbar';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import Backdrop from '@mui/material/Backdrop';
 import IconButton from '@mui/material/IconButton';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
 
 import Iconify from 'src/components/iconify';
 import ElearningCourseDetailsQuestionList from 'src/sections/_elearning/details/elearning-course-details-question-item';
@@ -27,20 +32,14 @@ export default function QuizHookForm(props) {
   const [finishedQuiz, setFinishedQuiz] = useState(false);
   const currentQuestion = questions[currentQuestionIndex];
 
-  // Snackbar
-  const [snackbarOpen, setSnackbarOpen] = useState(false);
-  const handleSnackbarOpen = () => {
-    setSnackbarOpen(true);
-  };
-  const handleSnackbarClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
-    setSnackbarOpen(false);
+  const [popupOpen, setPopupOpen] = useState(false);
+  const handlePopupToggle = () => {
+    setPopupOpen((prev) => !prev);
   };
 
-  const areAllAnswersMarked = finishedQuiz || answers.every((answer) => answer !== undefined);
+  useEffect(() => {
+    console.log(popupOpen);
+  }, [popupOpen]);
 
   const goToPrevious = () => {
     setCurrentQuestionIndex((prevState) => prevState - 1);
@@ -80,15 +79,36 @@ export default function QuizHookForm(props) {
       <IconButton
         edge="start"
         color="inherit"
-        onClick={finishedQuiz ? handleModalClose : handleSnackbarOpen}
+        onClick={finishedQuiz ? handleModalClose : handlePopupToggle}
         aria-label="close"
       >
         <Iconify icon="mdi:close" className="absolute left-5 top-3 z-10" />
-        <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={handleSnackbarClose}>
-          <Alert onClose={handleSnackbarClose} severity="error" sx={{ width: '100%' }}>
-            Please Submit All Answers
-          </Alert>
-        </Snackbar>
+        <Backdrop
+          sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={popupOpen}
+          onClick={handlePopupToggle}
+        >
+          <Dialog
+            open={popupOpen}
+            onClose={handlePopupToggle}
+            aria-describedby="popup-confirmation"
+          >
+            <DialogTitle>Close Quiz?</DialogTitle>
+            <DialogContent>
+              <DialogContentText id="popup-confirmation">
+                You will lose all your progress if you close the quiz.
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleModalClose} variant="outlined" color="error">
+                Close
+              </Button>
+              <Button onClick={handlePopupToggle} variant="outlined">
+                Continue Quiz
+              </Button>
+            </DialogActions>
+          </Dialog>
+        </Backdrop>
       </IconButton>
       <div className="p-5 h-full">
         {finishedQuiz ? (
