@@ -70,7 +70,9 @@ export default function ElearningCourseDetailsQuestionList({
             <p className="line-clamp-1 w-5/6">{question.title}</p>
           </Typography>
 
-          <Iconify icon={expanded ? 'carbon:chevron-down' : 'carbon:chevron-right'} />
+          {answers[index] && (
+            <Iconify icon={expanded ? 'carbon:chevron-down' : 'carbon:chevron-right'} />
+          )}
         </AccordionSummary>
       </div>
 

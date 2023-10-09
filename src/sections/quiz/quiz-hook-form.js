@@ -37,10 +37,6 @@ export default function QuizHookForm(props) {
     setPopupOpen((prev) => !prev);
   };
 
-  useEffect(() => {
-    console.log(popupOpen);
-  }, [popupOpen]);
-
   const goToPrevious = () => {
     setCurrentQuestionIndex((prevState) => prevState - 1);
   };
@@ -138,7 +134,7 @@ export default function QuizHookForm(props) {
                       goToIndex={goToIndex}
                     />
                   ))}
-                  <ElearningCourseDetailsQuestionSubmit submitQuiz={submitQuiz} />
+                  <ElearningCourseDetailsQuestionSubmit answers={answers} submitQuiz={submitQuiz} />
                 </Stack>
               </Card>
             </Grid>

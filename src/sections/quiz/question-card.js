@@ -117,7 +117,7 @@ export default function QuestionCard(props) {
               variant="outlined"
               size="small"
             >
-              {islastQuestion ? 'Submit Quiz' : 'Submit & Next'}
+              Submit & Next
             </Button>
           ) : (
             <Button onClick={handleNext} className="w-1/2" variant="outlined" size="small">
