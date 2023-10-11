@@ -46,8 +46,8 @@ export default function QuizHookForm(props) {
 
   const mdUp = useResponsive('up', 'md');
   const submitButtonScrollStyles = mdUp
-    ? { maxHeight: '80vh', overflowY: 'scroll' }
-    : { maxHeight: '40vh', overflowY: 'scroll' };
+    ? { maxHeight: '70vh', overflowY: 'scroll' }
+    : { maxHeight: '30vh', overflowY: 'scroll' };
 
   const goToPrevious = () => {
     setCurrentQuestionIndex((prevState) => prevState - 1);
@@ -126,7 +126,19 @@ export default function QuizHookForm(props) {
             <Grid item md={4}>
               <Card variant="outlined">
                 <Stack direction="column">
-                  <Box>Colors</Box>
+                  <Box className="mb-2">
+                    <span className="text-lg font-bold">Questions</span>
+                    <Box className="flex items-center">
+                      <div className="bg-green-200 rounded-full h-4 w-4 mr-2" />
+                      <span>Correct Answer</span>
+                      <div className="bg-red-200 rounded-full h-4 w-4 mx-2" />
+                      <span>Wrong Answer</span>
+                    </Box>
+                    <Box className="flex items-center">
+                      <div className="bg-gray-200 rounded-full h-4 w-4 mr-2" />
+                      <span>Unattempted</span>
+                    </Box>
+                  </Box>
                   <Box
                     style={submitButtonScrollStyles}
                     sx={{

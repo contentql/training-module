@@ -39,8 +39,9 @@ export default function ElearningCourseDetailsQuestionList({
       expanded={expanded}
       onChange={onExpanded}
       sx={{
+        bgcolor: 'grey.300',
         [`&.${accordionClasses.expanded}`]: {
-          bgcolor: 'inherit',
+          bgcolor: 'grey.300',
           color: 'inherit',
         },
       }}
