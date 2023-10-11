@@ -29,7 +29,7 @@ export default function QuizForm(props) {
   const handleClickOpen = () => {
     setOpen(true);
   };
-  const handleClose = () => {
+  const handleModalClose = () => {
     setOpen(false);
   };
 
@@ -42,9 +42,9 @@ export default function QuizForm(props) {
     '& .MuiDialogActions-root': {
       padding: theme.spacing(1),
     },
-    '& .MuiDialog-container>.MuiPaper-root': mdUp && {
-      minWidth: '600px',
-    },
+    // '& .MuiDialog-container>.MuiPaper-root': mdUp && {
+    //   minWidth: '600px',
+    // },
   }));
 
   const bootstrapDialogProperties = {
@@ -61,13 +61,13 @@ export default function QuizForm(props) {
         Start Test
       </ElearningCourseDetailsLessonItem>
       <BootstrapDialog
-        onClose={handleClose}
+        fullScreen
         aria-labelledby="customized-dialog-title"
         open={open}
         maxWidth="lg"
         {...(!mdUp && bootstrapDialogProperties)}
       >
-        <QuizHookForm questions={questions} />
+        <QuizHookForm questions={questions} handleModalClose={handleModalClose} />
       </BootstrapDialog>
     </>
   );

@@ -57,12 +57,12 @@ export default function QuestionCard(props) {
   };
 
   const handleSubmit = () => {
-    submitAnswer(value);
+    submitAnswer(questionNumber - 1, value);
     setValue(null);
   };
 
   return (
-    <Box>
+    <Box className="w-full h-full pb-10 md:pb-0 md:px-5" md={7}>
       <Card variant="outlined">
         <CardContent>
           <Typography variant="h5" component="div">
@@ -117,7 +117,7 @@ export default function QuestionCard(props) {
               variant="outlined"
               size="small"
             >
-              {islastQuestion ? 'Submit Quiz' : 'Submit & Next'}
+              Submit & Next
             </Button>
           ) : (
             <Button onClick={handleNext} className="w-1/2" variant="outlined" size="small">
