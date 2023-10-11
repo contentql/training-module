@@ -10,7 +10,7 @@ import Typography from '@mui/material/Typography';
 
 import Image from 'src/components/image';
 import Label from 'src/components/label';
-import { paths } from 'src/routes/paths';
+// import { paths } from 'src/routes/paths';
 import Iconify from 'src/components/iconify';
 import { RouterLink } from 'src/routes/components';
 import TextMaxLine from 'src/components/text-max-line';
@@ -108,7 +108,7 @@ export default function ElearningCourseItem({ course, vertical, id }) {
           </Stack>
 
           <Stack spacing={1}>
-            <Link component={RouterLink} href={`${id}`} color="inherit">
+            <Link component={RouterLink} href={`/courses/${id}`} color="inherit">
               <TextMaxLine variant="h6" line={1}>
                 {slug}
               </TextMaxLine>

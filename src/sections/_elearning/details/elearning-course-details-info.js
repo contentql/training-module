@@ -7,11 +7,20 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
 import Iconify from 'src/components/iconify';
+import { useCartStore } from 'src/states/cart';
 import { fCurrency } from 'src/utils/format-number';
 
 // ----------------------------------------------------------------------
 
 export default function ElearningCourseDetailsInfo({ course }) {
+  const [cart, addToCart, removeFromCart] = useCartStore((state) => [
+    state.cart,
+    state.addToCart,
+    state.removeFromCart,
+  ]);
+
+  const isCartContainCourse = cart.filter((cartItem) => cartItem.id === course.id).length === 0;
+
   return (
     <Card sx={{ p: 3, borderRadius: 2 }}>
       <Stack spacing={3}>
@@ -70,16 +79,20 @@ export default function ElearningCourseDetailsInfo({ course }) {
         <Button variant="contained" size="large" color="inherit">
           Enrol Now
         </Button>
+
+        <Button
+          variant={isCartContainCourse ? 'contained' : 'outlined'}
+          size="large"
+          color="inherit"
+          onClick={() => (isCartContainCourse ? addToCart(course) : removeFromCart(course))}
+        >
+          {isCartContainCourse ? 'Add to cart' : 'Remove from cart'}
+        </Button>
       </Stack>
     </Card>
   );
 }
 
 ElearningCourseDetailsInfo.propTypes = {
-  course: PropTypes.shape({
-    lessons: PropTypes.array,
-    price: PropTypes.number,
-    priceSale: PropTypes.number,
-    resources: PropTypes.number,
-  }),
+  course: PropTypes.object,
 };
