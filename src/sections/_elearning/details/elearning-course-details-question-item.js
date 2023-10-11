@@ -1,5 +1,5 @@
+import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { useState, useCallback } from 'react';
 
 import Typography from '@mui/material/Typography';
 import AccordionDetails from '@mui/material/AccordionDetails';
