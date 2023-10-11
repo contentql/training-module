@@ -111,17 +111,6 @@ export default function QuizHookForm(props) {
           <Result restartQuiz={restartQuiz} answers={answers} questions={questions} />
         ) : (
           <Grid direction={{ xs: 'column', md: 'row' }} container className="h-full">
-            <Grid item md={8}>
-              <QuestionCard
-                question={currentQuestion}
-                questionNumber={currentQuestionIndex + 1}
-                submitAnswer={submitAnswer}
-                islastQuestion={currentQuestionIndex + 1 === questions.length}
-                goToPrevious={goToPrevious}
-                selectedValue={answers[currentQuestionIndex] || null}
-                goToNext={goToNext}
-              />
-            </Grid>
             <Grid item md={4}>
               <Card variant="outlined">
                 <Stack direction="column" className="w-full">
@@ -137,6 +126,18 @@ export default function QuizHookForm(props) {
                   <ElearningCourseDetailsQuestionSubmit answers={answers} submitQuiz={submitQuiz} />
                 </Stack>
               </Card>
+            </Grid>
+
+            <Grid item md={8}>
+              <QuestionCard
+                question={currentQuestion}
+                questionNumber={currentQuestionIndex + 1}
+                submitAnswer={submitAnswer}
+                islastQuestion={currentQuestionIndex + 1 === questions.length}
+                goToPrevious={goToPrevious}
+                selectedValue={answers[currentQuestionIndex] || null}
+                goToNext={goToNext}
+              />
             </Grid>
           </Grid>
         )}
