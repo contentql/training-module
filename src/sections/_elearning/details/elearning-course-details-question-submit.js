@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import Backdrop from '@mui/material/Backdrop';
-import Typography from '@mui/material/Typography';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -16,7 +15,7 @@ import AccordionSummary, { accordionSummaryClasses } from '@mui/material/Accordi
 
 // ----------------------------------------------------------------------
 
-export default function ElearningCourseDetailsQuestionSubmit({ answers, submitQuiz }) {
+export default function ElearningCourseDetailsQuestionSubmit({ areAllAnswersMarked, submitQuiz }) {
   const [popupOpen, setPopupOpen] = useState(false);
   const handlePopupToggle = () => {
     setPopupOpen((prev) => !prev);
@@ -43,19 +42,25 @@ export default function ElearningCourseDetailsQuestionSubmit({ answers, submitQu
           },
         }}
       >
-        {/* <Iconify width={24} icon="formkit:submit" /> */}
-
-        <Button onClick={submitQuiz} variant="outlined" color="success">
-          Submit Quiz
-          {answers[answers.length - 1] && (
-            <div className="absolute top-50 left-50">
-              <span className="relative flex h-4 w-4">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75" />
-                {/* <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500" /> */}
-              </span>
-            </div>
+        <div className="flex flex-col">
+          {!areAllAnswersMarked && (
+            <div className="text-xs text-red-600">Please submit all questions</div>
           )}
-        </Button>
+
+          {/* <Iconify width={24} icon="formkit:submit" /> */}
+
+          <Button variant="outlined" color="success">
+            Submit Quiz
+            {areAllAnswersMarked && (
+              <div className="absolute top-50 left-50">
+                <span className="relative flex h-4 w-4">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75" />
+                  {/* <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500" /> */}
+                </span>
+              </div>
+            )}
+          </Button>
+        </div>
       </AccordionSummary>
 
       <Backdrop
@@ -85,6 +90,6 @@ export default function ElearningCourseDetailsQuestionSubmit({ answers, submitQu
 }
 
 ElearningCourseDetailsQuestionSubmit.propTypes = {
-  answers: PropTypes.array,
+  areAllAnswersMarked: PropTypes.bool,
   submitQuiz: PropTypes.func,
 };

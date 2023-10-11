@@ -29,6 +29,11 @@ export default function QuizHookForm(props) {
 
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState([...Array(questions.length)]);
+  const [areAllAnswersMarked, setAreAllAnswersMarked] = useState(false);
+  useEffect(() => {
+    if (answers.filter((answer) => answer === undefined).length === 0) setAreAllAnswersMarked(true);
+  }, [answers]);
+
   const [finishedQuiz, setFinishedQuiz] = useState(false);
   const currentQuestion = questions[currentQuestionIndex];
 
@@ -66,7 +71,7 @@ export default function QuizHookForm(props) {
 
   const restartQuiz = () => {
     setCurrentQuestionIndex(0);
-    setAnswers([]);
+    setAnswers([...Array(questions.length)]);
     setFinishedQuiz(false);
   };
 
@@ -110,7 +115,7 @@ export default function QuizHookForm(props) {
         {finishedQuiz ? (
           <Result restartQuiz={restartQuiz} answers={answers} questions={questions} />
         ) : (
-          <Grid direction={{ xs: 'column', md: 'row' }} container className="h-full">
+          <Grid direction={{ xs: 'column-reverse', md: 'row' }} container className="h-full">
             <Grid item md={4}>
               <Card variant="outlined">
                 <Stack direction="column" className="w-full">
@@ -123,7 +128,10 @@ export default function QuizHookForm(props) {
                       goToIndex={goToIndex}
                     />
                   ))}
-                  <ElearningCourseDetailsQuestionSubmit answers={answers} submitQuiz={submitQuiz} />
+                  <ElearningCourseDetailsQuestionSubmit
+                    areAllAnswersMarked={areAllAnswersMarked}
+                    submitQuiz={submitQuiz}
+                  />
                 </Stack>
               </Card>
             </Grid>
