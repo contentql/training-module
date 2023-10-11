@@ -16,6 +16,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 
 import Iconify from 'src/components/iconify';
+import { useResponsive } from 'src/hooks/use-responsive';
 import ElearningCourseDetailsQuestionList from 'src/sections/_elearning/details/elearning-course-details-question-item';
 import ElearningCourseDetailsQuestionSubmit from 'src/sections/_elearning/details/elearning-course-details-question-submit';
 
@@ -41,6 +42,9 @@ export default function QuizHookForm(props) {
   const handlePopupToggle = () => {
     setPopupOpen((prev) => !prev);
   };
+
+  const mdUp = useResponsive('up', 'md');
+  const maxHeightScroll = mdUp ? '80vh' : '40vh';
 
   const goToPrevious = () => {
     setCurrentQuestionIndex((prevState) => prevState - 1);
@@ -115,19 +119,26 @@ export default function QuizHookForm(props) {
         {finishedQuiz ? (
           <Result restartQuiz={restartQuiz} answers={answers} questions={questions} />
         ) : (
-          <Grid direction={{ xs: 'column-reverse', md: 'row' }} container className="h-full">
+          <Grid direction={{ xs: 'column-reverse', md: 'row' }} container>
             <Grid item md={4}>
               <Card variant="outlined">
-                <Stack direction="column" className="w-full">
-                  {questions.map((question, index) => (
-                    <ElearningCourseDetailsQuestionList
-                      key={question.id}
-                      question={question}
-                      answers={answers}
-                      index={index}
-                      goToIndex={goToIndex}
-                    />
-                  ))}
+                <Stack direction="column">
+                  <div
+                    className="overflow-y-scroll"
+                    style={{
+                      maxHeight: `${maxHeightScroll}`,
+                    }}
+                  >
+                    {questions.map((question, index) => (
+                      <ElearningCourseDetailsQuestionList
+                        key={question.id}
+                        question={question}
+                        answers={answers}
+                        index={index}
+                        goToIndex={goToIndex}
+                      />
+                    ))}
+                  </div>
                   <ElearningCourseDetailsQuestionSubmit
                     areAllAnswersMarked={areAllAnswersMarked}
                     submitQuiz={submitQuiz}

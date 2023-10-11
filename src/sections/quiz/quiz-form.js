@@ -18,7 +18,7 @@ export default function QuizForm(props) {
 
   const [open, setOpen] = useState(false);
 
-  const questions = shuffleArray(_questions).slice(0, Math.max(5, _questions.length / 2));
+  const questions = shuffleArray(_questions);
 
   questions.forEach((question) => {
     question.options = shuffleArray(question.options);
