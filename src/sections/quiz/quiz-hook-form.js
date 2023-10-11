@@ -3,6 +3,7 @@
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 
+import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
@@ -44,7 +45,9 @@ export default function QuizHookForm(props) {
   };
 
   const mdUp = useResponsive('up', 'md');
-  const maxHeightScroll = mdUp ? '80vh' : '40vh';
+  const submitButtonScrollStyles = mdUp
+    ? { maxHeight: '80vh', overflowY: 'scroll' }
+    : { maxHeight: '40vh', overflowY: 'scroll' };
 
   const goToPrevious = () => {
     setCurrentQuestionIndex((prevState) => prevState - 1);
@@ -119,14 +122,26 @@ export default function QuizHookForm(props) {
         {finishedQuiz ? (
           <Result restartQuiz={restartQuiz} answers={answers} questions={questions} />
         ) : (
-          <Grid direction={{ xs: 'column-reverse', md: 'row' }} container>
+          <Grid direction={{ xs: 'column-reverse', md: 'row' }} container className="h-full">
             <Grid item md={4}>
               <Card variant="outlined">
                 <Stack direction="column">
-                  <div
-                    className="overflow-y-scroll"
-                    style={{
-                      maxHeight: `${maxHeightScroll}`,
+                  <Box
+                    style={submitButtonScrollStyles}
+                    sx={{
+                      scrollbarWidth: 'thin',
+                      '&::-webkit-scrollbar': {
+                        width: '0.2em',
+                      },
+                      '&::-webkit-scrollbar-track': {
+                        background: '#f1f1f1',
+                      },
+                      '&::-webkit-scrollbar-thumb': {
+                        backgroundColor: '#888',
+                      },
+                      '&::-webkit-scrollbar-thumb:hover': {
+                        background: '#555',
+                      },
                     }}
                   >
                     {questions.map((question, index) => (
@@ -138,7 +153,7 @@ export default function QuizHookForm(props) {
                         goToIndex={goToIndex}
                       />
                     ))}
-                  </div>
+                  </Box>
                   <ElearningCourseDetailsQuestionSubmit
                     areAllAnswersMarked={areAllAnswersMarked}
                     submitQuiz={submitQuiz}
