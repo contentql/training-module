@@ -49,12 +49,11 @@ export default function ElearningCourseDetailsLessonList({ lessons, questions })
       </Typography>
 
       {lessons.map((lesson, index) => (
-        <>
+        <div key={lesson.id}>
           {index > 1 && lessons[index - 1].unLocked && !lesson.unLocked && (
             <Quiz _questions={questions} />
           )}
           <ElearningCourseDetailsLessonItem
-            key={lesson.id}
             lesson={lesson}
             expanded={expanded === lesson.id}
             onExpanded={handleExpandedLesson(lesson.id)}
@@ -63,7 +62,7 @@ export default function ElearningCourseDetailsLessonList({ lessons, questions })
               handleSelectedLesson(lesson);
             }}
           />
-        </>
+        </div>
       ))}
 
       <ElearningCourseDetailsLessonsDialog

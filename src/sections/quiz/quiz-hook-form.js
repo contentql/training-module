@@ -126,6 +126,7 @@ export default function QuizHookForm(props) {
             <Grid item md={4}>
               <Card variant="outlined">
                 <Stack direction="column">
+                  <Box>Colors</Box>
                   <Box
                     style={submitButtonScrollStyles}
                     sx={{

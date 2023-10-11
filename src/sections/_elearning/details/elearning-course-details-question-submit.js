@@ -29,7 +29,9 @@ export default function ElearningCourseDetailsQuestionSubmit({ areAllAnswersMark
           color: 'inherit',
         },
       }}
-      onClick={handlePopupToggle}
+      onClick={() => {
+        if (areAllAnswersMarked) handlePopupToggle();
+      }}
       className="flex justify-end align-center"
     >
       <AccordionSummary
@@ -44,12 +46,12 @@ export default function ElearningCourseDetailsQuestionSubmit({ areAllAnswersMark
       >
         <div className="flex flex-col">
           {!areAllAnswersMarked && (
-            <div className="text-xs text-red-600">Please submit all questions</div>
+            <div className="text-xs text-gray-400">Please submit all questions</div>
           )}
 
           {/* <Iconify width={24} icon="formkit:submit" /> */}
 
-          <Button variant="outlined" color="success">
+          <Button variant="outlined" color={areAllAnswersMarked ? 'success' : 'info'}>
             Submit Quiz
             {areAllAnswersMarked && (
               <div className="absolute top-50 left-50">

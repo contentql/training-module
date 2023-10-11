@@ -58,7 +58,7 @@ export default function ElearningCourseDetailsQuestionList({
           }}
           className={colors}
         >
-          <Iconify width={24} icon={playIcon} />
+          <img src="/icons/play.svg" alt="quiz" height={20} width={20} />
 
           <Typography
             variant="subtitle1"

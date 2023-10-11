@@ -56,8 +56,10 @@ export default function QuizForm(props) {
       <ElearningCourseDetailsLessonItem
         handleClickOpen={handleClickOpen}
         questionsLength={questions.length}
-        isTest="true"
+        isTest
+        quizIcon
       >
+        <img src="src/icons/note.svg" alt="quiz" height={20} width={20} />
         Start Test
       </ElearningCourseDetailsLessonItem>
       <BootstrapDialog
