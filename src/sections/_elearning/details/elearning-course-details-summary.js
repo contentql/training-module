@@ -8,14 +8,14 @@ import Typography from '@mui/material/Typography';
 
 import Iconify from 'src/components/iconify';
 
-import ElearningCourseDetailsLessonList from './elearning-course-details-lesson-list';
+import ElearningCourseDetailsUnitList from './elearning-course-details-unit-list';
 
 // ----------------------------------------------------------------------
 
 export default function ElearningCourseDetailsSummary({ course }) {
   return (
     <Stack spacing={5}>
-      <ElearningCourseDetailsLessonList lessons={course.lessons} questions={course.questions} />
+      <ElearningCourseDetailsUnitList units={course.units} />
 
       <Stack spacing={3}>
         <Typography variant="h4">What You Will Learn</Typography>
@@ -72,8 +72,7 @@ export default function ElearningCourseDetailsSummary({ course }) {
 ElearningCourseDetailsSummary.propTypes = {
   course: PropTypes.shape({
     learnList: PropTypes.array,
-    lessons: PropTypes.array,
+    units: PropTypes.array,
     skills: PropTypes.array,
-    questions: PropTypes.array,
   }),
 };

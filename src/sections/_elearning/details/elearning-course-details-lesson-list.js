@@ -5,7 +5,6 @@ import { useState, useCallback } from 'react';
 
 import Typography from '@mui/material/Typography';
 
-import Quiz from 'src/sections/quiz';
 import { useBoolean } from 'src/hooks/use-boolean';
 
 import ElearningCourseDetailsLessonItem from './elearning-course-details-lesson-item';
@@ -13,7 +12,7 @@ import ElearningCourseDetailsLessonsDialog from './elearning-course-details-less
 
 // ----------------------------------------------------------------------
 
-export default function ElearningCourseDetailsLessonList({ lessons, questions }) {
+export default function ElearningCourseDetailsLessonList({ lessons }) {
   const videoPlay = useBoolean();
 
   const [expanded, setExpanded] = useState(false);
@@ -44,25 +43,21 @@ export default function ElearningCourseDetailsLessonList({ lessons, questions })
 
   return (
     <div>
-      <Typography variant="h4" sx={{ mb: 3 }}>
+      {/* <Typography variant="h4" sx={{ mb: 3 }}>
         Lessons
-      </Typography>
+      </Typography> */}
 
       {lessons.map((lesson, index) => (
-        <div key={lesson.id}>
-          {index > 1 && lessons[index - 1].unLocked && !lesson.unLocked && (
-            <Quiz _questions={questions} />
-          )}
-          <ElearningCourseDetailsLessonItem
-            lesson={lesson}
-            expanded={expanded === lesson.id}
-            onExpanded={handleExpandedLesson(lesson.id)}
-            selected={selectedLesson?.id === lesson.id}
-            onSelected={() => {
-              handleSelectedLesson(lesson);
-            }}
-          />
-        </div>
+        <ElearningCourseDetailsLessonItem
+          key={lesson.id}
+          lesson={lesson}
+          expanded={expanded === lesson.id}
+          onExpanded={handleExpandedLesson(lesson.id)}
+          selected={selectedLesson?.id === lesson.id}
+          onSelected={() => {
+            handleSelectedLesson(lesson);
+          }}
+        />
       ))}
 
       <ElearningCourseDetailsLessonsDialog
@@ -83,5 +78,4 @@ export default function ElearningCourseDetailsLessonList({ lessons, questions })
 
 ElearningCourseDetailsLessonList.propTypes = {
   lessons: PropTypes.array,
-  questions: PropTypes.array,
 };

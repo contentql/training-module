@@ -22,7 +22,7 @@ export default function ElearningCourseDetailsQuestionList({
     if (answers[index]) setExpanded(!expanded);
   };
 
-  const playIcon = 'carbon:play';
+  // const playIcon = 'carbon:play';
   const isCorrectAnswer = answers[index] === question.correctAnswer;
 
   let colors = '';
