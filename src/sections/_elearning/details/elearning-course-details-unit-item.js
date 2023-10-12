@@ -40,7 +40,7 @@ export default function ElearningCourseDetailsUnitItem({ unit, index }) {
           },
         }}
       >
-        <img src="/icons/play.svg" alt="unit" />
+        <img src="/icons/book.svg" alt="unit" />
 
         <Typography
           variant="subtitle1"
