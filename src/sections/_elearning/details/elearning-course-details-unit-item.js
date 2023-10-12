@@ -13,7 +13,7 @@ import ElearningCourseDetailsLessonList from './elearning-course-details-lesson-
 
 // ----------------------------------------------------------------------
 
-export default function ElearningCourseDetailsLessonItem({ unit, index }) {
+export default function ElearningCourseDetailsUnitItem({ unit, index }) {
   const [expanded, setExpanded] = useState(index === 0);
 
   return (
@@ -31,7 +31,7 @@ export default function ElearningCourseDetailsLessonItem({ unit, index }) {
         sx={{
           px: 1,
           minHeight: 64,
-          [`& .${accordionSummaryClasses.content}`]: {
+          [`&.${accordionSummaryClasses.content}`]: {
             p: 0,
             m: 0,
           },
@@ -70,7 +70,7 @@ export default function ElearningCourseDetailsLessonItem({ unit, index }) {
   );
 }
 
-ElearningCourseDetailsLessonItem.propTypes = {
-  unit: PropTypes.array,
+ElearningCourseDetailsUnitItem.propTypes = {
+  unit: PropTypes.object,
   index: PropTypes.number,
 };
