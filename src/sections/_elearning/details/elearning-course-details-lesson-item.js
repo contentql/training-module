@@ -42,11 +42,11 @@ export default function ElearningCourseDetailsLessonItem({
           },
         }}
       >
-        <Iconify
-          width={24}
-          icon={!lesson.unLocked ? 'carbon:locked' : playIcon}
-          onClick={onSelected}
-        />
+        {lesson.unLocked ? (
+          <Iconify width={24} icon={playIcon} onClick={onSelected} />
+        ) : (
+          <img src="/icons/lock.svg" alt="lesson" />
+        )}
 
         <Typography
           variant="subtitle1"

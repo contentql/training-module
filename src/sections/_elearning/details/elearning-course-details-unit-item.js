@@ -40,7 +40,11 @@ export default function ElearningCourseDetailsUnitItem({ unit, index }) {
           },
         }}
       >
-        <img src="/icons/book.svg" alt="unit" />
+        {unit.unLocked ? (
+          <img src="/icons/book.svg" alt="unit" />
+        ) : (
+          <img src="/icons/lock.svg" alt="unit" />
+        )}
 
         <Typography
           variant="subtitle1"
