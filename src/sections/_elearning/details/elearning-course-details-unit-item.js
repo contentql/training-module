@@ -20,7 +20,6 @@ export default function ElearningCourseDetailsUnitItem({ unit, index }) {
     <Accordion
       expanded={expanded}
       onChange={() => setExpanded(!expanded)}
-      disabled={!unit.unLocked}
       sx={{
         [`&.${accordionClasses.expanded}`]: {
           borderRadius: 0,
@@ -40,11 +39,7 @@ export default function ElearningCourseDetailsUnitItem({ unit, index }) {
           },
         }}
       >
-        {unit.unLocked ? (
-          <img src="/icons/book.svg" alt="unit" />
-        ) : (
-          <img src="/icons/lock.svg" alt="unit" />
-        )}
+        <img src="/icons/book.svg" alt="unit" />
 
         <Typography
           variant="subtitle1"

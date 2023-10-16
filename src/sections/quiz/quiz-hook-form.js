@@ -118,7 +118,7 @@ export default function QuizHookForm(props) {
           </Dialog>
         </Backdrop>
       </IconButton>
-      <div className="p-5 h-full">
+      <div className="p-5">
         {finishedQuiz ? (
           <Result restartQuiz={restartQuiz} answers={answers} questions={questions} />
         ) : (

@@ -28,7 +28,6 @@ const UNITS = [...Array(5)].map((_, index) => ({
   title: 'UNIT TITLE',
   lessons: LESSONS(Math.floor(Math.random() * 7 + 1)),
   questions: _mock.questions,
-  unLocked: [0, 1, 2].includes(index),
 }));
 
 export const _courses = [...Array(12)].map((_, index) => {
