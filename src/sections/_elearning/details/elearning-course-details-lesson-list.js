@@ -3,8 +3,6 @@
 import PropTypes from 'prop-types';
 import { useState, useCallback } from 'react';
 
-import Typography from '@mui/material/Typography';
-
 import { useBoolean } from 'src/hooks/use-boolean';
 
 import ElearningCourseDetailsLessonItem from './elearning-course-details-lesson-item';

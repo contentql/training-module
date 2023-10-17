@@ -20,7 +20,6 @@ import Label from 'src/components/label';
 import Iconify from 'src/components/iconify';
 import { useBoolean } from 'src/hooks/use-boolean';
 import { PlayerDialog } from 'src/components/player';
-import { useWishlistStore } from 'src/states/wishlist';
 import { fShortenNumber } from 'src/utils/format-number';
 import { useResponsive } from 'src/hooks/use-responsive';
 import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
@@ -31,7 +30,6 @@ import ElearningCourseDetailsLessonsDialog from './elearning-course-details-less
 
 export default function ElearningCourseDetailsHero({ course }) {
   const {
-    id,
     slug,
     level,
     lessons,
@@ -47,16 +45,6 @@ export default function ElearningCourseDetailsHero({ course }) {
     totalStudents,
     teachers = [],
   } = course;
-
-  const [wishlist, addToWishlist, removeFromWishlist] = useWishlistStore((state) => [
-    state.wishlist,
-    state.addToWishlist,
-    state.removeFromWishlist,
-  ]);
-
-  const isCourseInWishlist = wishlist.filter((wishlistItem) => wishlistItem.id === id).length === 0;
-
-  const wishlistIcon = isCourseInWishlist ? 'solar:heart-linear' : 'solar:heart-bold';
 
   const [selectedLesson, setSelectedLesson] = useState(null);
 
@@ -283,7 +271,6 @@ export default function ElearningCourseDetailsHero({ course }) {
 
 ElearningCourseDetailsHero.propTypes = {
   course: PropTypes.shape({
-    id: PropTypes.string,
     slug: PropTypes.string,
     level: PropTypes.string,
     lessons: PropTypes.array,
