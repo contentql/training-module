@@ -185,7 +185,7 @@ export default function ElearningCourseDetailsHero({ course }) {
                       + {teachers.length} teachers
                     </Link>
                   )}
-                  <Stack className="ml-2 md:ml-12">
+                  {/* <Stack className="ml-2 md:ml-12">
                     <Button
                       variant="contained"
                       color="primary"
@@ -193,7 +193,7 @@ export default function ElearningCourseDetailsHero({ course }) {
                     >
                       Start Now
                     </Button>
-                  </Stack>
+                  </Stack> */}
                 </Stack>
 
                 <Divider sx={{ borderStyle: 'dashed' }} />
