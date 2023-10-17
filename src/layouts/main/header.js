@@ -18,6 +18,7 @@ import { paths } from 'src/routes/paths';
 import Iconify from 'src/components/iconify';
 import { useCartStore } from 'src/states/cart';
 import { RouterLink } from 'src/routes/components';
+import { useWishlistStore } from 'src/states/wishlist';
 import { useResponsive } from 'src/hooks/use-responsive';
 import { useOffSetTop } from 'src/hooks/use-off-set-top';
 
@@ -34,6 +35,8 @@ import { navConfig } from './config-navigation';
 
 export default function Header({ headerOnDark }) {
   const cart = useCartStore((state) => state.cart);
+
+  const wishlist = useWishlistStore((state) => state.wishlist);
 
   const theme = useTheme();
 
@@ -100,13 +103,16 @@ export default function Header({ headerOnDark }) {
               <SettingsButton />
             </Stack> */}
 
-            {mdUp && (
-              <Link component={RouterLink} href={paths.loginBackground}>
-                <Button variant="contained" color="inherit">
-                  Login
-                </Button>
-              </Link>
-            )}
+            <Link component={RouterLink} href={paths.eLearning.wishlist}>
+              <IconButton size="small" sx={{ p: 1.2 }}>
+                <Badge
+                  badgeContent={wishlist.length > 99 ? '99+' : wishlist.length}
+                  color="primary"
+                >
+                  <Iconify icon="solar:heart-linear" width={24} />
+                </Badge>
+              </IconButton>
+            </Link>
 
             <Link component={RouterLink} href={paths.eLearning.cart}>
               <IconButton size="small" sx={{ p: 1.2 }}>
@@ -115,6 +121,14 @@ export default function Header({ headerOnDark }) {
                 </Badge>
               </IconButton>
             </Link>
+
+            {mdUp && (
+              <Link component={RouterLink} href={paths.loginBackground}>
+                <Button variant="contained" color="inherit">
+                  Login
+                </Button>
+              </Link>
+            )}
           </Stack>
 
           {!mdUp && <NavMobile data={navConfig} />}
