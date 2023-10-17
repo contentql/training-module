@@ -9,6 +9,7 @@ import Typography from '@mui/material/Typography';
 import Iconify from 'src/components/iconify';
 import { useCartStore } from 'src/states/cart';
 import { fCurrency } from 'src/utils/format-number';
+import { useWishlistStore } from 'src/states/wishlist';
 
 // ----------------------------------------------------------------------
 
@@ -19,7 +20,18 @@ export default function ElearningCourseDetailsInfo({ course }) {
     state.removeFromCart,
   ]);
 
-  const isCartContainCourse = cart.filter((cartItem) => cartItem.id === course.id).length === 0;
+  const [wishlist, addToWishlist, removeFromWishlist] = useWishlistStore((state) => [
+    state.wishlist,
+    state.addToWishlist,
+    state.removeFromWishlist,
+  ]);
+
+  const isCourseInCart = cart.filter((cartItem) => cartItem.id === course.id).length === 0;
+
+  const isCourseInWishlist =
+    wishlist.filter((wishlistItem) => wishlistItem.id === course.id).length === 0;
+
+  const wishlistIcon = isCourseInWishlist ? 'solar:heart-linear' : 'solar:heart-bold';
 
   return (
     <Card sx={{ p: 3, borderRadius: 2 }}>
@@ -80,14 +92,35 @@ export default function ElearningCourseDetailsInfo({ course }) {
           Enrol Now
         </Button>
 
-        <Button
-          variant={isCartContainCourse ? 'contained' : 'outlined'}
-          size="large"
-          color="inherit"
-          onClick={() => (isCartContainCourse ? addToCart(course) : removeFromCart(course))}
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-around',
+            alignItems: 'center',
+          }}
         >
-          {isCartContainCourse ? 'Add to cart' : 'Remove from cart'}
-        </Button>
+          <Button
+            variant={isCourseInWishlist ? 'outlined' : 'contained'}
+            size="large"
+            color="inherit"
+            sx={{ width: '20%', marginRight: 1 }}
+            onClick={() =>
+              isCourseInWishlist ? addToWishlist(course) : removeFromWishlist(course)
+            }
+          >
+            <Iconify icon={wishlistIcon} color="red" />
+          </Button>
+
+          <Button
+            variant={isCourseInCart ? 'contained' : 'outlined'}
+            size="large"
+            color="inherit"
+            sx={{ width: '80%' }}
+            onClick={() => (isCourseInCart ? addToCart(course) : removeFromCart(course))}
+          >
+            {isCourseInCart ? 'Add to cart' : 'Remove from cart'}
+          </Button>
+        </Box>
       </Stack>
     </Card>
   );
