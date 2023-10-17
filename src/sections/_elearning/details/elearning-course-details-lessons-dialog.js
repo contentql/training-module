@@ -98,7 +98,7 @@ export default function ElearningCourseDetailsLessonsDialog({
             selected={selected}
             disabled={!lesson.unLocked}
             onClick={() => onSelectedLesson(lesson)}
-            sx={{ borderRadius: 1 }}
+            sx={{ borderRadius: 1, maxHeight: '6rem' }}
           >
             <Iconify
               width={24}

@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import Typography from '@mui/material/Typography';
@@ -5,24 +6,20 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import Accordion, { accordionClasses } from '@mui/material/Accordion';
 import AccordionSummary, { accordionSummaryClasses } from '@mui/material/AccordionSummary';
 
+import Quiz from 'src/sections/quiz';
 import Iconify from 'src/components/iconify';
+
+import ElearningCourseDetailsLessonList from './elearning-course-details-lesson-list';
 
 // ----------------------------------------------------------------------
 
-export default function ElearningCourseDetailsLessonItem({
-  lesson,
-  expanded,
-  selected,
-  onSelected,
-  onExpanded,
-}) {
-  const playIcon = selected ? 'carbon:pause-outline' : 'carbon:play';
+export default function ElearningCourseDetailsUnitItem({ unit, index }) {
+  const [expanded, setExpanded] = useState(index === 0);
 
   return (
     <Accordion
       expanded={expanded}
-      onChange={onExpanded}
-      disabled={!lesson.unLocked}
+      onChange={() => setExpanded(!expanded)}
       sx={{
         [`&.${accordionClasses.expanded}`]: {
           borderRadius: 0,
@@ -33,7 +30,7 @@ export default function ElearningCourseDetailsLessonItem({
         sx={{
           px: 1,
           minHeight: 64,
-          [`& .${accordionSummaryClasses.content}`]: {
+          [`&.${accordionSummaryClasses.content}`]: {
             p: 0,
             m: 0,
           },
@@ -42,11 +39,7 @@ export default function ElearningCourseDetailsLessonItem({
           },
         }}
       >
-        {lesson.unLocked ? (
-          <Iconify width={24} icon={playIcon} onClick={onSelected} />
-        ) : (
-          <img src="/icons/lock.svg" alt="lesson" />
-        )}
+        <img src="/icons/book.svg" alt="unit" />
 
         <Typography
           variant="subtitle1"
@@ -55,10 +48,8 @@ export default function ElearningCourseDetailsLessonItem({
             flexGrow: 1,
           }}
         >
-          {lesson.title}
+          {unit.title}
         </Typography>
-
-        <Typography variant="body2">{lesson.duration} m</Typography>
 
         <Iconify icon={expanded ? 'carbon:chevron-down' : 'carbon:chevron-right'} sx={{ ml: 2 }} />
       </AccordionSummary>
@@ -69,17 +60,16 @@ export default function ElearningCourseDetailsLessonItem({
           typography: 'body',
           color: 'text.secondary',
         }}
+        className="ml-10"
       >
-        {lesson.description}
+        <ElearningCourseDetailsLessonList lessons={unit.lessons} />
+        <Quiz _questions={unit.questions} />
       </AccordionDetails>
     </Accordion>
   );
 }
 
-ElearningCourseDetailsLessonItem.propTypes = {
-  expanded: PropTypes.bool,
-  lesson: PropTypes.object,
-  onExpanded: PropTypes.func,
-  onSelected: PropTypes.func,
-  selected: PropTypes.bool,
+ElearningCourseDetailsUnitItem.propTypes = {
+  unit: PropTypes.object,
+  index: PropTypes.number,
 };

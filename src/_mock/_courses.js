@@ -14,13 +14,20 @@ const TEACHERS = [...Array(5)].map((_, index) => ({
   ratingNumber: _mock.number.rating(index),
 }));
 
-const LESSONS = [...Array(13)].map((_, index) => ({
-  id: _mock.id(index),
-  duration: 60 - index,
-  title: `Lesson ${index + 1}`,
-  videoPath: _mock.video(index),
-  description: _mock.sentence(index),
-  unLocked: [0, 1, 2].includes(index),
+const LESSONS = (length) =>
+  [...Array(length)].map((_, index) => ({
+    id: _mock.id(index),
+    duration: 60 - index,
+    title: `Lesson ${index + 1}`,
+    videoPath: _mock.video(index),
+    description: _mock.sentence(index),
+    unLocked: [0, 1, 2].includes(index),
+  }));
+
+const UNITS = [...Array(5)].map((_, index) => ({
+  title: 'UNIT TITLE',
+  lessons: LESSONS(Math.floor(Math.random() * 7 + 1)),
+  questions: _mock.questions,
 }));
 
 export const _courses = [...Array(12)].map((_, index) => {
@@ -51,7 +58,8 @@ export const _courses = [...Array(12)].map((_, index) => {
     learnList,
     resources: 12,
     totalHours: 100,
-    lessons: LESSONS,
+    lessons: LESSONS(13),
+    units: UNITS,
     totalQuizzes: 100,
     totalReviews: 3458,
     teachers: TEACHERS,

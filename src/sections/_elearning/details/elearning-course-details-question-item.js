@@ -1,5 +1,5 @@
+import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { useState, useCallback } from 'react';
 
 import Typography from '@mui/material/Typography';
 import AccordionDetails from '@mui/material/AccordionDetails';
@@ -22,7 +22,7 @@ export default function ElearningCourseDetailsQuestionList({
     if (answers[index]) setExpanded(!expanded);
   };
 
-  const playIcon = 'carbon:play';
+  // const playIcon = 'carbon:play';
   const isCorrectAnswer = answers[index] === question.correctAnswer;
 
   let colors = '';
@@ -39,8 +39,9 @@ export default function ElearningCourseDetailsQuestionList({
       expanded={expanded}
       onChange={onExpanded}
       sx={{
+        bgcolor: 'grey.300',
         [`&.${accordionClasses.expanded}`]: {
-          bgcolor: 'inherit',
+          bgcolor: 'grey.300',
           color: 'inherit',
         },
       }}
@@ -58,7 +59,7 @@ export default function ElearningCourseDetailsQuestionList({
           }}
           className={colors}
         >
-          <Iconify width={24} icon={playIcon} />
+          <img src="/icons/play.svg" alt="quiz" height={20} width={20} />
 
           <Typography
             variant="subtitle1"

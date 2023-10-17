@@ -9,6 +9,7 @@ import Iconify from 'src/components/iconify';
 // ----------------------------------------------------------------------
 
 export default function ElearningCourseDetailsLessonItem({
+  quizIcon,
   handleClickOpen,
   questionsLength,
   isTest,
@@ -37,7 +38,11 @@ export default function ElearningCourseDetailsLessonItem({
           },
         }}
       >
-        <Iconify width={24} icon={icon} />
+        {quizIcon ? (
+          <img src="/icons/note.svg" alt="quiz" height={20} width={20} />
+        ) : (
+          <Iconify width={24} icon={icon} />
+        )}
 
         <Typography
           variant="subtitle1"
@@ -57,11 +62,8 @@ export default function ElearningCourseDetailsLessonItem({
   );
 }
 
-ElearningCourseDetailsLessonItem.defaultProps = {
-  isTest: false,
-};
-
 ElearningCourseDetailsLessonItem.propTypes = {
+  quizIcon: PropTypes.bool,
   handleClickOpen: PropTypes.func,
   questionsLength: PropTypes.number,
   isTest: PropTypes.bool,

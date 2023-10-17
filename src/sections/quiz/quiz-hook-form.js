@@ -3,6 +3,7 @@
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 
+import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
@@ -16,6 +17,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 
 import Iconify from 'src/components/iconify';
+import { useResponsive } from 'src/hooks/use-responsive';
 import ElearningCourseDetailsQuestionList from 'src/sections/_elearning/details/elearning-course-details-question-item';
 import ElearningCourseDetailsQuestionSubmit from 'src/sections/_elearning/details/elearning-course-details-question-submit';
 
@@ -29,6 +31,11 @@ export default function QuizHookForm(props) {
 
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState([...Array(questions.length)]);
+  const [areAllAnswersMarked, setAreAllAnswersMarked] = useState(false);
+  useEffect(() => {
+    if (answers.filter((answer) => answer === undefined).length === 0) setAreAllAnswersMarked(true);
+  }, [answers]);
+
   const [finishedQuiz, setFinishedQuiz] = useState(false);
   const currentQuestion = questions[currentQuestionIndex];
 
@@ -36,6 +43,11 @@ export default function QuizHookForm(props) {
   const handlePopupToggle = () => {
     setPopupOpen((prev) => !prev);
   };
+
+  const mdUp = useResponsive('up', 'md');
+  const submitButtonScrollStyles = mdUp
+    ? { maxHeight: '70vh', overflowY: 'scroll' }
+    : { maxHeight: '30vh', overflowY: 'scroll' };
 
   const goToPrevious = () => {
     setCurrentQuestionIndex((prevState) => prevState - 1);
@@ -66,7 +78,7 @@ export default function QuizHookForm(props) {
 
   const restartQuiz = () => {
     setCurrentQuestionIndex(0);
-    setAnswers([]);
+    setAnswers([...Array(questions.length)]);
     setFinishedQuiz(false);
   };
 
@@ -106,24 +118,59 @@ export default function QuizHookForm(props) {
           </Dialog>
         </Backdrop>
       </IconButton>
-      <div className="p-5 h-full">
+      <div className="p-5">
         {finishedQuiz ? (
           <Result restartQuiz={restartQuiz} answers={answers} questions={questions} />
         ) : (
-          <Grid direction={{ xs: 'column', md: 'row' }} container className="h-full">
+          <Grid direction={{ xs: 'column-reverse', md: 'row' }} container className="h-full">
             <Grid item md={4}>
               <Card variant="outlined">
-                <Stack direction="column" className="w-full">
-                  {questions.map((question, index) => (
-                    <ElearningCourseDetailsQuestionList
-                      key={question.id}
-                      question={question}
-                      answers={answers}
-                      index={index}
-                      goToIndex={goToIndex}
-                    />
-                  ))}
-                  <ElearningCourseDetailsQuestionSubmit answers={answers} submitQuiz={submitQuiz} />
+                <Stack direction="column">
+                  <Box className="mb-2">
+                    <span className="text-lg font-bold">Questions</span>
+                    <Box className="flex items-center">
+                      <div className="bg-green-200 rounded-full h-4 w-4 mr-2" />
+                      <span>Correct Answer</span>
+                      <div className="bg-red-200 rounded-full h-4 w-4 mx-2" />
+                      <span>Wrong Answer</span>
+                    </Box>
+                    <Box className="flex items-center">
+                      <div className="bg-gray-200 rounded-full h-4 w-4 mr-2" />
+                      <span>Unattempted</span>
+                    </Box>
+                  </Box>
+                  <Box
+                    style={submitButtonScrollStyles}
+                    sx={{
+                      scrollbarWidth: 'thin',
+                      '&::-webkit-scrollbar': {
+                        width: '0.2em',
+                      },
+                      '&::-webkit-scrollbar-track': {
+                        background: '#f1f1f1',
+                      },
+                      '&::-webkit-scrollbar-thumb': {
+                        backgroundColor: '#888',
+                      },
+                      '&::-webkit-scrollbar-thumb:hover': {
+                        background: '#555',
+                      },
+                    }}
+                  >
+                    {questions.map((question, index) => (
+                      <ElearningCourseDetailsQuestionList
+                        key={question.id}
+                        question={question}
+                        answers={answers}
+                        index={index}
+                        goToIndex={goToIndex}
+                      />
+                    ))}
+                  </Box>
+                  <ElearningCourseDetailsQuestionSubmit
+                    areAllAnswersMarked={areAllAnswersMarked}
+                    submitQuiz={submitQuiz}
+                  />
                 </Stack>
               </Card>
             </Grid>

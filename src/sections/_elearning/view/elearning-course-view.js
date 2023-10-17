@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { redirect } from 'next/navigation';
 
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
@@ -35,6 +36,10 @@ export default function ElearningCourseView({ courseId }) {
   const courseSimilar = _courses.slice(-3);
 
   const _mockCourse = _courses.filter((course) => course.id === courseId).at(0);
+
+  if (!_mockCourse) {
+    redirect('/not-found');
+  }
 
   useEffect(() => {
     const fakeLoading = async () => {
