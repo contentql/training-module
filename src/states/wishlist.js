@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-export const useCartStore = create(
+export const useWishlistStore = create(
   persist(
     (set) => ({
       wishlist: [],
