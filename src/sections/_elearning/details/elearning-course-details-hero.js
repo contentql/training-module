@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import Fab from '@mui/material/Fab';
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
+// import Button from '@mui/material/Button';
 import Avatar from '@mui/material/Avatar';
 import Divider from '@mui/material/Divider';
 import Container from '@mui/material/Container';
@@ -56,11 +56,11 @@ export default function ElearningCourseDetailsHero({ course }) {
 
   const videoPlay = useBoolean();
 
-  const handleSelectedLesson = useCallback((lesson) => {
-    if (lesson.unLocked) {
-      setSelectedLesson(lesson);
-    }
-  }, []);
+  // const handleSelectedLesson = useCallback((lesson) => {
+  //   if (lesson.unLocked) {
+  //     setSelectedLesson(lesson);
+  //   }
+  // }, []);
 
   const handleClose = useCallback(() => {
     setSelectedLesson(null);

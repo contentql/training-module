@@ -2,13 +2,21 @@ import PropTypes from 'prop-types';
 
 import Stack from '@mui/material/Stack';
 import Dialog from '@mui/material/Dialog';
+import Divider from '@mui/material/Divider';
+import Grid from '@mui/material/Unstable_Grid2';
+import Container from '@mui/material/Container';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemButton from '@mui/material/ListItemButton';
 
+import { _coursePosts } from 'src/_mock';
 import Player from 'src/components/player';
 import Iconify from 'src/components/iconify';
+import Markdown from 'src/components/markdown';
+
+import PostTags from '../../blog/common/post-tags';
+import PostSocialsShare from '../../blog/common/post-socials-share';
 
 // ----------------------------------------------------------------------
 
@@ -24,6 +32,8 @@ export default function ElearningCourseDetailsLessonsDialog({
   onPlay,
   onPause,
 }) {
+  const { title, description, duration, tags, content } = _coursePosts[0];
+
   const renderVideo = (
     <Stack
       alignItems="center"
@@ -31,7 +41,6 @@ export default function ElearningCourseDetailsLessonsDialog({
       sx={{
         width: 1,
         height: 1,
-        minHeight: { xs: 1, md: 0.8 },
         aspectRatio: 16 / 9,
       }}
     >
@@ -63,18 +72,47 @@ export default function ElearningCourseDetailsLessonsDialog({
     </Stack>
   );
 
-  const renderDescription = (
-    <Stack
-      spacing={1}
-      sx={{
-        p: 2,
-        width: 1,
-        height: 1,
-        aspectRatio: 16 / 9,
-      }}
-    >
-      <Typography>{selectedLesson?.description}</Typography>
-    </Stack>
+  const renderLesson = (
+    <Container className="overflow-y-scroll py-14">
+      <Stack
+        alignItems="center"
+        justifyContent="center"
+        sx={{ borderRadius: 2, overflow: 'hidden' }}
+      >
+        {renderVideo}
+      </Stack>
+
+      <Grid container spacing={3} justifyContent={{ md: 'center' }}>
+        <Grid xs={12} md={8}>
+          <Stack
+            spacing={3}
+            sx={{
+              pb: 6,
+              textAlign: 'center',
+              pt: { xs: 6, md: 10 },
+            }}
+          >
+            <Typography variant="body2" sx={{ color: 'text.disabled' }}>
+              {duration}
+            </Typography>
+
+            <Typography variant="h2" component="h1">
+              {title}
+            </Typography>
+
+            <Typography variant="h5">{description}</Typography>
+          </Stack>
+
+          <Divider sx={{ mb: 6 }} />
+
+          <Markdown content={content} firstLetter />
+
+          <PostTags tags={tags} />
+
+          <PostSocialsShare />
+        </Grid>
+      </Grid>
+    </Container>
   );
 
   const renderList = (
@@ -83,7 +121,7 @@ export default function ElearningCourseDetailsLessonsDialog({
       sx={{
         p: 1,
         overflowY: 'scroll',
-        width: { xs: 1, md: 0.4 },
+        width: { xs: 1, md: 0.5 },
         height: 1,
       }}
     >
@@ -156,12 +194,6 @@ export default function ElearningCourseDetailsLessonsDialog({
           right: 24,
           zIndex: 9,
           position: 'absolute',
-          backgroundColor: 'white',
-          opacity: 0.3,
-          '&:hover': {
-            backgroundColor: 'white',
-            opacity: 0.8,
-          },
         }}
       >
         <Iconify icon="carbon:close" />
@@ -169,11 +201,7 @@ export default function ElearningCourseDetailsLessonsDialog({
 
       <Stack direction={{ xs: 'column-reverse', md: 'row' }} sx={{ height: 1 }}>
         {renderList}
-
-        <Stack className="overflow-y-auto">
-          {renderVideo}
-          {renderDescription}
-        </Stack>
+        {renderLesson}
       </Stack>
     </Dialog>
   );

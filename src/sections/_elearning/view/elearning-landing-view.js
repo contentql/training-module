@@ -1,11 +1,11 @@
 'use client';
 
-import { _courses, _coursePosts, _testimonials } from 'src/_mock';
+import { _courses, _testimonials } from 'src/_mock';
 
 import ElearningNewsletter from '../elearning-newsletter';
 import ElearningLandingHero from '../landing/elearning-landing-hero';
 import ElearningTestimonial from '../testimonial/elearning-testimonial';
-import ElearningLatestPosts from '../../blog/elearning/elearning-latest-posts';
+// import ElearningLatestPosts from '../../blog/elearning/elearning-latest-posts';
 import ElearningLandingFeaturedCourses from '../landing/elearning-landing-featured-courses';
 
 // ----------------------------------------------------------------------
