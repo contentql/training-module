@@ -17,6 +17,7 @@ import Markdown from 'src/components/markdown';
 
 import PostTags from '../../blog/common/post-tags';
 import PostSocialsShare from '../../blog/common/post-socials-share';
+import { CloseIcon } from 'yet-another-react-lightbox';
 
 // ----------------------------------------------------------------------
 
@@ -196,7 +197,7 @@ export default function ElearningCourseDetailsLessonsDialog({
           position: 'absolute',
         }}
       >
-        <Iconify icon="carbon:close" />
+        <Iconify icon="carbon:close" width="25px" height="25px" />
       </IconButton>
 
       <Stack direction={{ xs: 'column-reverse', md: 'row' }} sx={{ height: 1 }}>
