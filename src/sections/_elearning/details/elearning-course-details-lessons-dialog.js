@@ -9,15 +9,16 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemButton from '@mui/material/ListItemButton';
+import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 
 import { _coursePosts } from 'src/_mock';
 import Player from 'src/components/player';
 import Iconify from 'src/components/iconify';
 import Markdown from 'src/components/markdown';
+import { useResponsive } from 'src/hooks/use-responsive';
 
 import PostTags from '../../blog/common/post-tags';
 import PostSocialsShare from '../../blog/common/post-socials-share';
-import { CloseIcon } from 'yet-another-react-lightbox';
 
 // ----------------------------------------------------------------------
 
@@ -34,6 +35,8 @@ export default function ElearningCourseDetailsLessonsDialog({
   onPause,
 }) {
   const { title, description, duration, tags, content } = _coursePosts[0];
+
+  const mdUp = useResponsive('up', 'md');
 
   const renderVideo = (
     <Stack
@@ -116,13 +119,75 @@ export default function ElearningCourseDetailsLessonsDialog({
     </Container>
   );
 
-  const renderList = (
+  const renderListDesktop = (
     <Stack
       spacing={0.5}
       sx={{
         p: 1,
         overflowY: 'scroll',
-        width: { xs: 1, md: 0.5 },
+        width: { xs: 1, md: '44%' },
+        height: 1,
+      }}
+    >
+      {lessons?.map((lesson) => {
+        const selected = selectedLesson?.id === lesson.id;
+
+        const playIcon = selected ? 'carbon:pause-outline' : 'carbon:play';
+
+        return (
+          <ListItemButton
+            key={lesson.id}
+            selected={selected}
+            disabled={!lesson.unLocked}
+            onClick={() => onSelectedLesson(lesson)}
+            sx={{ borderRadius: 1, maxHeight: '6rem' }}
+          >
+            <IconButton>
+              <Iconify
+                width="20px"
+                height="20px"
+                icon={!lesson.unLocked ? 'carbon:locked' : playIcon}
+                sx={{
+                  mr: 2,
+                  ...(selected && {
+                    color: 'primary.main',
+                  }),
+                  ...(!lesson.unLocked && {
+                    color: 'text.disabled',
+                  }),
+                }}
+              />
+            </IconButton>
+
+            <ListItemText
+              primary={lesson.title}
+              secondary={lesson.description}
+              primaryTypographyProps={{
+                typography: 'subtitle1',
+                sx: {
+                  ...(selected && {
+                    color: 'primary.main',
+                  }),
+                },
+              }}
+              secondaryTypographyProps={{
+                noWrap: true,
+                component: 'span',
+              }}
+            />
+          </ListItemButton>
+        );
+      })}
+    </Stack>
+  );
+
+  const renderListMobile = (
+    <Stack
+      spacing={0.5}
+      sx={{
+        p: 1,
+        overflowY: 'scroll',
+        width: 1,
         height: 1,
       }}
     >
@@ -201,7 +266,7 @@ export default function ElearningCourseDetailsLessonsDialog({
       </IconButton>
 
       <Stack direction={{ xs: 'column-reverse', md: 'row' }} sx={{ height: 1 }}>
-        {renderList}
+        {mdUp ? renderListDesktop : renderListMobile}
         {renderLesson}
       </Stack>
     </Dialog>
