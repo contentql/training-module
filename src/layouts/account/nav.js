@@ -13,6 +13,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import { _mock } from 'src/_mock';
 import { paths } from 'src/routes/paths';
 import Iconify from 'src/components/iconify';
+import { useUserStore } from 'src/states/user';
 import { useActiveLink } from 'src/routes/hooks';
 import { RouterLink } from 'src/routes/components';
 import TextMaxLine from 'src/components/text-max-line';
@@ -23,34 +24,36 @@ import { useResponsive } from 'src/hooks/use-responsive';
 const navigations = [
   {
     title: 'Personal Info',
-    path: paths.eCommerce.account.personal,
+    path: paths.eLearning.account.personal,
     icon: <Iconify icon="carbon:user" />,
   },
   {
     title: 'Wishlist',
-    path: paths.eCommerce.account.wishlist,
+    path: paths.eLearning.account.wishlist,
     icon: <Iconify icon="carbon:favorite" />,
   },
-  {
-    title: 'Vouchers',
-    path: paths.eCommerce.account.vouchers,
-    icon: <Iconify icon="carbon:cut-out" />,
-  },
+  // {
+  //   title: 'Vouchers',
+  //   path: paths.eLearning.account.vouchers,
+  //   icon: <Iconify icon="carbon:cut-out" />,
+  // },
   {
     title: 'Orders',
-    path: paths.eCommerce.account.orders,
+    path: paths.eLearning.account.orders,
     icon: <Iconify icon="carbon:document" />,
   },
-  {
-    title: 'Payment',
-    path: paths.eCommerce.account.payment,
-    icon: <Iconify icon="carbon:purchase" />,
-  },
+  // {
+  //   title: 'Payment',
+  //   path: paths.eLearning.account.payment,
+  //   icon: <Iconify icon="carbon:purchase" />,
+  // },
 ];
 
 // ----------------------------------------------------------------------
 
 export default function Nav({ open, onClose }) {
+  const logout = useUserStore((state) => state.logout);
+
   const mdUp = useResponsive('up', 'md');
 
   const renderContent = (
@@ -68,7 +71,7 @@ export default function Nav({ open, onClose }) {
       <Stack spacing={2} sx={{ p: 3, pb: 2 }}>
         <Stack spacing={2} direction="row" alignItems="center">
           <Avatar src={_mock.image.avatar(0)} sx={{ width: 64, height: 64 }} />
-          <Stack
+          {/* <Stack
             direction="row"
             alignItems="center"
             sx={{
@@ -79,7 +82,7 @@ export default function Nav({ open, onClose }) {
           >
             <Iconify icon="carbon:edit" sx={{ mr: 1 }} />
             Change photo
-          </Stack>
+          </Stack> */}
         </Stack>
 
         <Stack spacing={0.5}>
@@ -109,6 +112,7 @@ export default function Nav({ open, onClose }) {
             height: 44,
             borderRadius: 1,
           }}
+          onClick={logout}
         >
           <ListItemIcon>
             <Iconify icon="carbon:logout" />

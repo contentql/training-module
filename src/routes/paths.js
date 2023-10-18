@@ -47,6 +47,14 @@ export const paths = {
     checkout: '/checkout',
     purchaseCompleted: '/purchase-completed',
     wishlist: '/wishlist',
+    account: {
+      root: `/account`,
+      personal: `/account/personal`,
+      wishlist: `/account/wishlist`,
+      vouchers: `/account/vouchers`,
+      orders: `/account/orders`,
+      payment: `/account/payment`,
+    },
   },
   // E-commerce
   eCommerce: {
