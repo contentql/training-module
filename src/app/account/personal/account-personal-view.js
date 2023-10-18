@@ -2,31 +2,33 @@
 
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm, 
+  // Controller
+ } from 'react-hook-form';
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
-import Avatar from '@mui/material/Avatar';
+// import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import LoadingButton from '@mui/lab/LoadingButton';
 import InputAdornment from '@mui/material/InputAdornment';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+// import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
-import { _mock } from 'src/_mock';
-import { countries } from 'src/assets/data';
+// import { _mock } from 'src/_mock';
+// import { countries } from 'src/assets/data';
 import Iconify from 'src/components/iconify';
 import { useBoolean } from 'src/hooks/use-boolean';
 import FormProvider, {
-  RHFSelect,
+  // RHFSelect,
   RHFTextField,
-  RHFRadioGroup,
-  RHFAutocomplete,
+  // RHFRadioGroup,
+  // RHFAutocomplete,
 } from 'src/components/hook-form';
 
 // ----------------------------------------------------------------------
 
-const GENDER_OPTIONS = ['Male', 'Female', 'Other'];
+// const GENDER_OPTIONS = ['Male', 'Female', 'Other'];
 
 // ----------------------------------------------------------------------
 
@@ -69,7 +71,7 @@ export default function AccountPersonalView() {
   });
 
   const {
-    reset,
+    // reset,
     handleSubmit,
     formState: { isSubmitting },
   } = methods;
