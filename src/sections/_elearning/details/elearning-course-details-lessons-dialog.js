@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import Stack from '@mui/material/Stack';
@@ -37,6 +38,12 @@ export default function ElearningCourseDetailsLessonsDialog({
   const { title, description, duration, tags, content } = _coursePosts[0];
 
   const mdUp = useResponsive('up', 'md');
+
+  const [drawerOpen, setDrawerOpen] = useState(false);
+
+  const toggleDrawer = (value) => {
+    setDrawerOpen(value);
+  };
 
   const renderVideo = (
     <Stack
@@ -182,62 +189,109 @@ export default function ElearningCourseDetailsLessonsDialog({
   );
 
   const renderListMobile = (
-    <Stack
-      spacing={0.5}
-      sx={{
-        p: 1,
-        overflowY: 'scroll',
-        width: 1,
-        height: 1,
+    <SwipeableDrawer
+      anchor="bottom"
+      open={drawerOpen}
+      onClose={() => toggleDrawer(false)}
+      onOpen={() => toggleDrawer(true)}
+      swipeAreaWidth={56}
+      ModalProps={{
+        keepMounted: true,
+        style: { zIndex: 1300 },
       }}
+      sx={{ '.MuiDrawer-paper': { height: '60%', overflow: 'visible' } }}
     >
-      {lessons?.map((lesson) => {
-        const selected = selectedLesson?.id === lesson.id;
+      <Stack
+        sx={{
+          position: 'absolute',
+          top: -56,
+          borderTopLeftRadius: 8,
+          borderTopRightRadius: 8,
+          visibility: 'visible',
+          right: 0,
+          left: 0,
+        }}
+      >
+        <IconButton
+          sx={{
+            alignSelf: 'center',
+            width: 40,
+            height: 40,
+            borderRadius: 3,
+            top: 8,
+            background: 'white',
+          }}
+          onClick={() => toggleDrawer(false)}
+          className="animate-bounce"
+        >
+          <Iconify
+            icon={drawerOpen ? 'carbon:arrow-down' : 'carbon:arrow-up'}
+            width="25px"
+            height="25px"
+          />
+        </IconButton>
+      </Stack>
+      <Stack
+        spacing={0.5}
+        sx={{
+          p: 1,
+          pt: 2,
+          overflowY: 'scroll',
+          width: 1,
+          height: 1,
+        }}
+      >
+        {lessons?.map((lesson) => {
+          const selected = selectedLesson?.id === lesson.id;
 
-        const playIcon = selected ? 'carbon:pause-outline' : 'carbon:play';
+          const playIcon = selected ? 'carbon:pause-outline' : 'carbon:play';
 
-        return (
-          <ListItemButton
-            key={lesson.id}
-            selected={selected}
-            disabled={!lesson.unLocked}
-            onClick={() => onSelectedLesson(lesson)}
-            sx={{ borderRadius: 1, maxHeight: '6rem' }}
-          >
-            <Iconify
-              width={24}
-              icon={!lesson.unLocked ? 'carbon:locked' : playIcon}
-              sx={{
-                mr: 2,
-                ...(selected && {
-                  color: 'primary.main',
-                }),
-                ...(!lesson.unLocked && {
-                  color: 'text.disabled',
-                }),
-              }}
-            />
+          return (
+            <ListItemButton
+              key={lesson.id}
+              selected={selected}
+              disabled={!lesson.unLocked}
+              onClick={() => onSelectedLesson(lesson)}
+              sx={{ borderRadius: 1, maxHeight: '6rem' }}
+            >
+              <IconButton>
+                <Iconify
+                  width="16px"
+                  height="16px"
+                  icon={!lesson.unLocked ? 'carbon:locked' : playIcon}
+                  sx={{
+                    mr: 2,
+                    ...(selected && {
+                      color: 'primary.main',
+                    }),
+                    ...(!lesson.unLocked && {
+                      color: 'text.disabled',
+                    }),
+                  }}
+                />
+              </IconButton>
 
-            <ListItemText
-              primary={lesson.title}
-              secondary={lesson.description}
-              primaryTypographyProps={{
-                typography: 'subtitle1',
-                sx: {
-                  ...(selected && {
-                    color: 'primary.main',
-                  }),
-                },
-              }}
-              secondaryTypographyProps={{
-                noWrap: true,
-                component: 'span',
-              }}
-            />
-          </ListItemButton>
-        );
-      })}
-    </Stack>
+              <ListItemText
+                primary={lesson.title}
+                secondary={lesson.description}
+                primaryTypographyProps={{
+                  typography: 'subtitle1',
+                  sx: {
+                    ...(selected && {
+                      color: 'primary.main',
+                    }),
+                  },
+                }}
+                secondaryTypographyProps={{
+                  noWrap: true,
+                  component: 'span',
+                }}
+              />
+            </ListItemButton>
+          );
+        })}
+      </Stack>
+    </SwipeableDrawer>
   );
 
   return (
@@ -257,7 +311,7 @@ export default function ElearningCourseDetailsLessonsDialog({
         onClick={onClose}
         sx={{
           top: 6,
-          right: 24,
+          right: { xs: 4, md: 24 },
           zIndex: 9,
           position: 'absolute',
         }}
