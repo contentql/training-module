@@ -5,17 +5,20 @@ import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
 import Badge from '@mui/material/Badge';
 import Button from '@mui/material/Button';
+import Avatar from '@mui/material/Avatar';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import { useTheme } from '@mui/material/styles';
 import Container from '@mui/material/Container';
 import IconButton from '@mui/material/IconButton';
 
+import { _mock } from 'src/_mock';
 import { bgBlur } from 'src/theme/css';
 import Logo from 'src/components/logo';
 import { paths } from 'src/routes/paths';
 // import Label from 'src/components/label';
 import Iconify from 'src/components/iconify';
+import { useUserStore } from 'src/states/user';
 import { useCartStore } from 'src/states/cart';
 import { RouterLink } from 'src/routes/components';
 import { useWishlistStore } from 'src/states/wishlist';
@@ -34,6 +37,8 @@ import { navConfig } from './config-navigation';
 // ----------------------------------------------------------------------
 
 export default function Header({ headerOnDark }) {
+  const [user, updateUser] = useUserStore((state) => [state.user, state.updateUser]);
+
   const cart = useCartStore((state) => state.cart);
 
   const wishlist = useWishlistStore((state) => state.wishlist);
@@ -103,7 +108,7 @@ export default function Header({ headerOnDark }) {
               <SettingsButton />
             </Stack> */}
 
-            <Link component={RouterLink} href={paths.eLearning.wishlist}>
+            <Link component={RouterLink} href={paths.eLearning.account.wishlist}>
               <IconButton size="small" sx={{ p: 1.2 }}>
                 <Badge
                   badgeContent={wishlist.length > 99 ? '99+' : wishlist.length}
@@ -123,11 +128,23 @@ export default function Header({ headerOnDark }) {
             </Link>
 
             {mdUp && (
-              <Link component={RouterLink} href={paths.loginBackground}>
-                <Button variant="contained" color="inherit">
-                  Login
-                </Button>
-              </Link>
+              <>
+                {user ? (
+                  <Link component={RouterLink} href={paths.eLearning.account.personal}>
+                    <Avatar src={_mock.image.avatar(0)} sx={{ width: 40, height: 40 }} />
+                  </Link>
+                ) : (
+                  // <Link component={RouterLink} href={paths.loginBackground}>
+                  <Button
+                    variant="contained"
+                    color="inherit"
+                    onClick={() => updateUser({ name: 'Name' })}
+                  >
+                    Login
+                  </Button>
+                  // </Link>
+                )}
+              </>
             )}
           </Stack>
 

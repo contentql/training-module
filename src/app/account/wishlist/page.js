@@ -1,4 +1,4 @@
-import EcommerceAccountWishlistView from 'src/sections/_ecommerce/view/ecommerce-account-wishlist-view';
+import EcommerceWishlistView from 'src/sections/wishlist/wishlist-view';
 
 // ----------------------------------------------------------------------
 
@@ -7,5 +7,5 @@ export const metadata = {
 };
 
 export default function EcommerceAccountWishlistPage() {
-  return <EcommerceAccountWishlistView />;
+  return <EcommerceWishlistView />;
 }
