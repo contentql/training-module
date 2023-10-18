@@ -77,7 +77,7 @@ export default function Header({ headerOnDark }) {
         <Container
           sx={{ height: 1, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
         >
-          <Box sx={{ lineHeight: 0, position: 'relative' }}>
+          <Box sx={{ lineHeight: 0, position: 'relative', width: '20%' }}>
             <Logo />
 
             {/* <Link href="#">
@@ -101,7 +101,12 @@ export default function Header({ headerOnDark }) {
 
           {mdUp && <NavDesktop data={navConfig} />}
 
-          <Stack spacing={4} direction="row" alignItems="center" justifyContent="flex-end">
+          <Stack
+            spacing={{ xs: 0, md: 4 }}
+            direction="row"
+            alignItems="center"
+            justifyContent="flex-end"
+          >
             {/* <Stack spacing={1} direction="row" alignItems="center">
               <Searchbar />
 
@@ -146,9 +151,9 @@ export default function Header({ headerOnDark }) {
                 )}
               </>
             )}
-          </Stack>
 
-          {!mdUp && <NavMobile data={navConfig} />}
+            {!mdUp && <NavMobile data={navConfig} />}
+          </Stack>
         </Container>
       </Toolbar>
 
