@@ -2,12 +2,15 @@ import PropTypes from 'prop-types';
 
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
+import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
+import { paths } from 'src/routes/paths';
 import Iconify from 'src/components/iconify';
 import { useCartStore } from 'src/states/cart';
+import { RouterLink } from 'src/routes/components';
 import { fCurrency } from 'src/utils/format-number';
 import { useWishlistStore } from 'src/states/wishlist';
 
@@ -88,9 +91,11 @@ export default function ElearningCourseDetailsInfo({ course }) {
           </Stack>
         </Stack>
 
-        <Button variant="contained" size="large" color="inherit">
-          Enrol Now
-        </Button>
+        <Link component={RouterLink} href={`${paths.eLearning.checkout}/${course.id}`}>
+          <Button variant="contained" size="large" color="inherit" sx={{ width: 1 }}>
+            Enroll Now
+          </Button>
+        </Link>
 
         <Box
           sx={{

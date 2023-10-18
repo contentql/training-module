@@ -26,6 +26,7 @@ export default function ElearningCheckoutOrderSummary({
   discount,
   courses,
   loading,
+  isDelete,
 }) {
   return (
     <Stack
@@ -41,7 +42,7 @@ export default function ElearningCheckoutOrderSummary({
       {!!courses?.length && (
         <>
           {courses.map((course) => (
-            <CourseItem key={courses.id} course={course} />
+            <CourseItem key={courses.id} course={course} isDelete={isDelete} />
           ))}
 
           <Divider sx={{ borderStyle: 'dashed' }} />
@@ -99,11 +100,12 @@ ElearningCheckoutOrderSummary.propTypes = {
   subtotal: PropTypes.number,
   taxPercent: PropTypes.number,
   total: PropTypes.number,
+  isDelete: PropTypes.bool,
 };
 
 // ----------------------------------------------------------------------
 
-function CourseItem({ course, ...other }) {
+function CourseItem({ course, isDelete, ...other }) {
   const removeCourseFromCart = useCartStore((state) => state.removeFromCart);
 
   return (
@@ -130,9 +132,11 @@ function CourseItem({ course, ...other }) {
         </Typography>
       </Stack>
 
-      <IconButton onClick={() => removeCourseFromCart(course)}>
-        <Iconify icon="carbon:trash-can" />
-      </IconButton>
+      {isDelete && (
+        <IconButton onClick={() => removeCourseFromCart(course)}>
+          <Iconify icon="carbon:trash-can" />
+        </IconButton>
+      )}
     </Stack>
   );
 }
@@ -143,6 +147,7 @@ CourseItem.propTypes = {
     slug: PropTypes.string,
     price: PropTypes.number,
   }),
+  isDelete: PropTypes.bool,
 };
 
 // ----------------------------------------------------------------------
