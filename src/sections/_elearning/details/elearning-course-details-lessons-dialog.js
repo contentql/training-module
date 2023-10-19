@@ -38,6 +38,7 @@ export default function ElearningCourseDetailsLessonsDialog({
   onPlay,
   onPause,
   units,
+  pauseVideo,
 }) {
   const { title, description, duration, tags, content } = _coursePosts[0];
 
@@ -239,7 +240,7 @@ export default function ElearningCourseDetailsLessonsDialog({
             </ListItemButton>
           );
         })}
-        <Quiz _questions={unit.questions} />
+        <Quiz _questions={unit.questions} pauseVideo={pauseVideo} />
       </AccordionDetails>
     </Accordion>
   ));
@@ -359,4 +360,5 @@ ElearningCourseDetailsLessonsDialog.propTypes = {
   playing: PropTypes.bool,
   selectedLesson: PropTypes.object,
   units: PropTypes.array,
+  pauseVideo: PropTypes.func,
 };

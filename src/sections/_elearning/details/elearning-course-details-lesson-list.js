@@ -39,6 +39,10 @@ export default function ElearningCourseDetailsLessonList({ lessons, units }) {
     []
   );
 
+  const pauseVideo = useCallback(() => {
+    videoPlay.onFalse();
+  }, [videoPlay]);
+
   return (
     <div>
       {/* <Typography variant="h4" sx={{ mb: 3 }}>
@@ -69,6 +73,7 @@ export default function ElearningCourseDetailsLessonList({ lessons, units }) {
         onPlay={videoPlay.onTrue}
         onPause={videoPlay.onFalse}
         units={units}
+        pauseVideo={pauseVideo}
       />
     </div>
   );
