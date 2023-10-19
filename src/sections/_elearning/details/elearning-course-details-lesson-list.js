@@ -10,7 +10,7 @@ import ElearningCourseDetailsLessonsDialog from './elearning-course-details-less
 
 // ----------------------------------------------------------------------
 
-export default function ElearningCourseDetailsLessonList({ lessons }) {
+export default function ElearningCourseDetailsLessonList({ lessons, units }) {
   const videoPlay = useBoolean();
 
   const [expanded, setExpanded] = useState(false);
@@ -69,6 +69,7 @@ export default function ElearningCourseDetailsLessonList({ lessons }) {
         onEnded={videoPlay.onFalse}
         onPlay={videoPlay.onTrue}
         onPause={videoPlay.onFalse}
+        units={units}
       />
     </div>
   );
@@ -76,4 +77,5 @@ export default function ElearningCourseDetailsLessonList({ lessons }) {
 
 ElearningCourseDetailsLessonList.propTypes = {
   lessons: PropTypes.array,
+  units: PropTypes.array,
 };

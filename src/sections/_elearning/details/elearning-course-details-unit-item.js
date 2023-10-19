@@ -13,7 +13,7 @@ import ElearningCourseDetailsLessonList from './elearning-course-details-lesson-
 
 // ----------------------------------------------------------------------
 
-export default function ElearningCourseDetailsUnitItem({ unit, index }) {
+export default function ElearningCourseDetailsUnitItem({ unit, index, units }) {
   const [expanded, setExpanded] = useState(index === 0);
 
   return (
@@ -62,7 +62,7 @@ export default function ElearningCourseDetailsUnitItem({ unit, index }) {
         }}
         className="ml-10"
       >
-        <ElearningCourseDetailsLessonList lessons={unit.lessons} />
+        <ElearningCourseDetailsLessonList lessons={unit.lessons} units={units} />
         <Quiz _questions={unit.questions} />
       </AccordionDetails>
     </Accordion>
@@ -72,4 +72,5 @@ export default function ElearningCourseDetailsUnitItem({ unit, index }) {
 ElearningCourseDetailsUnitItem.propTypes = {
   unit: PropTypes.object,
   index: PropTypes.number,
+  units: PropTypes.array,
 };

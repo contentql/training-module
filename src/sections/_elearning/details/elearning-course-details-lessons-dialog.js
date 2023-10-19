@@ -11,6 +11,9 @@ import Typography from '@mui/material/Typography';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemButton from '@mui/material/ListItemButton';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import Accordion, { accordionClasses } from '@mui/material/Accordion';
+import AccordionSummary, { accordionSummaryClasses } from '@mui/material/AccordionSummary';
 
 import { _coursePosts } from 'src/_mock';
 import Player from 'src/components/player';
@@ -34,12 +37,15 @@ export default function ElearningCourseDetailsLessonsDialog({
   onEnded,
   onPlay,
   onPause,
+  units,
 }) {
   const { title, description, duration, tags, content } = _coursePosts[0];
 
   const mdUp = useResponsive('up', 'md');
 
   const [drawerOpen, setDrawerOpen] = useState(false);
+
+  const [expanded, setExpanded] = useState(false);
 
   const toggleDrawer = (value) => {
     setDrawerOpen(value);
@@ -126,6 +132,107 @@ export default function ElearningCourseDetailsLessonsDialog({
     </Container>
   );
 
+  const unitList = units?.map((unit, index) => (
+    <Accordion
+      key={index}
+      expanded={expanded}
+      onChange={() => setExpanded(!expanded)}
+      sx={{
+        [`&.${accordionClasses.expanded}`]: {
+          borderRadius: 0,
+        },
+      }}
+    >
+      <AccordionSummary
+        sx={{
+          px: 1,
+          minHeight: 64,
+          [`&.${accordionSummaryClasses.content}`]: {
+            p: 0,
+            m: 0,
+          },
+          [`&.${accordionSummaryClasses.expanded}`]: {
+            bgcolor: 'action.selected',
+          },
+        }}
+      >
+        <img src="/icons/book.svg" alt="unit" />
+
+        <Typography
+          variant="subtitle1"
+          sx={{
+            pl: 2,
+            flexGrow: 1,
+          }}
+        >
+          {unit.title}
+        </Typography>
+
+        <Iconify icon={expanded ? 'carbon:chevron-down' : 'carbon:chevron-right'} sx={{ ml: 2 }} />
+      </AccordionSummary>
+
+      <AccordionDetails
+        sx={{
+          p: 2,
+          typography: 'body',
+          color: 'text.secondary',
+        }}
+        className="ml-10"
+      >
+        {unit?.lessons?.map((lesson) => {
+          const selected = selectedLesson?.id === lesson.id;
+
+          const playIcon = selected ? 'carbon:pause-outline' : 'carbon:play';
+
+          return (
+            <ListItemButton
+              key={lesson.id}
+              selected={selected}
+              disabled={!lesson.unLocked}
+              onClick={() => onSelectedLesson(lesson)}
+              sx={{ borderRadius: 1, maxHeight: '6rem' }}
+            >
+              <IconButton>
+                <Iconify
+                  width="20px"
+                  height="20px"
+                  icon={!lesson.unLocked ? 'carbon:locked' : playIcon}
+                  sx={{
+                    mr: 2,
+                    ...(selected && {
+                      color: 'primary.main',
+                    }),
+                    ...(!lesson.unLocked && {
+                      color: 'text.disabled',
+                    }),
+                  }}
+                />
+              </IconButton>
+
+              <ListItemText
+                primary={lesson.title}
+                secondary={lesson.description}
+                primaryTypographyProps={{
+                  typography: 'subtitle1',
+                  sx: {
+                    ...(selected && {
+                      color: 'primary.main',
+                    }),
+                  },
+                }}
+                secondaryTypographyProps={{
+                  noWrap: true,
+                  component: 'span',
+                }}
+              />
+            </ListItemButton>
+          );
+        })}
+        {/* <Quiz _questions={unit.questions} /> */}
+      </AccordionDetails>
+    </Accordion>
+  ));
+
   const renderListDesktop = (
     <Stack
       spacing={0.5}
@@ -136,55 +243,7 @@ export default function ElearningCourseDetailsLessonsDialog({
         height: 1,
       }}
     >
-      {lessons?.map((lesson) => {
-        const selected = selectedLesson?.id === lesson.id;
-
-        const playIcon = selected ? 'carbon:pause-outline' : 'carbon:play';
-
-        return (
-          <ListItemButton
-            key={lesson.id}
-            selected={selected}
-            disabled={!lesson.unLocked}
-            onClick={() => onSelectedLesson(lesson)}
-            sx={{ borderRadius: 1, maxHeight: '6rem' }}
-          >
-            <IconButton>
-              <Iconify
-                width="20px"
-                height="20px"
-                icon={!lesson.unLocked ? 'carbon:locked' : playIcon}
-                sx={{
-                  mr: 2,
-                  ...(selected && {
-                    color: 'primary.main',
-                  }),
-                  ...(!lesson.unLocked && {
-                    color: 'text.disabled',
-                  }),
-                }}
-              />
-            </IconButton>
-
-            <ListItemText
-              primary={lesson.title}
-              secondary={lesson.description}
-              primaryTypographyProps={{
-                typography: 'subtitle1',
-                sx: {
-                  ...(selected && {
-                    color: 'primary.main',
-                  }),
-                },
-              }}
-              secondaryTypographyProps={{
-                noWrap: true,
-                component: 'span',
-              }}
-            />
-          </ListItemButton>
-        );
-      })}
+      {unitList}
     </Stack>
   );
 
@@ -241,55 +300,7 @@ export default function ElearningCourseDetailsLessonsDialog({
           height: 1,
         }}
       >
-        {lessons?.map((lesson) => {
-          const selected = selectedLesson?.id === lesson.id;
-
-          const playIcon = selected ? 'carbon:pause-outline' : 'carbon:play';
-
-          return (
-            <ListItemButton
-              key={lesson.id}
-              selected={selected}
-              disabled={!lesson.unLocked}
-              onClick={() => onSelectedLesson(lesson)}
-              sx={{ borderRadius: 1, maxHeight: '4rem' }}
-            >
-              <IconButton>
-                <Iconify
-                  width="16px"
-                  height="16px"
-                  icon={!lesson.unLocked ? 'carbon:locked' : playIcon}
-                  sx={{
-                    mr: 2,
-                    ...(selected && {
-                      color: 'primary.main',
-                    }),
-                    ...(!lesson.unLocked && {
-                      color: 'text.disabled',
-                    }),
-                  }}
-                />
-              </IconButton>
-
-              <ListItemText
-                primary={lesson.title}
-                secondary={lesson.description}
-                primaryTypographyProps={{
-                  typography: 'subtitle1',
-                  sx: {
-                    ...(selected && {
-                      color: 'primary.main',
-                    }),
-                  },
-                }}
-                secondaryTypographyProps={{
-                  noWrap: true,
-                  component: 'span',
-                }}
-              />
-            </ListItemButton>
-          );
-        })}
+        {unitList}
       </Stack>
     </SwipeableDrawer>
   );
@@ -338,4 +349,5 @@ ElearningCourseDetailsLessonsDialog.propTypes = {
   open: PropTypes.bool,
   playing: PropTypes.bool,
   selectedLesson: PropTypes.object,
+  units: PropTypes.array,
 };
