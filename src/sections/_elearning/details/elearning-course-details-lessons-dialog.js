@@ -194,6 +194,7 @@ export default function ElearningCourseDetailsLessonsDialog({
       open={drawerOpen}
       onClose={() => toggleDrawer(false)}
       onOpen={() => toggleDrawer(true)}
+      onMouseDown={() => toggleDrawer(!drawerOpen)}
       swipeAreaWidth={56}
       ModalProps={{
         keepMounted: true,
@@ -221,7 +222,6 @@ export default function ElearningCourseDetailsLessonsDialog({
             top: 8,
             background: 'white',
           }}
-          onClick={() => toggleDrawer(false)}
           className="animate-bounce"
         >
           <Iconify
@@ -252,7 +252,7 @@ export default function ElearningCourseDetailsLessonsDialog({
               selected={selected}
               disabled={!lesson.unLocked}
               onClick={() => onSelectedLesson(lesson)}
-              sx={{ borderRadius: 1, maxHeight: '6rem' }}
+              sx={{ borderRadius: 1, maxHeight: '4rem' }}
             >
               <IconButton>
                 <Iconify
