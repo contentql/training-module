@@ -14,7 +14,7 @@ import QuizHookForm from './quiz-hook-form';
 import { shuffleArray } from './utils/shuffle-array';
 
 export default function QuizForm(props) {
-  const { _questions } = props;
+  const { _questions, pauseVideo } = props;
 
   const [open, setOpen] = useState(false);
 
@@ -27,6 +27,7 @@ export default function QuizForm(props) {
   const mdUp = useResponsive('up', 'md');
 
   const handleClickOpen = () => {
+    pauseVideo();
     setOpen(true);
   };
   const handleModalClose = () => {
@@ -77,4 +78,5 @@ export default function QuizForm(props) {
 
 QuizForm.propTypes = {
   _questions: PropTypes.array.isRequired,
+  pauseVideo: PropTypes.func,
 };

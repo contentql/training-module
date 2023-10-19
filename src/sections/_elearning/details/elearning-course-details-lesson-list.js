@@ -10,7 +10,7 @@ import ElearningCourseDetailsLessonsDialog from './elearning-course-details-less
 
 // ----------------------------------------------------------------------
 
-export default function ElearningCourseDetailsLessonList({ lessons }) {
+export default function ElearningCourseDetailsLessonList({ lessons, units }) {
   const videoPlay = useBoolean();
 
   const [expanded, setExpanded] = useState(false);
@@ -39,6 +39,10 @@ export default function ElearningCourseDetailsLessonList({ lessons }) {
     []
   );
 
+  const pauseVideo = useCallback(() => {
+    videoPlay.onFalse();
+  }, [videoPlay]);
+
   return (
     <div>
       {/* <Typography variant="h4" sx={{ mb: 3 }}>
@@ -59,7 +63,6 @@ export default function ElearningCourseDetailsLessonList({ lessons }) {
       ))}
 
       <ElearningCourseDetailsLessonsDialog
-        lessons={lessons}
         selectedLesson={selectedLesson}
         onSelectedLesson={(lesson) => setSelectedLesson(lesson)}
         open={!!selectedLesson?.unLocked}
@@ -69,6 +72,8 @@ export default function ElearningCourseDetailsLessonList({ lessons }) {
         onEnded={videoPlay.onFalse}
         onPlay={videoPlay.onTrue}
         onPause={videoPlay.onFalse}
+        units={units}
+        pauseVideo={pauseVideo}
       />
     </div>
   );
@@ -76,4 +81,5 @@ export default function ElearningCourseDetailsLessonList({ lessons }) {
 
 ElearningCourseDetailsLessonList.propTypes = {
   lessons: PropTypes.array,
+  units: PropTypes.array,
 };

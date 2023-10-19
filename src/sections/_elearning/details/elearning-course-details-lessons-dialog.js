@@ -1,19 +1,32 @@
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import Stack from '@mui/material/Stack';
 import Dialog from '@mui/material/Dialog';
+import Divider from '@mui/material/Divider';
+import Grid from '@mui/material/Unstable_Grid2';
+import Container from '@mui/material/Container';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemButton from '@mui/material/ListItemButton';
+import SwipeableDrawer from '@mui/material/SwipeableDrawer';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import Accordion, { accordionClasses } from '@mui/material/Accordion';
+import AccordionSummary, { accordionSummaryClasses } from '@mui/material/AccordionSummary';
 
+import Quiz from 'src/sections/quiz';
+import { _coursePosts } from 'src/_mock';
 import Player from 'src/components/player';
 import Iconify from 'src/components/iconify';
+import Markdown from 'src/components/markdown';
+import { useResponsive } from 'src/hooks/use-responsive';
+
+import PostTags from '../../blog/common/post-tags';
 
 // ----------------------------------------------------------------------
 
 export default function ElearningCourseDetailsLessonsDialog({
-  lessons,
   selectedLesson,
   onSelectedLesson,
   open,
@@ -23,7 +36,21 @@ export default function ElearningCourseDetailsLessonsDialog({
   onEnded,
   onPlay,
   onPause,
+  units,
+  pauseVideo,
 }) {
+  const { title, description, duration, tags, content } = _coursePosts[0];
+
+  const mdUp = useResponsive('up', 'md');
+
+  const [drawerOpen, setDrawerOpen] = useState(false);
+
+  const [expandedUnits, setExpandedUnits] = useState(Array(units?.length).fill(false));
+
+  const toggleDrawer = (value) => {
+    setDrawerOpen(value);
+  };
+
   const renderVideo = (
     <Stack
       alignItems="center"
@@ -31,7 +58,6 @@ export default function ElearningCourseDetailsLessonsDialog({
       sx={{
         width: 1,
         height: 1,
-        minHeight: { xs: 1, md: 0.8 },
         aspectRatio: 16 / 9,
       }}
     >
@@ -63,77 +89,230 @@ export default function ElearningCourseDetailsLessonsDialog({
     </Stack>
   );
 
-  const renderDescription = (
-    <Stack
-      spacing={1}
-      sx={{
-        p: 2,
-        width: 1,
-        height: 1,
-        aspectRatio: 16 / 9,
-      }}
-    >
-      <Typography>{selectedLesson?.description}</Typography>
-    </Stack>
+  const renderLesson = (
+    <Container className="overflow-y-scroll py-14">
+      <Stack
+        alignItems="center"
+        justifyContent="center"
+        sx={{ borderRadius: 2, overflow: 'hidden' }}
+      >
+        {renderVideo}
+      </Stack>
+
+      <Grid container spacing={3} justifyContent={{ md: 'center' }}>
+        <Grid xs={12} md={10}>
+          <Stack
+            spacing={3}
+            sx={{
+              pb: 6,
+              textAlign: 'center',
+              pt: { xs: 6, md: 10 },
+            }}
+          >
+            <Typography variant="body2" sx={{ color: 'text.disabled' }}>
+              {duration}
+            </Typography>
+
+            <Typography variant="h2" component="h1">
+              {title}
+            </Typography>
+
+            <Typography variant="h5">{description}</Typography>
+          </Stack>
+
+          <Divider sx={{ mb: 6 }} />
+
+          <Markdown content={content} firstLetter />
+
+          <PostTags tags={tags} />
+
+          {/* <PostSocialsShare /> */}
+        </Grid>
+      </Grid>
+    </Container>
   );
 
-  const renderList = (
+  const unitList = units?.map((unit, index) => (
+    <Accordion
+      key={index}
+      expanded={expandedUnits[index]}
+      onChange={() => {
+        const newExpandedUnits = [...expandedUnits];
+        newExpandedUnits[index] = !expandedUnits[index];
+        setExpandedUnits(newExpandedUnits);
+      }}
+      sx={{
+        [`&.${accordionClasses.expanded}`]: {
+          borderRadius: 0,
+        },
+      }}
+    >
+      <AccordionSummary
+        sx={{
+          px: 1,
+          minHeight: { xs: 40, md: 64 },
+          mr: 2,
+          ...(unit.lessons.includes(selectedLesson) && {
+            color: 'primary.main',
+          }),
+          [`&.${accordionSummaryClasses.content}`]: {
+            p: 0,
+            m: 0,
+          },
+          [`&.${accordionSummaryClasses.expanded}`]: {
+            bgcolor: 'action.selected',
+          },
+        }}
+      >
+        <img src="/icons/book.svg" alt="unit" />
+
+        <Typography
+          variant="subtitle1"
+          sx={{
+            pl: 2,
+            flexGrow: 1,
+          }}
+        >
+          {unit.title}
+        </Typography>
+
+        <Iconify
+          icon={expandedUnits[index] ? 'carbon:chevron-down' : 'carbon:chevron-right'}
+          sx={{ ml: 2 }}
+        />
+      </AccordionSummary>
+
+      <AccordionDetails
+        sx={{
+          p: 2,
+          typography: 'body',
+          color: 'text.secondary',
+        }}
+        className="ml-10"
+      >
+        {unit?.lessons?.map((lesson) => {
+          const selected = selectedLesson?.id === lesson.id;
+
+          const playIcon = selected ? 'carbon:pause-outline' : 'carbon:play';
+
+          return (
+            <ListItemButton
+              key={lesson.id}
+              selected={selected}
+              disabled={!lesson.unLocked}
+              onClick={() => onSelectedLesson(lesson)}
+              sx={{ borderRadius: 1, maxHeight: '6rem' }}
+            >
+              <IconButton>
+                <Iconify
+                  width="20px"
+                  height="20px"
+                  icon={!lesson.unLocked ? 'carbon:locked' : playIcon}
+                  sx={{
+                    mr: 2,
+                    ...(selected && {
+                      color: 'primary.main',
+                    }),
+                    ...(!lesson.unLocked && {
+                      color: 'text.disabled',
+                    }),
+                  }}
+                />
+              </IconButton>
+
+              <ListItemText
+                primary={lesson.title}
+                secondary={lesson.description}
+                primaryTypographyProps={{
+                  typography: 'subtitle1',
+                  sx: {
+                    ...(selected && {
+                      color: 'primary.main',
+                    }),
+                  },
+                }}
+                secondaryTypographyProps={{
+                  noWrap: true,
+                  component: 'span',
+                }}
+              />
+            </ListItemButton>
+          );
+        })}
+        <Quiz _questions={unit.questions} pauseVideo={pauseVideo} />
+      </AccordionDetails>
+    </Accordion>
+  ));
+
+  const renderListDesktop = (
     <Stack
       spacing={0.5}
       sx={{
         p: 1,
         overflowY: 'scroll',
-        width: { xs: 1, md: 0.4 },
+        width: { xs: 1, md: '44%' },
         height: 1,
       }}
     >
-      {lessons?.map((lesson) => {
-        const selected = selectedLesson?.id === lesson.id;
-
-        const playIcon = selected ? 'carbon:pause-outline' : 'carbon:play';
-
-        return (
-          <ListItemButton
-            key={lesson.id}
-            selected={selected}
-            disabled={!lesson.unLocked}
-            onClick={() => onSelectedLesson(lesson)}
-            sx={{ borderRadius: 1, maxHeight: '6rem' }}
-          >
-            <Iconify
-              width={24}
-              icon={!lesson.unLocked ? 'carbon:locked' : playIcon}
-              sx={{
-                mr: 2,
-                ...(selected && {
-                  color: 'primary.main',
-                }),
-                ...(!lesson.unLocked && {
-                  color: 'text.disabled',
-                }),
-              }}
-            />
-
-            <ListItemText
-              primary={lesson.title}
-              secondary={lesson.description}
-              primaryTypographyProps={{
-                typography: 'subtitle1',
-                sx: {
-                  ...(selected && {
-                    color: 'primary.main',
-                  }),
-                },
-              }}
-              secondaryTypographyProps={{
-                noWrap: true,
-                component: 'span',
-              }}
-            />
-          </ListItemButton>
-        );
-      })}
+      {unitList}
     </Stack>
+  );
+
+  const renderListMobile = (
+    <SwipeableDrawer
+      anchor="bottom"
+      open={drawerOpen}
+      onClose={() => toggleDrawer(false)}
+      onOpen={() => toggleDrawer(true)}
+      swipeAreaWidth={56}
+      ModalProps={{
+        keepMounted: true,
+        style: { zIndex: 1300 },
+      }}
+      sx={{ '.MuiDrawer-paper': { height: '60%', overflow: 'visible' } }}
+    >
+      <Stack
+        sx={{
+          position: 'absolute',
+          top: -56,
+          borderTopLeftRadius: 8,
+          borderTopRightRadius: 8,
+          visibility: 'visible',
+          right: 0,
+          left: 0,
+        }}
+      >
+        <IconButton
+          sx={{
+            alignSelf: 'center',
+            width: 40,
+            height: 40,
+            borderRadius: 3,
+            top: 8,
+            background: 'white',
+          }}
+          className="animate-bounce"
+        >
+          <Iconify
+            icon={drawerOpen ? 'carbon:arrow-down' : 'carbon:arrow-up'}
+            width="25px"
+            height="25px"
+          />
+        </IconButton>
+      </Stack>
+      <Stack
+        spacing={0.5}
+        sx={{
+          p: 1,
+          pt: 2,
+          overflowY: 'scroll',
+          width: 1,
+          height: 1,
+        }}
+      >
+        {unitList}
+      </Stack>
+    </SwipeableDrawer>
   );
 
   return (
@@ -153,34 +332,23 @@ export default function ElearningCourseDetailsLessonsDialog({
         onClick={onClose}
         sx={{
           top: 6,
-          right: 24,
+          right: { xs: 4, md: 24 },
           zIndex: 9,
           position: 'absolute',
-          backgroundColor: 'white',
-          opacity: 0.3,
-          '&:hover': {
-            backgroundColor: 'white',
-            opacity: 0.8,
-          },
         }}
       >
-        <Iconify icon="carbon:close" />
+        <Iconify icon="carbon:close" width="25px" height="25px" />
       </IconButton>
 
       <Stack direction={{ xs: 'column-reverse', md: 'row' }} sx={{ height: 1 }}>
-        {renderList}
-
-        <Stack className="overflow-y-auto">
-          {renderVideo}
-          {renderDescription}
-        </Stack>
+        {mdUp ? renderListDesktop : renderListMobile}
+        {renderLesson}
       </Stack>
     </Dialog>
   );
 }
 
 ElearningCourseDetailsLessonsDialog.propTypes = {
-  lessons: PropTypes.array,
   onClose: PropTypes.func,
   onEnded: PropTypes.func,
   onPause: PropTypes.func,
@@ -190,4 +358,6 @@ ElearningCourseDetailsLessonsDialog.propTypes = {
   open: PropTypes.bool,
   playing: PropTypes.bool,
   selectedLesson: PropTypes.object,
+  units: PropTypes.array,
+  pauseVideo: PropTypes.func,
 };

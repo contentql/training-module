@@ -15,6 +15,7 @@ import Grid from '@mui/material/Unstable_Grid2';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
+import { _courses } from 'src/_mock';
 import { paths } from 'src/routes/paths';
 import Iconify from 'src/components/iconify';
 import { useRouter } from 'src/routes/hooks';
@@ -51,17 +52,18 @@ const PAYMENT_OPTIONS = [
 
 // ----------------------------------------------------------------------
 
-export default function ElearningCheckoutView() {
+export default function ElearningCheckoutView({ courseId }) {
   const loading = useBoolean(true);
 
   const router = useRouter();
 
   const formOpen = useBoolean();
 
-  const _courses = useCartStore((state) => state.cart);
+  const coursesCart = useCartStore((state) => state.cart);
+  const courses = courseId ? _courses.filter((course) => course.id === courseId) : coursesCart;
   const emptyCart = useCartStore((state) => state.emptyCart);
 
-  const cost = _courses.map((course) => course.price).reduce((a, b) => a + b, 0);
+  const cost = courses.map((course) => course.price).reduce((a, b) => a + b, 0);
   const discountPercent = cost && 7;
   const taxPercent = cost && 18;
 
@@ -182,8 +184,9 @@ export default function ElearningCheckoutView() {
                 total={total}
                 subtotal={subTotal}
                 discount={discount}
-                courses={_courses}
+                courses={courses}
                 loading={isSubmitting}
+                isDelete={!courseId}
               />
             </Grid>
           </Grid>
@@ -194,6 +197,10 @@ export default function ElearningCheckoutView() {
     </>
   );
 }
+
+ElearningCheckoutView.propTypes = {
+  courseId: PropTypes.string,
+};
 
 // ----------------------------------------------------------------------
 
