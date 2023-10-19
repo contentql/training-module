@@ -4,26 +4,26 @@ import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
 import Badge from '@mui/material/Badge';
+import AppBar from '@mui/material/AppBar';
 import Button from '@mui/material/Button';
 import Avatar from '@mui/material/Avatar';
-import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import { useTheme } from '@mui/material/styles';
 import Container from '@mui/material/Container';
 import IconButton from '@mui/material/IconButton';
 
 import { _mock } from 'src/_mock';
-import { bgBlur } from 'src/theme/css';
 import Logo from 'src/components/logo';
+import { bgBlur } from 'src/theme/css';
 import { paths } from 'src/routes/paths';
 // import Label from 'src/components/label';
 import Iconify from 'src/components/iconify';
-import { useUserStore } from 'src/states/user';
 import { useCartStore } from 'src/states/cart';
 import { RouterLink } from 'src/routes/components';
+import { useUserStore } from 'src/states/auth-store';
 import { useWishlistStore } from 'src/states/wishlist';
-import { useResponsive } from 'src/hooks/use-responsive';
 import { useOffSetTop } from 'src/hooks/use-off-set-top';
+import { useResponsive } from 'src/hooks/use-responsive';
 
 import { HEADER } from '../config-layout';
 // import Searchbar from '../common/searchbar';
@@ -37,7 +37,10 @@ import { navConfig } from './config-navigation';
 // ----------------------------------------------------------------------
 
 export default function Header({ headerOnDark }) {
-  const [user, updateUser] = useUserStore((state) => [state.user, state.updateUser]);
+  // const [user, updateUser] = useUserStore((state) => [state.user, state.updateUser]);
+  const userData = useUserStore();
+
+  const { isLoggedIn, image } = userData;
 
   const cart = useCartStore((state) => state.cart);
 
@@ -134,17 +137,13 @@ export default function Header({ headerOnDark }) {
 
             {mdUp && (
               <>
-                {user ? (
+                {isLoggedIn ? (
                   <Link component={RouterLink} href={paths.eLearning.account.personal}>
-                    <Avatar src={user.image} sx={{ width: 40, height: 40 }} />
+                    <Avatar src={image} sx={{ width: 40, height: 40 }} />
                   </Link>
                 ) : (
                   // <Link component={RouterLink} href={paths.loginBackground}>
-                  <Button
-                    variant="contained"
-                    color="inherit"
-                    onClick={() => updateUser({ name: 'Name', image: user.image })}
-                  >
+                  <Button variant="contained" color="inherit">
                     Login
                   </Button>
                   // </Link>
