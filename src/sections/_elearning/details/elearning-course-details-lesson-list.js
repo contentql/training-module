@@ -59,7 +59,6 @@ export default function ElearningCourseDetailsLessonList({ lessons, units }) {
       ))}
 
       <ElearningCourseDetailsLessonsDialog
-        lessons={lessons}
         selectedLesson={selectedLesson}
         onSelectedLesson={(lesson) => setSelectedLesson(lesson)}
         open={!!selectedLesson?.unLocked}

@@ -23,11 +23,11 @@ import { useResponsive } from 'src/hooks/use-responsive';
 
 import PostTags from '../../blog/common/post-tags';
 import PostSocialsShare from '../../blog/common/post-socials-share';
+import Quiz from 'src/sections/quiz';
 
 // ----------------------------------------------------------------------
 
 export default function ElearningCourseDetailsLessonsDialog({
-  lessons,
   selectedLesson,
   onSelectedLesson,
   open,
@@ -45,7 +45,7 @@ export default function ElearningCourseDetailsLessonsDialog({
 
   const [drawerOpen, setDrawerOpen] = useState(false);
 
-  const [expanded, setExpanded] = useState(false);
+  const [expandedUnits, setExpandedUnits] = useState(Array(units?.length).fill(false));
 
   const toggleDrawer = (value) => {
     setDrawerOpen(value);
@@ -135,8 +135,12 @@ export default function ElearningCourseDetailsLessonsDialog({
   const unitList = units?.map((unit, index) => (
     <Accordion
       key={index}
-      expanded={expanded}
-      onChange={() => setExpanded(!expanded)}
+      expanded={expandedUnits[index]}
+      onChange={() => {
+        const newExpandedUnits = [...expandedUnits];
+        newExpandedUnits[index] = !expandedUnits[index];
+        setExpandedUnits(newExpandedUnits);
+      }}
       sx={{
         [`&.${accordionClasses.expanded}`]: {
           borderRadius: 0,
@@ -146,7 +150,11 @@ export default function ElearningCourseDetailsLessonsDialog({
       <AccordionSummary
         sx={{
           px: 1,
-          minHeight: 64,
+          minHeight: { xs: 40, md: 64 },
+          mr: 2,
+          ...(unit.lessons.includes(selectedLesson) && {
+            color: 'primary.main',
+          }),
           [`&.${accordionSummaryClasses.content}`]: {
             p: 0,
             m: 0,
@@ -168,7 +176,10 @@ export default function ElearningCourseDetailsLessonsDialog({
           {unit.title}
         </Typography>
 
-        <Iconify icon={expanded ? 'carbon:chevron-down' : 'carbon:chevron-right'} sx={{ ml: 2 }} />
+        <Iconify
+          icon={expandedUnits[index] ? 'carbon:chevron-down' : 'carbon:chevron-right'}
+          sx={{ ml: 2 }}
+        />
       </AccordionSummary>
 
       <AccordionDetails
@@ -228,7 +239,7 @@ export default function ElearningCourseDetailsLessonsDialog({
             </ListItemButton>
           );
         })}
-        {/* <Quiz _questions={unit.questions} /> */}
+        <Quiz _questions={unit.questions} />
       </AccordionDetails>
     </Accordion>
   ));
@@ -253,7 +264,6 @@ export default function ElearningCourseDetailsLessonsDialog({
       open={drawerOpen}
       onClose={() => toggleDrawer(false)}
       onOpen={() => toggleDrawer(true)}
-      onMouseDown={() => toggleDrawer(!drawerOpen)}
       swipeAreaWidth={56}
       ModalProps={{
         keepMounted: true,
@@ -339,7 +349,6 @@ export default function ElearningCourseDetailsLessonsDialog({
 }
 
 ElearningCourseDetailsLessonsDialog.propTypes = {
-  lessons: PropTypes.array,
   onClose: PropTypes.func,
   onEnded: PropTypes.func,
   onPause: PropTypes.func,
