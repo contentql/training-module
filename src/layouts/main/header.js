@@ -131,14 +131,14 @@ export default function Header({ headerOnDark }) {
               <>
                 {user ? (
                   <Link component={RouterLink} href={paths.eLearning.account.personal}>
-                    <Avatar src={_mock.image.avatar(0)} sx={{ width: 40, height: 40 }} />
+                    <Avatar src={user.image} sx={{ width: 40, height: 40 }} />
                   </Link>
                 ) : (
                   // <Link component={RouterLink} href={paths.loginBackground}>
                   <Button
                     variant="contained"
                     color="inherit"
-                    onClick={() => updateUser({ name: 'Name' })}
+                    onClick={() => updateUser({ name: 'Name', image: user.image })}
                   >
                     Login
                   </Button>
