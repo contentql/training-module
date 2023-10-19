@@ -1,10 +1,15 @@
+//register
+
 'use client';
 
 import * as Yup from 'yup';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import Link from '@mui/material/Link';
+import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
@@ -19,13 +24,21 @@ import { useBoolean } from 'src/hooks/use-boolean';
 import { RouterLink } from 'src/routes/components';
 import FormProvider, { RHFTextField } from 'src/components/hook-form';
 
+import { useStore } from './auth-store';
+
 // ----------------------------------------------------------------------
 
 export default function RegisterBackgroundView() {
   const passwordShow = useBoolean();
 
+  const [loginError, setLoginError] = useState('');
+
+  const userdata = useStore((store) => store?.UserData);
+
+  const updateUserData = useStore((store) => store?.updateUserData);
+
   const RegisterSchema = Yup.object().shape({
-    fullName: Yup.string()
+    userName: Yup.string()
       .required('Full name is required')
       .min(6, 'Mininum 6 characters')
       .max(15, 'Maximum 15 characters'),
@@ -39,7 +52,7 @@ export default function RegisterBackgroundView() {
   });
 
   const defaultValues = {
-    fullName: '',
+    userName: '',
     email: '',
     password: '',
     confirmPassword: '',
@@ -58,9 +71,34 @@ export default function RegisterBackgroundView() {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      reset();
-      console.log('DATA', data);
+      const { userName, email, password } = data;
+      const response = await fetch(`http://localhost:1337/api/auth/local/register`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+          username: userName,
+          password,
+        }),
+      });
+      const resData = await response.json();
+      const { jwt } = resData;
+      localStorage.setItem('token', jwt);
+
+      if (response.ok) {
+        const userData = {
+          authToken: resData.jwt,
+          userName: resData.user.username,
+          isLoggedIn: resData.user.confirmed,
+        };
+        updateUserData(userData);
+      } else if (response.status === 400) {
+        setLoginError(resData.error.message);
+      } else {
+        setLoginError('An error occured, plese try again');
+      }
     } catch (error) {
       console.error(error);
     }
@@ -105,7 +143,7 @@ export default function RegisterBackgroundView() {
   const renderForm = (
     <FormProvider methods={methods} onSubmit={onSubmit}>
       <Stack spacing={2.5}>
-        <RHFTextField name="fullName" label="Full Name" />
+        <RHFTextField name="userName" label="User Name" />
 
         <RHFTextField name="email" label="Email address" />
 
@@ -149,6 +187,7 @@ export default function RegisterBackgroundView() {
         >
           Register
         </LoadingButton>
+        {loginError && <Alert severity="warning">{loginError}</Alert>}
 
         <Typography variant="caption" align="center" sx={{ color: 'text.secondary', mt: 3 }}>
           {`I agree to `}
@@ -166,17 +205,31 @@ export default function RegisterBackgroundView() {
 
   return (
     <>
-      {renderHead}
-
-      {renderForm}
-
-      <Divider>
-        <Typography variant="body2" sx={{ color: 'text.disabled' }}>
-          or continue with
-        </Typography>
-      </Divider>
-
-      {renderSocials}
+      {userdata.isLoggedIn ? (
+        <Alert severity="success">
+          User registered success,{' '}
+          <Link
+            component={RouterLink}
+            href={paths.loginBackground}
+            variant="subtitle2"
+            color="primary"
+          >
+            Login here
+          </Link>
+        </Alert>
+      ) : (
+        <>
+          {' '}
+          {renderHead}
+          {renderForm}
+          <Divider>
+            <Typography variant="body2" sx={{ color: 'text.disabled' }}>
+              or continue with
+            </Typography>
+          </Divider>
+          {renderSocials}
+        </>
+      )}
     </>
   );
 }
