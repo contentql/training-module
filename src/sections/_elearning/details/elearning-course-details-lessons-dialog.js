@@ -23,7 +23,6 @@ import Markdown from 'src/components/markdown';
 import { useResponsive } from 'src/hooks/use-responsive';
 
 import PostTags from '../../blog/common/post-tags';
-import PostSocialsShare from '../../blog/common/post-socials-share';
 
 // ----------------------------------------------------------------------
 
@@ -101,7 +100,7 @@ export default function ElearningCourseDetailsLessonsDialog({
       </Stack>
 
       <Grid container spacing={3} justifyContent={{ md: 'center' }}>
-        <Grid xs={12} md={8}>
+        <Grid xs={12} md={10}>
           <Stack
             spacing={3}
             sx={{
