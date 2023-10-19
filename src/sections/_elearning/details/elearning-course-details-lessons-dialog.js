@@ -127,7 +127,7 @@ export default function ElearningCourseDetailsLessonsDialog({
 
           <PostTags tags={tags} />
 
-          <PostSocialsShare />
+          {/* <PostSocialsShare /> */}
         </Grid>
       </Grid>
     </Container>
