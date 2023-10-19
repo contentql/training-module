@@ -1,5 +1,3 @@
-//register
-
 'use client';
 
 import * as Yup from 'yup';
@@ -24,7 +22,7 @@ import { useBoolean } from 'src/hooks/use-boolean';
 import { RouterLink } from 'src/routes/components';
 import FormProvider, { RHFTextField } from 'src/components/hook-form';
 
-import { useStore } from './auth-store';
+import { useUserStore } from '../../states/auth-store';
 
 // ----------------------------------------------------------------------
 
@@ -33,9 +31,9 @@ export default function RegisterBackgroundView() {
 
   const [loginError, setLoginError] = useState('');
 
-  const userdata = useStore((store) => store?.UserData);
+  const userdata = useUserStore((store) => store?.UserData);
 
-  const updateUserData = useStore((store) => store?.updateUserData);
+  const updateUserData = useUserStore((store) => store?.updateUserData);
 
   const RegisterSchema = Yup.object().shape({
     userName: Yup.string()
