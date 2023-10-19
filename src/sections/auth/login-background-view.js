@@ -1,10 +1,14 @@
+//login
 'use client';
 
 import * as Yup from 'yup';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import Link from '@mui/material/Link';
+import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
@@ -19,10 +23,20 @@ import { useBoolean } from 'src/hooks/use-boolean';
 import { RouterLink } from 'src/routes/components';
 import FormProvider, { RHFTextField } from 'src/components/hook-form';
 
+import { useStore } from './auth-store';
+
 // ----------------------------------------------------------------------
 
 export default function LoginBackgroundView() {
   const passwordShow = useBoolean();
+
+  const [loginError, setLoginError] = useState('');
+
+  const userdata = useStore((store) => store?.UserData);
+
+  const updateUserData = useStore((store) => store?.updateUserData);
+
+  const router = useRouter();
 
   const LoginSchema = Yup.object().shape({
     email: Yup.string().required('Email is required').email('That is not an email'),
@@ -42,18 +56,38 @@ export default function LoginBackgroundView() {
   });
 
   const {
-    reset,
     handleSubmit,
     formState: { isSubmitting },
   } = methods;
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      reset();
-      console.log('DATA', data);
+      const { email: identifier, password } = data;
+      console.log(password);
+      const response = await fetch(`http://localhost:1337/api/auth/local/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ identifier, password }),
+      });
+      const resData = await response.json();
+      const { jwt } = resData;
+      localStorage.setItem('token', jwt);
+
+      if (response.ok) {
+        const userData = {
+          authToken: resData.jwt,
+          userName: resData.user.username,
+          isLoggedIn: true,
+        };
+        updateUserData(userData);
+        router.push('/');
+      } else {
+        setLoginError(resData.message[0].messages[0].message);
+      }
     } catch (error) {
-      console.error(error);
+      setLoginError('Somthing went wrong');
     }
   });
 
@@ -133,6 +167,7 @@ export default function LoginBackgroundView() {
         >
           Login
         </LoadingButton>
+        {loginError && <Alert severity="warning">{loginError}</Alert>}
       </Stack>
     </FormProvider>
   );
