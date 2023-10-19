@@ -15,6 +15,7 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import Accordion, { accordionClasses } from '@mui/material/Accordion';
 import AccordionSummary, { accordionSummaryClasses } from '@mui/material/AccordionSummary';
 
+import Quiz from 'src/sections/quiz';
 import { _coursePosts } from 'src/_mock';
 import Player from 'src/components/player';
 import Iconify from 'src/components/iconify';
@@ -23,7 +24,6 @@ import { useResponsive } from 'src/hooks/use-responsive';
 
 import PostTags from '../../blog/common/post-tags';
 import PostSocialsShare from '../../blog/common/post-socials-share';
-import Quiz from 'src/sections/quiz';
 
 // ----------------------------------------------------------------------
 
