@@ -1,9 +1,13 @@
 'use client';
 
+// eslint-disable-next-line import/no-extraneous-dependencies
+import axios from 'axios';
 import * as Yup from 'yup';
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { loadStripe } from '@stripe/stripe-js';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import Box from '@mui/material/Box';
@@ -15,7 +19,6 @@ import Grid from '@mui/material/Unstable_Grid2';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
-import { _courses } from 'src/_mock';
 import { paths } from 'src/routes/paths';
 import Iconify from 'src/components/iconify';
 import { useRouter } from 'src/routes/hooks';
@@ -32,38 +35,42 @@ import ElearningCheckoutPersonalDetails from '../checkout/elearning-checkout-per
 
 // ----------------------------------------------------------------------
 
-const PAYMENT_OPTIONS = [
-  {
-    label: 'Paypal',
-    value: 'paypal',
-    description: '**** **** **** 1234',
-  },
-  {
-    label: 'MasterCard',
-    value: 'mastercard',
-    description: '**** **** **** 3456',
-  },
-  {
-    label: 'Visa',
-    value: 'visa',
-    description: '**** **** **** 6789',
-  },
-];
+const stripePromise = loadStripe(
+  'pk_test_51O14wJSGKNDRcuJuUqGzWCeftvJOpycOZUjVgL5BoNzq82clRNztJYpNZw2mdqFtZrkRCCZVbIpSHSqYTIRpJe6t00WaGaXnpK'
+);
+
+// const PAYMENT_OPTIONS = [
+//   {
+//     label: 'Paypal',
+//     value: 'paypal',
+//     description: '**** **** **** 1234',
+//   },
+//   {
+//     label: 'MasterCard',
+//     value: 'mastercard',
+//     description: '**** **** **** 3456',
+//   },
+//   {
+//     label: 'Visa',
+//     value: 'visa',
+//     description: '**** **** **** 6789',
+//   },
+// ];
 
 // ----------------------------------------------------------------------
 
-export default function ElearningCheckoutView({ courseId }) {
+export default function ElearningCheckoutView() {
   const loading = useBoolean(true);
 
   const router = useRouter();
 
   const formOpen = useBoolean();
 
-  const coursesCart = useCartStore((state) => state.cart);
-  const courses = courseId ? _courses.filter((course) => course.id === courseId) : coursesCart;
+  const _courses = useCartStore((state) => state.cart);
   const emptyCart = useCartStore((state) => state.emptyCart);
+  const cart = useCartStore((state) => state.cart);
 
-  const cost = courses.map((course) => course.price).reduce((a, b) => a + b, 0);
+  const cost = _courses.map((course) => course.price).reduce((a, b) => a + b, 0);
   const discountPercent = cost && 7;
   const taxPercent = cost && 18;
 
@@ -108,11 +115,13 @@ export default function ElearningCheckoutView({ courseId }) {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      reset();
+      // await new Promise((resolve) => setTimeout(resolve, 500));
+      makePayment(data);
+      // addUserToCourse();
       emptyCart();
-      router.push(paths.eLearning.purchaseCompleted);
-      console.log('DATA', data);
+      // reset();
+      // router.push(paths.eLearning.purchaseCompleted);
+      // console.log('DATA', data);
     } catch (error) {
       console.error(error);
     }
@@ -128,6 +137,69 @@ export default function ElearningCheckoutView({ courseId }) {
 
   if (loading.value) {
     return <SplashScreen />;
+  }
+
+  const userToken = localStorage.getItem('token');
+
+  async function makePayment(data) {
+    const stripe = await stripePromise;
+    const requestBody = {
+      username: [data.firstName, data.lastName].join(' '),
+      email: data.emailAddress,
+      products: cart.map(({ slug, id, price }) => ({ slug, id, price })),
+    };
+
+    const response = await fetch('http://localhost:1337/api/orders', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userToken}`,
+      },
+      body: JSON.stringify(requestBody),
+    });
+    const session = await response.json();
+    console.log(session);
+    await stripe.redirectToCheckout({
+      sessionId: session.id,
+    });
+  }
+
+  async function addUserToCourse() {
+    // Replace these with your actual Strapi credentials and settings
+    const apiUrl = 'http://localhost:1337'; // Your Strapi base URL
+    const contentType = 'courses'; // Replace with your actual content type
+    const itemId = '1'; // Replace with the ID of the item you want to update
+    const arrayField = 'users'; // Replace with the name of your array field
+
+    // New string to add to the array
+    const newString = 'akhilnaidu';
+
+    // Make a GET request to fetch the existing data
+    axios
+      .get(`${apiUrl}/${contentType}/${itemId}`)
+      .then((response) => {
+        const existingData = response.data;
+        // Extract the array field from the existing data
+        const existingArray = existingData[arrayField];
+
+        // Add the new string to the array
+        existingArray.push(newString);
+
+        // Make a PUT request to update the item with the modified array
+        axios
+          .put(`${apiUrl}/${contentType}/${itemId}`, {
+            [arrayField]: existingArray,
+          })
+          .then((res) => {
+            console.log('Array updated successfully:', res.data);
+          })
+          .catch((error) => {
+            console.error('Error updating array:', error);
+          });
+      })
+      .catch((error) => {
+        console.error('Error fetching existing data:', error);
+      });
   }
 
   return (
@@ -152,7 +224,7 @@ export default function ElearningCheckoutView({ courseId }) {
                   <ElearningCheckoutPersonalDetails />
                 </div>
 
-                <div>
+                {/* <div>
                   <StepLabel title="Payment Method" step="2" />
 
                   <ElearningCheckoutPaymentMethod options={PAYMENT_OPTIONS} />
@@ -174,7 +246,7 @@ export default function ElearningCheckoutView({ courseId }) {
                   <Collapse in={formOpen.value} unmountOnExit>
                     <ElearningCheckoutNewCardForm />
                   </Collapse>
-                </div>
+                </div> */}
               </Stack>
             </Grid>
 
@@ -184,9 +256,8 @@ export default function ElearningCheckoutView({ courseId }) {
                 total={total}
                 subtotal={subTotal}
                 discount={discount}
-                courses={courses}
+                courses={_courses}
                 loading={isSubmitting}
-                isDelete={!courseId}
               />
             </Grid>
           </Grid>
@@ -197,10 +268,6 @@ export default function ElearningCheckoutView({ courseId }) {
     </>
   );
 }
-
-ElearningCheckoutView.propTypes = {
-  courseId: PropTypes.string,
-};
 
 // ----------------------------------------------------------------------
 
