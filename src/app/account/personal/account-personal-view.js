@@ -2,23 +2,26 @@
 
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useForm, 
+import {
+  useForm,
   // Controller
- } from 'react-hook-form';
+} from 'react-hook-form';
 
 import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
-// import Avatar from '@mui/material/Avatar';
+import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
+// import IconButton from '@mui/material/IconButton';
 import LoadingButton from '@mui/lab/LoadingButton';
-import InputAdornment from '@mui/material/InputAdornment';
+// import InputAdornment from '@mui/material/InputAdornment';
 // import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
-// import { _mock } from 'src/_mock';
+import { _mock } from 'src/_mock';
 // import { countries } from 'src/assets/data';
-import Iconify from 'src/components/iconify';
-import { useBoolean } from 'src/hooks/use-boolean';
+// import Iconify from 'src/components/iconify';
+import { useUserStore } from 'src/states/user';
+// import { useBoolean } from 'src/hooks/use-boolean';
 import FormProvider, {
   // RHFSelect,
   RHFTextField,
@@ -33,19 +36,21 @@ import FormProvider, {
 // ----------------------------------------------------------------------
 
 export default function AccountPersonalView() {
-  const passwordShow = useBoolean();
+  const [user, updateUser] = useUserStore((state) => [state.user, state.updateUser]);
+
+  // const passwordShow = useBoolean();
 
   const EcommerceAccountPersonalSchema = Yup.object().shape({
     firstName: Yup.string().required('First name is required'),
     lastName: Yup.string().required('Last name is required'),
     emailAddress: Yup.string().required('Email address is required'),
     phoneNumber: Yup.string().required('Phone number is required'),
-    birthday: Yup.mixed().nullable().required('Birthday is required'),
-    gender: Yup.string().required('Gender is required'),
-    avatar: Yup.string().required('Avatar is required'),
-    streetAddress: Yup.string().required('Street address is required'),
-    city: Yup.string().required('City is required'),
-    zipCode: Yup.string().required('Zip code is required'),
+    // avatar: Yup.string().required('Avatar is required'),
+    // birthday: Yup.mixed().nullable().required('Birthday is required'),
+    // gender: Yup.string().required('Gender is required'),
+    // streetAddress: Yup.string().required('Street address is required'),
+    // city: Yup.string().required('City is required'),
+    // zipCode: Yup.string().required('Zip code is required'),
   });
 
   const defaultValues = {
@@ -53,16 +58,16 @@ export default function AccountPersonalView() {
     lastName: 'Simon',
     emailAddress: 'nannie_abernathy70@yahoo.com',
     phoneNumber: '365-374-4961',
-    birthday: null,
-    gender: 'Male',
-    avatar: '1',
-    streetAddress: '',
-    zipCode: '',
-    city: '',
-    country: 'United States',
-    oldPassword: '',
-    newPassword: '',
-    confirmNewPassword: '',
+    // birthday: null,
+    // gender: 'Male',
+    // avatar: '1',
+    // streetAddress: '',
+    // zipCode: '',
+    // city: '',
+    // country: 'United States',
+    // oldPassword: '',
+    // newPassword: '',
+    // confirmNewPassword: '',
   };
 
   const methods = useForm({
@@ -166,7 +171,7 @@ export default function AccountPersonalView() {
         /> */}
       </Box>
 
-      <Stack spacing={3} sx={{ my: 5 }}>
+      {/* <Stack spacing={3} sx={{ my: 5 }}>
         <Typography variant="h5"> Change Password </Typography>
 
         <Stack spacing={2.5}>
@@ -215,6 +220,29 @@ export default function AccountPersonalView() {
             }}
           />
         </Stack>
+      </Stack> */}
+
+      <Stack spacing={2} sx={{ my: 5 }}>
+        <Typography variant="h5" sx={{ mb: 3 }}>
+          Avatar
+        </Typography>
+
+        <Grid container spacing={2.5} sx={{ marginLeft: 1.5 }}>
+          {[...Array(25)].map((arr, index) => {
+            let styles = { margin: 1, height: 60, width: 60 };
+            if (_mock.image.avatar(index) === user.image)
+              styles = { ...styles, border: 4, borderRadius: '50%', borderColor: '#0d5992' };
+
+            return (
+              <Avatar
+                src={_mock.image.avatar(index)}
+                sx={styles}
+                key={index}
+                onClick={() => updateUser({ name: 'Name', image: _mock.image.avatar(index) })}
+              />
+            );
+          })}
+        </Grid>
       </Stack>
 
       <LoadingButton

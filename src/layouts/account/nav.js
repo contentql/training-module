@@ -52,6 +52,8 @@ const navigations = [
 // ----------------------------------------------------------------------
 
 export default function Nav({ open, onClose }) {
+  const user = useUserStore((state) => state.user);
+
   const logout = useUserStore((state) => state.logout);
 
   const mdUp = useResponsive('up', 'md');
@@ -70,7 +72,7 @@ export default function Nav({ open, onClose }) {
     >
       <Stack spacing={2} sx={{ p: 3, pb: 2 }}>
         <Stack spacing={2} direction="row" alignItems="center">
-          <Avatar src={_mock.image.avatar(0)} sx={{ width: 64, height: 64 }} />
+          <Avatar src={user.image} sx={{ width: 64, height: 64 }} />
           {/* <Stack
             direction="row"
             alignItems="center"

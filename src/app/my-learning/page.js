@@ -1,22 +1,16 @@
+'use client';
+
+import { _courses } from 'src/_mock';
 import MainLayout from 'src/layouts/main';
-import ComingSoonView from 'src/sections/status/view/coming-soon-view';
+
+import ElearningLandingFeaturedCourses from './mylearning-courses';
 
 // ----------------------------------------------------------------------
 
-export const metadata = {
-  title: 'Coming Soon',
-};
-
-export default function ComingSoonPage() {
-  const completedOn = '10/08/2023 23:59';
-
+export default function MyLearning() {
   return (
     <MainLayout>
-      <div className="flex justify-center text-center">
-        <div>
-          <ComingSoonView date={completedOn} />
-        </div>
-      </div>
+      <ElearningLandingFeaturedCourses courses={_courses} />
     </MainLayout>
   );
 }
