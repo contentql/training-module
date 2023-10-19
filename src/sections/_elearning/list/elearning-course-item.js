@@ -156,7 +156,7 @@ export default function ElearningCourseItem({ course, vertical, id }) {
           </Stack>
         </Stack>
 
-        <Stack direction="row" alignItems="center">
+        {/* <Stack direction="row" alignItems="center">
           <Avatar src={teachers[0]?.avatarUrl} />
 
           <Typography variant="body2" sx={{ ml: 1, mr: 0.5 }}>
@@ -168,7 +168,7 @@ export default function ElearningCourseItem({ course, vertical, id }) {
               + {teachers?.length} teachers
             </Link>
           )}
-        </Stack>
+        </Stack> */}
 
         <Divider
           sx={{

@@ -59,6 +59,7 @@ export default function ElearningLandingHero() {
               <Stack
                 sx={{
                   textAlign: { xs: 'center', md: 'unset' },
+                  paddingTop: { md: 12 },
                 }}
               >
                 <Typography variant="h1">
@@ -67,8 +68,8 @@ export default function ElearningLandingHero() {
                     {` Online `}
                   </Box>
                   <Box component="span" sx={{ color: 'primary.main', textDecoration: 'underline' }}>
-                    {` Courses `}
-                  </Box>
+                    {` Courses`}
+                  </Box>{' '}
                   From The Experts
                 </Typography>
 
@@ -77,7 +78,7 @@ export default function ElearningLandingHero() {
                   venenatis ante odio sit amet eros.
                 </Typography>
 
-                <Stack spacing={3} alignItems="center" direction={{ xs: 'column', md: 'row' }}>
+                {/* <Stack spacing={3} alignItems="center" direction={{ xs: 'column', md: 'row' }}>
                   <Button color="inherit" size="large" variant="contained">
                     Ready Start
                   </Button>
@@ -88,11 +89,11 @@ export default function ElearningLandingHero() {
                     </Fab>
                     Watch Video
                   </Stack>
-                </Stack>
+                </Stack> */}
 
-                <Divider sx={{ borderStyle: 'dashed', mt: 8, mb: 6 }} />
+                {/* <Divider sx={{ borderStyle: 'dashed', mt: 8, mb: 6 }} /> */}
 
-                <Stack
+                {/* <Stack
                   direction="row"
                   spacing={{ xs: 3, sm: 10 }}
                   justifyContent={{ xs: 'center', md: 'unset' }}
@@ -117,7 +118,7 @@ export default function ElearningLandingHero() {
                       </Typography>
                     </Stack>
                   ))}
-                </Stack>
+                </Stack> */}
               </Stack>
             </Grid>
 
