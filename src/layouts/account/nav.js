@@ -13,9 +13,9 @@ import ListItemButton from '@mui/material/ListItemButton';
 import { _mock } from 'src/_mock';
 import { paths } from 'src/routes/paths';
 import Iconify from 'src/components/iconify';
-import { useUserStore } from 'src/states/user';
 import { useActiveLink } from 'src/routes/hooks';
 import { RouterLink } from 'src/routes/components';
+import { useUserStore } from 'src/states/auth-store';
 import TextMaxLine from 'src/components/text-max-line';
 import { useResponsive } from 'src/hooks/use-responsive';
 
@@ -52,9 +52,12 @@ const navigations = [
 // ----------------------------------------------------------------------
 
 export default function Nav({ open, onClose }) {
-  const user = useUserStore((state) => state.user);
+  // const user = useUserStore((state) => state.user);
+  const userData = useUserStore();
 
-  const logout = useUserStore((state) => state.logout);
+  const { image } = userData.UserData;
+
+  const { removeUserData } = userData;
 
   const mdUp = useResponsive('up', 'md');
 
@@ -72,7 +75,7 @@ export default function Nav({ open, onClose }) {
     >
       <Stack spacing={2} sx={{ p: 3, pb: 2 }}>
         <Stack spacing={2} direction="row" alignItems="center">
-          <Avatar src={user.image} sx={{ width: 64, height: 64 }} />
+          <Avatar src={image} sx={{ width: 64, height: 64 }} />
           {/* <Stack
             direction="row"
             alignItems="center"
@@ -114,7 +117,7 @@ export default function Nav({ open, onClose }) {
             height: 44,
             borderRadius: 1,
           }}
-          onClick={logout}
+          onClick={removeUserData()}
         >
           <ListItemIcon>
             <Iconify icon="carbon:logout" />

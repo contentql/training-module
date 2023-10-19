@@ -20,7 +20,7 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import { _mock } from 'src/_mock';
 // import { countries } from 'src/assets/data';
 // import Iconify from 'src/components/iconify';
-import { useUserStore } from 'src/states/user';
+import { useUserStore } from 'src/states/auth-store';
 // import { useBoolean } from 'src/hooks/use-boolean';
 import FormProvider, {
   // RHFSelect,
@@ -36,21 +36,22 @@ import FormProvider, {
 // ----------------------------------------------------------------------
 
 export default function AccountPersonalView() {
-  const [user, updateUser] = useUserStore((state) => [state.user, state.updateUser]);
+  // const [user, updateUser] = useUserStore((state) => [state.user, state.updateUser]);
 
   // const passwordShow = useBoolean();
+  const userData = useUserStore();
+
+  console.log(userData);
+
+  const { updateUser } = userData;
+
+  const { image } = userData.UserData;
 
   const EcommerceAccountPersonalSchema = Yup.object().shape({
     firstName: Yup.string().required('First name is required'),
     lastName: Yup.string().required('Last name is required'),
     emailAddress: Yup.string().required('Email address is required'),
     phoneNumber: Yup.string().required('Phone number is required'),
-    // avatar: Yup.string().required('Avatar is required'),
-    // birthday: Yup.mixed().nullable().required('Birthday is required'),
-    // gender: Yup.string().required('Gender is required'),
-    // streetAddress: Yup.string().required('Street address is required'),
-    // city: Yup.string().required('City is required'),
-    // zipCode: Yup.string().required('Zip code is required'),
   });
 
   const defaultValues = {
@@ -58,16 +59,6 @@ export default function AccountPersonalView() {
     lastName: 'Simon',
     emailAddress: 'nannie_abernathy70@yahoo.com',
     phoneNumber: '365-374-4961',
-    // birthday: null,
-    // gender: 'Male',
-    // avatar: '1',
-    // streetAddress: '',
-    // zipCode: '',
-    // city: '',
-    // country: 'United States',
-    // oldPassword: '',
-    // newPassword: '',
-    // confirmNewPassword: '',
   };
 
   const methods = useForm({
@@ -230,7 +221,7 @@ export default function AccountPersonalView() {
         <Grid container spacing={2.5} sx={{ marginLeft: 1.5 }}>
           {[...Array(25)].map((arr, index) => {
             let styles = { margin: 1, height: 60, width: 60 };
-            if (_mock.image.avatar(index) === user.image)
+            if (_mock.image.avatar(index) === image)
               styles = { ...styles, border: 4, borderRadius: '50%', borderColor: '#0d5992' };
 
             return (

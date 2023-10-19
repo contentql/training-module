@@ -40,7 +40,9 @@ export default function Header({ headerOnDark }) {
   // const [user, updateUser] = useUserStore((state) => [state.user, state.updateUser]);
   const userData = useUserStore();
 
-  const { isLoggedIn, image } = userData;
+  const { isLoggedIn, image } = userData.UserData;
+
+  const { removeUserData } = userData;
 
   const cart = useCartStore((state) => state.cart);
 
@@ -82,24 +84,6 @@ export default function Header({ headerOnDark }) {
         >
           <Box sx={{ lineHeight: 0, position: 'relative', width: '20%' }}>
             <Logo />
-
-            {/* <Link href="#">
-              <Label
-                color="info"
-                sx={{
-                  ml: 0.5,
-                  px: 0.5,
-                  top: -14,
-                  left: 60,
-                  height: 20,
-                  fontSize: 11,
-                  cursor: 'pointer',
-                  position: 'absolute',
-                }}
-              >
-                v2.1.0
-              </Label>
-            </Link> */}
           </Box>
 
           {mdUp && <NavDesktop data={navConfig} />}
@@ -110,12 +94,6 @@ export default function Header({ headerOnDark }) {
             alignItems="center"
             justifyContent="flex-end"
           >
-            {/* <Stack spacing={1} direction="row" alignItems="center">
-              <Searchbar />
-
-              <SettingsButton />
-            </Stack> */}
-
             <Link component={RouterLink} href={paths.eLearning.account.wishlist}>
               <IconButton size="small" sx={{ p: 1.2 }}>
                 <Badge
@@ -138,15 +116,15 @@ export default function Header({ headerOnDark }) {
             {mdUp && (
               <>
                 {isLoggedIn ? (
-                  <Link component={RouterLink} href={paths.eLearning.account.personal}>
-                    <Avatar src={image} sx={{ width: 40, height: 40 }} />
-                  </Link>
-                ) : (
-                  // <Link component={RouterLink} href={paths.loginBackground}>
-                  <Button variant="contained" color="inherit">
-                    Login
+                  <Button variant="contained" color="error" onClick={() => removeUserData()}>
+                    logout
                   </Button>
-                  // </Link>
+                ) : (
+                  <Link component={RouterLink} href={paths.loginBackground}>
+                    <Button variant="contained" color="inherit">
+                      Login
+                    </Button>
+                  </Link>
                 )}
               </>
             )}

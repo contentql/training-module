@@ -62,7 +62,6 @@ export default function LoginBackgroundView() {
   const onSubmit = handleSubmit(async (data) => {
     try {
       const { email: identifier, password } = data;
-      console.log(password);
       const response = await fetch(`http://localhost:1337/api/auth/local/`, {
         method: 'POST',
         headers: {
