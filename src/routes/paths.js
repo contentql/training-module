@@ -47,6 +47,7 @@ export const paths = {
     checkout: '/checkout',
     purchaseCompleted: '/purchase-completed',
     wishlist: '/wishlist',
+    myLearning: '/my-learning',
     account: {
       root: `/account`,
       personal: `/account/personal`,
@@ -77,10 +78,10 @@ export const paths = {
   },
   // Auth
   loginCover: '/auth/login-cover',
-  loginBackground: '/auth/login-background',
+  loginBackground: '/auth/login',
   loginIllustration: '/auth/login-illustration',
   registerCover: '/auth/register-cover',
-  registerBackground: '/auth/register-background',
+  registerBackground: '/auth/register',
   registerIllustration: '/auth/register-illustration',
   forgotPassword: '/auth/forgot-password',
   verify: '/auth/verify',

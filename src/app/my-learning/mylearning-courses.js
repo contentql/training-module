@@ -1,4 +1,6 @@
 import PropTypes from 'prop-types';
+import { useQuery } from 'react-query';
+import { useState, useEffect } from 'react';
 
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -6,11 +8,26 @@ import Stack from '@mui/material/Stack';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
+import { useUserStore } from 'src/states/auth-store';
 import ElearningCourseItem from 'src/sections/_elearning/list/elearning-course-item';
 
 // ----------------------------------------------------------------------
 
-export default function ElearningLandingFeaturedCourses({ courses }) {
+export default function ElearningLandingFeaturedCourses() {
+  const userData = useUserStore((state) => state.UserData);
+
+  const { isLoading, error, data } = useQuery('repoData', () =>
+    fetch(process.env.NEXT_PUBLIC_MY_LEARNING_URL, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${userData.authToken}`,
+      },
+    }).then((res) => res.json())
+  );
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error {error.message}</div>;
+
   return (
     <Container
       sx={{
@@ -38,25 +55,22 @@ export default function ElearningLandingFeaturedCourses({ courses }) {
           mt: 5,
         }}
       >
-        {courses.map((course) => (
-          <Grid
-            item
-            md={6}
-            lg={4}
-            key={course.id}
-            sx={{
-              px: 2,
-              pt: { xs: 8, md: 15 },
-            }}
-          >
-            <ElearningCourseItem course={course} vertical />
-          </Grid>
-        ))}
+        {data &&
+          data.map((course) => (
+            <Grid
+              item
+              md={6}
+              lg={4}
+              key={course.id}
+              sx={{
+                px: 2,
+                pt: { xs: 8, md: 15 },
+              }}
+            >
+              <ElearningCourseItem course={course} id={course.id} vertical />
+            </Grid>
+          ))}
       </Grid>
     </Container>
   );
 }
-
-ElearningLandingFeaturedCourses.propTypes = {
-  courses: PropTypes.array,
-};
