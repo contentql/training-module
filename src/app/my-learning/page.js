@@ -1,5 +1,6 @@
 'use client';
 
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { QueryClient, QueryClientProvider } from 'react-query';
 
 import { _courses } from 'src/_mock';
