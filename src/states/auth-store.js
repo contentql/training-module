@@ -9,7 +9,7 @@ const store = persist(
       authToken: '',
       userName: '',
       isLoggedIn: false,
-      image: _mock.image.avatar(0),
+      image: null,
     },
     updateUserData: (userData) => {
       set(() => ({
@@ -22,6 +22,7 @@ const store = persist(
           authToken: '',
           userName: '',
           isLoggedIn: false,
+          image: null,
         },
       }));
     },

@@ -90,6 +90,7 @@ export default function RegisterBackgroundView() {
           authToken: resData.jwt,
           userName: resData.user.username,
           isLoggedIn: resData.user.confirmed,
+          image: resData.user.image,
         };
         updateUserData(userData);
       } else if (response.status === 400) {

@@ -69,6 +69,7 @@ export default function LoginBackgroundView() {
         body: JSON.stringify({ identifier, password }),
       });
       const resData = await response.json();
+
       const { jwt } = resData;
       localStorage.setItem('token', jwt);
 

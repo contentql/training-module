@@ -22,6 +22,7 @@ import { fCurrency, fShortenNumber } from 'src/utils/format-number';
 export default function ElearningCourseItem({ course, vertical, id }) {
   const {
     slug,
+    title,
     level,
     price,
     teachers,
@@ -50,7 +51,7 @@ export default function ElearningCourseItem({ course, vertical, id }) {
     >
       <Box sx={{ flexShrink: { sm: 0 } }}>
         <Image
-          alt={slug}
+          alt={title}
           src={coverUrl}
           sx={{
             height: 1,
@@ -110,7 +111,7 @@ export default function ElearningCourseItem({ course, vertical, id }) {
           <Stack spacing={1}>
             <Link component={RouterLink} href={`/courses/${id}`} color="inherit">
               <TextMaxLine variant="h6" line={1}>
-                {slug}
+                {title}
               </TextMaxLine>
             </Link>
 
@@ -210,6 +211,7 @@ export default function ElearningCourseItem({ course, vertical, id }) {
 ElearningCourseItem.propTypes = {
   course: PropTypes.shape({
     slug: PropTypes.string,
+    title: PropTypes.string,
     level: PropTypes.string,
     price: PropTypes.number,
     teachers: PropTypes.array,
