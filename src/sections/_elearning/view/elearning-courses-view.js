@@ -1,5 +1,7 @@
 'use client';
 
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { useQuery } from 'react-query';
 import { useState, useEffect } from 'react';
 
 import Box from '@mui/material/Box';
@@ -11,6 +13,7 @@ import Typography from '@mui/material/Typography';
 import { _courses } from 'src/_mock';
 import Iconify from 'src/components/iconify';
 import { useBoolean } from 'src/hooks/use-boolean';
+import { getCoursesData } from 'src/queries/courses';
 
 import ElearningNewsletter from '../elearning-newsletter';
 import ElearningFilters from '../filters/elearning-filters';
@@ -38,6 +41,11 @@ export default function ElearningCoursesView() {
     };
     fakeLoading();
   }, [loading]);
+
+  const { data } = useQuery({
+    queryKey: ['courses'],
+    queryFn: getCoursesData(),
+  });
 
   return (
     <>
