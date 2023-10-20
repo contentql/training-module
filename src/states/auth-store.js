@@ -1,8 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-import { _mock } from 'src/_mock';
-
 const store = persist(
   (set) => ({
     UserData: {
@@ -14,6 +12,12 @@ const store = persist(
     updateUserData: (userData) => {
       set(() => ({
         UserData: userData,
+      }));
+    },
+    updateImage: (image) => {
+      set((state) => ({
+        ...state.UserData,
+        image,
       }));
     },
     removeUserData: () => {
