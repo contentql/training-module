@@ -25,6 +25,7 @@ import { useRouter } from 'src/routes/hooks';
 import { useCartStore } from 'src/states/cart';
 import { useBoolean } from 'src/hooks/use-boolean';
 import FormProvider from 'src/components/hook-form';
+import { useUserStore } from 'src/states/auth-store';
 import { SplashScreen } from 'src/components/loading-screen';
 
 import ElearningNewsletter from '../elearning-newsletter';
@@ -35,9 +36,7 @@ import ElearningCheckoutPersonalDetails from '../checkout/elearning-checkout-per
 
 // ----------------------------------------------------------------------
 
-const stripePromise = loadStripe(
-  'pk_test_51O14wJSGKNDRcuJuUqGzWCeftvJOpycOZUjVgL5BoNzq82clRNztJYpNZw2mdqFtZrkRCCZVbIpSHSqYTIRpJe6t00WaGaXnpK'
-);
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_API_KEY);
 
 // const PAYMENT_OPTIONS = [
 //   {
@@ -66,6 +65,8 @@ export default function ElearningCheckoutView() {
 
   const formOpen = useBoolean();
 
+  const userData = useUserStore((state) => state.UserData);
+
   const _courses = useCartStore((state) => state.cart);
   const emptyCart = useCartStore((state) => state.emptyCart);
   const cart = useCartStore((state) => state.cart);
@@ -87,19 +88,10 @@ export default function ElearningCheckoutView() {
   });
 
   const defaultValues = {
-    firstName: '',
-    lastName: '',
-    emailAddress: '',
-    phoneNumber: '',
-    password: '',
-    confirmPassword: '',
+    username: userData.username,
+    emailAddress: userData.email,
+    phoneNumber: userData.phone,
     paymentMethods: '',
-    newCard: {
-      cardNumber: '',
-      cardHolder: '',
-      expirationDate: '',
-      ccv: '',
-    },
   };
 
   const methods = useForm({
@@ -144,7 +136,7 @@ export default function ElearningCheckoutView() {
   async function makePayment(data) {
     const stripe = await stripePromise;
     const requestBody = {
-      username: [data.firstName, data.lastName].join(' '),
+      username: [data.username],
       email: data.emailAddress,
       products: cart.map(({ slug, id, price }) => ({ slug, id, price })),
     };
@@ -166,7 +158,7 @@ export default function ElearningCheckoutView() {
 
   async function addUserToCourse() {
     // Replace these with your actual Strapi credentials and settings
-    const apiUrl = 'http://localhost:1337'; // Your Strapi base URL
+    const apiUrl = process.env.NEXT_PUBLIC_STRAPI_BASE_URL; // Your Strapi base URL
     const contentType = 'courses'; // Replace with your actual content type
     const itemId = '1'; // Replace with the ID of the item you want to update
     const arrayField = 'users'; // Replace with the name of your array field

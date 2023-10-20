@@ -2,13 +2,13 @@ import PropTypes from 'prop-types';
 import { useQuery } from 'react-query';
 import { useState, useEffect } from 'react';
 
-import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
 import { useUserStore } from 'src/states/auth-store';
+import { SplashScreen } from 'src/components/loading-screen';
 import ElearningCourseItem from 'src/sections/_elearning/list/elearning-course-item';
 
 // ----------------------------------------------------------------------
@@ -16,7 +16,7 @@ import ElearningCourseItem from 'src/sections/_elearning/list/elearning-course-i
 export default function ElearningLandingFeaturedCourses() {
   const userData = useUserStore((state) => state.UserData);
 
-  const { isLoading, error, data } = useQuery('repoData', () =>
+  const { isLoading, data } = useQuery('repoData', () =>
     fetch(process.env.NEXT_PUBLIC_MY_LEARNING_URL, {
       method: 'GET',
       headers: {
@@ -25,9 +25,7 @@ export default function ElearningLandingFeaturedCourses() {
     }).then((res) => res.json())
   );
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error {error.message}</div>;
-
+  if (isLoading) return <SplashScreen />;
   return (
     <Container
       sx={{
