@@ -9,9 +9,10 @@ import ElearningCourseItemSkeleton from './elearning-course-item-skeleton';
 // ----------------------------------------------------------------------
 
 export default function ElearningCourseList({ courses, loading, filters }) {
+  console.log(courses);
   const filterCourseByText = (course) => {
     if (filters.text.length === 0) return true;
-    return course.slug.toLowerCase().includes(filters.text.toLowerCase());
+    return course.title.toLowerCase().includes(filters.text.toLowerCase());
   };
 
   const filterByRating = (course) => {
@@ -54,21 +55,19 @@ export default function ElearningCourseList({ courses, loading, filters }) {
   return (
     <>
       <Stack spacing={4}>
-        {(loading
-          ? [...Array(9)]
-          : courses
-              .filter(filterCourseByText)
-              .filter(filterByRating)
-              .filter(filterByDuration)
-              .filter(filterByCategory)
-              .filter(filterByFee)
-        ).map((course, index) =>
-          course ? (
-            <ElearningCourseItem key={course.id} course={course.attributes} id={course.id} />
-          ) : (
-            <ElearningCourseItemSkeleton key={index} />
-          )
-        )}
+        {(loading ? [...Array(9)] : courses)
+          .filter(filterCourseByText)
+          .filter(filterByRating)
+          .filter(filterByDuration)
+          .filter(filterByCategory)
+          .filter(filterByFee)
+          .map((course, index) =>
+            course ? (
+              <ElearningCourseItem key={course.id} course={course.attributes} id={course.id} />
+            ) : (
+              <ElearningCourseItemSkeleton key={index} />
+            )
+          )}
       </Stack>
 
       <Pagination

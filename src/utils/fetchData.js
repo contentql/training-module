@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import axios from 'axios';
 
-const graphQLEndpoint = process.env.NEXT_PUBLIC_GRAPHQL;
+const graphQLEndpoint = process.env.NEXT_PUBLIC_STRAPI_BASE_URL;
 
 const fetchData = async (query, { variables = {} }) => {
   const headers = {
