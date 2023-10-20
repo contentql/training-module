@@ -51,7 +51,7 @@ export default function ElearningCourseItem({ course, vertical, id }) {
       <Box sx={{ flexShrink: { sm: 0 } }}>
         <Image
           alt={slug}
-          src={coverUrl}
+          src="/assets/images/course/course_1.jpg"
           sx={{
             height: 1,
             objectFit: 'cover',

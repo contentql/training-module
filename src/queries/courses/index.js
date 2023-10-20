@@ -1,9 +1,8 @@
 import fetchData from 'src/utils/fetchData';
 
 export const getCoursesData = async () => {
-  try {
-    const data = await fetchData(
-      `
+  const data = await fetchData(
+    `
         query {
             courses {
                 data {
@@ -20,14 +19,10 @@ export const getCoursesData = async () => {
             }
         }
     `,
-      {
-        variables: {},
-      }
-    );
+    {
+      variables: {},
+    }
+  );
 
-    return data.data;
-  } catch (err) {
-    console.log(err.message);
-  }
-  return null;
+  return data.data.courses.data;
 };
