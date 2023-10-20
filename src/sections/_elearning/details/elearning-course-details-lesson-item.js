@@ -17,6 +17,7 @@ export default function ElearningCourseDetailsLessonItem({
   onExpanded,
 }) {
   const playIcon = selected ? 'carbon:pause-outline' : 'carbon:play';
+  lesson.unLocked = true;
 
   return (
     <Accordion
@@ -58,7 +59,7 @@ export default function ElearningCourseDetailsLessonItem({
           {lesson.title}
         </Typography>
 
-        <Typography variant="body2">{lesson.duration} m</Typography>
+        <Typography variant="body2">{lesson.time} m</Typography>
 
         <Iconify icon={expanded ? 'carbon:chevron-down' : 'carbon:chevron-right'} sx={{ ml: 2 }} />
       </AccordionSummary>

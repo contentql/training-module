@@ -152,7 +152,7 @@ export default function ElearningCourseDetailsLessonsDialog({
           px: 1,
           minHeight: { xs: 40, md: 64 },
           mr: 2,
-          ...(unit.lessons.includes(selectedLesson) && {
+          ...(unit.attributes.lesson.includes(selectedLesson) && {
             color: 'primary.main',
           }),
           [`&.${accordionSummaryClasses.content}`]: {

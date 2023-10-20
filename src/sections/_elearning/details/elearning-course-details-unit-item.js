@@ -62,8 +62,8 @@ export default function ElearningCourseDetailsUnitItem({ unit, index, units }) {
         }}
         className="ml-10"
       >
-        <ElearningCourseDetailsLessonList lessons={unit.lessons} units={units} />
-        <Quiz _questions={unit.questions} />
+        <ElearningCourseDetailsLessonList lessons={unit.lesson} units={units} />
+        {/* <Quiz _questions={unit.questions} /> */}
       </AccordionDetails>
     </Accordion>
   );
