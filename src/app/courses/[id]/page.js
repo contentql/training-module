@@ -13,11 +13,9 @@ const queryClient = new QueryClient();
 
 export default function ElearningCoursePage({ params }) {
   return (
-    <QueryClientProvider client={queryClient}>
-      <MainLayout>
-        <ElearningCourseView courseId={params.id} />
-      </MainLayout>
-    </QueryClientProvider>
+    <MainLayout>
+      <ElearningCourseView courseId={params.id} />
+    </MainLayout>
   );
 }
 

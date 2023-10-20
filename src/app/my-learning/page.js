@@ -16,9 +16,7 @@ export default function MyLearning() {
   return (
     <ProtectedRoute>
       <MainLayout>
-        <QueryClientProvider client={queryClient}>
-          <ElearningLandingFeaturedCourses courses={_courses} />
-        </QueryClientProvider>
+        <ElearningLandingFeaturedCourses courses={_courses} />
       </MainLayout>
     </ProtectedRoute>
   );
