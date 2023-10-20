@@ -78,6 +78,7 @@ export default function LoginBackgroundView() {
           authToken: resData.jwt,
           userName: resData.user.username,
           isLoggedIn: true,
+          image: resData.image,
         };
         updateUserData(userData);
         router.push('/');

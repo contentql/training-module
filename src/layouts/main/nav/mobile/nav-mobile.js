@@ -28,9 +28,7 @@ import NavList from './nav-list';
 export default function NavMobile({ data }) {
   const userData = useUserStore();
 
-  const { isLoggedIn, image } = userData.UserData;
-
-  const { removeUserData } = userData;
+  const { isLoggedIn } = userData.UserData;
 
   const pathname = usePathname();
 

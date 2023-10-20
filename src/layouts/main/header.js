@@ -42,8 +42,6 @@ export default function Header({ headerOnDark }) {
 
   const { isLoggedIn, image } = userData.UserData;
 
-  const { removeUserData } = userData;
-
   const cart = useCartStore((state) => state.cart);
 
   const wishlist = useWishlistStore((state) => state.wishlist);
