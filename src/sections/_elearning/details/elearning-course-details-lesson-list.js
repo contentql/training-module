@@ -51,7 +51,7 @@ export default function ElearningCourseDetailsLessonList({ lessons, units }) {
 
       {lessons.map((lesson, index) => (
         <ElearningCourseDetailsLessonItem
-          key={lesson.id}
+          key={index}
           lesson={lesson}
           expanded={expanded === lesson.id}
           onExpanded={handleExpandedLesson(lesson.id)}

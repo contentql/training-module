@@ -1,7 +1,9 @@
 'use client';
 
 import { useEffect } from 'react';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import PropTypes from 'prop-types';
+import { useQuery } from 'react-query';
 import { redirect } from 'next/navigation';
 
 import Stack from '@mui/material/Stack';
@@ -15,6 +17,7 @@ import Typography from '@mui/material/Typography';
 import Iconify from 'src/components/iconify';
 import { _socials, _courses } from 'src/_mock';
 import { useBoolean } from 'src/hooks/use-boolean';
+import { getCourseData } from 'src/queries/course';
 import { useResponsive } from 'src/hooks/use-responsive';
 import { SplashScreen } from 'src/components/loading-screen';
 
@@ -31,31 +34,36 @@ import ElearningCourseDetailsSummary from '../details/elearning-course-details-s
 export default function ElearningCourseView({ courseId }) {
   const mdUp = useResponsive('up', 'md');
 
-  const loading = useBoolean(true);
+  // const loading = useBoolean(true);
 
   const courseSimilar = _courses.slice(-3);
 
-  const _mockCourse = _courses.filter((course) => course.id === courseId).at(0);
+  // const _mockCourse = _courses.filter((course) => course.id === courseId).at(0);
 
-  if (!_mockCourse) {
-    redirect('/not-found');
-  }
+  // if (!_mockCourse) {
+  //   redirect('/not-found');
+  // }
 
-  useEffect(() => {
-    const fakeLoading = async () => {
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      loading.onFalse();
-    };
-    fakeLoading();
-  }, [loading]);
+  // useEffect(() => {
+  //   const fakeLoading = async () => {
+  //     await new Promise((resolve) => setTimeout(resolve, 500));
+  //     loading.onFalse();
+  //   };
+  //   fakeLoading();
+  // }, [loading]);
 
-  if (loading.value) {
+  const { data, isLoading } = useQuery({
+    queryKey: ['courses'],
+    queryFn: () => getCourseData(courseId),
+  });
+
+  if (isLoading) {
     return <SplashScreen />;
   }
 
   return (
     <>
-      <ElearningCourseDetailsHero course={_mockCourse} />
+      <ElearningCourseDetailsHero course={data?.attributes} />
 
       <Container
         sx={{
@@ -67,12 +75,12 @@ export default function ElearningCourseView({ courseId }) {
         <Grid container spacing={{ xs: 5, md: 8 }}>
           {!mdUp && (
             <Grid xs={12}>
-              <ElearningCourseDetailsInfo course={_mockCourse} />
+              <ElearningCourseDetailsInfo course={data?.attributes} />
             </Grid>
           )}
 
           <Grid xs={12} md={7} lg={8}>
-            <ElearningCourseDetailsSummary course={_mockCourse} />
+            <ElearningCourseDetailsSummary course={data?.attributes} />
 
             <Stack direction="row" flexWrap="wrap" sx={{ mt: 5 }}>
               <Typography variant="subtitle2" sx={{ mt: 0.75, mr: 1.5 }}>
@@ -105,12 +113,12 @@ export default function ElearningCourseView({ courseId }) {
 
             <Divider sx={{ my: 5 }} />
 
-            {/* <ElearningCourseDetailsTeachersInfo teachers={_mockCourse.teachers} /> */}
+            {/* <ElearningCourseDetailsTeachersInfo teachers={data.teachers} /> */}
           </Grid>
 
           <Grid xs={12} md={5} lg={4}>
             <Stack spacing={5}>
-              {mdUp && <ElearningCourseDetailsInfo course={_mockCourse} />}
+              {mdUp && <ElearningCourseDetailsInfo course={data?.attributes} />}
 
               {/* <Advertisement
                 advertisement={{
