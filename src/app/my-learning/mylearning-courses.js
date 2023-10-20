@@ -11,6 +11,8 @@ import ElearningCourseItem from 'src/sections/_elearning/list/elearning-course-i
 // ----------------------------------------------------------------------
 
 export default function ElearningLandingFeaturedCourses({ courses }) {
+  
+
   return (
     <Container
       sx={{

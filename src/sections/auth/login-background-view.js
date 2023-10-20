@@ -20,9 +20,8 @@ import { paths } from 'src/routes/paths';
 import Iconify from 'src/components/iconify';
 import { useBoolean } from 'src/hooks/use-boolean';
 import { RouterLink } from 'src/routes/components';
+import { useUserStore } from 'src/states/auth-store';
 import FormProvider, { RHFTextField } from 'src/components/hook-form';
-
-import { useUserStore } from '../../states/auth-store';
 
 // ----------------------------------------------------------------------
 
@@ -78,7 +77,7 @@ export default function LoginBackgroundView() {
           authToken: resData.jwt,
           userName: resData.user.username,
           isLoggedIn: true,
-          image: resData.image,
+          image: resData.user.image,
         };
         updateUserData(userData);
         router.push('/');

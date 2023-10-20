@@ -32,6 +32,11 @@ const navigations = [
     path: paths.eLearning.account.wishlist,
     icon: <Iconify icon="carbon:favorite" />,
   },
+  {
+    title: 'My Learning',
+    path: paths.eLearning.myLearning,
+    icon: <Iconify icon="fluent-mdl2:publish-course" />,
+  },
   // {
   //   title: 'Vouchers',
   //   path: paths.eLearning.account.vouchers,
