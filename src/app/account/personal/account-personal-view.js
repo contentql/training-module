@@ -39,7 +39,7 @@ export default function AccountPersonalView() {
   // const [user, updateUser] = useUserStore((state) => [state.user, state.updateUser]);
 
   // const passwordShow = useBoolean();
-  const [userData, updateImage] = useUserStore((state) => [state.UserData, state.updateUser]);
+  const [userData, updateImage] = useUserStore((state) => [state.UserData, state.updateImage]);
 
   const EcommerceAccountPersonalSchema = Yup.object().shape({
     firstName: Yup.string().required('First name is required'),
