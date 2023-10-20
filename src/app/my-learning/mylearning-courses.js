@@ -1,4 +1,6 @@
+import PropTypes from 'prop-types';
 import { useQuery } from 'react-query';
+import { useState, useEffect } from 'react';
 
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
@@ -24,7 +26,6 @@ export default function ElearningLandingFeaturedCourses() {
   );
 
   if (isLoading) return <SplashScreen />;
-
   return (
     <Container
       sx={{
