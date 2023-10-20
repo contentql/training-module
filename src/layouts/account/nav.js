@@ -52,12 +52,12 @@ const navigations = [
 // ----------------------------------------------------------------------
 
 export default function Nav({ open, onClose }) {
-  // const user = useUserStore((state) => state.user);
-  const userData = useUserStore();
+  const [userData, removeUserData] = useUserStore((state) => [
+    state.UserData,
+    state.removeUserData,
+  ]);
 
-  const { image } = userData.UserData;
-
-  const { removeUserData } = userData;
+  const { image } = userData;
 
   const mdUp = useResponsive('up', 'md');
 
@@ -117,7 +117,7 @@ export default function Nav({ open, onClose }) {
             height: 44,
             borderRadius: 1,
           }}
-          onClick={removeUserData()}
+          onClick={removeUserData}
         >
           <ListItemIcon>
             <Iconify icon="carbon:logout" />

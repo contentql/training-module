@@ -116,9 +116,14 @@ export default function Header({ headerOnDark }) {
             {mdUp && (
               <>
                 {isLoggedIn ? (
-                  <Button variant="contained" color="error" onClick={() => removeUserData()}>
-                    logout
-                  </Button>
+                  <>
+                    <Link component={RouterLink} href={paths.eLearning.account.personal}>
+                      <Avatar src={image} sx={{ width: 40, height: 40 }} />
+                    </Link>
+                    {/* <Button variant="contained" color="error" onClick={() => removeUserData()}>
+                      logout
+                    </Button> */}
+                  </>
                 ) : (
                   <Link component={RouterLink} href={paths.loginBackground}>
                     <Button variant="contained" color="inherit">
