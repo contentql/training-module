@@ -62,7 +62,7 @@ export default function LoginBackgroundView() {
   const onSubmit = handleSubmit(async (data) => {
     try {
       const { email: identifier, password } = data;
-      const response = await fetch(process.env.LOGIN_URL, {
+      const response = await fetch(process.env.NEXT_PUBLIC_LOGIN_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -70,7 +70,7 @@ export default function RegisterBackgroundView() {
   const onSubmit = handleSubmit(async (data) => {
     try {
       const { userName, email, password } = data;
-      const response = await fetch(process.env.REGISTER_URL, {
+      const response = await fetch(process.env.NEXT_PUBLIC_REGISTER_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
