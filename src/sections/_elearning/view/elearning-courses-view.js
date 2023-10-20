@@ -1,5 +1,7 @@
 'use client';
 
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { useQuery } from 'react-query';
 import { useState, useEffect } from 'react';
 
 import Box from '@mui/material/Box';
@@ -11,6 +13,8 @@ import Typography from '@mui/material/Typography';
 import { _courses } from 'src/_mock';
 import Iconify from 'src/components/iconify';
 import { useBoolean } from 'src/hooks/use-boolean';
+import { getCoursesData } from 'src/queries/courses';
+import { SplashScreen } from 'src/components/loading-screen';
 
 import ElearningNewsletter from '../elearning-newsletter';
 import ElearningFilters from '../filters/elearning-filters';
@@ -38,6 +42,18 @@ export default function ElearningCoursesView() {
     };
     fakeLoading();
   }, [loading]);
+
+  const { data } = useQuery({
+    queryKey: ['courses'],
+    queryFn: getCoursesData,
+  });
+
+  useEffect(() => {
+    if (!data) return;
+    loading.onFalse();
+  }, [data, loading]);
+
+  if (loading.value) return <SplashScreen />;
 
   return (
     <>
@@ -80,7 +96,7 @@ export default function ElearningCoursesView() {
               width: { md: `calc(100% - ${280}px)` },
             }}
           >
-            <ElearningCourseList courses={_courses} loading={loading.value} filters={filters} />
+            <ElearningCourseList courses={data} loading={loading.value} filters={filters} />
           </Box>
         </Stack>
       </Container>

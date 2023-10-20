@@ -20,9 +20,8 @@ import { paths } from 'src/routes/paths';
 import Iconify from 'src/components/iconify';
 import { useBoolean } from 'src/hooks/use-boolean';
 import { RouterLink } from 'src/routes/components';
+import { useUserStore } from 'src/states/auth-store';
 import FormProvider, { RHFTextField } from 'src/components/hook-form';
-
-import { useUserStore } from '../../states/auth-store';
 
 // ----------------------------------------------------------------------
 
@@ -62,7 +61,7 @@ export default function LoginBackgroundView() {
   const onSubmit = handleSubmit(async (data) => {
     try {
       const { email: identifier, password } = data;
-      const response = await fetch(`http://localhost:1337/api/auth/local/`, {
+      const response = await fetch(process.env.NEXT_PUBLIC_LOGIN_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -70,14 +69,15 @@ export default function LoginBackgroundView() {
         body: JSON.stringify({ identifier, password }),
       });
       const resData = await response.json();
+
       const { jwt } = resData;
       localStorage.setItem('token', jwt);
 
       if (response.ok) {
         const userData = {
           authToken: resData.jwt,
-          userName: resData.user.username,
           isLoggedIn: true,
+          ...resData.user,
         };
         updateUserData(userData);
         router.push('/');

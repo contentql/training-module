@@ -70,7 +70,7 @@ export default function RegisterBackgroundView() {
   const onSubmit = handleSubmit(async (data) => {
     try {
       const { userName, email, password } = data;
-      const response = await fetch(`http://localhost:1337/api/auth/local/register`, {
+      const response = await fetch(process.env.NEXT_PUBLIC_REGISTER_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -90,6 +90,7 @@ export default function RegisterBackgroundView() {
           authToken: resData.jwt,
           userName: resData.user.username,
           isLoggedIn: resData.user.confirmed,
+          image: resData.user.image,
         };
         updateUserData(userData);
       } else if (response.status === 400) {

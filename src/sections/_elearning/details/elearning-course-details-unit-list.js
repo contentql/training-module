@@ -16,7 +16,7 @@ export default function ElearningCourseDetailsLessonList({ units }) {
       </Typography>
 
       {units.map((unit, index) => (
-        <ElearningCourseDetailsUnitItem key={index} unit={unit} index={index} units={units} />
+        <ElearningCourseDetailsUnitItem key={index} unit={unit.attributes} index={index} units={units} />
       ))}
     </div>
   );

@@ -110,6 +110,6 @@ export const pageLinks = [
 export const navConfig = [
   { title: 'Home', path: '/' },
   { title: 'Courses', path: '/courses' },
-  { title: 'My Learning', path: '/my-learning' },
+  // { title: 'My Learning', path: '/my-learning' },
   { title: 'About Us', path: '/about-us' },
 ];

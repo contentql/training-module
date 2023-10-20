@@ -1,4 +1,5 @@
 import MainLayout from 'src/layouts/main';
+import ProtectedRoute from 'src/routes/components/protected-route';
 import ElearningCheckoutView from 'src/sections/_elearning/view/elearning-checkout-view';
 
 // ----------------------------------------------------------------------
@@ -9,8 +10,10 @@ export const metadata = {
 
 export default function ElearningCoursesPage() {
   return (
-    <MainLayout>
-      <ElearningCheckoutView />
-    </MainLayout>
+    <ProtectedRoute>
+      <MainLayout>
+        <ElearningCheckoutView />
+      </MainLayout>
+    </ProtectedRoute>
   );
 }

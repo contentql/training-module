@@ -22,6 +22,7 @@ import { fCurrency, fShortenNumber } from 'src/utils/format-number';
 export default function ElearningCourseItem({ course, vertical, id }) {
   const {
     slug,
+    title,
     level,
     price,
     teachers,
@@ -29,9 +30,9 @@ export default function ElearningCourseItem({ course, vertical, id }) {
     category,
     priceSale,
     bestSeller,
-    totalHours,
+    time,
     description,
-    ratingNumber,
+    rating,
     totalReviews,
     totalStudents,
   } = course;
@@ -50,8 +51,8 @@ export default function ElearningCourseItem({ course, vertical, id }) {
     >
       <Box sx={{ flexShrink: { sm: 0 } }}>
         <Image
-          alt={slug}
-          src={coverUrl}
+          alt={title}
+          src="/assets/images/course/course_1.jpg"
           sx={{
             height: 1,
             objectFit: 'cover',
@@ -110,7 +111,7 @@ export default function ElearningCourseItem({ course, vertical, id }) {
           <Stack spacing={1}>
             <Link component={RouterLink} href={`/courses/${id}`} color="inherit">
               <TextMaxLine variant="h6" line={1}>
-                {slug}
+                {title}
               </TextMaxLine>
             </Link>
 
@@ -137,9 +138,7 @@ export default function ElearningCourseItem({ course, vertical, id }) {
         >
           <Stack spacing={0.5} direction="row" alignItems="center">
             <Iconify icon="carbon:star-filled" sx={{ color: 'warning.main' }} />
-            <Box sx={{ typography: 'h6' }}>
-              {Number.isInteger(ratingNumber) ? `${ratingNumber}.0` : ratingNumber}
-            </Box>
+            <Box sx={{ typography: 'h6' }}>{Number.isInteger(rating) ? `${rating}.0` : rating}</Box>
 
             {totalReviews && (
               <Link variant="body2" sx={{ color: 'text.secondary' }}>
@@ -187,7 +186,7 @@ export default function ElearningCourseItem({ course, vertical, id }) {
           sx={{ color: 'text.disabled', '& > *:not(:last-child)': { mr: 2.5 } }}
         >
           <Stack direction="row" alignItems="center" sx={{ typography: 'body2' }}>
-            <Iconify icon="carbon:time" sx={{ mr: 1 }} /> {`${totalHours} hours`}
+            <Iconify icon="carbon:time" sx={{ mr: 1 }} /> {`${time} hours`}
           </Stack>
 
           <Stack direction="row" alignItems="center" sx={{ typography: 'body2' }}>
@@ -210,6 +209,7 @@ export default function ElearningCourseItem({ course, vertical, id }) {
 ElearningCourseItem.propTypes = {
   course: PropTypes.shape({
     slug: PropTypes.string,
+    title: PropTypes.string,
     level: PropTypes.string,
     price: PropTypes.number,
     teachers: PropTypes.array,
@@ -217,9 +217,9 @@ ElearningCourseItem.propTypes = {
     category: PropTypes.string,
     coverUrl: PropTypes.string,
     priceSale: PropTypes.number,
-    totalHours: PropTypes.number,
+    time: PropTypes.number,
     description: PropTypes.string,
-    ratingNumber: PropTypes.number,
+    rating: PropTypes.number,
     totalReviews: PropTypes.number,
     totalStudents: PropTypes.number,
   }),

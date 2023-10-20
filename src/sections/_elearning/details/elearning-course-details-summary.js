@@ -15,7 +15,7 @@ import ElearningCourseDetailsUnitList from './elearning-course-details-unit-list
 export default function ElearningCourseDetailsSummary({ course }) {
   return (
     <Stack spacing={5}>
-      <ElearningCourseDetailsUnitList units={course.units} />
+      <ElearningCourseDetailsUnitList units={course.units.data} />
 
       <Stack spacing={3}>
         <Typography variant="h4">What You Will Learn</Typography>

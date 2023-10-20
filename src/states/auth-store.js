@@ -1,19 +1,23 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-import { _mock } from 'src/_mock';
-
 const store = persist(
   (set) => ({
     UserData: {
       authToken: '',
       userName: '',
       isLoggedIn: false,
-      image: _mock.image.avatar(0),
+      image: null,
     },
     updateUserData: (userData) => {
       set(() => ({
         UserData: userData,
+      }));
+    },
+    updateImage: (image) => {
+      set((state) => ({
+        ...state.UserData,
+        image,
       }));
     },
     removeUserData: () => {
@@ -22,6 +26,7 @@ const store = persist(
           authToken: '',
           userName: '',
           isLoggedIn: false,
+          image: null,
         },
       }));
     },

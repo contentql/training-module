@@ -30,16 +30,16 @@ import ElearningCourseDetailsLessonsDialog from './elearning-course-details-less
 
 export default function ElearningCourseDetailsHero({ course }) {
   const {
-    slug,
-    level,
+    title,
+    level = 'Beginner',
     lessons,
     category,
     coverUrl,
     languages,
     bestSeller,
-    totalHours,
+    time,
     description,
-    ratingNumber,
+    rating,
     totalQuizzes,
     totalReviews,
     totalStudents,
@@ -84,7 +84,7 @@ export default function ElearningCourseDetailsHero({ course }) {
             links={[
               { name: 'Home', href: '/' },
               { name: 'Courses', href: paths.eLearning.courses },
-              { name: course.slug || '' },
+              { name: course.title || '' },
             ]}
             sx={{
               pt: 5,
@@ -116,7 +116,7 @@ export default function ElearningCourseDetailsHero({ course }) {
 
                 <Image
                   alt="hero"
-                  src={coverUrl}
+                  src="/assets/images/course/course_1.jpg"
                   ratio={mdUp ? '3/4' : '4/3'}
                   overlay={`linear-gradient(to bottom, ${alpha(
                     theme.palette.common.black,
@@ -140,7 +140,7 @@ export default function ElearningCourseDetailsHero({ course }) {
                   </Typography>
 
                   <Typography variant="h3" component="h1">
-                    {slug}
+                    {title}
                   </Typography>
 
                   <Typography sx={{ color: 'text.secondary' }}>{description}</Typography>
@@ -155,7 +155,7 @@ export default function ElearningCourseDetailsHero({ course }) {
                   <Stack spacing={0.5} direction="row" alignItems="center">
                     <Iconify icon="carbon:star-filled" sx={{ color: 'warning.main' }} />
                     <Box sx={{ typography: 'h6' }}>
-                      {Number.isInteger(ratingNumber) ? `${ratingNumber}.0` : ratingNumber}
+                      {Number.isInteger(rating) ? `${rating}.0` : rating}
                     </Box>
 
                     {totalReviews && (
@@ -173,7 +173,7 @@ export default function ElearningCourseDetailsHero({ course }) {
                   </Stack>
                 </Stack>
 
-                <Stack direction="row" alignItems="center">
+                {/* <Stack direction="row" alignItems="center">
                   <Avatar src={teachers[0]?.avatarUrl} />
 
                   <Typography variant="body2" sx={{ ml: 1, mr: 0.5 }}>
@@ -185,7 +185,7 @@ export default function ElearningCourseDetailsHero({ course }) {
                       + {teachers.length} teachers
                     </Link>
                   )}
-                  {/* <Stack className="ml-2 md:ml-12">
+                  <Stack className="ml-2 md:ml-12">
                     <Button
                       variant="contained"
                       color="primary"
@@ -193,8 +193,8 @@ export default function ElearningCourseDetailsHero({ course }) {
                     >
                       Start Now
                     </Button>
-                  </Stack> */}
-                </Stack>
+                  </Stack>
+                </Stack> */}
 
                 <Divider sx={{ borderStyle: 'dashed' }} />
 
@@ -207,7 +207,7 @@ export default function ElearningCourseDetailsHero({ course }) {
                     }}
                   >
                     <Stack direction="row" alignItems="center" sx={{ typography: 'body2' }}>
-                      <Iconify icon="carbon:time" sx={{ mr: 1 }} /> {`${totalHours} hours`}
+                      <Iconify icon="carbon:time" sx={{ mr: 1 }} /> {`${time} hours`}
                     </Stack>
 
                     <Stack direction="row" alignItems="center" sx={{ typography: 'body2' }}>
@@ -271,17 +271,17 @@ export default function ElearningCourseDetailsHero({ course }) {
 
 ElearningCourseDetailsHero.propTypes = {
   course: PropTypes.shape({
-    slug: PropTypes.string,
+    title: PropTypes.string,
     level: PropTypes.string,
     lessons: PropTypes.array,
     teachers: PropTypes.array,
     bestSeller: PropTypes.bool,
     category: PropTypes.string,
     coverUrl: PropTypes.string,
-    totalHours: PropTypes.number,
+    time: PropTypes.number,
     description: PropTypes.string,
     totalQuizzes: PropTypes.number,
-    ratingNumber: PropTypes.number,
+    rating: PropTypes.number,
     totalReviews: PropTypes.number,
     totalStudents: PropTypes.number,
     languages: PropTypes.arrayOf(PropTypes.string),

@@ -39,13 +39,7 @@ export default function AccountPersonalView() {
   // const [user, updateUser] = useUserStore((state) => [state.user, state.updateUser]);
 
   // const passwordShow = useBoolean();
-  const userData = useUserStore();
-
-  console.log(userData);
-
-  const { updateUser } = userData;
-
-  const { image } = userData.UserData;
+  const [userData, updateImage] = useUserStore((state) => [state.UserData, state.updateImage]);
 
   const EcommerceAccountPersonalSchema = Yup.object().shape({
     firstName: Yup.string().required('First name is required'),
@@ -55,10 +49,9 @@ export default function AccountPersonalView() {
   });
 
   const defaultValues = {
-    firstName: 'Jayvion',
-    lastName: 'Simon',
-    emailAddress: 'nannie_abernathy70@yahoo.com',
-    phoneNumber: '365-374-4961',
+    username: userData.username,
+    emailAddress: userData.email,
+    phoneNumber: userData.phone,
   };
 
   const methods = useForm({
@@ -67,7 +60,7 @@ export default function AccountPersonalView() {
   });
 
   const {
-    // reset,
+    reset,
     handleSubmit,
     formState: { isSubmitting },
   } = methods;
@@ -75,8 +68,8 @@ export default function AccountPersonalView() {
   const onSubmit = handleSubmit(async (data) => {
     try {
       await new Promise((resolve) => setTimeout(resolve, 500));
-      // reset();
-      console.log('DATA', data);
+      reset();
+      // console.log('DATA', data);
     } catch (error) {
       console.error(error);
     }
@@ -94,13 +87,11 @@ export default function AccountPersonalView() {
         display="grid"
         gridTemplateColumns={{ xs: 'repeat(1, 1fr)', md: 'repeat(2, 1fr)' }}
       >
-        <RHFTextField name="firstName" label="First Name" />
+        <RHFTextField name="username" label="User Name" value={userData.username} />
 
-        <RHFTextField name="lastName" label="Last Name" />
+        <RHFTextField name="emailAddress" label="Email Address" value={userData.email} />
 
-        <RHFTextField name="emailAddress" label="Email Address" />
-
-        <RHFTextField name="phoneNumber" label="Phone Number" />
+        <RHFTextField name="phoneNumber" label="Phone Number" value={userData.phone} />
 
         {/* <Controller
           name="birthday"
@@ -221,7 +212,7 @@ export default function AccountPersonalView() {
         <Grid container spacing={2.5} sx={{ marginLeft: 1.5 }}>
           {[...Array(25)].map((arr, index) => {
             let styles = { margin: 1, height: 60, width: 60 };
-            if (_mock.image.avatar(index) === image)
+            if (_mock.image.avatar(index) === userData.image)
               styles = { ...styles, border: 4, borderRadius: '50%', borderColor: '#0d5992' };
 
             return (
@@ -229,7 +220,7 @@ export default function AccountPersonalView() {
                 src={_mock.image.avatar(index)}
                 sx={styles}
                 key={index}
-                onClick={() => updateUser({ name: 'Name', image: _mock.image.avatar(index) })}
+                onClick={() => updateImage(_mock.image.avatar(index))}
               />
             );
           })}
