@@ -70,7 +70,7 @@ export default function RegisterBackgroundView() {
   const onSubmit = handleSubmit(async (data) => {
     try {
       const { userName, email, password } = data;
-      const response = await fetch(`http://localhost:1337/api/auth/local/register`, {
+      const response = await fetch(process.env.REGISTER_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
