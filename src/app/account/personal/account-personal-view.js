@@ -41,8 +41,6 @@ export default function AccountPersonalView() {
   // const passwordShow = useBoolean();
   const userData = useUserStore();
 
-  console.log(userData);
-
   const { updateUser } = userData;
 
   const { image } = userData.UserData;
@@ -67,7 +65,7 @@ export default function AccountPersonalView() {
   });
 
   const {
-    // reset,
+    reset,
     handleSubmit,
     formState: { isSubmitting },
   } = methods;
@@ -75,8 +73,8 @@ export default function AccountPersonalView() {
   const onSubmit = handleSubmit(async (data) => {
     try {
       await new Promise((resolve) => setTimeout(resolve, 500));
-      // reset();
-      console.log('DATA', data);
+      reset();
+      // console.log('DATA', data);
     } catch (error) {
       console.error(error);
     }

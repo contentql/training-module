@@ -32,6 +32,11 @@ const navigations = [
     path: paths.eLearning.account.wishlist,
     icon: <Iconify icon="carbon:favorite" />,
   },
+  {
+    title: 'My Learning',
+    path: paths.eLearning.myLearning,
+    icon: <Iconify icon="fluent-mdl2:publish-course" />,
+  },
   // {
   //   title: 'Vouchers',
   //   path: paths.eLearning.account.vouchers,
@@ -52,12 +57,12 @@ const navigations = [
 // ----------------------------------------------------------------------
 
 export default function Nav({ open, onClose }) {
-  // const user = useUserStore((state) => state.user);
-  const userData = useUserStore();
+  const [userData, removeUserData] = useUserStore((state) => [
+    state.UserData,
+    state.removeUserData,
+  ]);
 
-  const { image } = userData.UserData;
-
-  const { removeUserData } = userData;
+  const { image } = userData;
 
   const mdUp = useResponsive('up', 'md');
 
@@ -117,7 +122,7 @@ export default function Nav({ open, onClose }) {
             height: 44,
             borderRadius: 1,
           }}
-          onClick={removeUserData()}
+          onClick={removeUserData}
         >
           <ListItemIcon>
             <Iconify icon="carbon:logout" />

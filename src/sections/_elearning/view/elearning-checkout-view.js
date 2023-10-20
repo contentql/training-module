@@ -149,7 +149,7 @@ export default function ElearningCheckoutView() {
       products: cart.map(({ slug, id, price }) => ({ slug, id, price })),
     };
 
-    const response = await fetch('http://localhost:1337/api/orders', {
+    const response = await fetch(process.env.NEXT_PUBLIC_ORDER_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
