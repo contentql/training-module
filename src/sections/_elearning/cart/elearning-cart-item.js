@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import PropTypes from 'prop-types';
 
 import Stack from '@mui/material/Stack';
@@ -30,6 +31,7 @@ export default function ElearningCartItem({ course }) {
       <Stack direction="row" alignItems="center" flexGrow={1}>
         <Image
           src={course.coverUrl}
+          // eslint-disable-next-line react/prop-types
           alt={course.attributes.title}
           sx={{
             width: 100,
