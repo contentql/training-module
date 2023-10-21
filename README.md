@@ -2,7 +2,7 @@
 
 - Node 16.x || 18.x
 
-## USING BUN (Recommend)
+## USING BUN (Recommend for production)
 
 > yarn, npm and pnpm
 
