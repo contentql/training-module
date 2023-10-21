@@ -9,7 +9,7 @@ import { LocalizationProvider } from 'src/locales';
 import { primaryFont } from 'src/theme/typography';
 import ProgressBar from 'src/components/progress-bar';
 import MotionLazy from 'src/components/animate/motion-lazy';
-import { ReactQueryProvider } from 'src/utils/reactQueryProvider';
+import { ReactQueryProvider } from 'src/utils/ReactQueryProvider';
 import { SettingsDrawer, SettingsProvider } from 'src/components/settings';
 
 // ----------------------------------------------------------------------
