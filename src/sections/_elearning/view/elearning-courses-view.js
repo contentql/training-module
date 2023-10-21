@@ -43,19 +43,19 @@ export default function ElearningCoursesView() {
     fakeLoading();
   }, [loading]);
 
-  const { data } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ['courses'],
     queryFn: getCoursesData,
   });
 
   console.log('data', data);
 
-  useEffect(() => {
-    if (!data) return;
-    loading.onFalse();
-  }, [data, loading]);
+  // useEffect(() => {
+  //   if (!data) return;
+  //   loading.onFalse();
+  // }, [data, loading]);
 
-  if (loading.value) return <SplashScreen />;
+  if (isLoading) return <SplashScreen />;
 
   return (
     <>
@@ -98,7 +98,7 @@ export default function ElearningCoursesView() {
               width: { md: `calc(100% - ${280}px)` },
             }}
           >
-            <ElearningCourseList courses={data} loading={loading.value} filters={filters} />
+            <ElearningCourseList courses={data} loading={isLoading} filters={filters} />
           </Box>
         </Stack>
       </Container>

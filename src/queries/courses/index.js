@@ -23,6 +23,5 @@ export const getCoursesData = async () => {
       variables: {},
     }
   );
-
   return data.data.courses.data;
 };

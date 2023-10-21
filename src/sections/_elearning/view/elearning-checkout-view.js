@@ -1,6 +1,5 @@
 'use client';
 
-// eslint-disable-next-line import/no-extraneous-dependencies
 import axios from 'axios';
 import * as Yup from 'yup';
 import { useEffect } from 'react';
@@ -36,7 +35,9 @@ import ElearningCheckoutPersonalDetails from '../checkout/elearning-checkout-per
 
 // ----------------------------------------------------------------------
 
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_API_KEY);
+const stripePromise = loadStripe(
+  'pk_test_51O14wJSGKNDRcuJuUqGzWCeftvJOpycOZUjVgL5BoNzq82clRNztJYpNZw2mdqFtZrkRCCZVbIpSHSqYTIRpJe6t00WaGaXnpK'
+);
 
 // const PAYMENT_OPTIONS = [
 //   {
@@ -65,13 +66,13 @@ export default function ElearningCheckoutView() {
 
   const formOpen = useBoolean();
 
-  const userData = useUserStore((state) => state.UserData);
+  const { UserData } = useUserStore();
 
   const _courses = useCartStore((state) => state.cart);
   const emptyCart = useCartStore((state) => state.emptyCart);
   const cart = useCartStore((state) => state.cart);
 
-  const cost = _courses.map((course) => course.price).reduce((a, b) => a + b, 0);
+  const cost = _courses.map((course) => course.attributes.price).reduce((a, b) => a + b, 0);
   const discountPercent = cost && 7;
   const taxPercent = cost && 18;
 
@@ -88,10 +89,19 @@ export default function ElearningCheckoutView() {
   });
 
   const defaultValues = {
-    username: userData.username,
-    emailAddress: userData.email,
-    phoneNumber: userData.phone,
+    firstName: '',
+    lastName: '',
+    emailAddress: '',
+    phoneNumber: '',
+    password: '',
+    confirmPassword: '',
     paymentMethods: '',
+    newCard: {
+      cardNumber: '',
+      cardHolder: '',
+      expirationDate: '',
+      ccv: '',
+    },
   };
 
   const methods = useForm({
@@ -109,9 +119,9 @@ export default function ElearningCheckoutView() {
     try {
       // await new Promise((resolve) => setTimeout(resolve, 500));
       makePayment(data);
-      // addUserToCourse();
-      emptyCart();
+      cart.forEach(({ id }) => addUserToCourse(id));
       // reset();
+      emptyCart();
       // router.push(paths.eLearning.purchaseCompleted);
       // console.log('DATA', data);
     } catch (error) {
@@ -136,7 +146,7 @@ export default function ElearningCheckoutView() {
   async function makePayment(data) {
     const stripe = await stripePromise;
     const requestBody = {
-      username: [data.username],
+      username: [data.firstName, data.lastName].join(' '),
       email: data.emailAddress,
       products: cart.map(({ slug, id, price }) => ({ slug, id, price })),
     };
@@ -150,17 +160,15 @@ export default function ElearningCheckoutView() {
       body: JSON.stringify(requestBody),
     });
     const session = await response.json();
-    console.log(session);
+    console.log({ session });
     await stripe.redirectToCheckout({
       sessionId: session.id,
     });
   }
 
-  async function addUserToCourse() {
-    // Replace these with your actual Strapi credentials and settings
-    const apiUrl = process.env.NEXT_PUBLIC_STRAPI_BASE_URL; // Your Strapi base URL
+  async function addUserToCourse(itemId) {
+    const apiUrl = process.env.NEXT_PUBLIC_COURSES_URL; // Your Strapi base URL
     const contentType = 'courses'; // Replace with your actual content type
-    const itemId = '1'; // Replace with the ID of the item you want to update
     const arrayField = 'users'; // Replace with the name of your array field
 
     // New string to add to the array
@@ -168,19 +176,20 @@ export default function ElearningCheckoutView() {
 
     // Make a GET request to fetch the existing data
     axios
-      .get(`${apiUrl}/${contentType}/${itemId}`)
+      .get(`${apiUrl}/${contentType}/${itemId}?populate=users`)
       .then((response) => {
         const existingData = response.data;
         // Extract the array field from the existing data
-        const existingArray = existingData[arrayField];
 
         // Add the new string to the array
-        existingArray.push(newString);
-
         // Make a PUT request to update the item with the modified array
         axios
           .put(`${apiUrl}/${contentType}/${itemId}`, {
-            [arrayField]: existingArray,
+            data: {
+              users: {
+                connect: [UserData.id],
+              },
+            },
           })
           .then((res) => {
             console.log('Array updated successfully:', res.data);

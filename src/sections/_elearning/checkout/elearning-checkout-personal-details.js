@@ -12,13 +12,14 @@ import { RHFTextField } from 'src/components/hook-form';
 // ----------------------------------------------------------------------
 
 export default function ElearningCheckoutPersonalDetails() {
-  // const passwordShow = useBoolean();
+  const passwordShow = useBoolean();
+
   return (
     <>
       <Stack direction="row" flexWrap="wrap" alignItems="center" spacing={1} sx={{ mb: 4 }}>
-        {/* <Typography variant="subtitle2">Sign in with:</Typography>
+        <Typography variant="subtitle2">Sign in with:</Typography>
 
-         <Button color="inherit" variant="outlined" startIcon={<Iconify icon="logos:google-icon" />}>
+        <Button color="inherit" variant="outlined" startIcon={<Iconify icon="logos:google-icon" />}>
           Google
         </Button>
 
@@ -42,7 +43,7 @@ export default function ElearningCheckoutPersonalDetails() {
 
         <Button color="inherit" variant="outlined" startIcon={<Iconify icon="carbon:email" />}>
           Continue with Email
-        </Button> */}
+        </Button>
       </Stack>
 
       <Box
@@ -51,13 +52,15 @@ export default function ElearningCheckoutPersonalDetails() {
         display="grid"
         gridTemplateColumns={{ xs: 'repeat(1, 1fr)', md: 'repeat(2, 1fr)' }}
       >
-        <RHFTextField name="username" label="User Name" disabled />
+        <RHFTextField name="firstName" label="First Name" />
 
-        <RHFTextField name="emailAddress" label="Email Address" disabled />
+        <RHFTextField name="lastName" label="Last Name" />
 
-        <RHFTextField name="phoneNumber" label="Phone Number" disabled />
+        <RHFTextField name="emailAddress" label="Email Address" />
 
-        {/* <RHFTextField
+        <RHFTextField name="phoneNumber" label="Phone Number" />
+
+        <RHFTextField
           name="password"
           label="Password"
           type={passwordShow.value ? 'text' : 'password'}
@@ -85,7 +88,7 @@ export default function ElearningCheckoutPersonalDetails() {
               </InputAdornment>
             ),
           }}
-        /> */}
+        />
       </Box>
     </>
   );

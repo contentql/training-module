@@ -124,11 +124,11 @@ function CourseItem({ course, isDelete, ...other }) {
 
       <Stack flexGrow={1}>
         <TextMaxLine variant="body2" line={1} sx={{ fontWeight: 'fontWeightMedium' }}>
-          {course.slug}
+          {course.attributes.title}
         </TextMaxLine>
 
         <Typography variant="subtitle2" sx={{ mt: 0.5, mb: 1.5 }}>
-          {fCurrency(course.price)}
+          {fCurrency(course.attributes.price)}
         </Typography>
       </Stack>
 

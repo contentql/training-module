@@ -40,6 +40,5 @@ export const getCourseData = async (courseId) => {
       },
     }
   );
-
   return data.data.course.data;
 };

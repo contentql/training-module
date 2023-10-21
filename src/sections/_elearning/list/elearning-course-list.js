@@ -9,7 +9,6 @@ import ElearningCourseItemSkeleton from './elearning-course-item-skeleton';
 // ----------------------------------------------------------------------
 
 export default function ElearningCourseList({ courses, loading, filters }) {
-  console.log(courses);
   const filterCourseByText = (course) => {
     if (filters.text.length === 0) return true;
     return course.title.toLowerCase().includes(filters.text.toLowerCase());
@@ -55,7 +54,7 @@ export default function ElearningCourseList({ courses, loading, filters }) {
   return (
     <>
       <Stack spacing={4}>
-        {(loading ? [...Array(9)] : courses)
+        {courses
           .filter(filterCourseByText)
           .filter(filterByRating)
           .filter(filterByDuration)

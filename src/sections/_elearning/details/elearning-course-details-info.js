@@ -30,6 +30,7 @@ export default function ElearningCourseDetailsInfo({ course }) {
   ]);
 
   const isCourseInCart = cart.filter((cartItem) => cartItem.id === course.id).length === 0;
+  // const isCourseInCart = cart.filter((cartItem) => console.log('cartItem', cartItem));
 
   const isCourseInWishlist =
     wishlist.filter((wishlistItem) => wishlistItem.id === course.id).length === 0;

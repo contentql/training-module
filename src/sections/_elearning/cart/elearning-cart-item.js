@@ -15,6 +15,8 @@ import { fCurrency } from 'src/utils/format-number';
 export default function ElearningCartItem({ course }) {
   const removeCourseFromCart = useCartStore((state) => state.removeFromCart);
 
+  console.log('courseTitle', course);
+
   return (
     <Stack
       direction="row"
@@ -28,7 +30,7 @@ export default function ElearningCartItem({ course }) {
       <Stack direction="row" alignItems="center" flexGrow={1}>
         <Image
           src={course.coverUrl}
-          alt={course.slug}
+          alt={course.attributes.title}
           sx={{
             width: 100,
             height: 80,
@@ -38,14 +40,14 @@ export default function ElearningCartItem({ course }) {
         />
 
         <Stack spacing={0.5} sx={{ p: 2 }}>
-          <Typography variant="subtitle2">{course.slug}</Typography>
-          <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-            Color: Grey Space
-          </Typography>
+          <Typography variant="subtitle2">{course.attributes.title}</Typography>
         </Stack>
       </Stack>
 
-      <Stack sx={{ width: 220, typography: 'subtitle2' }}> {fCurrency(course.price)} </Stack>
+      <Stack sx={{ width: 220, typography: 'subtitle2' }}>
+        {' '}
+        {fCurrency(course.attributes.price)}{' '}
+      </Stack>
 
       <IconButton onClick={() => removeCourseFromCart(course)}>
         <Iconify icon="carbon:trash-can" />

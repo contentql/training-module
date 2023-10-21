@@ -3,6 +3,7 @@
 import { useEffect } from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import PropTypes from 'prop-types';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { useQuery } from 'react-query';
 import { redirect } from 'next/navigation';
 
@@ -53,9 +54,11 @@ export default function ElearningCourseView({ courseId }) {
   // }, [loading]);
 
   const { data, isLoading } = useQuery({
-    queryKey: ['courses'],
+    queryKey: ['course'],
     queryFn: () => getCourseData(courseId),
   });
+
+  // console.log('eachCourse', data);
 
   if (isLoading) {
     return <SplashScreen />;
@@ -75,7 +78,7 @@ export default function ElearningCourseView({ courseId }) {
         <Grid container spacing={{ xs: 5, md: 8 }}>
           {!mdUp && (
             <Grid xs={12}>
-              <ElearningCourseDetailsInfo course={data?.attributes} />
+              <ElearningCourseDetailsInfo course={data} />
             </Grid>
           )}
 
@@ -118,7 +121,7 @@ export default function ElearningCourseView({ courseId }) {
 
           <Grid xs={12} md={5} lg={4}>
             <Stack spacing={5}>
-              {mdUp && <ElearningCourseDetailsInfo course={data?.attributes} />}
+              {mdUp && <ElearningCourseDetailsInfo course={data} />}
 
               {/* <Advertisement
                 advertisement={{
