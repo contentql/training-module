@@ -16,7 +16,7 @@ import ElearningCourseItem from 'src/sections/_elearning/list/elearning-course-i
 export default function ElearningLandingFeaturedCourses() {
   const userData = useUserStore((state) => state.UserData);
 
-  const { isLoading, data } = useQuery('repoData', () =>
+  const { isLoading, data } = useQuery(['repoData', userData.id], () =>
     fetch(process.env.NEXT_PUBLIC_MY_LEARNING_URL, {
       method: 'GET',
       headers: {

@@ -1,6 +1,10 @@
 'use client';
 
+import { useQuery } from 'react-query';
+
 import { _courses, _testimonials } from 'src/_mock';
+import { getCoursesData } from 'src/queries/courses';
+import { SplashScreen } from 'src/components/loading-screen';
 
 import ElearningNewsletter from '../elearning-newsletter';
 import ElearningLandingHero from '../landing/elearning-landing-hero';
@@ -11,11 +15,20 @@ import ElearningLandingFeaturedCourses from '../landing/elearning-landing-featur
 // ----------------------------------------------------------------------
 
 export default function ElearningLandingView() {
+  const { data, isLoading } = useQuery({
+    queryKey: ['courses'],
+    queryFn: getCoursesData,
+  });
+
+  console.log('landingData', data);
+
+  if (isLoading) return <SplashScreen />;
+
   return (
     <>
       <ElearningLandingHero />
 
-      <ElearningLandingFeaturedCourses courses={_courses} />
+      <ElearningLandingFeaturedCourses courses={data} />
 
       <ElearningTestimonial testimonials={_testimonials} />
 

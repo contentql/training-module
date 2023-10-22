@@ -54,7 +54,7 @@ export default function ElearningCourseView({ courseId }) {
   // }, [loading]);
 
   const { data, isLoading } = useQuery({
-    queryKey: ['course'],
+    queryKey: ['course', courseId],
     queryFn: () => getCourseData(courseId),
   });
 
