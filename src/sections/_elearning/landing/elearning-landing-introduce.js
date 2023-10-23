@@ -26,7 +26,7 @@ export default function ElearningLandingIntroduce() {
           mb: { xs: 2, md: 10 },
         }}
       >
-        Nullam accumsan lorem in dui.
+        Our Services.
       </Typography>
 
       <Grid
@@ -36,7 +36,7 @@ export default function ElearningLandingIntroduce() {
         justifyContent={{ md: 'space-between' }}
       >
         {mdUp && (
-          <Grid xs={12} md={6} lg={5}>
+          <Grid xs={12} md={6} lg={4}>
             <Image
               alt="about"
               src="/assets/images/course/course_6.jpg"
@@ -48,13 +48,12 @@ export default function ElearningLandingIntroduce() {
 
         <Grid xs={12} md={6} lg={6}>
           <Typography variant="h3" sx={{ mb: 3 }}>
-            Phasellus gravida semper nisi. Vestibulum rutrum
+            Benefits of our training programs
           </Typography>
 
           <Typography sx={{ color: 'text.secondary' }}>
-            Curabitur a felis in nunc fringilla tristique. Fusce egestas elit eget lorem. Etiam
-            vitae tortor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per
-            inceptos hymenaeos.
+            Our training is designed to provide the skills in practical approach. Our students is
+            our best asset in showing the quality of our training
           </Typography>
 
           <Stack
@@ -65,14 +64,16 @@ export default function ElearningLandingIntroduce() {
             <Stack spacing={3}>
               <Box sx={{ width: 24, height: 3, bgcolor: 'primary.main' }} />
               <Typography sx={{ color: 'text.secondary' }}>
-                Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis
+                Strategies shared and knowledge earned allows our students to immediately receive
+                certifications and continue serving those in need.
               </Typography>
             </Stack>
 
             <Stack spacing={3}>
               <Box sx={{ width: 24, height: 3, bgcolor: 'primary.main' }} />
               <Typography sx={{ color: 'text.secondary' }}>
-                Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis
+                Whether you want to boost your career or grow at your own business by applying the
+                latest compliance training, we have got you covered.
               </Typography>
             </Stack>
           </Stack>
