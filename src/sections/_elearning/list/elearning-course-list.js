@@ -11,28 +11,28 @@ import ElearningCourseItemSkeleton from './elearning-course-item-skeleton';
 export default function ElearningCourseList({ courses, loading, filters }) {
   const filterCourseByText = (course) => {
     if (filters.text.length === 0) return true;
-    return course.title.toLowerCase().includes(filters.text.toLowerCase());
+    return course.attributes.title.toLowerCase().includes(filters.text.toLowerCase());
   };
 
-  const filterByRating = (course) => {
-    if (filters.rating === null) return true;
-    return Number(course.ratingNumber) >= Number(filters.rating);
-  };
+  // const filterByRating = (course) => {
+  //   if (filters.rating === null) return true;
+  //   return Number(course.ratingNumber) >= Number(filters.rating);
+  // };
 
   const filterByDuration = (course) => {
     if (filters.duration.length === 0) return true;
     return (
-      (filters.duration.includes('0 - 1 Hour') && course.totalHours <= 1) ||
-      (filters.duration.includes('1 - 3 Hours') && course.totalHours <= 3) ||
-      (filters.duration.includes('3 - 6 Hours') && course.totalHours <= 6) ||
-      (filters.duration.includes('6 - 18 Hours') && course.totalHours <= 18) ||
-      (filters.duration.includes('18+ Hours') && course.totalHours > 18)
+      (filters.duration.includes('0 - 1 Hour') && course.attributes.time <= 1) ||
+      (filters.duration.includes('1 - 3 Hours') && course.attributes.time <= 3) ||
+      (filters.duration.includes('3 - 6 Hours') && course.attributes.time <= 6) ||
+      (filters.duration.includes('6 - 18 Hours') && course.attributes.time <= 18) ||
+      (filters.duration.includes('18+ Hours') && course.attributes.time > 18)
     );
   };
 
   const filterByCategory = (course) => {
     if (filters.category.length === 0) return true;
-    return filters.category.includes(course.category);
+    return filters.category.includes(course.attributes.category);
   };
 
   const filterByFee = (course) => {
@@ -46,8 +46,8 @@ export default function ElearningCourseList({ courses, loading, filters }) {
     }
 
     return (
-      (filters.fee.includes('Free') && course.price === 0) ||
-      (filters.fee.includes('Paid') && course.price !== 0)
+      (filters.fee.includes('Free') && course.attributes.price === 0) ||
+      (filters.fee.includes('Paid') && course.attributes.price !== 0)
     );
   };
 
@@ -56,7 +56,7 @@ export default function ElearningCourseList({ courses, loading, filters }) {
       <Stack spacing={4}>
         {courses
           .filter(filterCourseByText)
-          .filter(filterByRating)
+          // .filter(filterByRating)
           .filter(filterByDuration)
           .filter(filterByCategory)
           .filter(filterByFee)

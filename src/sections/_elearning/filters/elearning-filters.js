@@ -137,14 +137,14 @@ export default function ElearningFilters({ open, onClose, filters, setFilters })
         value={filters.text}
         onChange={handleFilterChange}
       />
-
+      {/* 
       <Block title="Ratings">
         <FilterRating
           name="rating"
           filterRating={filters.filterRating}
           onChangeRating={handleFilterChange}
         />
-      </Block>
+      </Block> */}
 
       <Block title="Duration">
         <FilterMultiSelect
