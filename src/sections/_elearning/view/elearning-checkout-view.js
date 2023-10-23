@@ -68,6 +68,8 @@ export default function ElearningCheckoutView() {
 
   const { UserData } = useUserStore();
 
+  console.log(UserData);
+
   const _courses = useCartStore((state) => state.cart);
   const emptyCart = useCartStore((state) => state.emptyCart);
   const cart = useCartStore((state) => state.cart);
@@ -82,15 +84,13 @@ export default function ElearningCheckoutView() {
   const total = cost && subTotal + discount + tax;
 
   const ElearningCheckoutSchema = Yup.object().shape({
-    firstName: Yup.string().required('First name is required'),
-    lastName: Yup.string().required('Last name is required'),
+    userName: Yup.string().required('User name is required'),
     emailAddress: Yup.string().required('Email address is required'),
     phoneNumber: Yup.string().required('Phone number is required'),
   });
 
   const defaultValues = {
-    firstName: '',
-    lastName: '',
+    userName: '',
     emailAddress: '',
     phoneNumber: '',
     password: '',
@@ -146,7 +146,7 @@ export default function ElearningCheckoutView() {
   async function makePayment(data) {
     const stripe = await stripePromise;
     const requestBody = {
-      username: [data.firstName, data.lastName].join(' '),
+      username: data.userName,
       email: data.emailAddress,
       products: cart.map(({ slug, id, price }) => ({ slug, id, price })),
     };

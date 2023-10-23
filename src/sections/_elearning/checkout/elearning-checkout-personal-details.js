@@ -7,6 +7,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 
 import Iconify from 'src/components/iconify';
 import { useBoolean } from 'src/hooks/use-boolean';
+import { useUserStore } from 'src/states/auth-store';
 import { RHFTextField } from 'src/components/hook-form';
 
 // ----------------------------------------------------------------------
@@ -14,24 +15,26 @@ import { RHFTextField } from 'src/components/hook-form';
 export default function ElearningCheckoutPersonalDetails() {
   const passwordShow = useBoolean();
 
+  const { UserData } = useUserStore();
+
   return (
     <>
       <Stack direction="row" flexWrap="wrap" alignItems="center" spacing={1} sx={{ mb: 4 }}>
-        <Typography variant="subtitle2">Sign in with:</Typography>
-
+        {/* <Typography variant="subtitle2">Sign in with:</Typography> */}
+        {/* 
         <Button color="inherit" variant="outlined" startIcon={<Iconify icon="logos:google-icon" />}>
           Google
-        </Button>
+        </Button> */}
 
-        <Button
+        {/* <Button
           color="inherit"
           variant="outlined"
           startIcon={<Iconify icon="carbon:logo-facebook" sx={{ color: '#1877F2' }} />}
         >
           Facebook
-        </Button>
+        </Button> */}
 
-        <Button
+        {/* <Button
           color="inherit"
           variant="outlined"
           startIcon={
@@ -39,11 +42,11 @@ export default function ElearningCheckoutPersonalDetails() {
           }
         >
           Github
-        </Button>
+        </Button> */}
 
-        <Button color="inherit" variant="outlined" startIcon={<Iconify icon="carbon:email" />}>
+        {/* <Button color="inherit" variant="outlined" startIcon={<Iconify icon="carbon:email" />}>
           Continue with Email
-        </Button>
+        </Button> */}
       </Stack>
 
       <Box
@@ -52,15 +55,15 @@ export default function ElearningCheckoutPersonalDetails() {
         display="grid"
         gridTemplateColumns={{ xs: 'repeat(1, 1fr)', md: 'repeat(2, 1fr)' }}
       >
-        <RHFTextField name="firstName" label="First Name" />
+        <RHFTextField name="userName" label="User Name" />
 
-        <RHFTextField name="lastName" label="Last Name" />
+        {/* <RHFTextField name="lastName" label="Last Name" /> */}
 
         <RHFTextField name="emailAddress" label="Email Address" />
 
         <RHFTextField name="phoneNumber" label="Phone Number" />
 
-        <RHFTextField
+        {/* <RHFTextField
           name="password"
           label="Password"
           type={passwordShow.value ? 'text' : 'password'}
@@ -73,9 +76,9 @@ export default function ElearningCheckoutPersonalDetails() {
               </InputAdornment>
             ),
           }}
-        />
+        /> */}
 
-        <RHFTextField
+        {/* <RHFTextField
           name="confirmPassword"
           label="Confirm Password"
           type={passwordShow.value ? 'text' : 'password'}
@@ -88,7 +91,7 @@ export default function ElearningCheckoutPersonalDetails() {
               </InputAdornment>
             ),
           }}
-        />
+        /> */}
       </Box>
     </>
   );

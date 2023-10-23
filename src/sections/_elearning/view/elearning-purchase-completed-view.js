@@ -56,13 +56,13 @@ export default function ElearningPurchaseCompletedView() {
 
       <Button
         component={RouterLink}
-        href={paths.eLearning.courses}
+        href={paths.eLearning.myLearning}
         size="large"
         color="inherit"
         variant="contained"
         startIcon={<Iconify icon="carbon:chevron-left" />}
       >
-        Continue Shopping
+        My learning
       </Button>
     </Container>
   );
