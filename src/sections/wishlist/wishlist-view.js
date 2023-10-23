@@ -25,7 +25,10 @@ export default function EcommerceWishlistView() {
     state.emptyWishlist,
   ]);
 
-  const subtotal = wishlist.reduce((accumulator, course) => accumulator + course.price, 0);
+  const subtotal = wishlist.reduce(
+    (accumulator, course) => accumulator + course.attributes.price,
+    0
+  );
 
   const addWishlistToCart = () => {
     wishlist.map((course) => addToCart(course));

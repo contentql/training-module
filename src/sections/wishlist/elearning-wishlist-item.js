@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import PropTypes from 'prop-types';
 
 import Stack from '@mui/material/Stack';
@@ -37,7 +38,7 @@ export default function ElearningCartItem({ course }) {
       <Stack direction="row" alignItems="center" flexGrow={1}>
         <Image
           src={course.coverUrl}
-          alt={course.slug}
+          alt={course.attributes.title}
           sx={{
             width: 100,
             height: 80,
@@ -47,11 +48,14 @@ export default function ElearningCartItem({ course }) {
         />
 
         <Stack spacing={0.5} sx={{ p: 2 }}>
-          <Typography variant="subtitle2">{course.slug}</Typography>
+          <Typography variant="subtitle2">{course.attributes.title}</Typography>
         </Stack>
       </Stack>
 
-      <Stack sx={{ width: 220, typography: 'subtitle2' }}> {fCurrency(course.price)} </Stack>
+      <Stack sx={{ width: 220, typography: 'subtitle2' }}>
+        {' '}
+        {fCurrency(course.attributes.price)}{' '}
+      </Stack>
 
       <IconButton onClick={() => removeFromWishlist(course)}>
         <Iconify icon="carbon:trash-can" />
