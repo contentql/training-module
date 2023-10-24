@@ -55,11 +55,11 @@ export default function ElearningCheckoutPersonalDetails() {
         display="grid"
         gridTemplateColumns={{ xs: 'repeat(1, 1fr)', md: 'repeat(2, 1fr)' }}
       >
-        <RHFTextField name="userName" label="User Name" />
+        <RHFTextField value={UserData.username} name="userName" label="User Name" />
 
         {/* <RHFTextField name="lastName" label="Last Name" /> */}
 
-        <RHFTextField name="emailAddress" label="Email Address" />
+        <RHFTextField value={UserData.email} name="emailAddress" label="Email Address" />
 
         <RHFTextField name="phoneNumber" label="Phone Number" />
 

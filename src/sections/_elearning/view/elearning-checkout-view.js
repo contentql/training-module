@@ -84,8 +84,8 @@ export default function ElearningCheckoutView() {
   const total = cost && subTotal + discount + tax;
 
   const ElearningCheckoutSchema = Yup.object().shape({
-    userName: Yup.string().required('User name is required'),
-    emailAddress: Yup.string().required('Email address is required'),
+    userName: Yup.string(),
+    emailAddress: Yup.string(),
     phoneNumber: Yup.string().required('Phone number is required'),
   });
 
@@ -146,8 +146,8 @@ export default function ElearningCheckoutView() {
   async function makePayment(data) {
     const stripe = await stripePromise;
     const requestBody = {
-      username: data.userName,
-      email: data.emailAddress,
+      username: UserData.username,
+      email: UserData.email,
       products: cart.map(({ slug, id, price }) => ({ slug, id, price })),
     };
 
