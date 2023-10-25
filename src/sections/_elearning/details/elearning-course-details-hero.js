@@ -40,7 +40,6 @@ export default function ElearningCourseDetailsHero({ course }) {
     time,
     description,
     rating,
-    totalQuizzes,
     totalReviews,
     totalStudents,
     teachers = [],
@@ -57,10 +56,12 @@ export default function ElearningCourseDetailsHero({ course }) {
 
   const videoPlay = useBoolean();
 
-  const totalLessons = units.data.reduce(
+  const totalLessons = units?.data.reduce(
     (count, unit) => (unit.attributes.lesson ? count + unit.attributes.lesson.length : count),
     0
   );
+
+  const totalQuizzes = units.data.length;
 
   // const handleSelectedLesson = useCallback((lesson) => {
   //   if (lesson.unLocked) {
@@ -286,7 +287,6 @@ ElearningCourseDetailsHero.propTypes = {
     coverUrl: PropTypes.string,
     time: PropTypes.number,
     description: PropTypes.string,
-    totalQuizzes: PropTypes.number,
     rating: PropTypes.number,
     totalReviews: PropTypes.number,
     totalStudents: PropTypes.number,
