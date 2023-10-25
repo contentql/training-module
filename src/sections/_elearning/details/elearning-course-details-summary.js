@@ -16,8 +16,12 @@ import ElearningCourseDetailsUnitList from './elearning-course-details-unit-list
 export default function ElearningCourseDetailsSummary({ course }) {
   const userData = useUserStore((state) => state.UserData);
 
+  console.log('userData', userData);
+
+  const { isLoggedIn } = userData;
+
   const hasBoughtCourse =
-    userData && course.users.data.filter((user) => user.id === userData.id.toString()).length > 0;
+    isLoggedIn && course.users.data.filter((user) => user.id === userData.id.toString()).length > 0;
 
   return (
     <Stack spacing={5}>

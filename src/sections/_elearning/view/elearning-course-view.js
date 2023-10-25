@@ -58,8 +58,6 @@ export default function ElearningCourseView({ courseId }) {
     queryFn: () => getCourseData(courseId),
   });
 
-  // console.log('eachCourse', data);
-
   if (isLoading) {
     return <SplashScreen />;
   }
@@ -140,7 +138,7 @@ export default function ElearningCourseView({ courseId }) {
 
       {/* <ReviewElearning /> */}
 
-      <ElearningCourseListSimilar courses={courseSimilar} />
+      {/* <ElearningCourseListSimilar courses={courseSimilar} /> */}
 
       <ElearningNewsletter />
     </>
