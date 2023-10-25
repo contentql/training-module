@@ -34,7 +34,7 @@ const navigations = [
   },
   {
     title: 'My Learning',
-    path: paths.eLearning.myLearning,
+    path: paths.eLearning.account.myLearning,
     icon: <Iconify icon="fluent-mdl2:publish-course" />,
   },
   // {

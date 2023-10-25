@@ -2,6 +2,8 @@
 
 import PropTypes from 'prop-types';
 // eslint-disable-next-line import/no-extraneous-dependencies
+import { ToastContainer } from 'react-toastify';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { QueryClient, QueryClientProvider } from 'react-query';
 
 import MainLayout from 'src/layouts/main';
@@ -15,6 +17,7 @@ export default function ElearningCoursePage({ params }) {
   return (
     <MainLayout>
       <ElearningCourseView courseId={params.id} />
+      <ToastContainer />
     </MainLayout>
   );
 }

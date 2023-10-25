@@ -14,9 +14,9 @@ import QuizHookForm from './quiz-hook-form';
 import { shuffleArray } from './utils/shuffle-array';
 
 export default function QuizForm(props) {
-  const { _questions, pauseVideo } = props;
+  const { _questions, hasBoughtCourse } = props;
 
-  const [open, setOpen] = useState(false);
+  const [quizOpen, setOpen] = useState(false);
 
   const questions = shuffleArray(_questions);
 
@@ -27,7 +27,6 @@ export default function QuizForm(props) {
   const mdUp = useResponsive('up', 'md');
 
   const handleClickOpen = () => {
-    pauseVideo();
     setOpen(true);
   };
   const handleModalClose = () => {
@@ -66,7 +65,7 @@ export default function QuizForm(props) {
       <BootstrapDialog
         fullScreen
         aria-labelledby="customized-dialog-title"
-        open={open}
+        open={hasBoughtCourse && quizOpen}
         maxWidth="lg"
         {...(!mdUp && bootstrapDialogProperties)}
       >
@@ -77,6 +76,6 @@ export default function QuizForm(props) {
 }
 
 QuizForm.propTypes = {
-  _questions: PropTypes.array.isRequired,
-  pauseVideo: PropTypes.func,
+  _questions: PropTypes.array,
+  hasBoughtCourse: PropTypes.bool,
 };
