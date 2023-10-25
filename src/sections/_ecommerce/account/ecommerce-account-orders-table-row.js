@@ -40,6 +40,8 @@ export default function EcommerceAccountOrdersTableRow({ row, onSelectRow, selec
 
   const totalPrice = row.products.reduce((total, product) => total + product.price, 0);
 
+  row.status = 'Completed';
+
   return (
     <>
       <TableRow hover selected={selected}>
