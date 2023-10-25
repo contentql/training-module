@@ -48,12 +48,7 @@ export default function ElearningCoursesView() {
     queryFn: getCoursesData,
   });
 
-  console.log('data', data);
-
-  // useEffect(() => {
-  //   if (!data) return;
-  //   loading.onFalse();
-  // }, [data, loading]);
+  // console.log('data', data);
 
   if (isLoading) return <SplashScreen />;
 
