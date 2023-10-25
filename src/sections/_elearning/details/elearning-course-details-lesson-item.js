@@ -1,4 +1,8 @@
 import PropTypes from 'prop-types';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { toast } from 'react-toastify';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import 'react-toastify/dist/ReactToastify.css';
 
 import Typography from '@mui/material/Typography';
 import AccordionDetails from '@mui/material/AccordionDetails';
@@ -20,10 +24,28 @@ export default function ElearningCourseDetailsLessonItem({
   const playIcon = selected ? 'carbon:pause-outline' : 'carbon:play';
   lesson.unLocked = true;
 
+  const handleChange = (e) => {
+    e.preventDefault();
+    if (!hasBoughtCourse) {
+      toast.error('Please buy the course to view the content', {
+        position: 'bottom-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
+    } else {
+      onExpanded();
+    }
+  };
+
   return (
     <Accordion
       expanded={hasBoughtCourse && expanded}
-      onChange={onExpanded}
+      onChange={handleChange}
       disabled={!lesson.unLocked}
       sx={{
         [`&.${accordionClasses.expanded}`]: {

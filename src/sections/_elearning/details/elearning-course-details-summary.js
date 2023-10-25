@@ -17,7 +17,7 @@ export default function ElearningCourseDetailsSummary({ course }) {
   const userData = useUserStore((state) => state.UserData);
 
   const hasBoughtCourse =
-    course.users.data.filter((user) => user.id === userData.id.toString()).length > 0;
+    userData && course.users.data.filter((user) => user.id === userData.id.toString()).length > 0;
 
   return (
     <Stack spacing={5}>
