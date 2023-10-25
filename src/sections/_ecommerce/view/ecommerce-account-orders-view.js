@@ -66,6 +66,8 @@ export default function EcommerceAccountOrdersPage() {
   const { data, isLoading } = useQuery({
     queryKey: ['orders', userData.id],
     queryFn: getOrdersData,
+    select: (ordersData) =>
+      ordersData.filter((orderData) => userData.username === orderData.attributes.username),
   });
 
   const handleChangeTab = useCallback((event, newValue) => {
