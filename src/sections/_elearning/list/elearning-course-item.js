@@ -189,7 +189,7 @@ export default function ElearningCourseItem({ course, vertical, id }) {
             <Iconify icon="carbon:time" sx={{ mr: 1 }} /> {`${time} hours`}
           </Stack>
 
-          <Stack direction="row" alignItems="center" sx={{ typography: 'body2' }}>
+          {/* <Stack direction="row" alignItems="center" sx={{ typography: 'body2' }}>
             <Iconify
               icon={
                 (level === 'Beginner' && 'carbon:skill-level-basic') ||
@@ -199,7 +199,7 @@ export default function ElearningCourseItem({ course, vertical, id }) {
               sx={{ mr: 1 }}
             />
             {level}
-          </Stack>
+          </Stack> */}
         </Stack>
       </Stack>
     </Card>

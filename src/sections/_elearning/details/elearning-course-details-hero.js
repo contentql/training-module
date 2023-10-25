@@ -222,7 +222,7 @@ export default function ElearningCourseDetailsHero({ course }) {
                       {`${totalLessons} Lessons`}
                     </Stack>
 
-                    <Stack direction="row" alignItems="center" sx={{ typography: 'body2' }}>
+                    {/* <Stack direction="row" alignItems="center" sx={{ typography: 'body2' }}>
                       <Iconify
                         icon={
                           (level === 'Beginner' && 'carbon:skill-level-basic') ||
@@ -232,7 +232,7 @@ export default function ElearningCourseDetailsHero({ course }) {
                         sx={{ mr: 1 }}
                       />
                       {level}
-                    </Stack>
+                    </Stack> */}
                   </Stack>
 
                   <Stack
