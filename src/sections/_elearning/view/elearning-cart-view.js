@@ -20,7 +20,7 @@ import ElearningCartSummary from '../cart/elearning-cart-summary';
 
 // ----------------------------------------------------------------------
 
-export default function ElearningCoursesView() {
+export default function ElearningCartView() {
   const _courses = useCartStore((state) => state.cart);
 
   const loading = useBoolean(true);

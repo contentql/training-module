@@ -36,6 +36,12 @@ export default function EcommerceAccountOrdersTableRow({ row, onSelectRow, selec
     },
   };
 
+  const titles = row.products.map((obj) => obj.title).join(', ');
+
+  const totalPrice = row.products.reduce((total, product) => total + product.price, 0);
+
+  row.status = 'Completed';
+
   return (
     <>
       <TableRow hover selected={selected}>
@@ -44,17 +50,17 @@ export default function EcommerceAccountOrdersTableRow({ row, onSelectRow, selec
         </TableCell>
 
         <TableCell sx={{ px: 1 }}>
-          <InputBase value={row.orderId} sx={inputStyles} />
+          <InputBase value={row.stripeSessionToken} sx={inputStyles} />
         </TableCell>
 
         <TableCell sx={{ px: 1 }}>
-          <InputBase value={row.item} sx={inputStyles} />
+          <InputBase value={titles} sx={inputStyles} />
         </TableCell>
 
-        <TableCell>{fDate(row.deliveryDate)}</TableCell>
+        <TableCell>{fDate(row.createdAt)}</TableCell>
 
         <TableCell sx={{ px: 1 }}>
-          <InputBase value={fCurrency(row.price)} sx={inputStyles} />
+          <InputBase value={fCurrency(totalPrice)} sx={inputStyles} />
         </TableCell>
 
         <TableCell>
