@@ -44,17 +44,17 @@ export default function EcommerceAccountOrdersTableRow({ row, onSelectRow, selec
         </TableCell>
 
         <TableCell sx={{ px: 1 }}>
-          <InputBase value={row.orderId} sx={inputStyles} />
+          <InputBase value={row.stripeSessionToken} sx={inputStyles} />
         </TableCell>
 
         <TableCell sx={{ px: 1 }}>
-          <InputBase value={row.item} sx={inputStyles} />
+          <InputBase value={row.products.at(0).title} sx={inputStyles} />
         </TableCell>
 
-        <TableCell>{fDate(row.deliveryDate)}</TableCell>
+        <TableCell>{fDate(row.createdAt)}</TableCell>
 
         <TableCell sx={{ px: 1 }}>
-          <InputBase value={fCurrency(row.price)} sx={inputStyles} />
+          <InputBase value={fCurrency(row.products.at(0).price)} sx={inputStyles} />
         </TableCell>
 
         <TableCell>
