@@ -44,6 +44,7 @@ export default function ElearningCourseDetailsHero({ course }) {
     totalReviews,
     totalStudents,
     teachers = [],
+    units,
   } = course;
 
   const [selectedLesson, setSelectedLesson] = useState(null);
@@ -55,6 +56,11 @@ export default function ElearningCourseDetailsHero({ course }) {
   const videoOpen = useBoolean();
 
   const videoPlay = useBoolean();
+
+  const totalLessons = units.data.reduce(
+    (count, unit) => (unit.attributes.lesson ? count + unit.attributes.lesson.length : count),
+    0
+  );
 
   // const handleSelectedLesson = useCallback((lesson) => {
   //   if (lesson.unLocked) {
@@ -212,7 +218,7 @@ export default function ElearningCourseDetailsHero({ course }) {
 
                     <Stack direction="row" alignItems="center" sx={{ typography: 'body2' }}>
                       <Iconify icon="carbon:document" sx={{ mr: 1 }} />
-                      {`${lessons?.length} Lessons`}
+                      {`${totalLessons} Lessons`}
                     </Stack>
 
                     <Stack direction="row" alignItems="center" sx={{ typography: 'body2' }}>
@@ -285,5 +291,6 @@ ElearningCourseDetailsHero.propTypes = {
     totalReviews: PropTypes.number,
     totalStudents: PropTypes.number,
     languages: PropTypes.arrayOf(PropTypes.string),
+    units: PropTypes.object,
   }),
 };
