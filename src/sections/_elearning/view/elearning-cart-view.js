@@ -23,8 +23,6 @@ import ElearningCartSummary from '../cart/elearning-cart-summary';
 export default function ElearningCoursesView() {
   const _courses = useCartStore((state) => state.cart);
 
-  console.log(_courses);
-
   const loading = useBoolean(true);
 
   const cost = _courses.map((course) => course.attributes.price).reduce((a, b) => a + b, 0);

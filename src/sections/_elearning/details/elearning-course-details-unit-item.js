@@ -7,13 +7,14 @@ import Accordion, { accordionClasses } from '@mui/material/Accordion';
 import AccordionSummary, { accordionSummaryClasses } from '@mui/material/AccordionSummary';
 
 import Quiz from 'src/sections/quiz';
+import { _questions } from 'src/_mock';
 import Iconify from 'src/components/iconify';
 
 import ElearningCourseDetailsLessonList from './elearning-course-details-lesson-list';
 
 // ----------------------------------------------------------------------
 
-export default function ElearningCourseDetailsUnitItem({ unit, index, units }) {
+export default function ElearningCourseDetailsUnitItem({ unit, index, units, hasBoughtCourse }) {
   const [expanded, setExpanded] = useState(index === 0);
 
   return (
@@ -62,8 +63,12 @@ export default function ElearningCourseDetailsUnitItem({ unit, index, units }) {
         }}
         className="ml-10"
       >
-        <ElearningCourseDetailsLessonList lessons={unit.lesson} units={units} />
-        {/* <Quiz _questions={unit.questions} /> */}
+        <ElearningCourseDetailsLessonList
+          lessons={unit.lesson}
+          units={units}
+          hasBoughtCourse={hasBoughtCourse}
+        />
+        <Quiz _questions={_questions} hasBoughtCourse={hasBoughtCourse} />
       </AccordionDetails>
     </Accordion>
   );
@@ -73,4 +78,5 @@ ElearningCourseDetailsUnitItem.propTypes = {
   unit: PropTypes.object,
   index: PropTypes.number,
   units: PropTypes.array,
+  hasBoughtCourse: PropTypes.bool,
 };

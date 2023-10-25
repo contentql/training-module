@@ -28,6 +28,11 @@ export const getCourseData = async (courseId) => {
                                 }
                             }
                         }
+                        users {
+                            data {
+                                id
+                            }
+                        }
                     }
                 }
             }

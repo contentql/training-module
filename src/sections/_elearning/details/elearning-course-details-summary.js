@@ -7,15 +7,21 @@ import { alpha } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 
 import Iconify from 'src/components/iconify';
+import { useUserStore } from 'src/states/auth-store';
 
 import ElearningCourseDetailsUnitList from './elearning-course-details-unit-list';
 
 // ----------------------------------------------------------------------
 
 export default function ElearningCourseDetailsSummary({ course }) {
+  const userData = useUserStore((state) => state.UserData);
+
+  const hasBoughtCourse =
+    course.users.data.filter((user) => user.id === userData.id.toString()).length > 0;
+
   return (
     <Stack spacing={5}>
-      <ElearningCourseDetailsUnitList units={course.units.data} />
+      <ElearningCourseDetailsUnitList units={course.units.data} hasBoughtCourse={hasBoughtCourse} />
 
       <Stack spacing={3}>
         <Typography variant="h4">What You Will Learn</Typography>
@@ -72,7 +78,8 @@ export default function ElearningCourseDetailsSummary({ course }) {
 ElearningCourseDetailsSummary.propTypes = {
   course: PropTypes.shape({
     learnList: PropTypes.array,
-    units: PropTypes.array,
+    units: PropTypes.object,
     skills: PropTypes.array,
+    users: PropTypes.array,
   }),
 };

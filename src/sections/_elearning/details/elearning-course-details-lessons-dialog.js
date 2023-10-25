@@ -16,10 +16,10 @@ import Accordion, { accordionClasses } from '@mui/material/Accordion';
 import AccordionSummary, { accordionSummaryClasses } from '@mui/material/AccordionSummary';
 
 import Quiz from 'src/sections/quiz';
-import { _coursePosts } from 'src/_mock';
 import Player from 'src/components/player';
 import Iconify from 'src/components/iconify';
 import Markdown from 'src/components/markdown';
+import { _questions, _coursePosts } from 'src/_mock';
 import { useResponsive } from 'src/hooks/use-responsive';
 
 import PostTags from '../../blog/common/post-tags';
@@ -39,6 +39,8 @@ export default function ElearningCourseDetailsLessonsDialog({
   units,
   pauseVideo,
 }) {
+  // units?.map((unit) => unit.attributes.lesson.map((lsn) => lsn.title === selectedLesson.title));
+
   const { title, description, duration, tags, content } = _coursePosts[0];
 
   const mdUp = useResponsive('up', 'md');
@@ -173,7 +175,7 @@ export default function ElearningCourseDetailsLessonsDialog({
             flexGrow: 1,
           }}
         >
-          {unit.title}
+          {unit.attributes.title}
         </Typography>
 
         <Iconify
@@ -190,14 +192,14 @@ export default function ElearningCourseDetailsLessonsDialog({
         }}
         className="ml-10"
       >
-        {unit?.lessons?.map((lesson) => {
-          const selected = selectedLesson?.id === lesson.id;
+        {unit.attributes.lesson.map((lesson) => {
+          const selected = selectedLesson?.title === lesson.title;
 
           const playIcon = selected ? 'carbon:pause-outline' : 'carbon:play';
 
           return (
             <ListItemButton
-              key={lesson.id}
+              key={lesson.title}
               selected={selected}
               disabled={!lesson.unLocked}
               onClick={() => onSelectedLesson(lesson)}
@@ -239,7 +241,7 @@ export default function ElearningCourseDetailsLessonsDialog({
             </ListItemButton>
           );
         })}
-        <Quiz _questions={unit.questions} pauseVideo={pauseVideo} />
+        <Quiz _questions={_questions} />
       </AccordionDetails>
     </Accordion>
   ));

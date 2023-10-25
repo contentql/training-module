@@ -15,13 +15,14 @@ export default function ElearningCourseDetailsLessonItem({
   selected,
   onSelected,
   onExpanded,
+  hasBoughtCourse,
 }) {
   const playIcon = selected ? 'carbon:pause-outline' : 'carbon:play';
   lesson.unLocked = true;
 
   return (
     <Accordion
-      expanded={expanded}
+      expanded={hasBoughtCourse && expanded}
       onChange={onExpanded}
       disabled={!lesson.unLocked}
       sx={{
@@ -71,7 +72,7 @@ export default function ElearningCourseDetailsLessonItem({
           color: 'text.secondary',
         }}
       >
-        {lesson.description}
+        {lesson.subtitle}
       </AccordionDetails>
     </Accordion>
   );
@@ -83,4 +84,5 @@ ElearningCourseDetailsLessonItem.propTypes = {
   onExpanded: PropTypes.func,
   onSelected: PropTypes.func,
   selected: PropTypes.bool,
+  hasBoughtCourse: PropTypes.bool,
 };

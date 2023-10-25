@@ -8,7 +8,7 @@ import ElearningCourseDetailsUnitItem from './elearning-course-details-unit-item
 
 // ----------------------------------------------------------------------
 
-export default function ElearningCourseDetailsLessonList({ units }) {
+export default function ElearningCourseDetailsLessonList({ units, hasBoughtCourse }) {
   return (
     <div>
       <Typography variant="h4" sx={{ mb: 3 }}>
@@ -16,7 +16,13 @@ export default function ElearningCourseDetailsLessonList({ units }) {
       </Typography>
 
       {units.map((unit, index) => (
-        <ElearningCourseDetailsUnitItem key={index} unit={unit.attributes} index={index} units={units} />
+        <ElearningCourseDetailsUnitItem
+          hasBoughtCourse={hasBoughtCourse}
+          key={index}
+          unit={unit.attributes}
+          index={index}
+          units={units}
+        />
       ))}
     </div>
   );
@@ -24,4 +30,5 @@ export default function ElearningCourseDetailsLessonList({ units }) {
 
 ElearningCourseDetailsLessonList.propTypes = {
   units: PropTypes.array,
+  hasBoughtCourse: PropTypes.bool,
 };
