@@ -75,6 +75,7 @@ export default function ElearningCourseDetailsLessonList({ lessons, units, hasBo
         onPause={videoPlay.onFalse}
         units={units}
         pauseVideo={pauseVideo}
+        hasBoughtCourse={hasBoughtCourse}
       />
     </div>
   );

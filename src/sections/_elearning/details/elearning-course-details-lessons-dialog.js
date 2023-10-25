@@ -38,6 +38,7 @@ export default function ElearningCourseDetailsLessonsDialog({
   onPause,
   units,
   pauseVideo,
+  hasBoughtCourse,
 }) {
   // units?.map((unit) => unit.attributes.lesson.map((lsn) => lsn.title === selectedLesson.title));
 
@@ -241,7 +242,7 @@ export default function ElearningCourseDetailsLessonsDialog({
             </ListItemButton>
           );
         })}
-        <Quiz _questions={_questions} />
+        <Quiz _questions={_questions} hasBoughtCourse={hasBoughtCourse} />
       </AccordionDetails>
     </Accordion>
   ));
@@ -362,4 +363,5 @@ ElearningCourseDetailsLessonsDialog.propTypes = {
   selectedLesson: PropTypes.object,
   units: PropTypes.array,
   pauseVideo: PropTypes.func,
+  hasBoughtCourse: PropTypes.bool,
 };
