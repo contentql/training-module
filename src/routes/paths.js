@@ -55,6 +55,7 @@ export const paths = {
       vouchers: `/account/vouchers`,
       orders: `/account/orders`,
       payment: `/account/payment`,
+      myLearning: `/account/my-learning`,
     },
   },
   // E-commerce
