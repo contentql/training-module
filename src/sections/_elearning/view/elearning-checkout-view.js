@@ -148,7 +148,11 @@ export default function ElearningCheckoutView() {
     const requestBody = {
       username: UserData.username,
       email: UserData.email,
-      products: cart.map(({ slug, id, price }) => ({ slug, id, price })),
+      products: cart.map(({ id, attributes }) => ({
+        id,
+        title: attributes.title,
+        price: attributes.price,
+      })),
     };
 
     const response = await fetch(process.env.NEXT_PUBLIC_ORDER_URL, {
