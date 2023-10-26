@@ -63,7 +63,7 @@ export default function ElearningCourseList({ courses, loading, filters }) {
           .filter(filterByFee)
           .map((course, index) =>
             course ? (
-              <ElearningCourseItem key={course.id} course={course.attributes} id={course.id} />
+              <ElearningCourseItem key={course.id} course={course} />
             ) : (
               <ElearningCourseItemSkeleton key={index} />
             )
