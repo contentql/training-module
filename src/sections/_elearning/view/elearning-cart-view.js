@@ -34,6 +34,8 @@ export default function ElearningCartView() {
   const tax = cost && cost * (taxPercent / 100);
   const total = cost && subTotal + discount + tax;
 
+  const isEmpty = _courses.length === 0;
+
   useEffect(() => {
     const fakeLoading = async () => {
       await new Promise((resolve) => setTimeout(resolve, 500));
@@ -72,6 +74,7 @@ export default function ElearningCartView() {
               subtotal={subTotal}
               discountPercent={discountPercent}
               discount={discount}
+              isEmpty={isEmpty}
             />
           </Grid>
         </Grid>
