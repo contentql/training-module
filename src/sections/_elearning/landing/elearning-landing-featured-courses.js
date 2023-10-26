@@ -36,7 +36,7 @@ export default function ElearningLandingFeaturedCourses({ courses }) {
   return (
     <Container
       sx={{
-        pt: { xs: 5, md: 10 },
+        pt: { xs: 3, md: 6 },
       }}
     >
       <Stack
@@ -93,8 +93,8 @@ export default function ElearningLandingFeaturedCourses({ courses }) {
                 key={course.id}
                 sx={{
                   px: 2,
-                  pt: { xs: 8, md: 10 },
-                  pb: { xs: 10, md: 15 },
+                  pt: { xs: 6, md: 8 },
+                  pb: { xs: 6, md: 8 },
                 }}
               >
                 <ElearningCourseItem course={course.attributes} vertical id={course.id} />

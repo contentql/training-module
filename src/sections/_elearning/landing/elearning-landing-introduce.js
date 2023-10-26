@@ -15,7 +15,7 @@ export default function ElearningLandingIntroduce() {
   return (
     <Container
       sx={{
-        py: { xs: 8, md: 15 },
+        py: { xs: 4, md: 6 },
       }}
     >
       <Typography
@@ -23,7 +23,7 @@ export default function ElearningLandingIntroduce() {
         sx={{
           display: 'block',
           color: 'primary.main',
-          mb: { xs: 2, md: 10 },
+          mb: { xs: 2, md: 6 },
         }}
       >
         Our Services.
