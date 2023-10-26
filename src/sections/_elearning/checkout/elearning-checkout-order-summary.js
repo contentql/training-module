@@ -112,7 +112,7 @@ function CourseItem({ course, isDelete, ...other }) {
   return (
     <Stack direction="row" alignItems="flex-start" {...other}>
       <Image
-        src={course.coverUrl}
+        src={course?.coverUrl}
         sx={{
           mr: 2,
           width: 64,
@@ -125,11 +125,11 @@ function CourseItem({ course, isDelete, ...other }) {
 
       <Stack flexGrow={1}>
         <TextMaxLine variant="body2" line={1} sx={{ fontWeight: 'fontWeightMedium' }}>
-          {course.attributes.title}
+          {course?.attributes.title}
         </TextMaxLine>
 
         <Typography variant="subtitle2" sx={{ mt: 0.5, mb: 1.5 }}>
-          {fCurrency(course.attributes.price)}
+          {fCurrency(course?.attributes.price)}
         </Typography>
       </Stack>
 
