@@ -1,6 +1,4 @@
 import PropTypes from 'prop-types';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { toast } from 'react-toastify';
 
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
@@ -30,33 +28,6 @@ export default function ElearningCourseDetailsInfo({ course }) {
     state.addToWishlist,
     state.removeFromWishlist,
   ]);
-
-  const addingToCart = (courseItem) => {
-    addToCart(course);
-    toast.success('Adding To Cart', {
-      position: 'bottom-right',
-      autoClose: 1000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: 'light',
-    });
-  };
-  const removingFromCart = (courseItem) => {
-    removeFromCart(course);
-    toast.error('Removing From Cart', {
-      position: 'bottom-right',
-      autoClose: 1000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: 'light',
-    });
-  };
 
   const isCourseInCart = cart.filter((cartItem) => cartItem.id === course.id).length === 0;
   // const isCourseInCart = cart.filter((cartItem) => console.log('cartItem', cartItem));
@@ -151,7 +122,7 @@ export default function ElearningCourseDetailsInfo({ course }) {
             size="large"
             color="inherit"
             sx={{ width: '80%' }}
-            onClick={() => (isCourseInCart ? addingToCart(course) : removingFromCart(course))}
+            onClick={() => (isCourseInCart ? addToCart(course) : removeFromCart(course))}
           >
             {isCourseInCart ? 'Add to cart' : 'Remove from cart'}
           </Button>

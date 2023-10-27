@@ -16,8 +16,6 @@ import ElearningCourseDetailsUnitList from './elearning-course-details-unit-list
 export default function ElearningCourseDetailsSummary({ course }) {
   const userData = useUserStore((state) => state.UserData);
 
-  console.log('userData', userData);
-
   const { isLoggedIn } = userData;
 
   const hasBoughtCourse =

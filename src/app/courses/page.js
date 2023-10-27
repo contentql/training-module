@@ -1,6 +1,9 @@
 'use client';
 
 // eslint-disable-next-line import/no-extraneous-dependencies
+import 'react-toastify/dist/ReactToastify.css';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { ToastContainer } from 'react-toastify';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
 import MainLayout from 'src/layouts/main';
@@ -14,6 +17,7 @@ export default function ElearningCoursesPage() {
   return (
     <MainLayout>
       <ElearningCoursesView />
+      <ToastContainer />
     </MainLayout>
   );
 }

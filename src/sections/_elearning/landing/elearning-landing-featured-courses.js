@@ -97,7 +97,7 @@ export default function ElearningLandingFeaturedCourses({ courses }) {
                   pb: { xs: 6, md: 8 },
                 }}
               >
-                <ElearningCourseItem course={course.attributes} vertical id={course.id} />
+                <ElearningCourseItem course={course} vertical />
               </Box>
             ))}
           </Carousel>

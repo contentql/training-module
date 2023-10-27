@@ -50,19 +50,26 @@ export default function AccountPersonalView() {
         }}
       >
         {data &&
-          data.map((course) => (
-            <Grid
-              item
-              md={6}
-              key={course.id}
-              sx={{
-                px: 2,
-                pt: { xs: 8, md: 15 },
-              }}
-            >
-              <ElearningCourseItem course={course} id={course.id} vertical />
-            </Grid>
-          ))}
+          data.map((course) => {
+            const newCourse = {
+              id: course.id,
+              attributes: course,
+            };
+
+            return (
+              <Grid
+                item
+                md={6}
+                key={course.id}
+                sx={{
+                  px: 2,
+                  pt: { xs: 8, md: 15 },
+                }}
+              >
+                <ElearningCourseItem course={newCourse} vertical />
+              </Grid>
+            );
+          })}
       </Grid>
     </>
   );
