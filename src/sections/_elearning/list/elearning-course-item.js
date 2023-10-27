@@ -5,21 +5,26 @@ import Link from '@mui/material/Link';
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
 import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 
 import Image from 'src/components/image';
 import Label from 'src/components/label';
 // import { paths } from 'src/routes/paths';
 import Iconify from 'src/components/iconify';
+import { useCartStore } from 'src/states/cart';
 import { RouterLink } from 'src/routes/components';
 import TextMaxLine from 'src/components/text-max-line';
+import { useWishlistStore } from 'src/states/wishlist';
 import { fCurrency, fShortenNumber } from 'src/utils/format-number';
 
 // ----------------------------------------------------------------------
 
 // eslint-disable-next-line react/prop-types
-export default function ElearningCourseItem({ course, vertical, id }) {
+export default function ElearningCourseItem({ course, vertical }) {
+  const { id } = course;
   const {
     slug,
     title,
@@ -35,7 +40,30 @@ export default function ElearningCourseItem({ course, vertical, id }) {
     rating,
     totalReviews,
     totalStudents,
-  } = course;
+  } = course.attributes;
+
+  const [cart, addToCart, removeFromCart] = useCartStore((state) => [
+    state.cart,
+    state.addToCart,
+    state.removeFromCart,
+  ]);
+
+  const [wishlist, addToWishlist, removeFromWishlist] = useWishlistStore((state) => [
+    state.wishlist,
+    state.addToWishlist,
+    state.removeFromWishlist,
+  ]);
+
+  const isCourseInCart = cart.filter((cartItem) => cartItem.id === id).length === 0;
+
+  const isCourseInWishlist = wishlist.filter((wishlistItem) => wishlistItem.id === id).length === 0;
+
+  const wishlistIcon = isCourseInWishlist ? 'solar:heart-linear' : 'solar:heart-bold';
+
+  console.log(id);
+  console.log('Cart', cart, isCourseInCart);
+  console.log(wishlist, isCourseInWishlist);
+  console.log();
 
   return (
     <Card
@@ -79,7 +107,7 @@ export default function ElearningCourseItem({ course, vertical, id }) {
         </Label>
       )}
 
-      <Stack spacing={3} sx={{ p: 3 }}>
+      <Stack spacing={3} sx={{ p: 3 }} width="100%">
         <Stack
           spacing={{
             xs: 3,
@@ -182,7 +210,8 @@ export default function ElearningCourseItem({ course, vertical, id }) {
         <Stack
           direction="row"
           flexWrap="wrap"
-          alignItems="center"
+          alignItems="space-around"
+          justifyContent="space-between"
           sx={{ color: 'text.disabled', '& > *:not(:last-child)': { mr: 2.5 } }}
         >
           <Stack direction="row" alignItems="center" sx={{ typography: 'body2' }}>
@@ -200,6 +229,38 @@ export default function ElearningCourseItem({ course, vertical, id }) {
             />
             {level}
           </Stack> */}
+
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+              alignItems: 'center',
+            }}
+          >
+            <IconButton
+              variant={isCourseInWishlist ? 'contained' : 'outlined'}
+              size="large"
+              color="inherit"
+              onClick={() =>
+                isCourseInWishlist ? addToWishlist(course) : removeFromWishlist(course)
+              }
+            >
+              <Iconify icon={wishlistIcon} color="red" />
+            </IconButton>
+
+            <IconButton
+              variant={isCourseInCart ? 'contained' : 'outlined'}
+              size="large"
+              color="inherit"
+              onClick={() => (isCourseInCart ? addToCart(course) : removeFromCart(course))}
+            >
+              {isCourseInCart ? (
+                <Iconify icon="carbon:shopping-cart-plus" />
+              ) : (
+                <Iconify icon="carbon:shopping-cart-minus" />
+              )}
+            </IconButton>
+          </Box>
         </Stack>
       </Stack>
     </Card>
@@ -208,20 +269,23 @@ export default function ElearningCourseItem({ course, vertical, id }) {
 
 ElearningCourseItem.propTypes = {
   course: PropTypes.shape({
-    slug: PropTypes.string,
-    title: PropTypes.string,
-    level: PropTypes.string,
-    price: PropTypes.number,
-    teachers: PropTypes.array,
-    bestSeller: PropTypes.bool,
-    category: PropTypes.string,
-    coverUrl: PropTypes.string,
-    priceSale: PropTypes.number,
-    time: PropTypes.number,
-    description: PropTypes.string,
-    rating: PropTypes.number,
-    totalReviews: PropTypes.number,
-    totalStudents: PropTypes.number,
+    id: PropTypes.string,
+    attributes: PropTypes.shape({
+      slug: PropTypes.string,
+      title: PropTypes.string,
+      level: PropTypes.string,
+      price: PropTypes.number,
+      teachers: PropTypes.array,
+      bestSeller: PropTypes.bool,
+      category: PropTypes.string,
+      coverUrl: PropTypes.string,
+      priceSale: PropTypes.number,
+      time: PropTypes.number,
+      description: PropTypes.string,
+      rating: PropTypes.number,
+      totalReviews: PropTypes.number,
+      totalStudents: PropTypes.number,
+    }),
   }),
   vertical: PropTypes.bool,
 };

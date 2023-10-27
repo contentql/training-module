@@ -1,8 +1,6 @@
 import PropTypes from 'prop-types';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { toast } from 'react-toastify';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import 'react-toastify/dist/ReactToastify.css';
 
 import Typography from '@mui/material/Typography';
 import AccordionDetails from '@mui/material/AccordionDetails';

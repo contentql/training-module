@@ -42,13 +42,15 @@ export default function ElearningCourseDetailsLessonsDialog({
 }) {
   // units?.map((unit) => unit.attributes.lesson.map((lsn) => lsn.title === selectedLesson.title));
 
-  const { title, description, duration, tags, content } = _coursePosts[0];
-
   const mdUp = useResponsive('up', 'md');
 
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   const [expandedUnits, setExpandedUnits] = useState(Array(units?.length).fill(false));
+
+  if (!selectedLesson) return null;
+
+  const { title, subtitle, content, time } = selectedLesson;
 
   const toggleDrawer = (value) => {
     setDrawerOpen(value);
@@ -113,21 +115,21 @@ export default function ElearningCourseDetailsLessonsDialog({
             }}
           >
             <Typography variant="body2" sx={{ color: 'text.disabled' }}>
-              {duration}
+              {time} mins read
             </Typography>
 
             <Typography variant="h2" component="h1">
               {title}
             </Typography>
 
-            <Typography variant="h5">{description}</Typography>
+            <Typography variant="h5">{subtitle}</Typography>
           </Stack>
 
           <Divider sx={{ mb: 6 }} />
 
           <Markdown content={content} firstLetter />
 
-          <PostTags tags={tags} />
+          {/* <PostTags tags={tags} /> */}
 
           {/* <PostSocialsShare /> */}
         </Grid>

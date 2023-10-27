@@ -84,7 +84,8 @@ export default function EcommerceWishlistView() {
             color="inherit"
             variant="contained"
             startIcon={<Iconify icon="carbon:shopping-cart-plus" />}
-            onClick={addWishlistToCart}
+            onClick={wishlist && addWishlistToCart}
+            disabled={wishlist.length === 0}
           >
             Add All to Cart
           </Button>
