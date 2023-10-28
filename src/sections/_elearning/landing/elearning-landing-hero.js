@@ -48,7 +48,8 @@ export default function ElearningLandingHero() {
       >
         <Container
           sx={{
-            py: 15,
+            py: 6,
+            pb: { xs: 2 },
             display: { md: 'flex' },
             alignItems: { md: 'center' },
             height: { md: `100vh` },
@@ -73,7 +74,7 @@ export default function ElearningLandingHero() {
                   From The Experts
                 </Typography>
 
-                <Typography sx={{ color: 'text.secondary', mt: 3, mb: 5 }}>
+                <Typography sx={{ color: 'text.secondary', mt: 3, mb: { xs: 0, md: 5 } }}>
                   Etiam sollicitudin, ipsum eu pulvinar rutrum, tellus ipsum laoreet sapien, quis
                   venenatis ante odio sit amet eros.
                 </Typography>

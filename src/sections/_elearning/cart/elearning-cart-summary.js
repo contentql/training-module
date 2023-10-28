@@ -22,6 +22,7 @@ export default function ElearningCartSummary({
   subtotal,
   discountPercent,
   discount,
+  isEmpty,
 }) {
   return (
     <Stack
@@ -71,6 +72,7 @@ export default function ElearningCartSummary({
         size="large"
         variant="contained"
         color="inherit"
+        disabled={isEmpty}
       >
         Checkout
       </Button>
@@ -85,6 +87,7 @@ ElearningCartSummary.propTypes = {
   discount: PropTypes.number,
   discountPercent: PropTypes.number,
   subtotal: PropTypes.number,
+  isEmpty: PropTypes.bool,
 };
 
 // ----------------------------------------------------------------------

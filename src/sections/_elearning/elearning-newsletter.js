@@ -14,7 +14,7 @@ export default function ElearningNewsletter() {
   return (
     <Box
       sx={{
-        py: { xs: 10, md: 15 },
+        py: { xs: 10, md: 8 },
         overflow: 'hidden',
         bgcolor: 'primary.lighter',
       }}

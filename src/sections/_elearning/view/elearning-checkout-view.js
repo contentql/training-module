@@ -4,6 +4,7 @@ import axios from 'axios';
 import * as Yup from 'yup';
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useQuery } from 'react-query';
 import { useForm } from 'react-hook-form';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { loadStripe } from '@stripe/stripe-js';
@@ -24,6 +25,7 @@ import { useRouter } from 'src/routes/hooks';
 import { useCartStore } from 'src/states/cart';
 import { useBoolean } from 'src/hooks/use-boolean';
 import FormProvider from 'src/components/hook-form';
+import { getCourseInfo } from 'src/queries/checkout';
 import { useUserStore } from 'src/states/auth-store';
 import { SplashScreen } from 'src/components/loading-screen';
 
@@ -59,8 +61,8 @@ const stripePromise = loadStripe(
 
 // ----------------------------------------------------------------------
 
-export default function ElearningCheckoutView() {
-  const loading = useBoolean(true);
+export default function ElearningCheckoutView({ courseId }) {
+  // const loading = useBoolean(true);
 
   const router = useRouter();
 
@@ -70,11 +72,21 @@ export default function ElearningCheckoutView() {
 
   console.log(UserData);
 
-  const _courses = useCartStore((state) => state.cart);
+  const queryRes = useQuery({
+    queryKey: ['course', courseId],
+    queryFn: () => getCourseInfo(courseId),
+    enabled: !!courseId,
+  });
+  const queryData = queryRes.data;
+  const loading = queryRes.isLoading;
+
+  const cartCourses = useCartStore((state) => state.cart);
   const emptyCart = useCartStore((state) => state.emptyCart);
   const cart = useCartStore((state) => state.cart);
 
-  const cost = _courses.map((course) => course.attributes.price).reduce((a, b) => a + b, 0);
+  const _courses = courseId ? [queryData] : cartCourses;
+
+  const cost = _courses?.map((course) => course?.attributes.price).reduce((a, b) => a + b, 0);
   const discountPercent = cost && 7;
   const taxPercent = cost && 18;
 
@@ -121,7 +133,7 @@ export default function ElearningCheckoutView() {
       makePayment(data);
       cart.forEach(({ id }) => addUserToCourse(id));
       // reset();
-      emptyCart();
+      if (!courseId) emptyCart();
       // router.push(paths.eLearning.purchaseCompleted);
       // console.log('DATA', data);
     } catch (error) {
@@ -129,17 +141,15 @@ export default function ElearningCheckoutView() {
     }
   });
 
-  useEffect(() => {
-    const fakeLoading = async () => {
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      loading.onFalse();
-    };
-    fakeLoading();
-  }, [loading]);
+  // useEffect(() => {
+  //   const fakeLoading = async () => {
+  //     await new Promise((resolve) => setTimeout(resolve, 500));
+  //     loading.onFalse();
+  //   };
+  //   fakeLoading();
+  // }, [loading]);
 
-  if (loading.value) {
-    return <SplashScreen />;
-  }
+  if (loading) return <SplashScreen />;
 
   const userToken = localStorage.getItem('token');
 
@@ -273,6 +283,10 @@ export default function ElearningCheckoutView() {
     </>
   );
 }
+
+ElearningCheckoutView.propTypes = {
+  courseId: PropTypes.string,
+};
 
 // ----------------------------------------------------------------------
 
