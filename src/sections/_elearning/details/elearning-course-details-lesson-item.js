@@ -44,7 +44,7 @@ export default function ElearningCourseDetailsLessonItem({
     <Accordion
       expanded={hasBoughtCourse && expanded}
       onChange={handleChange}
-      disabled={!lesson.unLocked}
+      disabled={!hasBoughtCourse || !lesson.unLocked}
       sx={{
         [`&.${accordionClasses.expanded}`]: {
           borderRadius: 0,
@@ -65,7 +65,7 @@ export default function ElearningCourseDetailsLessonItem({
         }}
       >
         {lesson.unLocked ? (
-          <Iconify width={24} icon={playIcon} onClick={onSelected} />
+          <Iconify width={24} icon={playIcon} onClick={hasBoughtCourse && onSelected} />
         ) : (
           <img src="/icons/lock.svg" alt="lesson" />
         )}
