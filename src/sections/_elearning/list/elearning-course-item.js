@@ -23,7 +23,7 @@ import { fCurrency, fShortenNumber } from 'src/utils/format-number';
 // ----------------------------------------------------------------------
 
 // eslint-disable-next-line react/prop-types
-export default function ElearningCourseItem({ course, vertical }) {
+export default function ElearningCourseItem({ course, vertical, myLearning }) {
   const { id } = course;
   const {
     slug,
@@ -59,11 +59,6 @@ export default function ElearningCourseItem({ course, vertical }) {
   const isCourseInWishlist = wishlist.filter((wishlistItem) => wishlistItem.id === id).length === 0;
 
   const wishlistIcon = isCourseInWishlist ? 'solar:heart-linear' : 'solar:heart-bold';
-
-  console.log(id);
-  console.log('Cart', cart, isCourseInCart);
-  console.log(wishlist, isCourseInWishlist);
-  console.log();
 
   return (
     <Card
@@ -137,7 +132,7 @@ export default function ElearningCourseItem({ course, vertical }) {
           </Stack>
 
           <Stack spacing={1}>
-            <Link component={RouterLink} href={`/courses/${id}`} color="inherit">
+            <Link component={RouterLink} href={`/my-learning/${id}`} color="inherit">
               <TextMaxLine variant="h6" line={1}>
                 {title}
               </TextMaxLine>
@@ -288,4 +283,5 @@ ElearningCourseItem.propTypes = {
     }),
   }),
   vertical: PropTypes.bool,
+  myLearning: PropTypes.bool,
 };

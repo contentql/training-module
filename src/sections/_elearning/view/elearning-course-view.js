@@ -33,7 +33,7 @@ import ElearningCourseDetailsSummary from '../details/elearning-course-details-s
 
 // const _mockCourse = _courses[0];
 
-export default function ElearningCourseView({ courseId }) {
+export default function ElearningCourseView({ courseId, myLearning }) {
   const mdUp = useResponsive('up', 'md');
 
   const userData = useUserStore((state) => state.UserData);
@@ -73,7 +73,7 @@ export default function ElearningCourseView({ courseId }) {
 
   return (
     <>
-      <ElearningCourseDetailsHero course={data?.attributes} />
+      <ElearningCourseDetailsHero course={data?.attributes} myLearning={myLearning} />
 
       <Container
         sx={{
@@ -161,4 +161,5 @@ export default function ElearningCourseView({ courseId }) {
 
 ElearningCourseView.propTypes = {
   courseId: PropTypes.string,
+  myLearning: PropTypes.bool,
 };

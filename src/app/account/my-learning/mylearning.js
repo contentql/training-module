@@ -66,7 +66,7 @@ export default function AccountPersonalView() {
                   pt: { xs: 8, md: 15 },
                 }}
               >
-                <ElearningCourseItem course={newCourse} vertical />
+                <ElearningCourseItem course={newCourse} vertical myLearning />
               </Grid>
             );
           })}

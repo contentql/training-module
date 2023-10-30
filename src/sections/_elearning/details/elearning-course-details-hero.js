@@ -28,7 +28,7 @@ import ElearningCourseDetailsLessonsDialog from './elearning-course-details-less
 
 // ----------------------------------------------------------------------
 
-export default function ElearningCourseDetailsHero({ course }) {
+export default function ElearningCourseDetailsHero({ course, myLearning }) {
   const {
     title,
     level = 'Beginner',
@@ -90,7 +90,10 @@ export default function ElearningCourseDetailsHero({ course }) {
           <CustomBreadcrumbs
             links={[
               { name: 'Home', href: '/' },
-              { name: 'Courses', href: paths.eLearning.courses },
+              {
+                name: myLearning ? 'My Learning' : 'Courses',
+                href: myLearning ? paths.eLearning.account.myLearning : paths.eLearning.courses,
+              },
               { name: course.title || '' },
             ]}
             sx={{
@@ -293,4 +296,5 @@ ElearningCourseDetailsHero.propTypes = {
     languages: PropTypes.arrayOf(PropTypes.string),
     units: PropTypes.object,
   }),
+  myLearning: PropTypes.bool,
 };
