@@ -13,14 +13,7 @@ import ElearningCourseDetailsUnitList from './elearning-course-details-unit-list
 
 // ----------------------------------------------------------------------
 
-export default function ElearningCourseDetailsSummary({ course }) {
-  const userData = useUserStore((state) => state.UserData);
-
-  const { isLoggedIn } = userData;
-
-  const hasBoughtCourse =
-    isLoggedIn && course.users.data.filter((user) => user.id === userData.id.toString()).length > 0;
-
+export default function ElearningCourseDetailsSummary({ course, hasBoughtCourse }) {
   return (
     <Stack spacing={5}>
       <ElearningCourseDetailsUnitList units={course.units.data} hasBoughtCourse={hasBoughtCourse} />
@@ -84,4 +77,5 @@ ElearningCourseDetailsSummary.propTypes = {
     skills: PropTypes.array,
     users: PropTypes.array,
   }),
+  hasBoughtCourse: PropTypes.bool,
 };

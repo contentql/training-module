@@ -19,6 +19,7 @@ import Iconify from 'src/components/iconify';
 import { _socials, _courses } from 'src/_mock';
 import { useBoolean } from 'src/hooks/use-boolean';
 import { getCourseData } from 'src/queries/course';
+import { useUserStore } from 'src/states/auth-store';
 import { useResponsive } from 'src/hooks/use-responsive';
 import { SplashScreen } from 'src/components/loading-screen';
 
@@ -34,6 +35,8 @@ import ElearningCourseDetailsSummary from '../details/elearning-course-details-s
 
 export default function ElearningCourseView({ courseId }) {
   const mdUp = useResponsive('up', 'md');
+
+  const userData = useUserStore((state) => state.UserData);
 
   // const loading = useBoolean(true);
 
@@ -62,6 +65,12 @@ export default function ElearningCourseView({ courseId }) {
     return <SplashScreen />;
   }
 
+  const { isLoggedIn } = userData;
+
+  const hasBoughtCourse =
+    isLoggedIn &&
+    data.attributes.users.data.filter((user) => user.id === userData.id.toString()).length > 0;
+
   return (
     <>
       <ElearningCourseDetailsHero course={data?.attributes} />
@@ -76,12 +85,15 @@ export default function ElearningCourseView({ courseId }) {
         <Grid container spacing={{ xs: 5, md: 8 }}>
           {!mdUp && (
             <Grid xs={12}>
-              <ElearningCourseDetailsInfo course={data} />
+              <ElearningCourseDetailsInfo course={data} hasBoughtCourse={hasBoughtCourse} />
             </Grid>
           )}
 
           <Grid xs={12} md={7} lg={8}>
-            <ElearningCourseDetailsSummary course={data?.attributes} />
+            <ElearningCourseDetailsSummary
+              course={data?.attributes}
+              hasBoughtCourse={hasBoughtCourse}
+            />
 
             <Stack direction="row" flexWrap="wrap" sx={{ mt: 5 }}>
               <Typography variant="subtitle2" sx={{ mt: 0.75, mr: 1.5 }}>
@@ -119,7 +131,9 @@ export default function ElearningCourseView({ courseId }) {
 
           <Grid xs={12} md={5} lg={4}>
             <Stack spacing={5}>
-              {mdUp && <ElearningCourseDetailsInfo course={data} />}
+              {mdUp && (
+                <ElearningCourseDetailsInfo course={data} hasBoughtCourse={hasBoughtCourse} />
+              )}
 
               {/* <Advertisement
                 advertisement={{

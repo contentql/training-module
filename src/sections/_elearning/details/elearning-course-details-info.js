@@ -16,7 +16,7 @@ import { useWishlistStore } from 'src/states/wishlist';
 
 // ----------------------------------------------------------------------
 
-export default function ElearningCourseDetailsInfo({ course }) {
+export default function ElearningCourseDetailsInfo({ course, hasBoughtCourse }) {
   const [cart, addToCart, removeFromCart] = useCartStore((state) => [
     state.cart,
     state.addToCart,
@@ -92,41 +92,49 @@ export default function ElearningCourseDetailsInfo({ course }) {
           </Stack>
         </Stack>
 
-        <Link component={RouterLink} href={`${paths.eLearning.checkout}/${course.id}`}>
+        {hasBoughtCourse ? (
           <Button variant="contained" size="large" color="inherit" sx={{ width: 1 }}>
-            Enroll Now
+            Already Enrolled
           </Button>
-        </Link>
+        ) : (
+          <>
+            <Link component={RouterLink} href={`${paths.eLearning.checkout}/${course.id}`}>
+              <Button variant="contained" size="large" color="inherit" sx={{ width: 1 }}>
+                Enroll Now
+              </Button>
+            </Link>
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'space-around',
+                alignItems: 'center',
+              }}
+            >
+              <Button
+                variant={isCourseInWishlist ? 'outlined' : 'contained'}
+                size="large"
+                color="inherit"
+                sx={{ width: '20%', marginRight: 1 }}
+                onClick={() =>
+                  isCourseInWishlist ? addToWishlist(course) : removeFromWishlist(course)
+                }
+              >
+                <Iconify icon={wishlistIcon} color="red" />
+              </Button>
 
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'space-around',
-            alignItems: 'center',
-          }}
-        >
-          <Button
-            variant={isCourseInWishlist ? 'outlined' : 'contained'}
-            size="large"
-            color="inherit"
-            sx={{ width: '20%', marginRight: 1 }}
-            onClick={() =>
-              isCourseInWishlist ? addToWishlist(course) : removeFromWishlist(course)
-            }
-          >
-            <Iconify icon={wishlistIcon} color="red" />
-          </Button>
-
-          <Button
-            variant={isCourseInCart ? 'contained' : 'outlined'}
-            size="large"
-            color="inherit"
-            sx={{ width: '80%' }}
-            onClick={() => (isCourseInCart ? addToCart(course) : removeFromCart(course))}
-          >
-            {isCourseInCart ? 'Add to cart' : 'Remove from cart'}
-          </Button>
-        </Box>
+              <Button
+                variant={isCourseInCart ? 'contained' : 'outlined'}
+                size="large"
+                color="inherit"
+                sx={{ width: '80%' }}
+                onClick={() => (isCourseInCart ? addToCart(course) : removeFromCart(course))}
+              >
+                {isCourseInCart ? 'Add to cart' : 'Remove from cart'}
+              </Button>
+            </Box>
+            s
+          </>
+        )}
       </Stack>
     </Card>
   );
@@ -134,4 +142,5 @@ export default function ElearningCourseDetailsInfo({ course }) {
 
 ElearningCourseDetailsInfo.propTypes = {
   course: PropTypes.object,
+  hasBoughtCourse: PropTypes.bool,
 };
