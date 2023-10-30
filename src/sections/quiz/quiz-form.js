@@ -58,6 +58,7 @@ export default function QuizForm(props) {
         questionsLength={questions.length}
         isTest
         quizIcon
+        hasBoughtCourse={hasBoughtCourse}
       >
         <img src="src/icons/note.svg" alt="quiz" height={20} width={20} />
         Start Test

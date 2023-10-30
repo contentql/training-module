@@ -13,6 +13,7 @@ export default function ElearningCourseDetailsLessonItem({
   handleClickOpen,
   questionsLength,
   isTest,
+  hasBoughtCourse,
 }) {
   const icon = isTest ? 'material-symbols:quiz-outline' : 'carbon:play';
 
@@ -24,6 +25,7 @@ export default function ElearningCourseDetailsLessonItem({
         },
       }}
       onClick={handleClickOpen}
+      disabled={!hasBoughtCourse}
     >
       <AccordionSummary
         sx={{
@@ -67,4 +69,5 @@ ElearningCourseDetailsLessonItem.propTypes = {
   handleClickOpen: PropTypes.func,
   questionsLength: PropTypes.number,
   isTest: PropTypes.bool,
+  hasBoughtCourse: PropTypes.bool,
 };

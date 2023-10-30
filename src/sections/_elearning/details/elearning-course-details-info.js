@@ -132,7 +132,6 @@ export default function ElearningCourseDetailsInfo({ course, hasBoughtCourse }) 
                 {isCourseInCart ? 'Add to cart' : 'Remove from cart'}
               </Button>
             </Box>
-            s
           </>
         )}
       </Stack>
