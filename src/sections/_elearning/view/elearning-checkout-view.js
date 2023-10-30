@@ -70,8 +70,6 @@ export default function ElearningCheckoutView({ courseId }) {
 
   const { UserData } = useUserStore();
 
-  console.log(UserData);
-
   const queryRes = useQuery({
     queryKey: ['course', courseId],
     queryFn: () => getCourseInfo(courseId),
@@ -83,6 +81,8 @@ export default function ElearningCheckoutView({ courseId }) {
   const cartCourses = useCartStore((state) => state.cart);
   const emptyCart = useCartStore((state) => state.emptyCart);
   const cart = useCartStore((state) => state.cart);
+
+  if (!courseId && cartCourses.length === 0) router.push(paths.eLearning.courses);
 
   const _courses = courseId ? [queryData] : cartCourses;
 
