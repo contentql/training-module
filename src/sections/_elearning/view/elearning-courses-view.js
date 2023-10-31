@@ -52,6 +52,8 @@ export default function ElearningCoursesView() {
 
   if (isLoading) return <SplashScreen />;
 
+  const allCategories = data.map((item) => item.attributes.category);
+
   return (
     <>
       <Container>
@@ -84,6 +86,7 @@ export default function ElearningCoursesView() {
             onClose={mobileOpen.onFalse}
             filters={filters}
             setFilters={setFilters}
+            allCategories={allCategories}
           />
 
           <Box
