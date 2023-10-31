@@ -76,11 +76,11 @@ export default function EcommerceAccountOrdersTableRow({ row, onSelectRow, selec
           </Label>
         </TableCell>
 
-        <TableCell align="right" padding="none">
+        {/* <TableCell align="right" padding="none">
           <IconButton onClick={handleOpen}>
             <Iconify icon="carbon:overflow-menu-vertical" />
           </IconButton>
-        </TableCell>
+        </TableCell> */}
       </TableRow>
 
       <Popover
