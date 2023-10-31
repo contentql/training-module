@@ -1,6 +1,7 @@
 // ----------------------------------------------------------------------
 
 export const paths = {
+  home: '/',
   // Marketing
   marketing: {
     root: '/marketing',

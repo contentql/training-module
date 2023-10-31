@@ -7,7 +7,7 @@ import { useTheme } from '@mui/material/styles';
 
 import { bgBlur } from 'src/theme/css';
 import Logo from 'src/components/logo';
-// import { paths } from 'src/routes/paths';
+import { paths } from 'src/routes/paths';
 import Iconify from 'src/components/iconify';
 import { useRouter } from 'src/routes/hooks';
 // import { RouterLink } from 'src/routes/components';
@@ -55,9 +55,9 @@ export default function HeaderSimple() {
           <Button
             variant="outlined"
             startIcon={<Iconify icon="carbon:chevron-left" />}
-            onClick={() => router.back()}
+            onClick={() => router.push(paths.home)}
           >
-            Previous Page
+            Home Page
           </Button>
         </Stack>
       </Toolbar>
