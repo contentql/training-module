@@ -153,7 +153,7 @@ export default function EcommerceAccountOrdersPage() {
         ))}
       </Tabs>
 
-      <Stack direction={{ xs: 'column', md: 'row' }} spacing={2} sx={{ mt: 5, mb: 3 }}>
+      {/* <Stack direction={{ xs: 'column', md: 'row' }} spacing={2} sx={{ mt: 5, mb: 3 }}>
         <TextField
           fullWidth
           hiddenLabel
@@ -170,7 +170,7 @@ export default function EcommerceAccountOrdersPage() {
           <DatePicker label="Start Date" sx={{ width: 1, minWidth: 180 }} />
           <DatePicker label="End Date" sx={{ width: 1, minWidth: 180 }} />
         </Stack>
-      </Stack>
+      </Stack> */}
 
       <TableContainer
         sx={{
