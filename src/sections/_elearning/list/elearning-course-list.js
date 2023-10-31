@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import Stack from '@mui/material/Stack';
@@ -9,6 +10,10 @@ import ElearningCourseItemSkeleton from './elearning-course-item-skeleton';
 // ----------------------------------------------------------------------
 
 export default function ElearningCourseList({ courses, loading, filters }) {
+  const [page, setPage] = useState(0);
+
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+
   const filterCourseByText = (course) => {
     if (filters.text.length === 0) return true;
     return course.attributes.title.toLowerCase().includes(filters.text.toLowerCase());
@@ -52,15 +57,17 @@ export default function ElearningCourseList({ courses, loading, filters }) {
     );
   };
 
+  const filteredCourses = courses
+    .filter(filterCourseByText)
+    .filter(filterByDuration)
+    .filter(filterByCategory)
+    .filter(filterByFee);
+
   return (
     <>
       <Stack spacing={4}>
-        {courses
-          .filter(filterCourseByText)
-          // .filter(filterByRating)
-          .filter(filterByDuration)
-          .filter(filterByCategory)
-          .filter(filterByFee)
+        {filteredCourses
+          .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
           .map((course, index) =>
             course ? (
               <ElearningCourseItem key={course.id} course={course} />
@@ -71,7 +78,8 @@ export default function ElearningCourseList({ courses, loading, filters }) {
       </Stack>
 
       <Pagination
-        count={10}
+        count={filteredCourses.length < rowsPerPage ? 1 : filteredCourses.length / rowsPerPage}
+        onChange={(e, newPage) => setPage(newPage - 1)}
         color="primary"
         sx={{
           my: 10,
