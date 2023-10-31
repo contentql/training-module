@@ -84,7 +84,7 @@ export default function EcommerceAccountOrdersPage() {
     },
     [order, orderBy]
   );
-  console.log('data: ', data);
+
   const handleSelectAllRows = useCallback(
     (event) => {
       if (event.target.checked) {
@@ -245,7 +245,7 @@ export default function EcommerceAccountOrdersPage() {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
 
-        <FormControlLabel
+        {/* <FormControlLabel
           control={<Switch checked={dense} onChange={handleChangeDense} />}
           label="Dense padding"
           sx={{
@@ -256,7 +256,7 @@ export default function EcommerceAccountOrdersPage() {
               sm: 'absolute',
             },
           }}
-        />
+        /> */}
       </Box>
     </>
   );
