@@ -45,9 +45,9 @@ export default function EcommerceAccountOrdersTableRow({ row, onSelectRow, selec
   return (
     <>
       <TableRow hover selected={selected}>
-        <TableCell padding="checkbox">
+        {/* <TableCell>
           <Checkbox color="primary" checked={selected} onClick={onSelectRow} />
-        </TableCell>
+        </TableCell> */}
 
         <TableCell sx={{ px: 1 }}>
           <InputBase value={row.stripeSessionToken} sx={inputStyles} />
