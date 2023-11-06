@@ -8,3 +8,6 @@
 
 - bun install
 - bun run dev
+
+- yarn add
+- yarn develop
