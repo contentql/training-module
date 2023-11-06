@@ -61,7 +61,7 @@ export default function ElearningCourseDetailsHero({ course }) {
     0
   );
 
-  const totalQuizzes = units.data.length;
+  const totalQuizzes = units?.data.length;
 
   // const handleSelectedLesson = useCallback((lesson) => {
   //   if (lesson.unLocked) {

@@ -15,7 +15,7 @@ export default function ElearningCourseDetailsLessonList({ units, hasBoughtCours
         Units
       </Typography>
 
-      {units.map((unit, index) => (
+      {units?.map((unit, index) => (
         <ElearningCourseDetailsUnitItem
           hasBoughtCourse={hasBoughtCourse}
           key={index}

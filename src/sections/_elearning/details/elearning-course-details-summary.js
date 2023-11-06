@@ -19,11 +19,15 @@ export default function ElearningCourseDetailsSummary({ course }) {
   const { isLoggedIn } = userData;
 
   const hasBoughtCourse =
-    isLoggedIn && course.users.data.filter((user) => user.id === userData.id.toString()).length > 0;
+    isLoggedIn &&
+    course.users?.data.filter((user) => user.id === userData.id.toString()).length > 0;
 
   return (
     <Stack spacing={5}>
-      <ElearningCourseDetailsUnitList units={course.units.data} hasBoughtCourse={hasBoughtCourse} />
+      <ElearningCourseDetailsUnitList
+        units={course.units?.data}
+        hasBoughtCourse={hasBoughtCourse}
+      />
 
       <Stack spacing={3}>
         <Typography variant="h4">What You Will Learn</Typography>
