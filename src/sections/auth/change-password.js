@@ -4,7 +4,7 @@ import axios from 'axios';
 import * as Yup from 'yup';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useRouter } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import Link from '@mui/material/Link';
@@ -29,6 +29,9 @@ import { useUserStore } from '../../states/auth-store';
 
 export default function ChangePassword() {
   const passwordShow = useBoolean();
+  const searchParams = useSearchParams();
+
+  const code = searchParams.get('code');
 
   const [loginError, setLoginError] = useState('');
 
@@ -63,8 +66,8 @@ export default function ChangePassword() {
     try {
       // Request API.
       axios
-        .post('http://localhost:1337/api/auth/reset-password', {
-          code: 'privateCode', // code contained in the reset link of step 3.
+        .post(process.env.NEXT_PUBLIC_RESET_PASSWORD_URL, {
+          code, // code contained in the reset link of step 3.
           password,
           passwordConfirmation: confirmPassword,
         })
