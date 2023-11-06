@@ -57,7 +57,7 @@ export default function ElearningCourseList({ courses, loading, filters }) {
       <Stack spacing={4}>
         {courses
           .filter(filterCourseByText)
-          // .filter(filterByRating)
+
           .filter(filterByDuration)
           .filter(filterByCategory)
           .filter(filterByFee)
