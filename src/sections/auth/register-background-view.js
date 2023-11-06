@@ -30,6 +30,7 @@ export default function RegisterBackgroundView() {
   const passwordShow = useBoolean();
 
   const [loginError, setLoginError] = useState('');
+  const [success, setSuccess] = useState(false);
 
   const userdata = useUserStore((store) => store?.UserData);
 
@@ -93,6 +94,8 @@ export default function RegisterBackgroundView() {
           image: resData.user.image,
         };
         updateUserData(userData);
+        setSuccess(true);
+        reset();
       } else if (response.status === 400) {
         setLoginError(resData.error.message);
       } else {
@@ -204,17 +207,11 @@ export default function RegisterBackgroundView() {
 
   return (
     <>
-      {userdata.isLoggedIn ? (
+      {success ? (
         <Alert severity="success">
-          User registered success,{' '}
-          <Link
-            component={RouterLink}
-            href={paths.loginBackground}
-            variant="subtitle2"
-            color="primary"
-          >
-            Login here
-          </Link>
+          verification link sent to regestered email.
+          <br />
+          Please verify your email before try login
         </Alert>
       ) : (
         <>

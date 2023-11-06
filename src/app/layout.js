@@ -5,8 +5,8 @@ import 'src/global.css';
 // ----------------------------------------------------------------------
 
 import ThemeProvider from 'src/theme';
-import { LocalizationProvider } from 'src/locales';
 import { primaryFont } from 'src/theme/typography';
+import { LocalizationProvider } from 'src/locales';
 import ProgressBar from 'src/components/progress-bar';
 import MotionLazy from 'src/components/animate/motion-lazy';
 import { ReactQueryProvider } from 'src/utils/ReactQueryProvider';

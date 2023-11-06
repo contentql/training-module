@@ -17,7 +17,7 @@ export default function ElearningCoursesPage() {
   return (
     <MainLayout>
       <ElearningCoursesView />
-      <ToastContainer />
+      {/* <ToastContainer /> */}
     </MainLayout>
   );
 }
