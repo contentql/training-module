@@ -1,5 +1,6 @@
 'use client';
 
+import axios from 'axios';
 import * as Yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -37,9 +38,22 @@ export default function ForgotPasswordView() {
   } = methods;
 
   const onSubmit = handleSubmit(async (data) => {
+    const { email } = data;
+    console.log(email);
+
     try {
-      reset();
-      console.log('DATA', data);
+      // Request API.
+
+      axios
+        .post(process.env.NEXT_PUBLIC_FORGET_PASSWORD_URL, {
+          email, // user's email
+        })
+        .then((response) => {
+          console.log('Your user received an email');
+        })
+        .catch((error) => {
+          console.log('An error occurred:', error.response);
+        });
     } catch (error) {
       console.error(error);
     }
@@ -80,7 +94,7 @@ export default function ForgotPasswordView() {
 
       <Link
         component={RouterLink}
-        href={paths.loginCover}
+        href={paths.loginBackground}
         color="inherit"
         variant="subtitle2"
         sx={{
@@ -91,7 +105,7 @@ export default function ForgotPasswordView() {
         }}
       >
         <Iconify icon="carbon:chevron-left" width={16} sx={{ mr: 1 }} />
-        Return to sign in
+        Return to sign in!
       </Link>
     </>
   );
