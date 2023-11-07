@@ -55,9 +55,9 @@ export default function HeaderSimple() {
           <Button
             variant="outlined"
             startIcon={<Iconify icon="carbon:chevron-left" />}
-            onClick={() => router.back()}
+            onClick={() => router.push('/')}
           >
-            Previous Page
+            Home Page
           </Button>
         </Stack>
       </Toolbar>
