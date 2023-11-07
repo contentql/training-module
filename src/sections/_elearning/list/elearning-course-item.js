@@ -24,7 +24,7 @@ import { fCurrency, fShortenNumber } from 'src/utils/format-number';
 // ----------------------------------------------------------------------
 
 // eslint-disable-next-line react/prop-types
-export default function ElearningCourseItem({ course, vertical }) {
+export default function ElearningCourseItem({ course, vertical, isMyLearning }) {
   const { id } = course;
   const {
     slug,
@@ -61,7 +61,8 @@ export default function ElearningCourseItem({ course, vertical }) {
   const { isLoggedIn } = userData;
 
   const hasBoughtCourse =
-    isLoggedIn && users.data?.filter((user) => user.id === userData.id.toString()).length > 0;
+    isLoggedIn &&
+    users.data?.filter((user) => user.id.toString() === userData.id.toString()).length > 0;
 
   const isCourseInCart = cart.filter((cartItem) => cartItem.id === id).length === 0;
 
@@ -239,7 +240,7 @@ export default function ElearningCourseItem({ course, vertical }) {
             {level}
           </Stack> */}
 
-          {!vertical &&
+          {!isMyLearning &&
             (hasBoughtCourse ? (
               <Link
                 component={RouterLink}
@@ -311,4 +312,5 @@ ElearningCourseItem.propTypes = {
     }),
   }),
   vertical: PropTypes.bool,
+  isMyLearning: PropTypes.bool,
 };
