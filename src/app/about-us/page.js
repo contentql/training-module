@@ -8,7 +8,7 @@ export const metadata = {
 };
 
 export default function ComingSoonPage() {
-  const completedOn = '10/08/2023 23:59';
+  const completedOn = '11/30/2023 23:59';
 
   return (
     <MainLayout>
