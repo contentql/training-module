@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useSearchParams } from 'next/navigation';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { toast, ToastContainer } from 'react-toastify';
 
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
@@ -34,6 +35,7 @@ export default function ChangePassword() {
   const code = searchParams.get('code');
 
   const [loginError, setLoginError] = useState('');
+  const [success, setSuccess] = useState(false);
 
   const RegisterSchema = Yup.object().shape({
     password: Yup.string()
@@ -73,9 +75,30 @@ export default function ChangePassword() {
         })
         .then((response) => {
           console.log("Your user's password has been reset.");
+          toast.success('Password changed successfully', {
+            position: 'bottom-right',
+            autoClose: 1000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'light',
+          });
+          setSuccess(true);
         })
         .catch((error) => {
           console.log('An error occurred:', error.response);
+          toast.error('somthing went wrong', {
+            position: 'bottom-right',
+            autoClose: 1000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'light',
+          });
         });
     } catch (error) {
       console.error(error);
@@ -85,7 +108,7 @@ export default function ChangePassword() {
   const renderHead = (
     <div>
       <Typography variant="h3" paragraph>
-        Get Started
+        Reset Password
       </Typography>
 
       <Typography variant="body2" sx={{ color: 'text.secondary' }}>
@@ -183,14 +206,33 @@ export default function ChangePassword() {
 
   return (
     <>
-      {renderHead}
-      {renderForm}
-      <Divider>
-        <Typography variant="body2" sx={{ color: 'text.disabled' }}>
-          or continue with
-        </Typography>
-      </Divider>
-      {renderSocials}
+      {success ? (
+        <Alert severity="success">
+          Password changed successfully
+          <Link
+            component={RouterLink}
+            href={paths.loginBackground}
+            variant="subtitle2"
+            color="primary"
+          >
+            Login
+          </Link>
+        </Alert>
+      ) : (
+        <>
+          {' '}
+          {renderHead}
+          {renderForm}
+          <Divider>
+            <Typography variant="body2" sx={{ color: 'text.disabled' }}>
+              or continue with
+            </Typography>
+          </Divider>
+          {renderSocials}
+        </>
+      )}
+
+      <ToastContainer />
     </>
   );
 }
