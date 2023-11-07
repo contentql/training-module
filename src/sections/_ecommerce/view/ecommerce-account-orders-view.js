@@ -84,7 +84,7 @@ export default function EcommerceAccountOrdersPage() {
     },
     [order, orderBy]
   );
-  console.log('data: ', data);
+
   const handleSelectAllRows = useCallback(
     (event) => {
       if (event.target.checked) {
@@ -129,9 +129,9 @@ export default function EcommerceAccountOrdersPage() {
     setPage(0);
   }, []);
 
-  const handleChangeDense = useCallback((event) => {
-    setDense(event.target.checked);
-  }, []);
+  // const handleChangeDense = useCallback((event) => {
+  //   setDense(event.target.checked);
+  // }, []);
 
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - data.length) : 0;
 
@@ -153,7 +153,7 @@ export default function EcommerceAccountOrdersPage() {
         ))}
       </Tabs>
 
-      <Stack direction={{ xs: 'column', md: 'row' }} spacing={2} sx={{ mt: 5, mb: 3 }}>
+      {/* <Stack direction={{ xs: 'column', md: 'row' }} spacing={2} sx={{ mt: 5, mb: 3 }}>
         <TextField
           fullWidth
           hiddenLabel
@@ -170,7 +170,7 @@ export default function EcommerceAccountOrdersPage() {
           <DatePicker label="Start Date" sx={{ width: 1, minWidth: 180 }} />
           <DatePicker label="End Date" sx={{ width: 1, minWidth: 180 }} />
         </Stack>
-      </Stack>
+      </Stack> */}
 
       <TableContainer
         sx={{
@@ -245,7 +245,7 @@ export default function EcommerceAccountOrdersPage() {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
 
-        <FormControlLabel
+        {/* <FormControlLabel
           control={<Switch checked={dense} onChange={handleChangeDense} />}
           label="Dense padding"
           sx={{
@@ -256,7 +256,7 @@ export default function EcommerceAccountOrdersPage() {
               sm: 'absolute',
             },
           }}
-        />
+        /> */}
       </Box>
     </>
   );

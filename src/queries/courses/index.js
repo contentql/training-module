@@ -14,6 +14,11 @@ export const getCoursesData = async () => {
                         category
                         time
                         rating
+                        users {
+                            data {
+                                id
+                            }
+                        }
                     }
                 }
             }

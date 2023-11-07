@@ -12,10 +12,11 @@ import Typography from '@mui/material/Typography';
 
 import Image from 'src/components/image';
 import Label from 'src/components/label';
-// import { paths } from 'src/routes/paths';
+import { paths } from 'src/routes/paths';
 import Iconify from 'src/components/iconify';
 import { useCartStore } from 'src/states/cart';
 import { RouterLink } from 'src/routes/components';
+import { useUserStore } from 'src/states/auth-store';
 import TextMaxLine from 'src/components/text-max-line';
 import { useWishlistStore } from 'src/states/wishlist';
 import { fCurrency, fShortenNumber } from 'src/utils/format-number';
@@ -23,7 +24,7 @@ import { fCurrency, fShortenNumber } from 'src/utils/format-number';
 // ----------------------------------------------------------------------
 
 // eslint-disable-next-line react/prop-types
-export default function ElearningCourseItem({ course, vertical }) {
+export default function ElearningCourseItem({ course, vertical, isMyLearning }) {
   const { id } = course;
   const {
     slug,
@@ -40,6 +41,7 @@ export default function ElearningCourseItem({ course, vertical }) {
     rating,
     totalReviews,
     totalStudents,
+    users,
   } = course.attributes;
 
   const [cart, addToCart, removeFromCart] = useCartStore((state) => [
@@ -53,6 +55,14 @@ export default function ElearningCourseItem({ course, vertical }) {
     state.addToWishlist,
     state.removeFromWishlist,
   ]);
+
+  const userData = useUserStore((state) => state.UserData);
+
+  const { isLoggedIn } = userData;
+
+  const hasBoughtCourse =
+    isLoggedIn &&
+    users.data?.filter((user) => user.id.toString() === userData.id.toString()).length > 0;
 
   const isCourseInCart = cart.filter((cartItem) => cartItem.id === id).length === 0;
 
@@ -230,37 +240,50 @@ export default function ElearningCourseItem({ course, vertical }) {
             {level}
           </Stack> */}
 
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'flex-end',
-              alignItems: 'center',
-            }}
-          >
-            <IconButton
-              variant={isCourseInWishlist ? 'contained' : 'outlined'}
-              size="large"
-              color="inherit"
-              onClick={() =>
-                isCourseInWishlist ? addToWishlist(course) : removeFromWishlist(course)
-              }
-            >
-              <Iconify icon={wishlistIcon} color="red" />
-            </IconButton>
+          {!isMyLearning &&
+            (hasBoughtCourse ? (
+              <Link
+                component={RouterLink}
+                href={`${paths.eLearning.courses}/${id}`}
+                color="inherit"
+              >
+                <Button variant="contained" size="large" color="inherit" sx={{ width: 1 }}>
+                  Go to Course
+                </Button>
+              </Link>
+            ) : (
+              <Box
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'flex-end',
+                  alignItems: 'center',
+                }}
+              >
+                <IconButton
+                  variant={isCourseInWishlist ? 'contained' : 'outlined'}
+                  size="large"
+                  color="inherit"
+                  onClick={() =>
+                    isCourseInWishlist ? addToWishlist(course) : removeFromWishlist(course)
+                  }
+                >
+                  <Iconify icon={wishlistIcon} color="red" />
+                </IconButton>
 
-            <IconButton
-              variant={isCourseInCart ? 'contained' : 'outlined'}
-              size="large"
-              color="inherit"
-              onClick={() => (isCourseInCart ? addToCart(course) : removeFromCart(course))}
-            >
-              {isCourseInCart ? (
-                <Iconify icon="carbon:shopping-cart-plus" />
-              ) : (
-                <Iconify icon="carbon:shopping-cart-minus" />
-              )}
-            </IconButton>
-          </Box>
+                <IconButton
+                  variant={isCourseInCart ? 'contained' : 'outlined'}
+                  size="large"
+                  color="inherit"
+                  onClick={() => (isCourseInCart ? addToCart(course) : removeFromCart(course))}
+                >
+                  {isCourseInCart ? (
+                    <Iconify icon="carbon:shopping-cart-plus" />
+                  ) : (
+                    <Iconify icon="carbon:shopping-cart-minus" />
+                  )}
+                </IconButton>
+              </Box>
+            ))}
         </Stack>
       </Stack>
     </Card>
@@ -285,7 +308,9 @@ ElearningCourseItem.propTypes = {
       rating: PropTypes.number,
       totalReviews: PropTypes.number,
       totalStudents: PropTypes.number,
+      users: PropTypes.array,
     }),
   }),
   vertical: PropTypes.bool,
+  isMyLearning: PropTypes.bool,
 };

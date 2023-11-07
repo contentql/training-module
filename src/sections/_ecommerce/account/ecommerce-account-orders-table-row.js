@@ -21,9 +21,9 @@ import { fCurrency } from 'src/utils/format-number';
 export default function EcommerceAccountOrdersTableRow({ row, onSelectRow, selected }) {
   const [open, setOpen] = useState(null);
 
-  const handleOpen = useCallback((event) => {
-    setOpen(event.currentTarget);
-  }, []);
+  // const handleOpen = useCallback((event) => {
+  //   setOpen(event.currentTarget);
+  // }, []);
 
   const handleClose = useCallback(() => {
     setOpen(null);
@@ -45,9 +45,9 @@ export default function EcommerceAccountOrdersTableRow({ row, onSelectRow, selec
   return (
     <>
       <TableRow hover selected={selected}>
-        <TableCell padding="checkbox">
+        {/* <TableCell padding="checkbox">
           <Checkbox color="primary" checked={selected} onClick={onSelectRow} />
-        </TableCell>
+        </TableCell> */}
 
         <TableCell sx={{ px: 1 }}>
           <InputBase value={row.stripeSessionToken} sx={inputStyles} />
@@ -76,11 +76,11 @@ export default function EcommerceAccountOrdersTableRow({ row, onSelectRow, selec
           </Label>
         </TableCell>
 
-        <TableCell align="right" padding="none">
+        {/* <TableCell align="right" padding="none">
           <IconButton onClick={handleOpen}>
             <Iconify icon="carbon:overflow-menu-vertical" />
           </IconButton>
-        </TableCell>
+        </TableCell> */}
       </TableRow>
 
       <Popover

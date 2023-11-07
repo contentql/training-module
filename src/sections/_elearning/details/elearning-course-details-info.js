@@ -12,6 +12,7 @@ import Iconify from 'src/components/iconify';
 import { useCartStore } from 'src/states/cart';
 import { RouterLink } from 'src/routes/components';
 import { fCurrency } from 'src/utils/format-number';
+import { useUserStore } from 'src/states/auth-store';
 import { useWishlistStore } from 'src/states/wishlist';
 
 // ----------------------------------------------------------------------
@@ -28,6 +29,14 @@ export default function ElearningCourseDetailsInfo({ course }) {
     state.addToWishlist,
     state.removeFromWishlist,
   ]);
+
+  const userData = useUserStore((state) => state.UserData);
+
+  const { isLoggedIn } = userData;
+
+  const hasBoughtCourse =
+    isLoggedIn &&
+    course?.attributes.users.data.filter((user) => user.id === userData.id.toString()).length > 0;
 
   const isCourseInCart = cart.filter((cartItem) => cartItem.id === course.id).length === 0;
   // const isCourseInCart = cart.filter((cartItem) => console.log('cartItem', cartItem));
@@ -92,41 +101,45 @@ export default function ElearningCourseDetailsInfo({ course }) {
           </Stack>
         </Stack>
 
-        <Link component={RouterLink} href={`${paths.eLearning.checkout}/${course.id}`}>
-          <Button variant="contained" size="large" color="inherit" sx={{ width: 1 }}>
-            Enroll Now
-          </Button>
-        </Link>
+        {!hasBoughtCourse && (
+          <Link component={RouterLink} href={`${paths.eLearning.checkout}/${course.id}`}>
+            <Button variant="contained" size="large" color="inherit" sx={{ width: 1 }}>
+              Enroll Now
+            </Button>
+          </Link>
+        )}
 
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'space-around',
-            alignItems: 'center',
-          }}
-        >
-          <Button
-            variant={isCourseInWishlist ? 'outlined' : 'contained'}
-            size="large"
-            color="inherit"
-            sx={{ width: '20%', marginRight: 1 }}
-            onClick={() =>
-              isCourseInWishlist ? addToWishlist(course) : removeFromWishlist(course)
-            }
+        {!hasBoughtCourse && (
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'space-around',
+              alignItems: 'center',
+            }}
           >
-            <Iconify icon={wishlistIcon} color="red" />
-          </Button>
+            <Button
+              variant={isCourseInWishlist ? 'outlined' : 'contained'}
+              size="large"
+              color="inherit"
+              sx={{ width: '20%', marginRight: 1 }}
+              onClick={() =>
+                isCourseInWishlist ? addToWishlist(course) : removeFromWishlist(course)
+              }
+            >
+              <Iconify icon={wishlistIcon} color="red" />
+            </Button>
 
-          <Button
-            variant={isCourseInCart ? 'contained' : 'outlined'}
-            size="large"
-            color="inherit"
-            sx={{ width: '80%' }}
-            onClick={() => (isCourseInCart ? addToCart(course) : removeFromCart(course))}
-          >
-            {isCourseInCart ? 'Add to cart' : 'Remove from cart'}
-          </Button>
-        </Box>
+            <Button
+              variant={isCourseInCart ? 'contained' : 'outlined'}
+              size="large"
+              color="inherit"
+              sx={{ width: '80%' }}
+              onClick={() => (isCourseInCart ? addToCart(course) : removeFromCart(course))}
+            >
+              {isCourseInCart ? 'Add to cart' : 'Remove from cart'}
+            </Button>
+          </Box>
+        )}
       </Stack>
     </Card>
   );
