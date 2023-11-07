@@ -63,9 +63,10 @@ export default function ElearningCourseItem({ course, vertical }) {
   const { data } = users;
 
   const hasBoughtCourse =
-    isLoggedIn && data
+    isLoggedIn &&
+    (data
       ? data?.filter((user) => user.id === userData.id.toString()).length > 0
-      : users?.filter((user) => user.id === userData.id.toString()).length > 0;
+      : users?.filter((user) => user.id === userData.id.toString()).length > 0);
 
   const isCourseInCart = cart.filter((cartItem) => cartItem.id === id).length === 0;
 
