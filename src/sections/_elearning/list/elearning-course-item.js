@@ -60,13 +60,8 @@ export default function ElearningCourseItem({ course, vertical }) {
 
   const { isLoggedIn } = userData;
 
-  const { data } = users;
-
   const hasBoughtCourse =
-    isLoggedIn &&
-    (data
-      ? data?.filter((user) => user.id === userData.id.toString()).length > 0
-      : users?.filter((user) => user.id === userData.id.toString()).length > 0);
+    isLoggedIn && users.data?.filter((user) => user.id === userData.id.toString()).length > 0;
 
   const isCourseInCart = cart.filter((cartItem) => cartItem.id === id).length === 0;
 
@@ -244,45 +239,50 @@ export default function ElearningCourseItem({ course, vertical }) {
             {level}
           </Stack> */}
 
-          {hasBoughtCourse ? (
-            <Link component={RouterLink} href={`${paths.eLearning.courses}/${id}`} color="inherit">
-              <Button variant="contained" size="large" color="inherit" sx={{ width: 1 }}>
-                Go to Course
-              </Button>
-            </Link>
-          ) : (
-            <Box
-              sx={{
-                display: 'flex',
-                justifyContent: 'flex-end',
-                alignItems: 'center',
-              }}
-            >
-              <IconButton
-                variant={isCourseInWishlist ? 'contained' : 'outlined'}
-                size="large"
+          {!vertical &&
+            (hasBoughtCourse ? (
+              <Link
+                component={RouterLink}
+                href={`${paths.eLearning.courses}/${id}`}
                 color="inherit"
-                onClick={() =>
-                  isCourseInWishlist ? addToWishlist(course) : removeFromWishlist(course)
-                }
               >
-                <Iconify icon={wishlistIcon} color="red" />
-              </IconButton>
+                <Button variant="contained" size="large" color="inherit" sx={{ width: 1 }}>
+                  Go to Course
+                </Button>
+              </Link>
+            ) : (
+              <Box
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'flex-end',
+                  alignItems: 'center',
+                }}
+              >
+                <IconButton
+                  variant={isCourseInWishlist ? 'contained' : 'outlined'}
+                  size="large"
+                  color="inherit"
+                  onClick={() =>
+                    isCourseInWishlist ? addToWishlist(course) : removeFromWishlist(course)
+                  }
+                >
+                  <Iconify icon={wishlistIcon} color="red" />
+                </IconButton>
 
-              <IconButton
-                variant={isCourseInCart ? 'contained' : 'outlined'}
-                size="large"
-                color="inherit"
-                onClick={() => (isCourseInCart ? addToCart(course) : removeFromCart(course))}
-              >
-                {isCourseInCart ? (
-                  <Iconify icon="carbon:shopping-cart-plus" />
-                ) : (
-                  <Iconify icon="carbon:shopping-cart-minus" />
-                )}
-              </IconButton>
-            </Box>
-          )}
+                <IconButton
+                  variant={isCourseInCart ? 'contained' : 'outlined'}
+                  size="large"
+                  color="inherit"
+                  onClick={() => (isCourseInCart ? addToCart(course) : removeFromCart(course))}
+                >
+                  {isCourseInCart ? (
+                    <Iconify icon="carbon:shopping-cart-plus" />
+                  ) : (
+                    <Iconify icon="carbon:shopping-cart-minus" />
+                  )}
+                </IconButton>
+              </Box>
+            ))}
         </Stack>
       </Stack>
     </Card>
