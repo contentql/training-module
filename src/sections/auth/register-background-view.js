@@ -209,9 +209,17 @@ export default function RegisterBackgroundView() {
     <>
       {success ? (
         <Alert severity="success">
-          verification link sent to regestered email.
+          <Typography variant="h6"> verification link sent to regestered email.</Typography>
           <br />
-          Please verify your email before try login
+          Please verify your email before try{'  '}
+          <Link
+            component={RouterLink}
+            href={paths.loginBackground}
+            variant="subtitle2"
+            color="primary"
+          >
+            Login
+          </Link>
         </Alert>
       ) : (
         <>
