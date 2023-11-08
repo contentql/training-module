@@ -54,7 +54,7 @@ export default function ElearningCourseDetailsLessonItem({
           Start Test
         </Typography>
 
-        <Typography variant="body2">{questionsLength} q</Typography>
+        <Typography variant="body2">{questionsLength} questions</Typography>
 
         <Iconify icon="carbon:chevron-right" sx={{ ml: 2 }} />
       </AccordionSummary>

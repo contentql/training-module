@@ -80,7 +80,7 @@ export default function ElearningCourseDetailsLessonItem({
           {lesson.title}
         </Typography>
 
-        <Typography variant="body2">{lesson.time} m</Typography>
+        <Typography variant="body2">{lesson.time} minutes</Typography>
 
         <Iconify icon={expanded ? 'carbon:chevron-down' : 'carbon:chevron-right'} sx={{ ml: 2 }} />
       </AccordionSummary>

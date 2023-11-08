@@ -550,16 +550,16 @@ export const _questions = [
     title: "What's the national flower of Japan?",
     options: [
       {
-        description: 'Cherry Blossom',
+        options: 'Cherry Blossom',
       },
       {
-        description: 'Rose',
+        options: 'Rose',
       },
       {
-        description: 'Jasmine',
+        options: 'Jasmine',
       },
       {
-        description: 'Lavender',
+        options: 'Lavender',
       },
     ],
     correctAnswer: 'Cherry Blossom',
@@ -568,16 +568,16 @@ export const _questions = [
     title: "What's the national animal of Australia?",
     options: [
       {
-        description: 'Lion',
+        options: 'Lion',
       },
       {
-        description: 'Cat',
+        options: 'Cat',
       },
       {
-        description: 'Red Kangaroo',
+        options: 'Red Kangaroo',
       },
       {
-        description: 'Elephant',
+        options: 'Elephant',
       },
     ],
     correctAnswer: 'Red Kangaroo',
@@ -586,16 +586,16 @@ export const _questions = [
     title: 'Which of the following is used in pencils',
     options: [
       {
-        description: 'Phosphorous',
+        options: 'Phosphorous',
       },
       {
-        description: 'Silicon',
+        options: 'Silicon',
       },
       {
-        description: 'Charcoal',
+        options: 'Charcoal',
       },
       {
-        description: 'Graphite',
+        options: 'Graphite',
       },
     ],
     correctAnswer: 'Graphite',
@@ -604,16 +604,16 @@ export const _questions = [
     title: "Which planet is known as the 'Red Planet'?",
     options: [
       {
-        description: 'Mars',
+        options: 'Mars',
       },
       {
-        description: 'Venus',
+        options: 'Venus',
       },
       {
-        description: 'Jupiter',
+        options: 'Jupiter',
       },
       {
-        description: 'Saturn',
+        options: 'Saturn',
       },
     ],
     correctAnswer: 'Mars',
@@ -622,16 +622,16 @@ export const _questions = [
     title: 'In which year did the Titanic sink?',
     options: [
       {
-        description: '1912',
+        options: '1912',
       },
       {
-        description: '1923',
+        options: '1923',
       },
       {
-        description: '1905',
+        options: '1905',
       },
       {
-        description: '1931',
+        options: '1931',
       },
     ],
     correctAnswer: '1912',
@@ -640,16 +640,16 @@ export const _questions = [
     title: 'What is the tallest mountain in the world?',
     options: [
       {
-        description: 'Mount Everest',
+        options: 'Mount Everest',
       },
       {
-        description: 'K2',
+        options: 'K2',
       },
       {
-        description: 'Kangchenjunga',
+        options: 'Kangchenjunga',
       },
       {
-        description: 'Lhotse',
+        options: 'Lhotse',
       },
     ],
     correctAnswer: 'Mount Everest',
@@ -658,16 +658,16 @@ export const _questions = [
     title: 'Which famous scientist developed the theory of relativity?',
     options: [
       {
-        description: 'Isaac Newton',
+        options: 'Isaac Newton',
       },
       {
-        description: 'Albert Einstein',
+        options: 'Albert Einstein',
       },
       {
-        description: 'Galileo Galilei',
+        options: 'Galileo Galilei',
       },
       {
-        description: 'Stephen Hawking',
+        options: 'Stephen Hawking',
       },
     ],
     correctAnswer: 'Albert Einstein',
@@ -676,16 +676,16 @@ export const _questions = [
     title: 'What is the capital of France?',
     options: [
       {
-        description: 'Berlin',
+        options: 'Berlin',
       },
       {
-        description: 'Rome',
+        options: 'Rome',
       },
       {
-        description: 'Madrid',
+        options: 'Madrid',
       },
       {
-        description: 'Paris',
+        options: 'Paris',
       },
     ],
     correctAnswer: 'Paris',
@@ -694,16 +694,16 @@ export const _questions = [
     title: 'Which is a musical instrument',
     options: [
       {
-        description: 'Green Apple',
+        options: 'Green Apple',
       },
       {
-        description: 'Apple',
+        options: 'Apple',
       },
       {
-        description: 'Piano',
+        options: 'Piano',
       },
       {
-        description: 'Flute',
+        options: 'Flute',
       },
     ],
     correctAnswer: ['Piano', 'Flute'],
