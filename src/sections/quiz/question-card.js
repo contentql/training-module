@@ -124,6 +124,26 @@ export default function QuestionCard(props) {
             </Button>
           )}
         </CardActions>
+        {Boolean(selectedValue) && (
+          <Box sx={{ px: 1, pt: 4 }}>
+            <Typography
+              variant="body1"
+              sx={{
+                backgroundColor: 'grey.300',
+                p: 2,
+                fontSize: '16px',
+                fontWeight: 500,
+                color: 'grey.600',
+                borderRadius: 1,
+              }}
+            >
+              Correct Answer:{' '}
+              {Array.isArray(question.correctAnswer)
+                ? question.correctAnswer.join(', ')
+                : question.correctAnswer}
+            </Typography>
+          </Box>
+        )}
       </Card>
     </Box>
   );
