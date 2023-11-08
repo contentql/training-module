@@ -28,6 +28,14 @@ export const getCourseData = async (courseId) => {
                                 }
                             }
                         }
+                        quiz {
+                                title
+                                correctAnswer
+                                description
+                                options {
+                                  options
+                                }
+                        }
                         users {
                             data {
                                 id

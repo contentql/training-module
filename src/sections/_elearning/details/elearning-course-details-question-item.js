@@ -15,6 +15,7 @@ export default function ElearningCourseDetailsQuestionList({
   answers,
   index,
   goToIndex,
+  isCurrentQuestion,
 }) {
   const [expanded, setExpanded] = useState(false);
 
@@ -39,7 +40,7 @@ export default function ElearningCourseDetailsQuestionList({
       expanded={expanded}
       onChange={onExpanded}
       sx={{
-        bgcolor: 'grey.300',
+        bgcolor: isCurrentQuestion ? 'grey.300' : 'grey.200',
         [`&.${accordionClasses.expanded}`]: {
           bgcolor: 'grey.300',
           color: 'inherit',
@@ -97,4 +98,5 @@ ElearningCourseDetailsQuestionList.propTypes = {
   answers: PropTypes.array,
   index: PropTypes.number,
   goToIndex: PropTypes.func,
+  isCurrentQuestion: PropTypes.bool,
 };

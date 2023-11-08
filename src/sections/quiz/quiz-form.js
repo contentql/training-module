@@ -18,11 +18,11 @@ export default function QuizForm(props) {
 
   const [quizOpen, setOpen] = useState(false);
 
-  const questions = shuffleArray(_questions);
+  // const questions = shuffleArray(_questions);
 
-  questions.forEach((question) => {
-    question.options = shuffleArray(question.options);
-  });
+  // questions.forEach((question) => {
+  //   question.options = shuffleArray(question.options);
+  // });
 
   const mdUp = useResponsive('up', 'md');
 
@@ -55,7 +55,7 @@ export default function QuizForm(props) {
     <>
       <ElearningCourseDetailsLessonItem
         handleClickOpen={handleClickOpen}
-        questionsLength={questions.length}
+        questionsLength={_questions.length}
         isTest
         quizIcon
       >
@@ -69,7 +69,7 @@ export default function QuizForm(props) {
         maxWidth="lg"
         {...(!mdUp && bootstrapDialogProperties)}
       >
-        <QuizHookForm questions={questions} handleModalClose={handleModalClose} />
+        <QuizHookForm questions={_questions} handleModalClose={handleModalClose} />
       </BootstrapDialog>
     </>
   );

@@ -78,9 +78,9 @@ export default function QuestionCard(props) {
                 {question.options.map((o, i) => (
                   <FormControlLabel
                     key={i + 1}
-                    value={o.description}
+                    value={o.options}
                     control={<Checkbox />}
-                    label={o.description}
+                    label={o.options}
                   />
                 ))}
               </FormGroup>
@@ -89,9 +89,9 @@ export default function QuestionCard(props) {
                 {question.options.map((o, i) => (
                   <FormControlLabel
                     key={i + 1}
-                    value={o.description}
+                    value={o.options}
                     control={<Radio />}
-                    label={o.description}
+                    label={o.options}
                   />
                 ))}
               </RadioGroup>
@@ -124,6 +124,28 @@ export default function QuestionCard(props) {
             </Button>
           )}
         </CardActions>
+        {Boolean(selectedValue) && (
+          <Box sx={{ px: 1, pt: 4 }}>
+            <Typography
+              variant="body1"
+              sx={{
+                backgroundColor: 'grey.300',
+                p: 2,
+                fontSize: '16px',
+                fontWeight: 500,
+                color: 'grey.600',
+                borderRadius: 1,
+              }}
+            >
+              Correct Answer :{' '}
+              {Array.isArray(question.correctAnswer)
+                ? question.correctAnswer.join(', ')
+                : question.correctAnswer}
+              <br />
+              Description : {question?.description}
+            </Typography>
+          </Box>
+        )}
       </Card>
     </Box>
   );

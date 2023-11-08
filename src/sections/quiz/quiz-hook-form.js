@@ -164,6 +164,7 @@ export default function QuizHookForm(props) {
                         answers={answers}
                         index={index}
                         goToIndex={goToIndex}
+                        isCurrentQuestion={currentQuestionIndex === index}
                       />
                     ))}
                   </Box>

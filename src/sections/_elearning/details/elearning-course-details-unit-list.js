@@ -4,11 +4,14 @@ import PropTypes from 'prop-types';
 
 import Typography from '@mui/material/Typography';
 
+import Quiz from 'src/sections/quiz';
+import { _questions } from 'src/_mock';
+
 import ElearningCourseDetailsUnitItem from './elearning-course-details-unit-item';
 
 // ----------------------------------------------------------------------
 
-export default function ElearningCourseDetailsLessonList({ units, hasBoughtCourse }) {
+export default function ElearningCourseDetailsLessonList({ units, quiz, hasBoughtCourse }) {
   return (
     <div>
       <Typography variant="h4" sx={{ mb: 3 }}>
@@ -24,6 +27,7 @@ export default function ElearningCourseDetailsLessonList({ units, hasBoughtCours
           units={units}
         />
       ))}
+      <Quiz _questions={quiz} hasBoughtCourse={hasBoughtCourse} />
     </div>
   );
 }
@@ -31,4 +35,5 @@ export default function ElearningCourseDetailsLessonList({ units, hasBoughtCours
 ElearningCourseDetailsLessonList.propTypes = {
   units: PropTypes.array,
   hasBoughtCourse: PropTypes.bool,
+  quiz: PropTypes.any,
 };
