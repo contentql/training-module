@@ -4,6 +4,9 @@ import PropTypes from 'prop-types';
 
 import Typography from '@mui/material/Typography';
 
+import Quiz from 'src/sections/quiz';
+import { _questions } from 'src/_mock';
+
 import ElearningCourseDetailsUnitItem from './elearning-course-details-unit-item';
 
 // ----------------------------------------------------------------------
@@ -24,6 +27,7 @@ export default function ElearningCourseDetailsLessonList({ units, hasBoughtCours
           units={units}
         />
       ))}
+      <Quiz _questions={_questions} hasBoughtCourse={hasBoughtCourse} />
     </div>
   );
 }
