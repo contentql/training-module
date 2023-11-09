@@ -21,12 +21,13 @@ export default function ElearningCourseDetailsSummary({ course }) {
   const hasBoughtCourse =
     isLoggedIn &&
     course.users?.data.filter((user) => user.id === userData.id.toString()).length > 0;
-  console.log(course);
+  console.log('course', course.units.data);
   return (
     <Stack spacing={5}>
       <ElearningCourseDetailsUnitList
         units={course.units?.data}
         quiz={course?.quiz}
+        // unitQuiz={course.units?.data.attributes.quiz}
         hasBoughtCourse={hasBoughtCourse}
       />
 
@@ -88,6 +89,6 @@ ElearningCourseDetailsSummary.propTypes = {
     units: PropTypes.object,
     skills: PropTypes.array,
     users: PropTypes.array,
-    quiz: PropTypes.any
+    quiz: PropTypes.any,
   }),
 };

@@ -1,5 +1,6 @@
 'use client';
 
+import axios from 'axios';
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 
@@ -17,6 +18,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 
 import Iconify from 'src/components/iconify';
+import { useUserStore } from 'src/states/auth-store';
 import { useResponsive } from 'src/hooks/use-responsive';
 import ElearningCourseDetailsQuestionList from 'src/sections/_elearning/details/elearning-course-details-question-item';
 import ElearningCourseDetailsQuestionSubmit from 'src/sections/_elearning/details/elearning-course-details-question-submit';
@@ -28,6 +30,10 @@ import QuestionCard from './question-card';
 
 export default function QuizHookForm(props) {
   const { questions, handleModalClose } = props;
+
+  const { UserData } = useUserStore();
+
+  console.log('userdata', UserData);
 
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState([...Array(questions.length)]);
@@ -72,8 +78,34 @@ export default function QuizHookForm(props) {
     goToNext();
   };
 
+  const userToken = localStorage.getItem('token');
+
+  async function addScoreToStrapi(itemId) {
+    const requestBody = {
+      data: {
+        username: UserData.username,
+        courseTitle: UserData.email,
+        score: '9',
+        email: UserData.email,
+      },
+    };
+    try {
+      const response = await fetch(process.env.NEXT_PUBLIC_QUIZ_SCORE, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${userToken}`,
+        },
+        body: JSON.stringify(requestBody),
+      });
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  }
   const submitQuiz = () => {
     setFinishedQuiz(true);
+    addScoreToStrapi();
   };
 
   const restartQuiz = () => {

@@ -25,6 +25,14 @@ export const getCourseData = async (courseId) => {
                                         time
                                         content
                                     }
+                                    quiz {
+                                        title
+                                        correctAnswer
+                                        description
+                                        options {
+                                        options
+                                        }
+                                    }
                                 }
                             }
                         }

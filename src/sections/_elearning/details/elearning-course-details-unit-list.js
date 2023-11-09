@@ -21,6 +21,8 @@ export default function ElearningCourseDetailsLessonList({ units, quiz, hasBough
       {units?.map((unit, index) => (
         <ElearningCourseDetailsUnitItem
           hasBoughtCourse={hasBoughtCourse}
+          // eslint-disable-next-line no-undef
+          // unitQuiz={unitQuiz}
           key={index}
           unit={unit.attributes}
           index={index}
