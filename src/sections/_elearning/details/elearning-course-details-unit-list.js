@@ -11,7 +11,13 @@ import ElearningCourseDetailsUnitItem from './elearning-course-details-unit-item
 
 // ----------------------------------------------------------------------
 
-export default function ElearningCourseDetailsLessonList({ units, quiz, hasBoughtCourse }) {
+export default function ElearningCourseDetailsLessonList({
+  units,
+  quiz,
+  hasBoughtCourse,
+  courseName,
+}) {
+  const score = true;
   return (
     <div>
       <Typography variant="h4" sx={{ mb: 3 }}>
@@ -23,13 +29,19 @@ export default function ElearningCourseDetailsLessonList({ units, quiz, hasBough
           hasBoughtCourse={hasBoughtCourse}
           // eslint-disable-next-line no-undef
           // unitQuiz={unitQuiz}
+          courseName={courseName}
           key={index}
           unit={unit.attributes}
           index={index}
           units={units}
         />
       ))}
-      <Quiz _questions={quiz} hasBoughtCourse={hasBoughtCourse} />
+      <Quiz
+        _questions={quiz}
+        courseName={courseName}
+        score={score}
+        hasBoughtCourse={hasBoughtCourse}
+      />
     </div>
   );
 }
@@ -38,4 +50,5 @@ ElearningCourseDetailsLessonList.propTypes = {
   units: PropTypes.array,
   hasBoughtCourse: PropTypes.bool,
   quiz: PropTypes.any,
+  courseName: PropTypes.any,
 };

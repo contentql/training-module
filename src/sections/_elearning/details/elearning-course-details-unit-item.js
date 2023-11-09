@@ -14,8 +14,16 @@ import ElearningCourseDetailsLessonList from './elearning-course-details-lesson-
 
 // ----------------------------------------------------------------------
 
-export default function ElearningCourseDetailsUnitItem({ unit, index, units, hasBoughtCourse }) {
+export default function ElearningCourseDetailsUnitItem({
+  unit,
+  index,
+  units,
+  hasBoughtCourse,
+  courseName,
+}) {
   const [expanded, setExpanded] = useState(index === 0);
+
+  const score = false;
 
   return (
     <Accordion
@@ -68,7 +76,12 @@ export default function ElearningCourseDetailsUnitItem({ unit, index, units, has
           units={units}
           hasBoughtCourse={hasBoughtCourse}
         />
-        <Quiz _questions={unit.quiz} hasBoughtCourse={hasBoughtCourse} />
+        <Quiz
+          _questions={unit.quiz}
+          courseName={courseName}
+          score={score}
+          hasBoughtCourse={hasBoughtCourse}
+        />
       </AccordionDetails>
     </Accordion>
   );
@@ -79,4 +92,5 @@ ElearningCourseDetailsUnitItem.propTypes = {
   index: PropTypes.number,
   units: PropTypes.array,
   hasBoughtCourse: PropTypes.bool,
+  courseName: PropTypes.any,
 };

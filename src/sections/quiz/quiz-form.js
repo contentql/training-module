@@ -14,7 +14,7 @@ import QuizHookForm from './quiz-hook-form';
 import { shuffleArray } from './utils/shuffle-array';
 
 export default function QuizForm(props) {
-  const { _questions, hasBoughtCourse } = props;
+  const { _questions, hasBoughtCourse, courseName, score } = props;
 
   const [quizOpen, setOpen] = useState(false);
 
@@ -69,7 +69,12 @@ export default function QuizForm(props) {
         maxWidth="lg"
         {...(!mdUp && bootstrapDialogProperties)}
       >
-        <QuizHookForm questions={_questions} handleModalClose={handleModalClose} />
+        <QuizHookForm
+          questions={_questions}
+          courseName={courseName}
+          handleModalClose={handleModalClose}
+          score={score}
+        />
       </BootstrapDialog>
     </>
   );
@@ -78,4 +83,6 @@ export default function QuizForm(props) {
 QuizForm.propTypes = {
   _questions: PropTypes.array,
   hasBoughtCourse: PropTypes.bool,
+  courseName: PropTypes.any,
+  score: PropTypes.bool,
 };

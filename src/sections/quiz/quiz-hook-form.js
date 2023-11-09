@@ -2,7 +2,7 @@
 
 import axios from 'axios';
 import PropTypes from 'prop-types';
-import { useState, useEffect } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
@@ -29,11 +29,9 @@ import QuestionCard from './question-card';
 // ----------------------------------------------------------------------
 
 export default function QuizHookForm(props) {
-  const { questions, handleModalClose } = props;
+  const { questions, handleModalClose, courseName, score } = props;
 
   const { UserData } = useUserStore();
-
-  console.log('userdata', UserData);
 
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState([...Array(questions.length)]);
@@ -80,12 +78,23 @@ export default function QuizHookForm(props) {
 
   const userToken = localStorage.getItem('token');
 
+  const correctAnswers = useMemo(
+    () =>
+      questions.filter((q, i) =>
+        typeof answers[i] === 'object'
+          ? // eslint-disable-next-line no-undef
+            areArraysEqual(q.correctAnswer, answers[i])
+          : q.correctAnswer === answers[i]
+      ).length,
+    [answers, questions]
+  );
+
   async function addScoreToStrapi(itemId) {
     const requestBody = {
       data: {
         username: UserData.username,
-        courseTitle: UserData.email,
-        score: '9',
+        courseTitle: courseName.title,
+        score: String(correctAnswers),
         email: UserData.email,
       },
     };
@@ -103,9 +112,13 @@ export default function QuizHookForm(props) {
       console.log(error);
     }
   }
+
+  console.log('correctAnswers', correctAnswers);
   const submitQuiz = () => {
     setFinishedQuiz(true);
-    addScoreToStrapi();
+    if (score) {
+      addScoreToStrapi();
+    }
   };
 
   const restartQuiz = () => {
@@ -229,4 +242,6 @@ export default function QuizHookForm(props) {
 QuizHookForm.propTypes = {
   questions: PropTypes.array.isRequired,
   handleModalClose: PropTypes.func.isRequired,
+  courseName: PropTypes.any,
+  score: PropTypes.bool,
 };

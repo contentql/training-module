@@ -27,6 +27,7 @@ export default function ElearningCourseDetailsSummary({ course }) {
       <ElearningCourseDetailsUnitList
         units={course.units?.data}
         quiz={course?.quiz}
+        courseName={course}
         // unitQuiz={course.units?.data.attributes.quiz}
         hasBoughtCourse={hasBoughtCourse}
       />
