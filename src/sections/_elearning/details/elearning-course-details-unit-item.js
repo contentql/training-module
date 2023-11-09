@@ -68,7 +68,7 @@ export default function ElearningCourseDetailsUnitItem({ unit, index, units, has
           units={units}
           hasBoughtCourse={hasBoughtCourse}
         />
-        <Quiz _questions={_questions} hasBoughtCourse={hasBoughtCourse} />
+        <Quiz _questions={unit.quiz} hasBoughtCourse={hasBoughtCourse} />
       </AccordionDetails>
     </Accordion>
   );
