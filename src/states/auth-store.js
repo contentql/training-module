@@ -8,6 +8,7 @@ const store = persist(
       userName: '',
       isLoggedIn: false,
       image: null,
+      progress: { unit: null, lesson: null },
     },
     updateUserData: (userData) => {
       set(() => ({
@@ -27,6 +28,16 @@ const store = persist(
           userName: '',
           isLoggedIn: false,
           image: null,
+        },
+      }));
+    },
+    updateProgress: (unitId, lessonId) => {
+      set(() => ({
+        userData: {
+          progress: {
+            unit: unitId,
+            lesson: lessonId,
+          },
         },
       }));
     },

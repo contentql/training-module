@@ -27,7 +27,7 @@ import PostTags from '../../blog/common/post-tags';
 // ----------------------------------------------------------------------
 
 export default function ElearningCourseDetailsLessonsDialog({
-  selectedLesson,
+  // selectedLesson,
   onSelectedLesson,
   open,
   onClose,
@@ -48,9 +48,24 @@ export default function ElearningCourseDetailsLessonsDialog({
 
   const [expandedUnits, setExpandedUnits] = useState(Array(units?.length).fill(false));
 
-  if (!selectedLesson) return null;
+  console.log(
+    'selected',
+    units
+      ?.map((unit) => unit.attributes.lesson.filter((lesson) => lesson.id === '4'))
+      .filter((unit) => unit.length !== 0)
+      .at(0)
+      .at(0)
+  );
 
-  const { title, subtitle, content, time } = selectedLesson;
+  const selectedLesson = () =>
+    units
+      ?.map((unit) => unit.attributes.lesson.filter((lesson) => lesson.id === '4'))
+      .filter((unit) => unit.length !== 0)
+      .at(0)
+      .at(0);
+
+  if (!selectedLesson()) return null;
+  const { title, subtitle, content, time } = selectedLesson();
 
   const toggleDrawer = (value) => {
     setDrawerOpen(value);
