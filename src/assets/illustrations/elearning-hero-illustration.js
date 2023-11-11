@@ -55,7 +55,7 @@ function ElearningHeroIllustration({ sx, ...other }) {
   return (
     <Box
       sx={{
-        width: 670,
+        width: 850,
         height: 670,
         display: 'flex',
         alignItems: 'center',
@@ -65,13 +65,13 @@ function ElearningHeroIllustration({ sx, ...other }) {
       }}
       {...other}
     >
-      <Box sx={{ position: 'absolute', right: 18, bottom: 28, zIndex: 8 }}>
+      <Box sx={{ right: 15, bottom: 28, zIndex: 8 }}>
         <Image
           visibleByDefault
           disabledEffect
           alt="teacher"
-          src="/assets/images/course/course_teacher_hero.png"
-          sx={{ width: 546, height: 650 }}
+          src="/assets/images/course/course_hero.svg"
+          sx={{ width: 746, height: 580 }}
         />
       </Box>
 
@@ -92,7 +92,7 @@ function ElearningHeroIllustration({ sx, ...other }) {
       <Box
         {...varRight}
         component={m.div}
-        sx={{ position: 'absolute', left: 18, top: 220, zIndex: 8 }}
+        sx={{ position: 'absolute', left: 28, top: 220, zIndex: 8 }}
       >
         <Image
           visibleByDefault
