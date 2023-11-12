@@ -1,5 +1,6 @@
-import Box from '@mui/material/Box';
 import Fab from '@mui/material/Fab';
+import Box from '@mui/material/Box';
+import { Link } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
@@ -9,9 +10,10 @@ import Typography from '@mui/material/Typography';
 import { alpha, useTheme } from '@mui/material/styles';
 
 import { _mock } from 'src/_mock';
+import { paths } from 'src/routes/paths';
 import { bgGradient } from 'src/theme/css';
-import Iconify from 'src/components/iconify';
 import { useBoolean } from 'src/hooks/use-boolean';
+import { RouterLink } from 'src/routes/components';
 import { PlayerDialog } from 'src/components/player';
 import { fShortenNumber } from 'src/utils/format-number';
 import { useResponsive } from 'src/hooks/use-responsive';
@@ -64,37 +66,38 @@ export default function ElearningLandingHero() {
                 }}
               >
                 <Typography variant="h1">
-                  Free
-                  <Box component="span" sx={{ color: 'text.disabled' }}>
-                    {` Online `}
-                  </Box>
+                  Navigating Your
+                  {/* <Box component="span" sx={{ color: 'text.disabled' }}>
+                    {`  `}
+                  </Box> */}
                   <Box component="span" sx={{ color: 'primary.main', textDecoration: 'underline' }}>
-                    {` Courses`}
+                    {` Medical Career`}
                   </Box>{' '}
-                  From The Experts
+                  with E-Learning
                 </Typography>
 
                 <Typography sx={{ color: 'text.secondary', mt: 3, mb: { xs: 0, md: 5 } }}>
-                  Etiam sollicitudin, ipsum eu pulvinar rutrum, tellus ipsum laoreet sapien, quis
-                  venenatis ante odio sit amet eros.
+                  Discover a World of Opportunities Through Quality Nursing Education Online.
                 </Typography>
 
-                {/* <Stack spacing={3} alignItems="center" direction={{ xs: 'column', md: 'row' }}>
-                  <Button color="inherit" size="large" variant="contained">
-                    Ready Start
-                  </Button>
+                <Stack spacing={3} alignItems="center" direction={{ xs: 'column', md: 'row' }}>
+                  <Link component={RouterLink} href={paths.eLearning.courses}>
+                    <Button sx={{ bgcolor: '#FF774B' }} size="large" variant="contained">
+                      Start Learning
+                    </Button>
+                  </Link>
 
-                  <Stack direction="row" alignItems="center" sx={{ typography: 'h6' }}>
+                  {/* <Stack direction="row" alignItems="center" sx={{ typography: 'h6' }}>
                     <Fab size="medium" color="info" onClick={videoOpen.onTrue} sx={{ mr: 1 }}>
                       <Iconify width={24} icon="carbon:play" />
                     </Fab>
                     Watch Video
-                  </Stack>
-                </Stack> */}
+                  </Stack> */}
+                </Stack>
 
-                {/* <Divider sx={{ borderStyle: 'dashed', mt: 8, mb: 6 }} /> */}
+                <Divider sx={{ borderStyle: 'dashed', mt: 8, mb: 6 }} />
 
-                {/* <Stack
+                <Stack
                   direction="row"
                   spacing={{ xs: 3, sm: 10 }}
                   justifyContent={{ xs: 'center', md: 'unset' }}
@@ -119,7 +122,7 @@ export default function ElearningLandingHero() {
                       </Typography>
                     </Stack>
                   ))}
-                </Stack> */}
+                </Stack>
               </Stack>
             </Grid>
 
@@ -132,7 +135,7 @@ export default function ElearningLandingHero() {
         </Container>
       </Box>
 
-      <PlayerDialog open={videoOpen.value} onClose={videoOpen.onFalse} videoPath={_mock.video(0)} />
+      {/* <PlayerDialog open={videoOpen.value} onClose={videoOpen.onFalse} videoPath={_mock.video(0)} /> */}
     </>
   );
 }

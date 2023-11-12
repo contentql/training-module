@@ -15,10 +15,10 @@ export default function ElearningLandingIntroduce() {
   return (
     <Container
       sx={{
-        py: { xs: 4, md: 6 },
+        py: { xs: 4, md: 2 },
       }}
     >
-      <Typography
+      {/* <Typography
         variant="overline"
         sx={{
           display: 'block',
@@ -27,7 +27,7 @@ export default function ElearningLandingIntroduce() {
         }}
       >
         Our Services.
-      </Typography>
+      </Typography> */}
 
       <Grid
         container

@@ -129,13 +129,10 @@ export default function ElearningCheckoutView({ courseId }) {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      // await new Promise((resolve) => setTimeout(resolve, 500));
-      makePayment(data);
-      cart.forEach(({ id }) => addUserToCourse(id));
+      await makePayment(data);
+      await cart.forEach(({ id }) => addUserToCourse(id));
       // reset();
       if (!courseId) emptyCart();
-      // router.push(paths.eLearning.purchaseCompleted);
-      // console.log('DATA', data);
     } catch (error) {
       console.error(error);
     }
