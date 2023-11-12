@@ -101,6 +101,16 @@ export default function ElearningCheckoutView({ courseId }) {
     phoneNumber: Yup.string().required('Phone number is required'),
   });
 
+  const params = new URLSearchParams(document.location.search);
+
+  const checkoutSessionId = params.get('sessionId');
+  const getPaymentStatus = async () => {
+    const response = await axios.get(
+      `http://localhost:1337/strapi-stripe/retrieveCheckoutSession/${checkoutSessionId}`
+    );
+    return response.payment_status;
+  };
+
   const defaultValues = {
     userName: '',
     emailAddress: '',
@@ -130,8 +140,11 @@ export default function ElearningCheckoutView({ courseId }) {
   const onSubmit = handleSubmit(async (data) => {
     try {
       // await new Promise((resolve) => setTimeout(resolve, 500));
-      makePayment(data);
-      cart.forEach(({ id }) => addUserToCourse(id));
+      // makePayment(data);
+      const paymentStatus = getPaymentStatus();
+      if (paymentStatus === 'paid') {
+        cart.forEach(({ id }) => addUserToCourse(id));
+      }
       // reset();
       if (!courseId) emptyCart();
       // router.push(paths.eLearning.purchaseCompleted);
@@ -153,32 +166,32 @@ export default function ElearningCheckoutView({ courseId }) {
 
   const userToken = localStorage.getItem('token');
 
-  async function makePayment(data) {
-    const stripe = await stripePromise;
-    const requestBody = {
-      username: UserData.username,
-      email: UserData.email,
-      products: cart.map(({ id, attributes }) => ({
-        id,
-        title: attributes.title,
-        price: attributes.price,
-      })),
-    };
+  // async function makePayment(data) {
+  //   const stripe = await stripePromise;
+  //   const requestBody = {
+  //     username: UserData.username,
+  //     email: UserData.email,
+  //     products: cart.map(({ id, attributes }) => ({
+  //       id,
+  //       title: attributes.title,
+  //       price: attributes.price,
+  //     })),
+  //   };
 
-    const response = await fetch(process.env.NEXT_PUBLIC_ORDER_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${userToken}`,
-      },
-      body: JSON.stringify(requestBody),
-    });
-    const session = await response.json();
-    console.log({ session });
-    await stripe.redirectToCheckout({
-      sessionId: session.id,
-    });
-  }
+  //   const response = await fetch(process.env.NEXT_PUBLIC_ORDER_URL, {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       Authorization: `Bearer ${userToken}`,
+  //     },
+  //     body: JSON.stringify(requestBody),
+  //   });
+  //   const session = await response.json();
+  //   console.log({ session });
+  //   await stripe.redirectToCheckout({
+  //     sessionId: session.id,
+  //   });
+  // }
 
   async function addUserToCourse(itemId) {
     const apiUrl = process.env.NEXT_PUBLIC_COURSES_URL; // Your Strapi base URL

@@ -87,6 +87,10 @@ export default function ElearningCheckoutOrderSummary({
         color="inherit"
         type="submit"
         loading={loading}
+        class="SS_ProductCheckout"
+        data-id="1"
+        data-email="<userEmail>"
+        data-url="http://localhost:1337"
       >
         Buy Now
       </LoadingButton>
