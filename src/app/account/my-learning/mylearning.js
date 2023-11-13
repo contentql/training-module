@@ -45,72 +45,73 @@ export default function AccountPersonalView() {
       <Typography variant="h5" sx={{ mb: 3 }}>
         My Courses
       </Typography>
-      {data?.length > 0 ? (
-        <Grid
-          container
-          spacing={2}
-          sx={{
-            position: 'relative',
-            ml: { md: -2 },
-            mt: 5,
-          }}
-        >
-          {data.map((course) => {
-            const newCourse = {
-              id: course.id,
-              attributes: course,
-            };
-
-            return (
-              <Grid
-                item
-                md={6}
-                key={course.id}
-                sx={{
-                  px: 2,
-                  pt: { xs: 8, md: 15 },
-                }}
-              >
-                <ElearningCourseItem course={newCourse} vertical isMyLearning />
-              </Grid>
-            );
-          })}
-        </Grid>
-      ) : (
-        <Stack
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            textAlign: 'center',
-            position: 'relative',
-            ml: { md: -2 },
-            mt: { xs: 12, md: 4 },
-          }}
-        >
-          <Image
-            alt="Empty State My Learning"
-            src="/assets/images/mylearning/empty-state-mylearning.png"
+      {data &&
+        (data?.length > 0 ? (
+          <Grid
+            container
+            spacing={2}
             sx={{
-              height: 1,
-              width: { xs: 200, md: 360 },
-              objectFit: 'cover',
-              opacity: 0.6,
+              position: 'relative',
+              ml: { md: -2 },
+              mt: 5,
             }}
-          />
+          >
+            {data.map((course) => {
+              const newCourse = {
+                id: course.id,
+                attributes: course,
+              };
 
-          <Link component={RouterLink} href={paths.eLearning.courses} sx={{ pt: 2 }}>
-            <Button
-              sx={{ bgcolor: '#FF774B' }}
-              size="large"
-              variant="contained"
-              startIcon={<Iconify icon="carbon:chevron-left" />}
-            >
-              Explore Now
-            </Button>
-          </Link>
-        </Stack>
-      )}
+              return (
+                <Grid
+                  item
+                  md={6}
+                  key={course.id}
+                  sx={{
+                    px: 2,
+                    pt: { xs: 8, md: 15 },
+                  }}
+                >
+                  <ElearningCourseItem course={newCourse} vertical isMyLearning />
+                </Grid>
+              );
+            })}
+          </Grid>
+        ) : (
+          <Stack
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              textAlign: 'center',
+              position: 'relative',
+              ml: { md: -2 },
+              mt: { xs: 12, md: 4 },
+            }}
+          >
+            <Image
+              alt="Empty State My Learning"
+              src="/assets/images/mylearning/empty-state-mylearning.png"
+              sx={{
+                height: 1,
+                width: { xs: 200, md: 360 },
+                objectFit: 'cover',
+                opacity: 0.6,
+              }}
+            />
+
+            <Link component={RouterLink} href={paths.eLearning.courses} sx={{ pt: 2 }}>
+              <Button
+                sx={{ bgcolor: '#FF774B' }}
+                size="large"
+                variant="contained"
+                startIcon={<Iconify icon="carbon:chevron-left" />}
+              >
+                Explore Now
+              </Button>
+            </Link>
+          </Stack>
+        ))}
     </>
   );
 }
