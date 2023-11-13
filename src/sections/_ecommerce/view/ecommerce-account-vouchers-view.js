@@ -1,7 +1,8 @@
 'use client';
 
 import { add } from 'date-fns';
-import { useState, useCallback } from 'react';
+import { useQuery } from 'react-query';
+import { useState, useEffect, useCallback } from 'react';
 
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
@@ -13,6 +14,8 @@ import Typography from '@mui/material/Typography';
 import InputAdornment from '@mui/material/InputAdornment';
 
 import { _mock } from 'src/_mock';
+import { getScoreData } from 'src/queries/score';
+import { useUserStore } from 'src/states/auth-store';
 
 import EcommerceAccountVoucherItem from '../account/ecommerce-account-voucher-item';
 
@@ -84,6 +87,33 @@ const VOUCHERS = [
 export default function EcommerceAccountVouchersView() {
   const [tab, setTab] = useState('All Vouchers');
 
+  const userData = useUserStore((state) => state.UserData);
+
+  const [quizScore, setQuizScore] = useState([]);
+
+  // const { data, isLoading } = useQuery({
+  //   queryKey: ['orders', userData.id],
+  //   queryFn: getScoreData,
+  //   select: (ordersData) =>
+  //     ordersData.filter((orderData) => userData.username === orderData.attributes.username),
+  // });
+
+  // console.log({ data });
+
+  useEffect(() => {
+    const fetchScore = async () => {
+      const res = await fetch('http://localhost:1337/api/quiz-scores');
+      const data = await res.json();
+
+      setQuizScore(
+        data.data.filter((scoreData) => userData.username === scoreData.attributes.username)
+      );
+    };
+    fetchScore();
+  }, [userData.username]);
+
+  console.log(quizScore);
+
   const handleChangeTab = useCallback((event, newValue) => {
     setTab(newValue);
   }, []);
@@ -91,9 +121,9 @@ export default function EcommerceAccountVouchersView() {
   return (
     <>
       <Typography variant="h5" sx={{ mb: 3 }}>
-        Vouchers
+        Certificates
       </Typography>
-
+      {/* 
       <TextField
         fullWidth
         label="Enter voucher code"
@@ -106,10 +136,10 @@ export default function EcommerceAccountVouchersView() {
             </InputAdornment>
           ),
         }}
-      />
+      /> */}
 
       <Divider sx={{ my: 3, borderStyle: 'dashed' }} />
-
+      {/* 
       <Tabs
         value={tab}
         scrollButtons="auto"
@@ -121,7 +151,7 @@ export default function EcommerceAccountVouchersView() {
         {TABS.map((category) => (
           <Tab key={category} value={category} label={category} />
         ))}
-      </Tabs>
+      </Tabs> */}
 
       <Box
         gap={3}
@@ -131,8 +161,8 @@ export default function EcommerceAccountVouchersView() {
           md: 'repeat(2, 1fr)',
         }}
       >
-        {VOUCHERS.map((voucher) => (
-          <EcommerceAccountVoucherItem key={voucher.id} voucher={voucher} />
+        {quizScore.map((data) => (
+          <EcommerceAccountVoucherItem key={data.id} voucher={data} />
         ))}
       </Box>
     </>
