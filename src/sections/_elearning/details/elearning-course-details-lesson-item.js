@@ -11,7 +11,6 @@ import AccordionSummary, { accordionSummaryClasses } from '@mui/material/Accordi
 
 import Iconify from 'src/components/iconify';
 import NumberDone from 'src/components/NumberDone';
-import { useQuery } from 'react-query';
 
 // ----------------------------------------------------------------------
 

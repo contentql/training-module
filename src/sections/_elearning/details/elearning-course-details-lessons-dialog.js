@@ -26,6 +26,8 @@ import { useResponsive } from 'src/hooks/use-responsive';
 
 import PostTags from '../../blog/common/post-tags';
 
+import ElearningCourseDetailsLessonsDailogList from './elearning-course-details-lessons-dailog-list';
+
 // ----------------------------------------------------------------------
 
 export default function ElearningCourseDetailsLessonsDialog({
@@ -61,7 +63,7 @@ export default function ElearningCourseDetailsLessonsDialog({
 
   const handleClick = (lesson) => {
     onSelectedLesson(lesson);
-    setLessonComplete(true);
+    // setLessonComplete(true);
   };
 
   const renderVideo = (
@@ -209,52 +211,41 @@ export default function ElearningCourseDetailsLessonsDialog({
           const playIcon = selected ? 'carbon:pause-outline' : 'carbon:play';
 
           return (
-            <ListItemButton
-              key={lesson.title}
+            <ElearningCourseDetailsLessonsDailogList
+              lesson={lesson}
               selected={selected}
-              disabled={!lesson.unLocked}
-              // onClick={() => onSelectedLesson(lesson)}
-              onClick={() => handleClick(lesson)}
-              sx={{ borderRadius: 1, maxHeight: '6rem' }}
-            >
-              {/* <IconButton>
-                <Iconify
-                  width="20px"
-                  height="20px"
-                  // icon={!lesson.unLocked ? 'carbon:locked' : playIcon}
-                  // icon={<NumberDone />}
-                  sx={{
-                    mr: 2,
-                    ...(selected && {
-                      color: 'primary.main',
-                    }),
-                    ...(!lesson.unLocked && {
-                      color: 'text.disabled',
-                    }),
-                  }}
-                />
-              </IconButton> */}
-              <Typography sx={{ mr: 2, ...(selected && { color: 'primary.main' }) }}>
-                <NumberDone index={index} lessonComplete={lessonComplete} />
-              </Typography>
+              handleClick={handleClick}
+              index={index}
+            />
+            // <ListItemButton
+            //   key={lesson.title}
+            //   selected={selected}
+            //   disabled={!lesson.unLocked}
+            //   // onClick={() => onSelectedLesson(lesson)}
+            //   onClick={() => handleClick(lesson)}
+            //   sx={{ borderRadius: 1, maxHeight: '6rem' }}
+            // >
+            //   <Typography sx={{ mr: 2, ...(selected && { color: 'primary.main' }) }}>
+            //     <NumberDone index={index} lessonComplete={selected} />
+            //   </Typography>
 
-              <ListItemText
-                primary={lesson.title}
-                secondary={lesson.description}
-                primaryTypographyProps={{
-                  typography: 'subtitle1',
-                  sx: {
-                    ...(selected && {
-                      color: 'primary.main',
-                    }),
-                  },
-                }}
-                secondaryTypographyProps={{
-                  noWrap: true,
-                  component: 'span',
-                }}
-              />
-            </ListItemButton>
+            //   <ListItemText
+            //     primary={lesson.title}
+            //     secondary={lesson.description}
+            //     primaryTypographyProps={{
+            //       typography: 'subtitle1',
+            //       sx: {
+            //         ...(selected && {
+            //           color: 'primary.main',
+            //         }),
+            //       },
+            //     }}
+            //     secondaryTypographyProps={{
+            //       noWrap: true,
+            //       component: 'span',
+            //     }}
+            //   />
+            // </ListItemButton>
           );
         })}
         <Quiz _questions={_questions} hasBoughtCourse={hasBoughtCourse} />
