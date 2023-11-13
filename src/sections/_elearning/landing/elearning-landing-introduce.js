@@ -39,7 +39,7 @@ export default function ElearningLandingIntroduce() {
           <Grid xs={12} md={6} lg={4}>
             <Image
               alt="about"
-              src="/assets/images/course/course_6.jpg"
+              src="assets/images/course/image 8.jpg"
               ratio="4/6"
               sx={{ borderRadius: 2 }}
             />
