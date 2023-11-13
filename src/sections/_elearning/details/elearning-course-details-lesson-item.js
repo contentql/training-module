@@ -1,17 +1,21 @@
 import PropTypes from 'prop-types';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { toast } from 'react-toastify';
+import { useState, useCallback } from 'react';
 
+import { Link } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Accordion, { accordionClasses } from '@mui/material/Accordion';
 import AccordionSummary, { accordionSummaryClasses } from '@mui/material/AccordionSummary';
 
 import Iconify from 'src/components/iconify';
+import NumberDone from 'src/components/NumberDone';
 
 // ----------------------------------------------------------------------
 
 export default function ElearningCourseDetailsLessonItem({
+  index,
   lesson,
   expanded,
   selected,
@@ -19,8 +23,21 @@ export default function ElearningCourseDetailsLessonItem({
   onExpanded,
   hasBoughtCourse,
 }) {
+  console.log({ lesson });
   const playIcon = selected ? 'carbon:pause-outline' : 'carbon:play';
+
+  const [lessonComplete, setLessonComplete] = useState(false);
+
   lesson.unLocked = true;
+
+  const styles = {
+    pl: '2px',
+    flexGrow: 1,
+    // textDecoration: 'none',
+    // '&:hover': {
+    //   color: 'white',
+    // },
+  };
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -38,6 +55,14 @@ export default function ElearningCourseDetailsLessonItem({
     } else {
       onExpanded();
     }
+  };
+
+  // eslint-disable-next-line no-shadow
+  const handleSelectedLesson = () => {
+    if (hasBoughtCourse) {
+      setLessonComplete(true);
+    }
+    onSelected();
   };
 
   return (
@@ -65,7 +90,7 @@ export default function ElearningCourseDetailsLessonItem({
         }}
       >
         {lesson.unLocked ? (
-          <Iconify width={24} icon={playIcon} onClick={onSelected} />
+          <NumberDone index={index} lessonComplete={lessonComplete} />
         ) : (
           <img src="/icons/lock.svg" alt="lesson" />
         )}
@@ -74,8 +99,12 @@ export default function ElearningCourseDetailsLessonItem({
           variant="subtitle1"
           sx={{
             pl: 2,
-            flexGrow: 1,
+            // flexGrow: 1,
+            textDecoration: 'none',
+            '&:hover': { textDecoration: 'underline' },
           }}
+          style={styles}
+          onClick={handleSelectedLesson}
         >
           {lesson.title}
         </Typography>
@@ -99,6 +128,7 @@ export default function ElearningCourseDetailsLessonItem({
 }
 
 ElearningCourseDetailsLessonItem.propTypes = {
+  index: PropTypes.any,
   expanded: PropTypes.bool,
   lesson: PropTypes.object,
   onExpanded: PropTypes.func,

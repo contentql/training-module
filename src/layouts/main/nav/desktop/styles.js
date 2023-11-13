@@ -38,7 +38,7 @@ export const StyledNavItem = styled(ListItemButton, {
     }),
     // Active
     ...(active && {
-      color: theme.palette.text.primary,
+      color: '#0D5992',
       fontWeight: theme.typography.fontWeightBold,
       '&::before': dotActiveStyle,
     }),

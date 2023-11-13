@@ -45,6 +45,7 @@ export default function ElearningCourseDetailsUnitItem({
           },
           [`&.${accordionSummaryClasses.expanded}`]: {
             bgcolor: 'action.selected',
+            color: '#0D5992',
           },
         }}
       >

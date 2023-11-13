@@ -3,6 +3,8 @@
 import PropTypes from 'prop-types';
 import { useState, useCallback } from 'react';
 
+import { Typography } from '@mui/material';
+
 import { useBoolean } from 'src/hooks/use-boolean';
 
 import ElearningCourseDetailsLessonItem from './elearning-course-details-lesson-item';
@@ -45,13 +47,14 @@ export default function ElearningCourseDetailsLessonList({ lessons, units, hasBo
 
   return (
     <div>
-      {/* <Typography variant="h4" sx={{ mb: 3 }}>
+      {/* <Typography variant="h4" sx={{ mb: 3, color: '#FF774B' }}>
         Lessons
       </Typography> */}
 
       {lessons.map((lesson, index) => (
         <ElearningCourseDetailsLessonItem
           key={index}
+          index={index}
           lesson={lesson}
           expanded={expanded === lesson.title}
           onExpanded={handleExpandedLesson(lesson.title)}
