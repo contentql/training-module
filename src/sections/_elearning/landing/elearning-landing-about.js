@@ -115,7 +115,7 @@ export default function ElearningLandingAbout() {
       </Grid>
       <Image
         alt="landing about"
-        src="/assets/images/marketing/training-module-about.jpg"
+        src="/assets/images/marketing/marketing_post_hero.jpg"
         ratio="16/9"
         sx={{
           mt: 8,

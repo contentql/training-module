@@ -17,22 +17,22 @@ const SUMMARY = [
   {
     title: 'Comprehensive',
     description: 'Our exams cover a wide range of topics to ensure a thorough evaluation.',
-    icon: '/assets/icons/home-steps/step-1.svg',
+    icon: '/assets/icons/travel/ic_travel_tickets.svg',
   },
   {
     title: 'Accredited',
     description: 'Our exams are recognized and endorsed by industry authorities.',
-    icon: '/assets/icons/home-steps/step-2.svg',
+    icon: '/assets/icons/travel/ic_travel_booking.svg',
   },
   {
     title: 'Convenient',
     description: 'Take the online courses and exams at your own pace.',
-    icon: '/assets/icons/home-steps/03.png',
+    icon: '/assets/icons/travel/ic_travel_site_visitors.svg',
   },
   {
     title: 'Quality Assurance',
     description: 'We set the bar for excellence in home and community support services.',
-    icon: '/assets/icons/home-steps/step-4.svg',
+    icon: '/assets/icons/travel/ic_travel_verified_hotels.svg',
   },
 ];
 
