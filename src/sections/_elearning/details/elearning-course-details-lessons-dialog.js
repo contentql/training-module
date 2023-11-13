@@ -154,7 +154,8 @@ export default function ElearningCourseDetailsLessonsDialog({
     >
       <AccordionSummary
         sx={{
-          px: 1,
+          pr: 1,
+          pl: 2,
           minHeight: { xs: 40, md: 64 },
           mr: 2,
           ...(unit.attributes.lesson.includes(selectedLesson) && {
