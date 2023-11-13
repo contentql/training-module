@@ -37,7 +37,8 @@ export default function ElearningCourseDetailsUnitItem({
     >
       <AccordionSummary
         sx={{
-          px: 1,
+          pl: 2,
+          pr: 1,
           minHeight: 64,
           [`&.${accordionSummaryClasses.content}`]: {
             p: 0,

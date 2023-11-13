@@ -34,10 +34,9 @@ export default function ElearningCourseDetailsSummary({ course }) {
 
       <Stack spacing={3}>
         <Typography variant="h4">What You Will Learn</Typography>
-
         <Stack spacing={1}>
-          {course.learnList?.map((learn) => (
-            <Stack key={learn} direction="row" alignItems="center">
+          {course.WhatYouWillLearn?.map((learn) => (
+            <Stack key={learn.id} direction="row" alignItems="center">
               <Box
                 sx={{
                   mr: 1.5,
@@ -55,7 +54,7 @@ export default function ElearningCourseDetailsSummary({ course }) {
                   sx={{ width: 16, height: 16, color: 'primary.main' }}
                 />
               </Box>
-              {learn}
+              {learn.points}
             </Stack>
           ))}
         </Stack>
@@ -65,8 +64,14 @@ export default function ElearningCourseDetailsSummary({ course }) {
         <Typography variant="h4">Skills You Will Gain</Typography>
 
         <Stack direction="row" flexWrap="wrap" spacing={1}>
-          {course.skills?.map((skill) => (
-            <Chip key={skill} label={skill} size="small" variant="soft" onClick={() => {}} />
+          {course.Skills?.map((skill) => (
+            <Chip
+              key={skill.id}
+              label={skill.points}
+              size="small"
+              variant="soft"
+              onClick={() => {}}
+            />
           ))}
         </Stack>
       </Stack>
@@ -91,5 +96,7 @@ ElearningCourseDetailsSummary.propTypes = {
     skills: PropTypes.array,
     users: PropTypes.array,
     quiz: PropTypes.any,
+    WhatYouWillLearn: PropTypes.array,
+    Skills: PropTypes.array,
   }),
 };

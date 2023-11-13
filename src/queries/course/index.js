@@ -44,6 +44,14 @@ export const getCourseData = async (courseId) => {
                                   options
                                 }
                         }
+                        WhatYouWillLearn {
+                            id
+                            points
+                        }
+                        Skills {
+                            id
+                            points
+                        }
                         users {
                             data {
                                 id
@@ -61,5 +69,6 @@ export const getCourseData = async (courseId) => {
       },
     }
   );
+
   return data.data.course.data;
 };
