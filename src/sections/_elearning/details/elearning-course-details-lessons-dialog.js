@@ -1,13 +1,14 @@
+/* eslint-disable no-shadow */
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import Stack from '@mui/material/Stack';
 import Dialog from '@mui/material/Dialog';
 import Divider from '@mui/material/Divider';
-import Grid from '@mui/material/Unstable_Grid2';
 import Container from '@mui/material/Container';
-import IconButton from '@mui/material/IconButton';
+import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
+import IconButton from '@mui/material/IconButton';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemButton from '@mui/material/ListItemButton';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
@@ -19,6 +20,7 @@ import Quiz from 'src/sections/quiz';
 import Player from 'src/components/player';
 import Iconify from 'src/components/iconify';
 import Markdown from 'src/components/markdown';
+import NumberDone from 'src/components/NumberDone';
 import { _questions, _coursePosts } from 'src/_mock';
 import { useResponsive } from 'src/hooks/use-responsive';
 
@@ -45,6 +47,7 @@ export default function ElearningCourseDetailsLessonsDialog({
   const mdUp = useResponsive('up', 'md');
 
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [lessonComplete, setLessonComplete] = useState(false);
 
   const [expandedUnits, setExpandedUnits] = useState(Array(units?.length).fill(false));
 
@@ -54,6 +57,11 @@ export default function ElearningCourseDetailsLessonsDialog({
 
   const toggleDrawer = (value) => {
     setDrawerOpen(value);
+  };
+
+  const handleClick = (lesson) => {
+    onSelectedLesson(lesson);
+    setLessonComplete(true);
   };
 
   const renderVideo = (
@@ -195,7 +203,7 @@ export default function ElearningCourseDetailsLessonsDialog({
         }}
         className="ml-10"
       >
-        {unit.attributes.lesson.map((lesson) => {
+        {unit.attributes.lesson.map((lesson, index) => {
           const selected = selectedLesson?.title === lesson.title;
 
           const playIcon = selected ? 'carbon:pause-outline' : 'carbon:play';
@@ -205,14 +213,16 @@ export default function ElearningCourseDetailsLessonsDialog({
               key={lesson.title}
               selected={selected}
               disabled={!lesson.unLocked}
-              onClick={() => onSelectedLesson(lesson)}
+              // onClick={() => onSelectedLesson(lesson)}
+              onClick={() => handleClick(lesson)}
               sx={{ borderRadius: 1, maxHeight: '6rem' }}
             >
-              <IconButton>
+              {/* <IconButton>
                 <Iconify
                   width="20px"
                   height="20px"
-                  icon={!lesson.unLocked ? 'carbon:locked' : playIcon}
+                  // icon={!lesson.unLocked ? 'carbon:locked' : playIcon}
+                  // icon={<NumberDone />}
                   sx={{
                     mr: 2,
                     ...(selected && {
@@ -223,7 +233,10 @@ export default function ElearningCourseDetailsLessonsDialog({
                     }),
                   }}
                 />
-              </IconButton>
+              </IconButton> */}
+              <Typography sx={{ mr: 2, ...(selected && { color: 'primary.main' }) }}>
+                <NumberDone index={index} lessonComplete={lessonComplete} />
+              </Typography>
 
               <ListItemText
                 primary={lesson.title}

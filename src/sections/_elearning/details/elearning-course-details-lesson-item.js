@@ -11,6 +11,7 @@ import AccordionSummary, { accordionSummaryClasses } from '@mui/material/Accordi
 
 import Iconify from 'src/components/iconify';
 import NumberDone from 'src/components/NumberDone';
+import { useQuery } from 'react-query';
 
 // ----------------------------------------------------------------------
 
@@ -25,6 +26,30 @@ export default function ElearningCourseDetailsLessonItem({
 }) {
   console.log({ lesson });
   const playIcon = selected ? 'carbon:pause-outline' : 'carbon:play';
+
+  // async function addLessonToUserProgress(itemId) {
+  //   const requestBody = {
+  //     data: {
+  //       username: UserData.username,
+  //       courseTitle: courseName.title,
+  //       score: String(correctAnswers),
+  //       email: UserData.email,
+  //     },
+  //   };
+  //   try {
+  //     const response = await fetch(process.env.NEXT_PUBLIC_QUIZ_SCORE, {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         Authorization: `Bearer ${userToken}`,
+  //       },
+  //       body: JSON.stringify(requestBody),
+  //     });
+  //     console.log(response);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
 
   const [lessonComplete, setLessonComplete] = useState(false);
 

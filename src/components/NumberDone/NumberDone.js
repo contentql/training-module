@@ -8,7 +8,7 @@ import { Ellipse38Icon } from './Ellipse38Icon';
 const NumberDone = ({ index, lessonComplete }) => (
   <div className={classes.ellipse38}>
     <Ellipse38Icon className={classes.icon} />
-    <div className={classes._2}>{index}</div>
+    <div className={classes._2}>{index + 1}</div>
     {lessonComplete && (
       <div className={classes.group13}>
         <Group13Icon className={classes.icon2} />
