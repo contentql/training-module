@@ -245,7 +245,7 @@ export default function ElearningCourseDetailsLessonsDialog({
             </ListItemButton>
           );
         })}
-        <Quiz _questions={_questions} hasBoughtCourse={hasBoughtCourse} />
+        <Quiz _questions={unit?.attributes?.quiz} hasBoughtCourse={hasBoughtCourse} />
       </AccordionDetails>
     </Accordion>
   ));
