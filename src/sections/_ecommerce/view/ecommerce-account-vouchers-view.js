@@ -102,7 +102,7 @@ export default function EcommerceAccountVouchersView() {
 
   useEffect(() => {
     const fetchScore = async () => {
-      const res = await fetch('http://localhost:1337/api/quiz-scores');
+      const res = await fetch(process.env.NEXT_PUBLIC_QUIZ_SCORE);
       const data = await res.json();
 
       setQuizScore(
