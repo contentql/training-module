@@ -1,4 +1,4 @@
-import ElearningCourseDetailsLessonsDialog from "src/sections/_elearning/details/elearning-course-details-lessons-dialog";
+import ElearningLessonsView from "src/sections/_elearning/view/elearning-lessons-view";
 
 // ----------------------------------------------------------------------
 
@@ -7,5 +7,5 @@ export const metadata = {
 };
 
 export default function ElearningCourseDetailsLessonsPage() {
-  return <ElearningCourseDetailsLessonsDialog />;
+  return <ElearningLessonsView />;
 }

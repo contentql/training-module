@@ -63,6 +63,21 @@ export default function ElearningCourseDetailsLessonList({ lessons, hasBoughtCou
           unitId={unitId}
         />
       ))}
+
+      {/* <ElearningCourseDetailsLessonsDialog
+        selectedLesson={selectedLesson}
+        onSelectedLesson={(lesson) => setSelectedLesson(lesson)}
+        open={hasBoughtCourse && !!selectedLesson?.unLocked}
+        onClose={handleClose}
+        playing={videoPlay.value}
+        onReady={handleReady}
+        onEnded={videoPlay.onFalse}
+        onPlay={videoPlay.onTrue}
+        onPause={videoPlay.onFalse}
+        units={units}
+        pauseVideo={pauseVideo}
+        hasBoughtCourse={hasBoughtCourse}
+      /> */}
     </div>
   );
 }

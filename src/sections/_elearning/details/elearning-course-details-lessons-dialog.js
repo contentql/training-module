@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 
+import { Link } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import Dialog from '@mui/material/Dialog';
 import Divider from '@mui/material/Divider';
@@ -18,9 +19,11 @@ import Accordion, { accordionClasses } from '@mui/material/Accordion';
 import AccordionSummary, { accordionSummaryClasses } from '@mui/material/AccordionSummary';
 
 import Quiz from 'src/sections/quiz';
+import { paths } from 'src/routes/paths';
 import Player from 'src/components/player';
 import Iconify from 'src/components/iconify';
 import Markdown from 'src/components/markdown';
+import { RouterLink } from 'src/routes/components';
 import { _questions, _coursePosts } from 'src/_mock';
 import { useResponsive } from 'src/hooks/use-responsive';
 
@@ -203,6 +206,8 @@ export default function ElearningCourseDetailsLessonsDialog({
 
           const playIcon = selected ? 'carbon:pause-outline' : 'carbon:play';
 
+          lesson.unLocked = true;
+
           return (
             <ListItemButton
               key={lesson.title}
@@ -324,35 +329,24 @@ export default function ElearningCourseDetailsLessonsDialog({
   );
 
   return (
-    <Dialog
-      fullWidth
-      fullScreen
-      open={open}
-      onClose={onClose}
-      PaperProps={{
-        sx: {
-          overflow: 'hidden',
-          borderRadius: 0,
-        },
-      }}
-    >
-      <IconButton
-        onClick={onClose}
-        sx={{
-          top: 6,
-          right: { xs: 4, md: 24 },
-          zIndex: 9,
-          position: 'absolute',
-        }}
-      >
-        <Iconify icon="carbon:close" width="25px" height="25px" />
-      </IconButton>
+    <Stack direction={{ xs: 'column-reverse', md: 'row' }} sx={{ height: 1 }}>
+      <Link component={RouterLink} href="../" color="inherit">
+        <IconButton
+          onClick={onClose}
+          sx={{
+            top: 6,
+            right: { xs: 4, md: 24 },
+            zIndex: 9,
+            position: 'absolute',
+          }}
+        >
+          <Iconify icon="carbon:close" width="25px" height="25px" />
+        </IconButton>
+      </Link>
 
-      <Stack direction={{ xs: 'column-reverse', md: 'row' }} sx={{ height: 1 }}>
-        {mdUp ? renderListDesktop : renderListMobile}
-        {renderLesson}
-      </Stack>
-    </Dialog>
+      {mdUp ? renderListDesktop : renderListMobile}
+      {renderLesson}
+    </Stack>
   );
 }
 
