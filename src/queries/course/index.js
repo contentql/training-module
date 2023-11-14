@@ -22,9 +22,6 @@ export const getCourseData = async (courseId) => {
                                     lesson {
                                         id
                                         title
-                                        subtitle
-                                        time
-                                        content
                                     }
                                     quiz {
                                         title

@@ -6,7 +6,7 @@ import { useState, useCallback } from 'react';
 import { useBoolean } from 'src/hooks/use-boolean';
 
 import ElearningCourseDetailsLessonItem from './elearning-course-details-lesson-item';
-import ElearningCourseDetailsLessonsDialog from './elearning-course-details-lessons-dialog';
+// import ElearningCourseDetailsLessonsDialog from './elearning-course-details-lessons-dialog';
 
 // ----------------------------------------------------------------------
 

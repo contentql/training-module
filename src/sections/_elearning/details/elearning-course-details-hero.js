@@ -24,7 +24,7 @@ import { fShortenNumber } from 'src/utils/format-number';
 import { useResponsive } from 'src/hooks/use-responsive';
 import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
 
-import ElearningCourseDetailsLessonsDialog from './elearning-course-details-lessons-dialog';
+// import ElearningCourseDetailsLessonsDialog from './elearning-course-details-lessons-dialog';
 
 // ----------------------------------------------------------------------
 
@@ -260,7 +260,7 @@ export default function ElearningCourseDetailsHero({ course }) {
 
       <PlayerDialog open={videoOpen.value} onClose={videoOpen.onFalse} videoPath={_mock.video(0)} />
 
-      <ElearningCourseDetailsLessonsDialog
+      {/* <ElearningCourseDetailsLessonsDialog
         lessons={lessons}
         selectedLesson={selectedLesson}
         onSelectedLesson={(lesson) => setSelectedLesson(lesson)}
@@ -271,7 +271,7 @@ export default function ElearningCourseDetailsHero({ course }) {
         onEnded={videoPlay.onFalse}
         onPlay={videoPlay.onTrue}
         onPause={videoPlay.onFalse}
-      />
+      /> */}
     </>
   );
 }
