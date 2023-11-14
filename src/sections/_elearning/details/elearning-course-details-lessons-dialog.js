@@ -209,47 +209,54 @@ export default function ElearningCourseDetailsLessonsDialog({
           lesson.unLocked = true;
 
           return (
-            <ListItemButton
-              key={lesson.title}
-              selected={selected}
-              disabled={!lesson.unLocked}
-              onClick={() => onSelectedLesson(lesson)}
-              sx={{ borderRadius: 1, maxHeight: '6rem' }}
+            <Link
+              component={RouterLink}
+              href={`?unit=${unit.id}&lesson=${lesson.id}`}
+              color="inherit"
+              underline="none"
             >
-              <IconButton>
-                <Iconify
-                  width="20px"
-                  height="20px"
-                  icon={!lesson.unLocked ? 'carbon:locked' : playIcon}
-                  sx={{
-                    mr: 2,
-                    ...(selected && {
-                      color: 'primary.main',
-                    }),
-                    ...(!lesson.unLocked && {
-                      color: 'text.disabled',
-                    }),
+              <ListItemButton
+                key={lesson.title}
+                selected={selected}
+                disabled={!lesson.unLocked}
+                onClick={() => onSelectedLesson(lesson)}
+                sx={{ borderRadius: 1, maxHeight: '6rem' }}
+              >
+                <IconButton>
+                  <Iconify
+                    width="20px"
+                    height="20px"
+                    icon={!lesson.unLocked ? 'carbon:locked' : playIcon}
+                    sx={{
+                      mr: 2,
+                      ...(selected && {
+                        color: 'primary.main',
+                      }),
+                      ...(!lesson.unLocked && {
+                        color: 'text.disabled',
+                      }),
+                    }}
+                  />
+                </IconButton>
+
+                <ListItemText
+                  primary={lesson.title}
+                  secondary={lesson.description}
+                  primaryTypographyProps={{
+                    typography: 'subtitle1',
+                    sx: {
+                      ...(selected && {
+                        color: 'primary.main',
+                      }),
+                    },
+                  }}
+                  secondaryTypographyProps={{
+                    noWrap: true,
+                    component: 'span',
                   }}
                 />
-              </IconButton>
-
-              <ListItemText
-                primary={lesson.title}
-                secondary={lesson.description}
-                primaryTypographyProps={{
-                  typography: 'subtitle1',
-                  sx: {
-                    ...(selected && {
-                      color: 'primary.main',
-                    }),
-                  },
-                }}
-                secondaryTypographyProps={{
-                  noWrap: true,
-                  component: 'span',
-                }}
-              />
-            </ListItemButton>
+              </ListItemButton>
+            </Link>
           );
         })}
         <Quiz _questions={unit?.attributes?.quiz} hasBoughtCourse={hasBoughtCourse} />
