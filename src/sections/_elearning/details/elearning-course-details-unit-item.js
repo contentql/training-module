@@ -17,9 +17,9 @@ import ElearningCourseDetailsLessonList from './elearning-course-details-lesson-
 export default function ElearningCourseDetailsUnitItem({
   unit,
   index,
-  units,
   hasBoughtCourse,
   courseName,
+  unitId,
 }) {
   const [expanded, setExpanded] = useState(index === 0);
 
@@ -74,8 +74,8 @@ export default function ElearningCourseDetailsUnitItem({
       >
         <ElearningCourseDetailsLessonList
           lessons={unit.lesson}
-          units={units}
           hasBoughtCourse={hasBoughtCourse}
+          unitId={unitId}
         />
         <Quiz
           _questions={unit.quiz}
@@ -91,7 +91,7 @@ export default function ElearningCourseDetailsUnitItem({
 ElearningCourseDetailsUnitItem.propTypes = {
   unit: PropTypes.object,
   index: PropTypes.number,
-  units: PropTypes.array,
   hasBoughtCourse: PropTypes.bool,
   courseName: PropTypes.any,
+  unitId: PropTypes.number,
 };

@@ -10,7 +10,7 @@ import ElearningCourseDetailsLessonsDialog from './elearning-course-details-less
 
 // ----------------------------------------------------------------------
 
-export default function ElearningCourseDetailsLessonList({ lessons, units, hasBoughtCourse }) {
+export default function ElearningCourseDetailsLessonList({ lessons, hasBoughtCourse, unitId }) {
   const videoPlay = useBoolean();
 
   const [expanded, setExpanded] = useState(false);
@@ -60,29 +60,15 @@ export default function ElearningCourseDetailsLessonList({ lessons, units, hasBo
             handleSelectedLesson(lesson);
           }}
           hasBoughtCourse={hasBoughtCourse}
+          unitId={unitId}
         />
       ))}
-
-      <ElearningCourseDetailsLessonsDialog
-        selectedLesson={selectedLesson}
-        onSelectedLesson={(lesson) => setSelectedLesson(lesson)}
-        open={hasBoughtCourse && !!selectedLesson?.unLocked}
-        onClose={handleClose}
-        playing={videoPlay.value}
-        onReady={handleReady}
-        onEnded={videoPlay.onFalse}
-        onPlay={videoPlay.onTrue}
-        onPause={videoPlay.onFalse}
-        units={units}
-        pauseVideo={pauseVideo}
-        hasBoughtCourse={hasBoughtCourse}
-      />
     </div>
   );
 }
 
 ElearningCourseDetailsLessonList.propTypes = {
   lessons: PropTypes.array,
-  units: PropTypes.array,
   hasBoughtCourse: PropTypes.bool,
+  unitId: PropTypes.number,
 };

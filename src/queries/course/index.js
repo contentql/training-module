@@ -20,6 +20,7 @@ export const getCourseData = async (courseId) => {
                                 attributes {
                                     title
                                     lesson {
+                                        id
                                         title
                                         subtitle
                                         time
