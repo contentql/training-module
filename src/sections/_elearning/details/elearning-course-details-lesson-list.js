@@ -6,11 +6,11 @@ import { useState, useCallback } from 'react';
 import { useBoolean } from 'src/hooks/use-boolean';
 
 import ElearningCourseDetailsLessonItem from './elearning-course-details-lesson-item';
-import ElearningCourseDetailsLessonsDialog from './elearning-course-details-lessons-dialog';
+// import ElearningCourseDetailsLessonsDialog from './elearning-course-details-lessons-dialog';
 
 // ----------------------------------------------------------------------
 
-export default function ElearningCourseDetailsLessonList({ lessons, units, hasBoughtCourse }) {
+export default function ElearningCourseDetailsLessonList({ lessons, hasBoughtCourse, unitId }) {
   const videoPlay = useBoolean();
 
   const [expanded, setExpanded] = useState(false);
@@ -60,10 +60,11 @@ export default function ElearningCourseDetailsLessonList({ lessons, units, hasBo
             handleSelectedLesson(lesson);
           }}
           hasBoughtCourse={hasBoughtCourse}
+          unitId={unitId}
         />
       ))}
 
-      <ElearningCourseDetailsLessonsDialog
+      {/* <ElearningCourseDetailsLessonsDialog
         selectedLesson={selectedLesson}
         onSelectedLesson={(lesson) => setSelectedLesson(lesson)}
         open={hasBoughtCourse && !!selectedLesson?.unLocked}
@@ -76,13 +77,13 @@ export default function ElearningCourseDetailsLessonList({ lessons, units, hasBo
         units={units}
         pauseVideo={pauseVideo}
         hasBoughtCourse={hasBoughtCourse}
-      />
+      /> */}
     </div>
   );
 }
 
 ElearningCourseDetailsLessonList.propTypes = {
   lessons: PropTypes.array,
-  units: PropTypes.array,
   hasBoughtCourse: PropTypes.bool,
+  unitId: PropTypes.number,
 };

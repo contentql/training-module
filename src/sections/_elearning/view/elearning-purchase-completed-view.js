@@ -21,18 +21,6 @@ import { varBounce, MotionContainer } from 'src/components/animate';
 export default function ElearningPurchaseCompletedView() {
   const loading = useBoolean(true);
 
-  useEffect(() => {
-    const fakeLoading = async () => {
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      loading.onFalse();
-    };
-    fakeLoading();
-  }, [loading]);
-
-  if (loading.value) {
-    return <SplashScreen />;
-  }
-
   return (
     <Container
       component={MotionContainer}

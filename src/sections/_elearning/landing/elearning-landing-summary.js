@@ -54,7 +54,7 @@ export default function ElearningLandingSummary() {
           mb: { xs: 8, md: 10 },
         }}
       >
-        <Typography variant="h2">WHY CHOOSE OUR EXAMS</Typography>
+        <Typography variant="h2">Why Choose Our Exams</Typography>
 
         <Typography sx={{ color: 'text.secondary' }}>
           Reliable assessment experience, combining rigorously crafted questions with a

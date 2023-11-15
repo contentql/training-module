@@ -33,7 +33,7 @@ export default function ElearningCourseDetailsLessonList({
           key={index}
           unit={unit.attributes}
           index={index}
-          units={units}
+          unitId={unit.id}
         />
       ))}
       <Quiz

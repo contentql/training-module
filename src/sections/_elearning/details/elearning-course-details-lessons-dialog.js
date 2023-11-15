@@ -1,8 +1,13 @@
-import { useState } from 'react';
-import PropTypes from 'prop-types';
+'use client';
 
+import PropTypes from 'prop-types';
+import { useQuery } from 'react-query';
+import { useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
+
+import { Link } from '@mui/material';
 import Stack from '@mui/material/Stack';
-import Dialog from '@mui/material/Dialog';
+// import Dialog from '@mui/material/Dialog';
 import Divider from '@mui/material/Divider';
 import Grid from '@mui/material/Unstable_Grid2';
 import Container from '@mui/material/Container';
@@ -16,13 +21,16 @@ import Accordion, { accordionClasses } from '@mui/material/Accordion';
 import AccordionSummary, { accordionSummaryClasses } from '@mui/material/AccordionSummary';
 
 import Quiz from 'src/sections/quiz';
+// import { paths } from 'src/routes/paths';
 import Player from 'src/components/player';
 import Iconify from 'src/components/iconify';
 import Markdown from 'src/components/markdown';
-import { _questions, _coursePosts } from 'src/_mock';
+import { getUnitData } from 'src/queries/unit';
+import { RouterLink } from 'src/routes/components';
+// import { _questions, _coursePosts } from 'src/_mock';
 import { useResponsive } from 'src/hooks/use-responsive';
 
-import PostTags from '../../blog/common/post-tags';
+// import PostTags from '../../blog/common/post-tags';
 
 // ----------------------------------------------------------------------
 
@@ -48,9 +56,29 @@ export default function ElearningCourseDetailsLessonsDialog({
 
   const [expandedUnits, setExpandedUnits] = useState(Array(units?.length).fill(false));
 
-  if (!selectedLesson) return null;
+  const searchParams = useSearchParams();
 
-  const { title, subtitle, content, time } = selectedLesson;
+  const { data } = useQuery({
+    queryKey: ['unit', searchParams.get('unit')],
+    queryFn: () => getUnitData(Number(searchParams.get('unit'))),
+  });
+
+  useEffect(() => {
+    if (!units) return;
+    const idx = units?.findIndex((unit) => unit.id === searchParams.get('unit'));
+    setExpandedUnits((prev) => prev.map((_, index) => index === idx));
+  }, [units, searchParams]);
+
+  console.log('unit data: ', data);
+
+  const lessonData =
+    data && data?.attributes.lesson.find((l) => l.id.toString() === searchParams.get('lesson'));
+
+  console.log('lesson: ', lessonData);
+
+  // if (!selectedLesson) return null;
+
+  const { title, subtitle, content, time } = lessonData ?? {};
 
   const toggleDrawer = (value) => {
     setDrawerOpen(value);
@@ -194,55 +222,64 @@ export default function ElearningCourseDetailsLessonsDialog({
           typography: 'body',
           color: 'text.secondary',
         }}
-        className="ml-10"
+        className="ml-3"
       >
         {unit.attributes.lesson.map((lesson) => {
-          const selected = selectedLesson?.title === lesson.title;
+          const selected = selectedLesson?.id === lesson.id;
 
           const playIcon = selected ? 'carbon:pause-outline' : 'carbon:play';
 
+          lesson.unLocked = true;
+
           return (
-            <ListItemButton
-              key={lesson.title}
-              selected={selected}
-              disabled={!lesson.unLocked}
-              onClick={() => onSelectedLesson(lesson)}
-              sx={{ borderRadius: 1, maxHeight: '6rem' }}
+            <Link
+              component={RouterLink}
+              href={`?unit=${unit.id}&lesson=${lesson.id}`}
+              color="inherit"
+              underline="none"
             >
-              <IconButton>
-                <Iconify
-                  width="20px"
-                  height="20px"
-                  icon={!lesson.unLocked ? 'carbon:locked' : playIcon}
-                  sx={{
-                    mr: 2,
-                    ...(selected && {
-                      color: 'primary.main',
-                    }),
-                    ...(!lesson.unLocked && {
-                      color: 'text.disabled',
-                    }),
+              <ListItemButton
+                key={lesson.title}
+                selected={selected}
+                disabled={!lesson.unLocked}
+                onClick={() => onSelectedLesson(lesson)}
+                sx={{ borderRadius: 1, maxHeight: '6rem' }}
+              >
+                <IconButton>
+                  <Iconify
+                    width="20px"
+                    height="20px"
+                    icon={!lesson.unLocked ? 'carbon:locked' : playIcon}
+                    sx={{
+                      mr: 2,
+                      ...(selected && {
+                        color: 'primary.main',
+                      }),
+                      ...(!lesson.unLocked && {
+                        color: 'text.disabled',
+                      }),
+                    }}
+                  />
+                </IconButton>
+
+                <ListItemText
+                  primary={lesson.title}
+                  secondary={lesson.description}
+                  primaryTypographyProps={{
+                    typography: 'subtitle1',
+                    sx: {
+                      ...(selected && {
+                        color: 'primary.main',
+                      }),
+                    },
+                  }}
+                  secondaryTypographyProps={{
+                    noWrap: true,
+                    component: 'span',
                   }}
                 />
-              </IconButton>
-
-              <ListItemText
-                primary={lesson.title}
-                secondary={lesson.description}
-                primaryTypographyProps={{
-                  typography: 'subtitle1',
-                  sx: {
-                    ...(selected && {
-                      color: 'primary.main',
-                    }),
-                  },
-                }}
-                secondaryTypographyProps={{
-                  noWrap: true,
-                  component: 'span',
-                }}
-              />
-            </ListItemButton>
+              </ListItemButton>
+            </Link>
           );
         })}
         <Quiz _questions={unit?.attributes?.quiz} hasBoughtCourse={hasBoughtCourse} />
@@ -322,35 +359,24 @@ export default function ElearningCourseDetailsLessonsDialog({
   );
 
   return (
-    <Dialog
-      fullWidth
-      fullScreen
-      open={open}
-      onClose={onClose}
-      PaperProps={{
-        sx: {
-          overflow: 'hidden',
-          borderRadius: 0,
-        },
-      }}
-    >
-      <IconButton
-        onClick={onClose}
-        sx={{
-          top: 6,
-          right: { xs: 4, md: 24 },
-          zIndex: 9,
-          position: 'absolute',
-        }}
-      >
-        <Iconify icon="carbon:close" width="25px" height="25px" />
-      </IconButton>
+    <Stack direction={{ xs: 'column-reverse', md: 'row' }} sx={{ height: 1 }}>
+      <Link component={RouterLink} href="../" color="inherit">
+        <IconButton
+          onClick={onClose}
+          sx={{
+            top: 6,
+            right: { xs: 4, md: 24 },
+            zIndex: 9,
+            position: 'absolute',
+          }}
+        >
+          <Iconify icon="carbon:close" width="25px" height="25px" />
+        </IconButton>
+      </Link>
 
-      <Stack direction={{ xs: 'column-reverse', md: 'row' }} sx={{ height: 1 }}>
-        {mdUp ? renderListDesktop : renderListMobile}
-        {renderLesson}
-      </Stack>
-    </Dialog>
+      {mdUp ? renderListDesktop : renderListMobile}
+      {renderLesson}
+    </Stack>
   );
 }
 

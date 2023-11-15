@@ -2,12 +2,15 @@ import PropTypes from 'prop-types';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { toast } from 'react-toastify';
 
+import { Link } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Accordion, { accordionClasses } from '@mui/material/Accordion';
 import AccordionSummary, { accordionSummaryClasses } from '@mui/material/AccordionSummary';
 
+import { paths } from 'src/routes/paths';
 import Iconify from 'src/components/iconify';
+import { RouterLink } from 'src/routes/components';
 
 // ----------------------------------------------------------------------
 
@@ -18,6 +21,7 @@ export default function ElearningCourseDetailsLessonItem({
   onSelected,
   onExpanded,
   hasBoughtCourse,
+  unitId,
 }) {
   const playIcon = selected ? 'carbon:pause-outline' : 'carbon:play';
   lesson.unLocked = true;
@@ -66,7 +70,13 @@ export default function ElearningCourseDetailsLessonItem({
         }}
       >
         {lesson.unLocked ? (
-          <Iconify width={24} icon={playIcon} onClick={onSelected} />
+          <Link
+            component={RouterLink}
+            href={`lessons/?unit=${unitId}&lesson=${lesson.id}`}
+            color="inherit"
+          >
+            <Iconify width={24} icon={playIcon} onClick={onSelected} />
+          </Link>
         ) : (
           <img src="/icons/lock.svg" alt="lesson" />
         )}
@@ -106,4 +116,5 @@ ElearningCourseDetailsLessonItem.propTypes = {
   onSelected: PropTypes.func,
   selected: PropTypes.bool,
   hasBoughtCourse: PropTypes.bool,
+  unitId: PropTypes.number,
 };
