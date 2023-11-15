@@ -41,9 +41,12 @@ export default function ElearningLandingHero() {
       <Box
         sx={{
           ...bgGradient({
-            color: alpha(theme.palette.background.default, 0.9),
-            imgUrl: '/assets/background/overlay_1.jpg',
+            endColor: '#FFCEBD',
+            startColor: '#f7f5f4',
+            color: alpha(theme.palette.background.default, 0.1),
+            // imgUrl: '/assets/background/overlay_3.jpg',
           }),
+          // background: 'linear-gradient(to right bottom, #F7F5F4, #FF7748)',
           overflow: 'hidden',
           paddingTop: 4,
         }}

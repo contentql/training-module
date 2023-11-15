@@ -40,7 +40,7 @@ const navigations = [
   {
     title: 'Certificates',
     path: paths.eLearning.account.vouchers,
-    icon: <Iconify icon="carbon:cut-out" />,
+    icon: <Iconify icon="carbon:certificate" />,
   },
   {
     title: 'Orders',

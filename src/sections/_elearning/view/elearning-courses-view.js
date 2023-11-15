@@ -35,14 +35,6 @@ export default function ElearningCoursesView() {
     fee: [],
   });
 
-  useEffect(() => {
-    const fakeLoading = async () => {
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      loading.onFalse();
-    };
-    fakeLoading();
-  }, [loading]);
-
   const { data, isLoading } = useQuery({
     queryKey: ['courses'],
     queryFn: getCoursesData,
