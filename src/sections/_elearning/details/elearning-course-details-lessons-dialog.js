@@ -9,10 +9,10 @@ import { Link } from '@mui/material';
 import Stack from '@mui/material/Stack';
 // import Dialog from '@mui/material/Dialog';
 import Divider from '@mui/material/Divider';
-import Grid from '@mui/material/Unstable_Grid2';
 import Container from '@mui/material/Container';
-import IconButton from '@mui/material/IconButton';
+import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
+import IconButton from '@mui/material/IconButton';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemButton from '@mui/material/ListItemButton';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
@@ -26,6 +26,7 @@ import Player from 'src/components/player';
 import Iconify from 'src/components/iconify';
 import Markdown from 'src/components/markdown';
 import { getUnitData } from 'src/queries/unit';
+import NumberDone from 'src/components/NumberDone';
 import { RouterLink } from 'src/routes/components';
 // import { _questions, _coursePosts } from 'src/_mock';
 import { useResponsive } from 'src/hooks/use-responsive';
@@ -225,7 +226,7 @@ export default function ElearningCourseDetailsLessonsDialog({
         }}
         className="ml-3"
       >
-        {unit.attributes.lesson.map((lesson) => {
+        {unit.attributes.lesson.map((lesson, value) => {
           const selected = selectedLesson?.id === lesson.id;
 
           const playIcon = selected ? 'carbon:pause-outline' : 'carbon:play';
@@ -246,7 +247,7 @@ export default function ElearningCourseDetailsLessonsDialog({
                 onClick={() => onSelectedLesson(lesson)}
                 sx={{ borderRadius: 1, maxHeight: '6rem' }}
               >
-                <IconButton>
+                {/* <IconButton>
                   <Iconify
                     width="20px"
                     height="20px"
@@ -261,7 +262,8 @@ export default function ElearningCourseDetailsLessonsDialog({
                       }),
                     }}
                   />
-                </IconButton>
+                </IconButton> */}
+                <NumberDone index={value} sx={{ ml: 2 }} />
 
                 <ListItemText
                   primary={lesson.title}
@@ -371,7 +373,7 @@ export default function ElearningCourseDetailsLessonsDialog({
             position: 'absolute',
           }}
         >
-          <Iconify icon="carbon:close" width="25px" height="25px" />
+          <Iconify icon="carbon:close" width="25px" height="25px" sx={{ color: 'red' }} />
         </IconButton>
       </Link>
 

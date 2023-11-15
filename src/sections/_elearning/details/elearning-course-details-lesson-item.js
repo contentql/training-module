@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { toast } from 'react-toastify';
@@ -10,6 +11,7 @@ import AccordionSummary, { accordionSummaryClasses } from '@mui/material/Accordi
 
 import { paths } from 'src/routes/paths';
 import Iconify from 'src/components/iconify';
+import NumberDone from 'src/components/NumberDone';
 import { RouterLink } from 'src/routes/components';
 
 // ----------------------------------------------------------------------
@@ -17,6 +19,7 @@ import { RouterLink } from 'src/routes/components';
 export default function ElearningCourseDetailsLessonItem({
   lesson,
   expanded,
+  index,
   selected,
   onSelected,
   onExpanded,
@@ -25,6 +28,8 @@ export default function ElearningCourseDetailsLessonItem({
 }) {
   const playIcon = selected ? 'carbon:pause-outline' : 'carbon:play';
   lesson.unLocked = true;
+
+  const [lessonComplete, setLessonComplete] = useState(false);
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -70,26 +75,28 @@ export default function ElearningCourseDetailsLessonItem({
         }}
       >
         {lesson.unLocked ? (
-          <Link
-            component={RouterLink}
-            href={`lessons/?unit=${unitId}&lesson=${lesson.id}`}
-            color="inherit"
-          >
-            <Iconify width={24} icon={playIcon} onClick={onSelected} />
-          </Link>
+          <NumberDone index={index} />
         ) : (
           <img src="/icons/lock.svg" alt="lesson" />
         )}
-
-        <Typography
-          variant="subtitle1"
+        <Link
+          component={RouterLink}
+          href={`lessons/?unit=${unitId}&lesson=${lesson.id}`}
+          color="inherit"
           sx={{
             pl: 2,
             flexGrow: 1,
           }}
         >
-          {lesson.title}
-        </Typography>
+          <Typography
+            variant="subtitle1"
+            sx={{
+              flexGrow: 1,
+            }}
+          >
+            {lesson.title}
+          </Typography>
+        </Link>
 
         <Typography variant="body2">{lesson.time} minutes</Typography>
 
@@ -112,6 +119,7 @@ export default function ElearningCourseDetailsLessonItem({
 ElearningCourseDetailsLessonItem.propTypes = {
   expanded: PropTypes.bool,
   lesson: PropTypes.object,
+  index: PropTypes.any,
   onExpanded: PropTypes.func,
   onSelected: PropTypes.func,
   selected: PropTypes.bool,
