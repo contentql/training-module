@@ -61,6 +61,7 @@ export default function ElearningCourseDetailsLessonsDialog({
   const { data } = useQuery({
     queryKey: ['unit', searchParams.get('unit')],
     queryFn: () => getUnitData(Number(searchParams.get('unit'))),
+    refetchOnWindowFocus: false,
   });
 
   useEffect(() => {

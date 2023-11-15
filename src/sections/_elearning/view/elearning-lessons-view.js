@@ -23,6 +23,7 @@ export default function ElearningLessonsView({ params }) {
   const { data, isLoading } = useQuery({
     queryKey: ['course', params.id],
     queryFn: () => getCourseData(params.id),
+    refetchOnWindowFocus: false,
   });
 
   useEffect(() => {
