@@ -2,8 +2,8 @@
 
 import PropTypes from 'prop-types';
 import { useQuery } from 'react-query';
-import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
+import { useState, useEffect, useCallback } from 'react';
 
 import { Link } from '@mui/material';
 import Stack from '@mui/material/Stack';
@@ -28,6 +28,7 @@ import Markdown from 'src/components/markdown';
 import { getUnitData } from 'src/queries/unit';
 import NumberDone from 'src/components/NumberDone';
 import { RouterLink } from 'src/routes/components';
+import { useUserStore } from 'src/states/auth-store';
 // import { _questions, _coursePosts } from 'src/_mock';
 import { useResponsive } from 'src/hooks/use-responsive';
 
@@ -57,6 +58,9 @@ export default function ElearningCourseDetailsLessonsDialog({
 
   const [expandedUnits, setExpandedUnits] = useState(Array(units?.length).fill(false));
 
+  const [metaData, setMetaData] = useState([]);
+  const [metaDataId, setMetaDataId] = useState(null);
+
   const searchParams = useSearchParams();
 
   const { data } = useQuery({
@@ -67,20 +71,23 @@ export default function ElearningCourseDetailsLessonsDialog({
 
   useEffect(() => {
     if (!units) return;
+    getUserProgress();
     const idx = units?.findIndex((unit) => unit.id === searchParams.get('unit'));
     setExpandedUnits((prev) => prev.map((_, index) => index === idx));
   }, [units, searchParams]);
 
-  console.log('unit data: ', data);
+  // const handleClickOpen = useCallback(() => {
+  //   getUserProgress();
+  // }, []);
 
   const lessonData =
     data && data?.attributes.lesson.find((l) => l.id.toString() === searchParams.get('lesson'));
 
-  console.log('lesson: ', lessonData);
-
   // if (!selectedLesson) return null;
 
   const { title, subtitle, content, time } = lessonData ?? {};
+
+  const { UserData } = useUserStore();
 
   const toggleDrawer = (value) => {
     setDrawerOpen(value);
@@ -123,6 +130,93 @@ export default function ElearningCourseDetailsLessonsDialog({
       )}
     </Stack>
   );
+  const userToken = localStorage.getItem('token');
+
+  const getUserProgress = async (lesson) => {
+    try {
+      const res = await fetch('http://localhost:1337/api/metadatas', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${userToken}`,
+        },
+      });
+
+      const returnData = await res.json();
+      returnData?.map((l) => setMetaDataId(l));
+      returnData?.map((list) =>
+        setMetaData(list.data.map((l) => ({ LessonTitle: l.LessonTitle })))
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  console.log('metadata', metaData);
+
+  const addingLessonToUser = async (lesson) => {
+    console.log('add lesson to user');
+    console.log('lessonTitle', lesson.title);
+    const requestBody = {
+      data: {
+        data: [...metaData, { LessonTitle: lesson.title }],
+      },
+    };
+    try {
+      const res = await fetch(`http://localhost:1337/api/metadatas/${metaDataId.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${userToken}`,
+        },
+        // body: requestBody,
+        body: JSON.stringify(requestBody),
+      });
+      setMetaData([...metaData, { LessonTitle: lesson.title }]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const addingUserProgress = async (lesson) => {
+    console.log('add user to data');
+
+    const requestBody = {
+      data: {
+        users: {
+          connect: [UserData.id],
+        },
+        data: [
+          {
+            LessonTitle: lesson?.title,
+          },
+        ],
+      },
+    };
+    try {
+      const response = await fetch('http://localhost:1337/api/metadatas', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${userToken}`,
+        },
+        body: JSON.stringify(requestBody),
+      });
+      setMetaData([...metaData, { LessonTitle: lesson.title }]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleClick = async (lesson) => {
+    const isMetaDataExisting = metaData.filter((details) => details.LessonTitle === lesson.title);
+    if (metaData.length === 0) {
+      addingUserProgress(lesson);
+    } else if (isMetaDataExisting.length === 0) {
+      // setMetaData([...metaData, { LessonTitle: lesson.title }]);
+      addingLessonToUser(lesson);
+    }
+  };
 
   const renderLesson = (
     <Container className="overflow-y-scroll py-14">
@@ -232,6 +326,9 @@ export default function ElearningCourseDetailsLessonsDialog({
           const playIcon = selected ? 'carbon:pause-outline' : 'carbon:play';
 
           lesson.unLocked = true;
+          // const filterData = metaData?.filter((l) => l.LessonTitle !== lesson?.title);
+          const hasMatch = Boolean(metaData.find((a) => a.LessonTitle === lesson.title));
+          console.log('filterData', hasMatch);
 
           return (
             <Link
@@ -263,9 +360,15 @@ export default function ElearningCourseDetailsLessonsDialog({
                     }}
                   />
                 </IconButton> */}
-                <NumberDone index={value} sx={{ ml: 2 }} />
+                <NumberDone
+                  index={value}
+                  sx={{ ml: 2 }}
+                  lessonComplete={hasMatch}
+                  // lessonComplete={metaData?.filter((l) => l.LessonTitle === lesson?.title)}
+                />
 
                 <ListItemText
+                  onClick={() => handleClick(lesson)}
                   primary={lesson.title}
                   secondary={lesson.description}
                   primaryTypographyProps={{

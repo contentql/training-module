@@ -259,19 +259,6 @@ export default function ElearningCourseDetailsHero({ course }) {
       </Box>
 
       <PlayerDialog open={videoOpen.value} onClose={videoOpen.onFalse} videoPath={_mock.video(0)} />
-
-      {/* <ElearningCourseDetailsLessonsDialog
-        lessons={lessons}
-        selectedLesson={selectedLesson}
-        onSelectedLesson={(lesson) => setSelectedLesson(lesson)}
-        open={!!selectedLesson?.unLocked}
-        onClose={handleClose}
-        playing={videoPlay.value}
-        onReady={handleReady}
-        onEnded={videoPlay.onFalse}
-        onPlay={videoPlay.onTrue}
-        onPause={videoPlay.onFalse}
-      /> */}
     </>
   );
 }

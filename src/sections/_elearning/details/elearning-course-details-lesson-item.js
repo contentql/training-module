@@ -13,6 +13,7 @@ import { paths } from 'src/routes/paths';
 import Iconify from 'src/components/iconify';
 import NumberDone from 'src/components/NumberDone';
 import { RouterLink } from 'src/routes/components';
+import { useUserStore } from 'src/states/auth-store';
 
 // ----------------------------------------------------------------------
 
@@ -29,7 +30,10 @@ export default function ElearningCourseDetailsLessonItem({
   const playIcon = selected ? 'carbon:pause-outline' : 'carbon:play';
   lesson.unLocked = true;
 
+  const { UserData } = useUserStore();
+
   const [lessonComplete, setLessonComplete] = useState(false);
+  const [progress, setProgress] = useState([]);
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -46,6 +50,75 @@ export default function ElearningCourseDetailsLessonItem({
       });
     } else {
       onExpanded();
+    }
+  };
+  const userToken = localStorage.getItem('token');
+
+  const getUserProgress = async () => {
+    try {
+      const res = await fetch('http://localhost:1337/api/metadatas', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${userToken}`,
+        },
+      });
+      const data = await res.json();
+      setProgress(data);
+      console.log({ data });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const addingLessonToUser = async () => {
+    const requestBody = {
+      data: {
+        data: [
+          {
+            LessonTitle: lesson.id,
+          },
+        ],
+      },
+    };
+    try {
+      const res = await fetch(`http://localhost:1337/api/matadatas/${UserData.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${userToken}`,
+        },
+        body: JSON.stringify(requestBody),
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const addingUserProgress = async () => {
+    const requestBody = {
+      data: {
+        users: {
+          connect: [UserData.id],
+        },
+        data: [
+          {
+            LessonTitle: lesson.id,
+          },
+        ],
+      },
+    };
+    try {
+      const response = await fetch('http://localhost:1337/api/metadatas', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${userToken}`,
+        },
+        body: JSON.stringify(requestBody),
+      });
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -75,7 +148,7 @@ export default function ElearningCourseDetailsLessonItem({
         }}
       >
         {lesson.unLocked ? (
-          <NumberDone index={index} />
+          <NumberDone index={index} lessonComplete={lessonComplete} />
         ) : (
           <img src="/icons/lock.svg" alt="lesson" />
         )}
@@ -93,13 +166,12 @@ export default function ElearningCourseDetailsLessonItem({
             sx={{
               flexGrow: 1,
             }}
+            // onClick={() => getUserProgress()}
           >
             {lesson.title}
           </Typography>
         </Link>
-
         <Typography variant="body2">{lesson.time} minutes</Typography>
-
         <Iconify icon={expanded ? 'carbon:chevron-down' : 'carbon:chevron-right'} sx={{ ml: 2 }} />
       </AccordionSummary>
 

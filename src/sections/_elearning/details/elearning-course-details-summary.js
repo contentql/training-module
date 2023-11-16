@@ -21,7 +21,7 @@ export default function ElearningCourseDetailsSummary({ course }) {
   const hasBoughtCourse =
     isLoggedIn &&
     course.users?.data.filter((user) => user.id === userData.id.toString()).length > 0;
-  console.log('course', course.units.data);
+
   return (
     <Stack spacing={5}>
       <ElearningCourseDetailsUnitList

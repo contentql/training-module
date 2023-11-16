@@ -16,8 +16,6 @@ import ElearningCourseDetailsLessonsDialog from '../details/elearning-course-det
 export default function ElearningLessonsView({ params }) {
   const [selectedLesson, setSelectedLesson] = useState(null);
 
-  console.log('params', params);
-
   const searchParams = useSearchParams();
 
   const { data, isLoading } = useQuery({
@@ -46,8 +44,6 @@ export default function ElearningLessonsView({ params }) {
   const handleSelectedLesson = (lesson) => {
     setSelectedLesson(lesson);
   };
-
-  console.log('data: ', data);
 
   if (isLoading) return <SplashScreen />;
 

@@ -70,8 +70,6 @@ export default function ElearningCheckoutView({ courseId }) {
 
   const { UserData } = useUserStore();
 
-  console.log(UserData);
-
   const queryRes = useQuery({
     queryKey: ['course', courseId],
     queryFn: () => getCourseInfo(courseId),
