@@ -69,11 +69,15 @@ export default function ElearningCourseDetailsLessonsDialog({
     refetchOnWindowFocus: false,
   });
 
+  // console.log(getUserToken());
+  console.log('metaData', metaData);
+
   useEffect(() => {
     if (!units) return;
     getUserProgress();
     const idx = units?.findIndex((unit) => unit.id === searchParams.get('unit'));
     setExpandedUnits((prev) => prev.map((_, index) => index === idx));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [units, searchParams]);
 
   // const handleClickOpen = useCallback(() => {
@@ -152,8 +156,6 @@ export default function ElearningCourseDetailsLessonsDialog({
     }
   };
 
-  console.log('metadata', metaData);
-
   const addingLessonToUser = async (lesson) => {
     console.log('add lesson to user');
     console.log('lessonTitle', lesson.title);
@@ -225,7 +227,7 @@ export default function ElearningCourseDetailsLessonsDialog({
         justifyContent="center"
         sx={{ borderRadius: 2, overflow: 'hidden' }}
       >
-        {renderVideo}
+        {/* {renderVideo} */}
       </Stack>
 
       <Grid container spacing={3} justifyContent={{ md: 'center' }}>
@@ -263,7 +265,7 @@ export default function ElearningCourseDetailsLessonsDialog({
 
   const unitList = units?.map((unit, index) => (
     <Accordion
-      key={index}
+      key={unit.id}
       expanded={expandedUnits[index]}
       onChange={() => {
         const newExpandedUnits = [...expandedUnits];
@@ -283,7 +285,7 @@ export default function ElearningCourseDetailsLessonsDialog({
           minHeight: { xs: 40, md: 64 },
           mr: 2,
           ...(unit.attributes.lesson.includes(selectedLesson) && {
-            color: 'primary.main',
+            color: '#0D5992',
           }),
           [`&.${accordionSummaryClasses.content}`]: {
             p: 0,
@@ -328,7 +330,6 @@ export default function ElearningCourseDetailsLessonsDialog({
           lesson.unLocked = true;
           // const filterData = metaData?.filter((l) => l.LessonTitle !== lesson?.title);
           const hasMatch = Boolean(metaData.find((a) => a.LessonTitle === lesson.title));
-          console.log('filterData', hasMatch);
 
           return (
             <Link
@@ -360,12 +361,14 @@ export default function ElearningCourseDetailsLessonsDialog({
                     }}
                   />
                 </IconButton> */}
-                <NumberDone
-                  index={value}
-                  sx={{ ml: 2 }}
-                  lessonComplete={hasMatch}
-                  // lessonComplete={metaData?.filter((l) => l.LessonTitle === lesson?.title)}
-                />
+                <Typography sx={{ mr: 2, ...(selected && { color: 'primary.main' }) }}>
+                  <NumberDone
+                    index={value}
+                    sx={{ ml: 2 }}
+                    lessonComplete={hasMatch}
+                    // lessonComplete={metaData?.filter((l) => l.LessonTitle === lesson?.title)}
+                  />
+                </Typography>
 
                 <ListItemText
                   onClick={() => handleClick(lesson)}
