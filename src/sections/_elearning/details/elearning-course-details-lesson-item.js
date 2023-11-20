@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { toast } from 'react-toastify';
@@ -10,13 +11,16 @@ import AccordionSummary, { accordionSummaryClasses } from '@mui/material/Accordi
 
 import { paths } from 'src/routes/paths';
 import Iconify from 'src/components/iconify';
+import NumberDone from 'src/components/NumberDone';
 import { RouterLink } from 'src/routes/components';
+import { useUserStore } from 'src/states/auth-store';
 
 // ----------------------------------------------------------------------
 
 export default function ElearningCourseDetailsLessonItem({
   lesson,
   expanded,
+  index,
   selected,
   onSelected,
   onExpanded,
@@ -25,6 +29,11 @@ export default function ElearningCourseDetailsLessonItem({
 }) {
   const playIcon = selected ? 'carbon:pause-outline' : 'carbon:play';
   lesson.unLocked = true;
+
+  const { UserData } = useUserStore();
+
+  const [lessonComplete, setLessonComplete] = useState(false);
+  const [progress, setProgress] = useState([]);
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -41,6 +50,75 @@ export default function ElearningCourseDetailsLessonItem({
       });
     } else {
       onExpanded();
+    }
+  };
+  const userToken = localStorage.getItem('token');
+
+  const getUserProgress = async () => {
+    try {
+      const res = await fetch('http://localhost:1337/api/metadatas', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${userToken}`,
+        },
+      });
+      const data = await res.json();
+      setProgress(data);
+      console.log({ data });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const addingLessonToUser = async () => {
+    const requestBody = {
+      data: {
+        data: [
+          {
+            LessonTitle: lesson.id,
+          },
+        ],
+      },
+    };
+    try {
+      const res = await fetch(`http://localhost:1337/api/matadatas/${UserData.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${userToken}`,
+        },
+        body: JSON.stringify(requestBody),
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const addingUserProgress = async () => {
+    const requestBody = {
+      data: {
+        users: {
+          connect: [UserData.id],
+        },
+        data: [
+          {
+            LessonTitle: lesson.id,
+          },
+        ],
+      },
+    };
+    try {
+      const response = await fetch('http://localhost:1337/api/metadatas', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${userToken}`,
+        },
+        body: JSON.stringify(requestBody),
+      });
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -70,29 +148,30 @@ export default function ElearningCourseDetailsLessonItem({
         }}
       >
         {lesson.unLocked ? (
-          <Link
-            component={RouterLink}
-            href={`lessons/?unit=${unitId}&lesson=${lesson.id}`}
-            color="inherit"
-          >
-            <Iconify width={24} icon={playIcon} onClick={onSelected} />
-          </Link>
+          <NumberDone index={index} lessonComplete={lessonComplete} />
         ) : (
           <img src="/icons/lock.svg" alt="lesson" />
         )}
-
-        <Typography
-          variant="subtitle1"
+        <Link
+          component={RouterLink}
+          href={`lessons/?unit=${unitId}&lesson=${lesson.id}`}
+          color="inherit"
           sx={{
             pl: 2,
             flexGrow: 1,
           }}
         >
-          {lesson.title}
-        </Typography>
-
+          <Typography
+            variant="subtitle1"
+            sx={{
+              flexGrow: 1,
+            }}
+            // onClick={() => getUserProgress()}
+          >
+            {lesson.title}
+          </Typography>
+        </Link>
         <Typography variant="body2">{lesson.time} minutes</Typography>
-
         <Iconify icon={expanded ? 'carbon:chevron-down' : 'carbon:chevron-right'} sx={{ ml: 2 }} />
       </AccordionSummary>
 
@@ -112,6 +191,7 @@ export default function ElearningCourseDetailsLessonItem({
 ElearningCourseDetailsLessonItem.propTypes = {
   expanded: PropTypes.bool,
   lesson: PropTypes.object,
+  index: PropTypes.any,
   onExpanded: PropTypes.func,
   onSelected: PropTypes.func,
   selected: PropTypes.bool,

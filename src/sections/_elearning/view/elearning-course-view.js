@@ -56,6 +56,7 @@ export default function ElearningCourseView({ courseId }) {
   const { data, isLoading } = useQuery({
     queryKey: ['course', courseId],
     queryFn: () => getCourseData(courseId),
+    refetchOnWindowFocus: false,
   });
 
   if (isLoading) {

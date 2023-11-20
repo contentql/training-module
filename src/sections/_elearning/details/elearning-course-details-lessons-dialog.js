@@ -2,17 +2,17 @@
 
 import PropTypes from 'prop-types';
 import { useQuery } from 'react-query';
-import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
+import { useState, useEffect, useCallback } from 'react';
 
 import { Link } from '@mui/material';
 import Stack from '@mui/material/Stack';
 // import Dialog from '@mui/material/Dialog';
 import Divider from '@mui/material/Divider';
-import Grid from '@mui/material/Unstable_Grid2';
 import Container from '@mui/material/Container';
-import IconButton from '@mui/material/IconButton';
+import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
+import IconButton from '@mui/material/IconButton';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemButton from '@mui/material/ListItemButton';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
@@ -26,7 +26,9 @@ import Player from 'src/components/player';
 import Iconify from 'src/components/iconify';
 import Markdown from 'src/components/markdown';
 import { getUnitData } from 'src/queries/unit';
+import NumberDone from 'src/components/NumberDone';
 import { RouterLink } from 'src/routes/components';
+import { useUserStore } from 'src/states/auth-store';
 // import { _questions, _coursePosts } from 'src/_mock';
 import { useResponsive } from 'src/hooks/use-responsive';
 
@@ -56,29 +58,40 @@ export default function ElearningCourseDetailsLessonsDialog({
 
   const [expandedUnits, setExpandedUnits] = useState(Array(units?.length).fill(false));
 
+  const [metaData, setMetaData] = useState([]);
+  const [metaDataId, setMetaDataId] = useState(null);
+
   const searchParams = useSearchParams();
 
   const { data } = useQuery({
     queryKey: ['unit', searchParams.get('unit')],
     queryFn: () => getUnitData(Number(searchParams.get('unit'))),
+    refetchOnWindowFocus: false,
   });
+
+  // console.log(getUserToken());
+  console.log('metaData', metaData);
 
   useEffect(() => {
     if (!units) return;
+    getUserProgress();
     const idx = units?.findIndex((unit) => unit.id === searchParams.get('unit'));
     setExpandedUnits((prev) => prev.map((_, index) => index === idx));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [units, searchParams]);
 
-  console.log('unit data: ', data);
+  // const handleClickOpen = useCallback(() => {
+  //   getUserProgress();
+  // }, []);
 
   const lessonData =
     data && data?.attributes.lesson.find((l) => l.id.toString() === searchParams.get('lesson'));
 
-  console.log('lesson: ', lessonData);
-
   // if (!selectedLesson) return null;
 
   const { title, subtitle, content, time } = lessonData ?? {};
+
+  const { UserData } = useUserStore();
 
   const toggleDrawer = (value) => {
     setDrawerOpen(value);
@@ -121,6 +134,91 @@ export default function ElearningCourseDetailsLessonsDialog({
       )}
     </Stack>
   );
+  const userToken = localStorage.getItem('token');
+
+  const getUserProgress = async (lesson) => {
+    try {
+      const res = await fetch(process.env.NEXT_PUBLIC_METADATA_URL, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${userToken}`,
+        },
+      });
+
+      const returnData = await res.json();
+      returnData?.map((l) => setMetaDataId(l));
+      returnData?.map((list) =>
+        setMetaData(list.data.map((l) => ({ LessonTitle: l.LessonTitle })))
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const addingLessonToUser = async (lesson) => {
+    console.log('add lesson to user');
+    console.log('lessonTitle', lesson.title);
+    const requestBody = {
+      data: {
+        data: [...metaData, { LessonTitle: lesson.title }],
+      },
+    };
+    try {
+      const res = await fetch(`process.env.NEXT_PUBLIC_METADATA_URL/${metaDataId.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${userToken}`,
+        },
+        // body: requestBody,
+        body: JSON.stringify(requestBody),
+      });
+      setMetaData([...metaData, { LessonTitle: lesson.title }]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const addingUserProgress = async (lesson) => {
+    console.log('add user to data');
+
+    const requestBody = {
+      data: {
+        users: {
+          connect: [UserData.id],
+        },
+        data: [
+          {
+            LessonTitle: lesson?.title,
+          },
+        ],
+      },
+    };
+    try {
+      const response = await fetch(process.env.NEXT_PUBLIC_METADATA_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${userToken}`,
+        },
+        body: JSON.stringify(requestBody),
+      });
+      setMetaData([...metaData, { LessonTitle: lesson.title }]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleClick = async (lesson) => {
+    const isMetaDataExisting = metaData.filter((details) => details.LessonTitle === lesson.title);
+    if (metaData.length === 0) {
+      addingUserProgress(lesson);
+    } else if (isMetaDataExisting.length === 0) {
+      // setMetaData([...metaData, { LessonTitle: lesson.title }]);
+      addingLessonToUser(lesson);
+    }
+  };
 
   const renderLesson = (
     <Container className="overflow-y-scroll py-14">
@@ -129,7 +227,7 @@ export default function ElearningCourseDetailsLessonsDialog({
         justifyContent="center"
         sx={{ borderRadius: 2, overflow: 'hidden' }}
       >
-        {renderVideo}
+        {/* {renderVideo} */}
       </Stack>
 
       <Grid container spacing={3} justifyContent={{ md: 'center' }}>
@@ -167,7 +265,7 @@ export default function ElearningCourseDetailsLessonsDialog({
 
   const unitList = units?.map((unit, index) => (
     <Accordion
-      key={index}
+      key={unit.id}
       expanded={expandedUnits[index]}
       onChange={() => {
         const newExpandedUnits = [...expandedUnits];
@@ -187,7 +285,7 @@ export default function ElearningCourseDetailsLessonsDialog({
           minHeight: { xs: 40, md: 64 },
           mr: 2,
           ...(unit.attributes.lesson.includes(selectedLesson) && {
-            color: 'primary.main',
+            color: '#0D5992',
           }),
           [`&.${accordionSummaryClasses.content}`]: {
             p: 0,
@@ -224,12 +322,14 @@ export default function ElearningCourseDetailsLessonsDialog({
         }}
         className="ml-3"
       >
-        {unit.attributes.lesson.map((lesson) => {
+        {unit.attributes.lesson.map((lesson, value) => {
           const selected = selectedLesson?.id === lesson.id;
 
           const playIcon = selected ? 'carbon:pause-outline' : 'carbon:play';
 
           lesson.unLocked = true;
+          // const filterData = metaData?.filter((l) => l.LessonTitle !== lesson?.title);
+          const hasMatch = Boolean(metaData.find((a) => a.LessonTitle === lesson.title));
 
           return (
             <Link
@@ -245,7 +345,7 @@ export default function ElearningCourseDetailsLessonsDialog({
                 onClick={() => onSelectedLesson(lesson)}
                 sx={{ borderRadius: 1, maxHeight: '6rem' }}
               >
-                <IconButton>
+                {/* <IconButton>
                   <Iconify
                     width="20px"
                     height="20px"
@@ -260,9 +360,18 @@ export default function ElearningCourseDetailsLessonsDialog({
                       }),
                     }}
                   />
-                </IconButton>
+                </IconButton> */}
+                <Typography sx={{ mr: 2, ...(selected && { color: 'primary.main' }) }}>
+                  <NumberDone
+                    index={value}
+                    sx={{ ml: 2 }}
+                    lessonComplete={hasMatch}
+                    // lessonComplete={metaData?.filter((l) => l.LessonTitle === lesson?.title)}
+                  />
+                </Typography>
 
                 <ListItemText
+                  onClick={() => handleClick(lesson)}
                   primary={lesson.title}
                   secondary={lesson.description}
                   primaryTypographyProps={{
@@ -370,7 +479,7 @@ export default function ElearningCourseDetailsLessonsDialog({
             position: 'absolute',
           }}
         >
-          <Iconify icon="carbon:close" width="25px" height="25px" />
+          <Iconify icon="carbon:close" width="25px" height="25px" sx={{ color: 'red' }} />
         </IconButton>
       </Link>
 
