@@ -138,7 +138,7 @@ export default function ElearningCourseDetailsLessonsDialog({
 
   const getUserProgress = async (lesson) => {
     try {
-      const res = await fetch('http://localhost:1337/api/metadatas', {
+      const res = await fetch(process.env.NEXT_PUBLIC_METADATA_URL, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -165,7 +165,7 @@ export default function ElearningCourseDetailsLessonsDialog({
       },
     };
     try {
-      const res = await fetch(`http://localhost:1337/api/metadatas/${metaDataId.id}`, {
+      const res = await fetch(`process.env.NEXT_PUBLIC_METADATA_URL/${metaDataId.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -196,7 +196,7 @@ export default function ElearningCourseDetailsLessonsDialog({
       },
     };
     try {
-      const response = await fetch('http://localhost:1337/api/metadatas', {
+      const response = await fetch(process.env.NEXT_PUBLIC_METADATA_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
