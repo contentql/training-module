@@ -2,17 +2,17 @@
 
 import PropTypes from 'prop-types';
 import { useQuery } from 'react-query';
+import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { useState, useEffect, useCallback } from 'react';
 
 import { Link } from '@mui/material';
 import Stack from '@mui/material/Stack';
 // import Dialog from '@mui/material/Dialog';
 import Divider from '@mui/material/Divider';
-import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
-import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
 import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemButton from '@mui/material/ListItemButton';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
@@ -24,10 +24,10 @@ import Quiz from 'src/sections/quiz';
 // import { paths } from 'src/routes/paths';
 import Player from 'src/components/player';
 import Iconify from 'src/components/iconify';
-import Markdown from 'src/components/markdown';
 import { getUnitData } from 'src/queries/unit';
-import NumberDone from 'src/components/NumberDone';
+import Markdown from 'src/components/markdown';
 import { RouterLink } from 'src/routes/components';
+import NumberDone from 'src/components/NumberDone';
 import { useUserStore } from 'src/states/auth-store';
 // import { _questions, _coursePosts } from 'src/_mock';
 import { useResponsive } from 'src/hooks/use-responsive';
@@ -165,7 +165,7 @@ export default function ElearningCourseDetailsLessonsDialog({
       },
     };
     try {
-      const res = await fetch(`process.env.NEXT_PUBLIC_METADATA_URL/${metaDataId.id}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_METADATA_URL}/${metaDataId.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
