@@ -48,6 +48,13 @@ export default function RegisterBackgroundView() {
     confirmPassword: Yup.string()
       .required('Confirm password is required')
       .oneOf([Yup.ref('password')], "Password's not match"),
+    agency: Yup.string().required('Agency name is required'),
+
+    city: Yup.string().required('Email is required'),
+
+    country: Yup.string().required('Email is required'),
+
+    phone: Yup.string().required('Email is required'),
   });
 
   const defaultValues = {
@@ -55,6 +62,10 @@ export default function RegisterBackgroundView() {
     email: '',
     password: '',
     confirmPassword: '',
+    agency: '',
+    city: '',
+    country: '',
+    phone: '',
   };
 
   const methods = useForm({
@@ -70,7 +81,7 @@ export default function RegisterBackgroundView() {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      const { userName, email, password } = data;
+      const { userName, email, password, agency, city, country, phone } = data;
       const response = await fetch(process.env.NEXT_PUBLIC_REGISTER_URL, {
         method: 'POST',
         headers: {
@@ -80,6 +91,10 @@ export default function RegisterBackgroundView() {
           email,
           username: userName,
           password,
+          agency,
+          city,
+          country,
+          phone,
         }),
       });
       const resData = await response.json();
@@ -92,6 +107,10 @@ export default function RegisterBackgroundView() {
           userName: resData.user.username,
           isLoggedIn: resData.user.confirmed,
           image: resData.user.image,
+          agency: resData.user.agency,
+          city: resData.user.city,
+          counrty: resData.user.country,
+          phone: resData.user.phone,
         };
         updateUserData(userData);
         setSuccess(true);
@@ -179,6 +198,11 @@ export default function RegisterBackgroundView() {
           }}
         />
 
+        <RHFTextField name="agency" label="Agency name" />
+        <RHFTextField name="city" label="City" />
+        <RHFTextField name="country" label="Country" />
+        <RHFTextField name="phone" label="Phone number" />
+
         <LoadingButton
           fullWidth
           color="inherit"
@@ -226,12 +250,12 @@ export default function RegisterBackgroundView() {
           {' '}
           {renderHead}
           {renderForm}
-          <Divider>
+          {/* <Divider>
             <Typography variant="body2" sx={{ color: 'text.disabled' }}>
               or continue with
             </Typography>
-          </Divider>
-          {renderSocials}
+          </Divider> */}
+          {/* {renderSocials} */}
         </>
       )}
     </>
