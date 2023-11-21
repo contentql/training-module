@@ -54,7 +54,12 @@ export default function ElearningCourseList({ courses, loading, filters }) {
 
   return (
     <>
-      <Stack spacing={4}>
+      <Stack
+        spacing={4}
+        sx={{
+          mb: 10,
+        }}
+      >
         {courses
           .filter(filterCourseByText)
 
@@ -70,7 +75,7 @@ export default function ElearningCourseList({ courses, loading, filters }) {
           )}
       </Stack>
 
-      <Pagination
+      {/* <Pagination
         count={10}
         color="primary"
         sx={{
@@ -79,7 +84,7 @@ export default function ElearningCourseList({ courses, loading, filters }) {
             justifyContent: 'center',
           },
         }}
-      />
+      /> */}
     </>
   );
 }
