@@ -152,25 +152,37 @@ export default function ElearningCourseDetailsLessonItem({
         ) : (
           <img src="/icons/lock.svg" alt="lesson" />
         )}
-        <Link
-          component={RouterLink}
-          href={`lessons/?unit=${unitId}&lesson=${lesson.id}`}
-          color="inherit"
-          sx={{
-            pl: 2,
-            flexGrow: 1,
-          }}
-        >
+        {hasBoughtCourse ? (
+          <Link
+            component={RouterLink}
+            href={`lessons/?unit=${unitId}&lesson=${lesson.id}`}
+            color="inherit"
+            sx={{
+              pl: 2,
+              flexGrow: 1,
+            }}
+          >
+            <Typography
+              variant="subtitle1"
+              sx={{
+                flexGrow: 1,
+              }}
+              // onClick={() => getUserProgress()}
+            >
+              {lesson.title}
+            </Typography>
+          </Link>
+        ) : (
           <Typography
             variant="subtitle1"
             sx={{
+              pl: 2,
               flexGrow: 1,
             }}
-            // onClick={() => getUserProgress()}
           >
             {lesson.title}
           </Typography>
-        </Link>
+        )}
         <Typography variant="body2">{lesson.time} minutes</Typography>
         <Iconify icon={expanded ? 'carbon:chevron-down' : 'carbon:chevron-right'} sx={{ ml: 2 }} />
       </AccordionSummary>

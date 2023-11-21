@@ -88,21 +88,20 @@ export default function AccountPersonalView() {
               textAlign: 'center',
               position: 'relative',
               ml: { md: -2 },
-              mt: { xs: 12, md: 4 },
+              mt: { xs: 12, md: 10 },
             }}
           >
             <Image
               alt="Empty State My Learning"
-              src="/assets/images/mylearning/empty-state-mylearning.png"
+              src="/assets/images/empty-states/no-learning.png"
               sx={{
-                height: 1,
-                width: { xs: 200, md: 360 },
+                height: { xs: 122, md: 182 },
+                width: { xs: 160, md: 220 },
                 objectFit: 'cover',
-                opacity: 0.6,
               }}
             />
 
-            <Link component={RouterLink} href={paths.eLearning.courses} sx={{ pt: 2 }}>
+            <Link component={RouterLink} href={paths.eLearning.courses} sx={{ pt: 12, pl: 4 }}>
               <Button
                 sx={{ bgcolor: '#FF774B' }}
                 size="large"

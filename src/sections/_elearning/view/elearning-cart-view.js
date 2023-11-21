@@ -2,12 +2,15 @@
 
 import { useEffect } from 'react';
 
+import { Link } from '@mui/material';
 import Grid from '@mui/material/Grid';
+import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
 import { paths } from 'src/routes/paths';
+import Image from 'src/components/image';
 import Iconify from 'src/components/iconify';
 import { useCartStore } from 'src/states/cart';
 import { useBoolean } from 'src/hooks/use-boolean';
@@ -51,7 +54,42 @@ export default function ElearningCartView() {
 
         <Grid container spacing={4}>
           <Grid item xs={13} md={8} sx={{ p: 4 }}>
-            <ElearningCartList courses={_courses} />
+            {_courses.length ? (
+              <ElearningCartList courses={_courses} />
+            ) : (
+              <Stack
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  textAlign: 'center',
+                  position: 'relative',
+                  ml: { md: -2 },
+                  mt: { xs: 12, md: 4 },
+                }}
+              >
+                <Image
+                  alt="Empty State My Learning"
+                  src="/assets/images/empty-states/empty-cart.png"
+                  sx={{
+                    height: { xs: 122, md: 300 },
+                    width: { xs: 160, md: 300 },
+                    objectFit: 'cover',
+                  }}
+                />
+
+                <Link component={RouterLink} href={paths.eLearning.courses} sx={{ pt: 6 }}>
+                  <Button
+                    sx={{ bgcolor: '#FF774B' }}
+                    size="large"
+                    variant="contained"
+                    startIcon={<Iconify icon="carbon:chevron-left" />}
+                  >
+                    Add Now
+                  </Button>
+                </Link>
+              </Stack>
+            )}
           </Grid>
 
           <Grid item xs={12} md={4} sx={{ py: 4, pl: 4 }}>
@@ -67,15 +105,17 @@ export default function ElearningCartView() {
           </Grid>
         </Grid>
 
-        <Button
-          component={RouterLink}
-          href={paths.eLearning.courses}
-          color="inherit"
-          startIcon={<Iconify icon="carbon:chevron-left" />}
-          sx={{ mt: 3 }}
-        >
-          Continue Shopping
-        </Button>
+        {!!_courses.length && (
+          <Button
+            component={RouterLink}
+            href={paths.eLearning.courses}
+            color="inherit"
+            startIcon={<Iconify icon="carbon:chevron-left" />}
+            sx={{ mt: 3 }}
+          >
+            Continue Shopping
+          </Button>
+        )}
       </Container>
 
       <ElearningNewsletter />

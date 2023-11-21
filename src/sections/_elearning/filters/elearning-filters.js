@@ -29,7 +29,7 @@ import FilterMultiSelect from './filter-multiselect';
 //   filterLanguage: [],
 // };
 
-export default function ElearningFilters({ open, onClose, filters, setFilters }) {
+export default function ElearningFilters({ open, onClose, filters, setFilters, categories }) {
   const mdUp = useResponsive('up', 'md');
 
   // const [filters, setFilters] = useState(defaultValues);
@@ -161,6 +161,7 @@ export default function ElearningFilters({ open, onClose, filters, setFilters })
           filterSelect={filters.category}
           onChangeSelect={handleFilterChange}
           type="category"
+          categories={categories}
         />
       </Block>
 
@@ -210,6 +211,7 @@ ElearningFilters.propTypes = {
   open: PropTypes.bool,
   filters: PropTypes.object,
   setFilters: PropTypes.func,
+  categories: PropTypes.array,
 };
 
 // ----------------------------------------------------------------------

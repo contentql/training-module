@@ -14,8 +14,8 @@ const DURATIONS = ['0 - 1 Hour', '1 - 3 Hours', '3 - 6 Hours', '6 - 18 Hours', '
 
 // ----------------------------------------------------------------------
 
-export default function FilterDuration({ filterSelect, onChangeSelect, name, type }) {
-  const ITEM = type === 'duration' ? DURATIONS : _tags;
+export default function FilterDuration({ filterSelect, onChangeSelect, name, type, categories }) {
+  const ITEM = type === 'duration' ? DURATIONS : categories;
 
   return (
     <FormControl fullWidth hiddenLabel>
@@ -65,4 +65,5 @@ FilterDuration.propTypes = {
   onChangeSelect: PropTypes.func,
   name: PropTypes.string,
   type: PropTypes.string,
+  categories: PropTypes.array,
 };

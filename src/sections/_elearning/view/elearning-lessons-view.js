@@ -3,8 +3,9 @@
 import PropTypes from 'prop-types';
 import { useQuery } from 'react-query';
 import { useState, useEffect } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
+import { paths } from 'src/routes/paths';
 import { getCourseData } from 'src/queries/course';
 import { useUserStore } from 'src/states/auth-store';
 import { SplashScreen } from 'src/components/loading-screen';
@@ -18,6 +19,8 @@ export default function ElearningLessonsView({ params }) {
 
   const searchParams = useSearchParams();
 
+  const router = useRouter();
+
   const { data, isLoading } = useQuery({
     queryKey: ['course', params.id],
     queryFn: () => getCourseData(params.id),
@@ -29,7 +32,7 @@ export default function ElearningLessonsView({ params }) {
       setSelectedLesson(
         data.attributes.units.data
           .find((unit) => unit.id.toString() === searchParams.get('unit'))
-          .attributes.lesson.find((lesson) => lesson.id.toString() === searchParams.get('lesson'))
+          ?.attributes.lesson.find((lesson) => lesson.id.toString() === searchParams.get('lesson'))
       );
   }, [data, searchParams]);
 
@@ -46,6 +49,8 @@ export default function ElearningLessonsView({ params }) {
   };
 
   if (isLoading) return <SplashScreen />;
+
+  if (!hasBoughtCourse) return router.push(paths.loginBackground);
 
   return (
     <ElearningCourseDetailsLessonsDialog
