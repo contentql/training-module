@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 
+import ProtectedRoute from 'src/routes/components/protected-route';
 import ElearningLessonsView from 'src/sections/_elearning/view/elearning-lessons-view';
 
 // ----------------------------------------------------------------------
@@ -9,7 +10,11 @@ export const metadata = {
 };
 
 export default function ElearningCourseDetailsLessonsPage({ params }) {
-  return <ElearningLessonsView params={params} />;
+  return (
+    <ProtectedRoute>
+      <ElearningLessonsView params={params} />
+    </ProtectedRoute>
+  );
 }
 
 ElearningCourseDetailsLessonsPage.propTypes = {
