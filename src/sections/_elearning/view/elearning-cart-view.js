@@ -85,7 +85,7 @@ export default function ElearningCartView() {
                     variant="contained"
                     startIcon={<Iconify icon="carbon:chevron-left" />}
                   >
-                    Add Courses Now
+                    Add Now
                   </Button>
                 </Link>
               </Stack>
