@@ -123,34 +123,6 @@ export default function AccountPersonalView() {
         <RHFTextField name="country" label="country" value={userData.country} />
 
         <RHFTextField name="agency" label="agency" value={userData.agency} />
-
-        {/* <RHFAutocomplete
-          name="country"
-          label="Country"
-          options={countries.map((country) => country.label)}
-          getOptionLabel={(option) => option}
-          renderOption={(props, option) => {
-            const { code, label, phone } = countries.filter(
-              (country) => country.label === option
-            )[0];
-
-            if (!label) {
-              return null;
-            }
-
-            return (
-              <li {...props} key={label}>
-                <Iconify
-                  key={label}
-                  icon={`circle-flags:${code.toLowerCase()}`}
-                  width={28}
-                  sx={{ mr: 1 }}
-                />
-                {label} ({code}) +{phone}
-              </li>
-            );
-          }}
-        /> */}
       </Box>
 
       {/* <Stack spacing={3} sx={{ my: 5 }}>
