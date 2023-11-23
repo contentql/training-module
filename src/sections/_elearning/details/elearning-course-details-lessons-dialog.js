@@ -1,5 +1,6 @@
 'use client';
 
+import axios from 'axios';
 import PropTypes from 'prop-types';
 import { useQuery } from 'react-query';
 import { useState, useEffect } from 'react';
@@ -24,14 +25,15 @@ import Quiz from 'src/sections/quiz';
 // import { paths } from 'src/routes/paths';
 import Player from 'src/components/player';
 import Iconify from 'src/components/iconify';
-import { getUnitData } from 'src/queries/unit';
 import Markdown from 'src/components/markdown';
+import { getUnitData } from 'src/queries/unit';
 import { RouterLink } from 'src/routes/components';
 import NumberDone from 'src/components/NumberDone';
 import { useUserStore } from 'src/states/auth-store';
+import { useDebounce } from 'src/hooks/use-debounce';
 // import { _questions, _coursePosts } from 'src/_mock';
 import { useResponsive } from 'src/hooks/use-responsive';
-
+import { useUserProgress } from 'src/states/user-progress';
 // import PostTags from '../../blog/common/post-tags';
 
 // ----------------------------------------------------------------------
@@ -50,12 +52,9 @@ export default function ElearningCourseDetailsLessonsDialog({
   pauseVideo,
   hasBoughtCourse,
 }) {
-  // units?.map((unit) => unit.attributes.lesson.map((lsn) => lsn.title === selectedLesson.title));
-
   const mdUp = useResponsive('up', 'md');
 
   const [drawerOpen, setDrawerOpen] = useState(false);
-
   const [expandedUnits, setExpandedUnits] = useState(Array(units?.length).fill(false));
 
   const [metaData, setMetaData] = useState([]);
@@ -63,33 +62,39 @@ export default function ElearningCourseDetailsLessonsDialog({
 
   const searchParams = useSearchParams();
 
+  const userLessons = useUserProgress((state) => state.lessons);
+  const addToLessons = useUserProgress((state) => state.addToLessons);
+  const updateLessons = useUserProgress((state) => state.updateLessons);
+  const reset = useUserProgress((state) => state.reset);
+  console.log({ userLessons });
+
   const { data } = useQuery({
     queryKey: ['unit', searchParams.get('unit')],
     queryFn: () => getUnitData(Number(searchParams.get('unit'))),
     refetchOnWindowFocus: false,
   });
+  const lessonData =
+    data && data?.attributes.lesson.find((l) => l.id.toString() === searchParams.get('lesson'));
 
-  // console.log(getUserToken());
-  console.log('metaData', metaData);
+  const { title, subtitle, content, time, id } = lessonData ?? {};
+  const debouncedValue = useDebounce(id, 3000);
 
   useEffect(() => {
     if (!units) return;
-    getUserProgress();
+    // reset();
     const idx = units?.findIndex((unit) => unit.id === searchParams.get('unit'));
     setExpandedUnits((prev) => prev.map((_, index) => index === idx));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [units, searchParams]);
 
-  // const handleClickOpen = useCallback(() => {
-  //   getUserProgress();
-  // }, []);
-
-  const lessonData =
-    data && data?.attributes.lesson.find((l) => l.id.toString() === searchParams.get('lesson'));
-
-  // if (!selectedLesson) return null;
-
-  const { title, subtitle, content, time } = lessonData ?? {};
+  useEffect(() => {
+    getUserProgress();
+    addToLessons(debouncedValue);
+    // if (debouncedValue) {b
+    handleClick(debouncedValue);
+    // }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [debouncedValue]);
 
   const { UserData } = useUserStore();
 
@@ -138,49 +143,49 @@ export default function ElearningCourseDetailsLessonsDialog({
 
   const getUserProgress = async (lesson) => {
     try {
-      const res = await fetch(process.env.NEXT_PUBLIC_METADATA_URL, {
-        method: 'GET',
+      const res = await axios.get(process.env.NEXT_PUBLIC_METADATA_URL, {
+        // method: 'GET',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${userToken}`,
         },
       });
-
-      const returnData = await res.json();
-      returnData?.map((l) => setMetaDataId(l));
-      returnData?.map((list) =>
-        setMetaData(list.data.map((l) => ({ LessonTitle: l.LessonTitle })))
+      res?.data.map((list) => setMetaDataId(list));
+      res?.data.map((list) =>
+        updateLessons(list.data.map((l) => ({ LessonTitle: l.LessonTitle })))
       );
     } catch (error) {
       console.log(error);
     }
   };
 
-  const addingLessonToUser = async (lesson) => {
+  console.log({ metaDataId });
+
+  const addingLessonToUser = async () => {
     console.log('add lesson to user');
-    console.log('lessonTitle', lesson.title);
     const requestBody = {
       data: {
-        data: [...metaData, { LessonTitle: lesson.title }],
+        data: [...userLessons, { LessonTitle: searchParams.get('lesson') }],
       },
     };
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_METADATA_URL}/${metaDataId.id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${userToken}`,
-        },
-        // body: requestBody,
-        body: JSON.stringify(requestBody),
-      });
-      setMetaData([...metaData, { LessonTitle: lesson.title }]);
+      const res = await axios.put(
+        `${process.env.NEXT_PUBLIC_METADATA_URL}/${metaDataId.id}`,
+        requestBody,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${userToken}`,
+          },
+        }
+      );
     } catch (error) {
       console.log(error);
     }
   };
 
-  const addingUserProgress = async (lesson) => {
+  const addingUserProgress = async () => {
+    // controller.abort();
     console.log('add user to data');
 
     const requestBody = {
@@ -190,31 +195,34 @@ export default function ElearningCourseDetailsLessonsDialog({
         },
         data: [
           {
-            LessonTitle: lesson?.title,
+            LessonTitle: searchParams.get('lesson'),
           },
         ],
       },
     };
+
     try {
-      const response = await fetch(process.env.NEXT_PUBLIC_METADATA_URL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${userToken}`,
-        },
-        body: JSON.stringify(requestBody),
-      });
-      setMetaData([...metaData, { LessonTitle: lesson.title }]);
+      const response = await axios.post(
+        process.env.NEXT_PUBLIC_METADATA_URL,
+        requestBody,
+
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${userToken}`,
+          },
+        }
+      );
     } catch (error) {
       console.log(error);
     }
   };
 
   const handleClick = async (lesson) => {
-    const isMetaDataExisting = metaData.filter((details) => details.LessonTitle === lesson.title);
-    if (metaData.length === 0) {
+    // const isMetaDataExisting = userLessons.filter((details) => details.LessonTitle === id);
+    if (metaDataId === null) {
       addingUserProgress(lesson);
-    } else if (isMetaDataExisting.length === 0) {
+    } else {
       // setMetaData([...metaData, { LessonTitle: lesson.title }]);
       addingLessonToUser(lesson);
     }
@@ -325,11 +333,9 @@ export default function ElearningCourseDetailsLessonsDialog({
         {unit.attributes.lesson.map((lesson, value) => {
           const selected = selectedLesson?.id === lesson.id;
 
-          const playIcon = selected ? 'carbon:pause-outline' : 'carbon:play';
-
           lesson.unLocked = true;
           // const filterData = metaData?.filter((l) => l.LessonTitle !== lesson?.title);
-          const hasMatch = Boolean(metaData.find((a) => a.LessonTitle === lesson.title));
+          const hasMatch = Boolean(userLessons.find((a) => a.LessonTitle === lesson.id));
 
           return (
             <Link
@@ -345,22 +351,6 @@ export default function ElearningCourseDetailsLessonsDialog({
                 onClick={() => onSelectedLesson(lesson)}
                 sx={{ borderRadius: 1, maxHeight: '6rem' }}
               >
-                {/* <IconButton>
-                  <Iconify
-                    width="20px"
-                    height="20px"
-                    icon={!lesson.unLocked ? 'carbon:locked' : playIcon}
-                    sx={{
-                      mr: 2,
-                      ...(selected && {
-                        color: 'primary.main',
-                      }),
-                      ...(!lesson.unLocked && {
-                        color: 'text.disabled',
-                      }),
-                    }}
-                  />
-                </IconButton> */}
                 <Typography sx={{ mr: 2, ...(selected && { color: 'primary.main' }) }}>
                   <NumberDone
                     index={value}
@@ -371,7 +361,7 @@ export default function ElearningCourseDetailsLessonsDialog({
                 </Typography>
 
                 <ListItemText
-                  onClick={() => handleClick(lesson)}
+                  // onClick={() => handleClick(lesson)}
                   primary={lesson.title}
                   secondary={lesson.description}
                   primaryTypographyProps={{

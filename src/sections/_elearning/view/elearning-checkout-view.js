@@ -128,21 +128,13 @@ export default function ElearningCheckoutView({ courseId }) {
   const onSubmit = handleSubmit(async (data) => {
     try {
       makePayment(data);
-      cart.forEach(({ id }) => addUserToCourse(id));
+      // cart.forEach(({ id }) => addUserToCourse(id));
       // reset();
-      if (!courseId) emptyCart();
+      // if (!courseId) emptyCart();
     } catch (error) {
       console.error(error);
     }
   });
-
-  // useEffect(() => {
-  //   const fakeLoading = async () => {
-  //     await new Promise((resolve) => setTimeout(resolve, 500));
-  //     loading.onFalse();
-  //   };
-  //   fakeLoading();
-  // }, [loading]);
 
   if (loading) return <SplashScreen />;
 
@@ -175,42 +167,42 @@ export default function ElearningCheckoutView({ courseId }) {
     });
   }
 
-  async function addUserToCourse(itemId) {
-    const apiUrl = process.env.NEXT_PUBLIC_COURSES_URL; // Your Strapi base URL
-    const contentType = 'courses'; // Replace with your actual content type
-    const arrayField = 'users'; // Replace with the name of your array field
+  // async function addUserToCourse(itemId) {
+  //   const apiUrl = process.env.NEXT_PUBLIC_COURSES_URL; // Your Strapi base URL
+  //   const contentType = 'courses'; // Replace with your actual content type
+  //   const arrayField = 'users'; // Replace with the name of your array field
 
-    // New string to add to the array
-    const newString = 'akhilnaidu';
+  //   // New string to add to the array
+  //   const newString = 'akhilnaidu';
 
-    // Make a GET request to fetch the existing data
-    axios
-      .get(`${apiUrl}/${contentType}/${itemId}?populate=users`)
-      .then((response) => {
-        const existingData = response.data;
-        // Extract the array field from the existing data
+  //   // Make a GET request to fetch the existing data
+  //   axios
+  //     .get(`${apiUrl}/${contentType}/${itemId}?populate=users`)
+  //     .then((response) => {
+  //       const existingData = response.data;
+  //       // Extract the array field from the existing data
 
-        // Add the new string to the array
-        // Make a PUT request to update the item with the modified array
-        axios
-          .put(`${apiUrl}/${contentType}/${itemId}`, {
-            data: {
-              users: {
-                connect: [UserData.id],
-              },
-            },
-          })
-          .then((res) => {
-            console.log('Array updated successfully:', res.data);
-          })
-          .catch((error) => {
-            console.error('Error updating array:', error);
-          });
-      })
-      .catch((error) => {
-        console.error('Error fetching existing data:', error);
-      });
-  }
+  //       // Add the new string to the array
+  //       // Make a PUT request to update the item with the modified array
+  //       axios
+  //         .put(`${apiUrl}/${contentType}/${itemId}`, {
+  //           data: {
+  //             users: {
+  //               connect: [UserData.id],
+  //             },
+  //           },
+  //         })
+  //         .then((res) => {
+  //           console.log('Array updated successfully:', res.data);
+  //         })
+  //         .catch((error) => {
+  //           console.error('Error updating array:', error);
+  //         });
+  //     })
+  //     .catch((error) => {
+  //       console.error('Error fetching existing data:', error);
+  //     });
+  // }
 
   return (
     <>
