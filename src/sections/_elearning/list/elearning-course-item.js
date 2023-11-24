@@ -287,7 +287,7 @@ export default function ElearningCourseItem({ course, vertical, isMyLearning }) 
 
 ElearningCourseItem.propTypes = {
   course: PropTypes.shape({
-    id: PropTypes.string,
+    id: PropTypes.any,
     attributes: PropTypes.shape({
       title: PropTypes.string,
       price: PropTypes.number,
@@ -299,7 +299,7 @@ ElearningCourseItem.propTypes = {
       rating: PropTypes.number,
       totalReviews: PropTypes.number,
       totalStudents: PropTypes.number,
-      users: PropTypes.object,
+      users: PropTypes.any,
     }),
   }),
   vertical: PropTypes.bool,
