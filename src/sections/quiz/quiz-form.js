@@ -11,7 +11,7 @@ import { useResponsive } from 'src/hooks/use-responsive';
 import ElearningCourseDetailsLessonItem from 'src/sections/_elearning/details/elearning-course-details-quiz-item';
 
 import QuizHookForm from './quiz-hook-form';
-import { shuffleArray } from './utils/shuffle-array';
+// import { shuffleArray } from './utils/shuffle-array';
 
 export default function QuizForm(props) {
   const { _questions, hasBoughtCourse, courseName, score } = props;

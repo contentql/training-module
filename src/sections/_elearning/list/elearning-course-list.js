@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
 import Stack from '@mui/material/Stack';
-import Pagination, { paginationClasses } from '@mui/material/Pagination';
+// import Pagination, { paginationClasses } from '@mui/material/Pagination';
 
 import ElearningCourseItem from './elearning-course-item';
 import ElearningCourseItemSkeleton from './elearning-course-item-skeleton';

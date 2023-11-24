@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import Typography from '@mui/material/Typography';
 
 import Quiz from 'src/sections/quiz';
-import { _questions } from 'src/_mock';
+// import { _questions } from 'src/_mock';
 
 import ElearningCourseDetailsUnitItem from './elearning-course-details-unit-item';
 

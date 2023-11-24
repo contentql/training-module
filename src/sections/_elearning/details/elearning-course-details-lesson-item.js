@@ -32,7 +32,7 @@ export default function ElearningCourseDetailsLessonItem({
 
   // const { UserData } = useUserStore();
 
-  const [lessonComplete, setLessonComplete] = useState(false);
+  const [lessonComplete] = useState(false);
   // const [progress, setProgress] = useState([]);
 
   const handleChange = (e) => {

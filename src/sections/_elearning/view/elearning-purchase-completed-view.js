@@ -2,7 +2,7 @@
 
 import axios from 'axios';
 import { m } from 'framer-motion';
-import { useEffect } from 'react';
+// import { useEffect } from 'react';
 import { useQuery } from 'react-query';
 import { useSearchParams } from 'next/navigation';
 
@@ -15,10 +15,10 @@ import Typography from '@mui/material/Typography';
 import { paths } from 'src/routes/paths';
 import Iconify from 'src/components/iconify';
 import { useCartStore } from 'src/states/cart';
-import { useBoolean } from 'src/hooks/use-boolean';
+// import { useBoolean } from 'src/hooks/use-boolean';
 import { RouterLink } from 'src/routes/components';
 import { useUserStore } from 'src/states/auth-store';
-import { SplashScreen } from 'src/components/loading-screen';
+// import { SplashScreen } from 'src/components/loading-screen';
 import { varBounce, MotionContainer } from 'src/components/animate';
 
 // ----------------------------------------------------------------------
@@ -27,7 +27,7 @@ export default function ElearningPurchaseCompletedView() {
   const { UserData } = useUserStore();
 
   const search = useSearchParams();
-  const success = search.get('success');
+  // const success = search.get('success');
   const username = search.get('username');
 
   const emptyCart = useCartStore((state) => state.emptyCart);
@@ -56,7 +56,8 @@ export default function ElearningPurchaseCompletedView() {
       });
   };
 
-  const { data } = useQuery({
+  // const { data } =
+  useQuery({
     queryKey: ['payment'],
     queryFn: () => username === UserData.username && cart.forEach(({ id }) => addUserToCourse(id)),
   });

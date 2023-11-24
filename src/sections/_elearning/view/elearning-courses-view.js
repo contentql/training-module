@@ -2,7 +2,10 @@
 
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { useQuery } from 'react-query';
-import { useState, useEffect } from 'react';
+import {
+  useState,
+  // useEffect
+} from 'react';
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
@@ -10,7 +13,7 @@ import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
-import { _courses } from 'src/_mock';
+// import { _courses } from 'src/_mock';
 import Iconify from 'src/components/iconify';
 import { useBoolean } from 'src/hooks/use-boolean';
 import { getCoursesData } from 'src/queries/courses';
@@ -25,7 +28,7 @@ import ElearningCourseList from '../list/elearning-course-list';
 export default function ElearningCoursesView() {
   const mobileOpen = useBoolean();
 
-  const loading = useBoolean(true);
+  // const loading = useBoolean(true);
 
   const [filters, setFilters] = useState({
     text: '',

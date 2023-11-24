@@ -7,9 +7,9 @@ import Typography from '@mui/material/Typography';
 
 import { paths } from 'src/routes/paths';
 import Image from 'src/components/image';
-import CountUp from 'src/components/count-up';
+// import CountUp from 'src/components/count-up';
 import { RouterLink } from 'src/routes/components';
-import { fShortenNumber } from 'src/utils/format-number';
+// import { fShortenNumber } from 'src/utils/format-number';
 
 // ----------------------------------------------------------------------
 

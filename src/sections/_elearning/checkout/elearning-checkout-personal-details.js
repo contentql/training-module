@@ -1,19 +1,19 @@
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import InputAdornment from '@mui/material/InputAdornment';
+// import Button from '@mui/material/Button';
+// import IconButton from '@mui/material/IconButton';
+// import Typography from '@mui/material/Typography';
+// import InputAdornment from '@mui/material/InputAdornment';
 
-import Iconify from 'src/components/iconify';
-import { useBoolean } from 'src/hooks/use-boolean';
+// import Iconify from 'src/components/iconify';
+// import { useBoolean } from 'src/hooks/use-boolean';
 import { useUserStore } from 'src/states/auth-store';
 import { RHFTextField } from 'src/components/hook-form';
 
 // ----------------------------------------------------------------------
 
 export default function ElearningCheckoutPersonalDetails() {
-  const passwordShow = useBoolean();
+  // const passwordShow = useBoolean();
 
   const { UserData } = useUserStore();
 

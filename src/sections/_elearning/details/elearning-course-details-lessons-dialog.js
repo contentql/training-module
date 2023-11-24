@@ -23,7 +23,7 @@ import AccordionSummary, { accordionSummaryClasses } from '@mui/material/Accordi
 
 import Quiz from 'src/sections/quiz';
 // import { paths } from 'src/routes/paths';
-import Player from 'src/components/player';
+// import Player from 'src/components/player';
 import Iconify from 'src/components/iconify';
 import Markdown from 'src/components/markdown';
 import { getUnitData } from 'src/queries/unit';

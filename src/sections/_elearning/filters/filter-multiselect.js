@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import FormControl from '@mui/material/FormControl';
 import Checkbox, { checkboxClasses } from '@mui/material/Checkbox';
 
-import { _tags } from 'src/_mock';
+// import { _tags } from 'src/_mock';
 
 // ----------------------------------------------------------------------
 
