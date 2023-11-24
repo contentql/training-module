@@ -112,7 +112,7 @@ export default function EcommerceAccountVouchersView() {
     fetchScore();
   }, [userData.username]);
 
-  console.log(quizScore);
+  // console.log(quizScore);
 
   const handleChangeTab = useCallback((event, newValue) => {
     setTab(newValue);

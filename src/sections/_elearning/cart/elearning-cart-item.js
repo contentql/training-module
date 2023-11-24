@@ -16,7 +16,7 @@ import { fCurrency } from 'src/utils/format-number';
 export default function ElearningCartItem({ course }) {
   const removeCourseFromCart = useCartStore((state) => state.removeFromCart);
 
-  console.log('courseTitle', course);
+  // console.log('courseTitle', course);
 
   return (
     <Stack

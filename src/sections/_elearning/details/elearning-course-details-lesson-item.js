@@ -65,7 +65,7 @@ export default function ElearningCourseDetailsLessonItem({
       });
       const data = await res.json();
       setProgress(data);
-      console.log({ data });
+      // console.log({ data });
     } catch (error) {
       console.log(error);
     }

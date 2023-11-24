@@ -65,10 +65,10 @@ export default function ElearningCourseItem({ course, vertical, isMyLearning }) 
 
   const wishlistIcon = isCourseInWishlist ? 'solar:heart-linear' : 'solar:heart-bold';
 
-  console.log(id);
-  console.log('Cart', cart, isCourseInCart);
-  console.log(wishlist, isCourseInWishlist);
-  console.log();
+  // console.log(id);
+  // console.log('Cart', cart, isCourseInCart);
+  // console.log(wishlist, isCourseInWishlist);
+  // console.log();
 
   return (
     <Card

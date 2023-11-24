@@ -31,7 +31,7 @@ import ElearningCourseItem from 'src/sections/_elearning/list/elearning-course-i
 export default function AccountPersonalView() {
   const userData = useUserStore((state) => state.UserData);
 
-  console.log(userData);
+  // console.log(userData);
 
   const { isLoading, data } = useQuery(['repoData', userData.id], () =>
     fetch(process.env.NEXT_PUBLIC_MY_LEARNING_URL, {

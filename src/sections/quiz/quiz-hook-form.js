@@ -113,7 +113,7 @@ export default function QuizHookForm(props) {
     }
   }
 
-  console.log('correctAnswers', correctAnswers);
+  // console.log('correctAnswers', correctAnswers);
   const submitQuiz = () => {
     setFinishedQuiz(true);
     if (score) {

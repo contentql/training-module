@@ -41,7 +41,7 @@ import { useUserProgress } from 'src/states/user-progress';
 export default function ElearningCourseDetailsLessonsDialog({
   selectedLesson,
   onSelectedLesson,
-  open,
+  // open,
   onClose,
   playing,
   onReady,
@@ -49,7 +49,7 @@ export default function ElearningCourseDetailsLessonsDialog({
   onPlay,
   onPause,
   units,
-  pauseVideo,
+  // pauseVideo,
   hasBoughtCourse,
 }) {
   const mdUp = useResponsive('up', 'md');
@@ -57,7 +57,7 @@ export default function ElearningCourseDetailsLessonsDialog({
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [expandedUnits, setExpandedUnits] = useState(Array(units?.length).fill(false));
 
-  const [metaData, setMetaData] = useState([]);
+  // const [metaData, setMetaData] = useState([]);
   const [metaDataId, setMetaDataId] = useState(null);
 
   const searchParams = useSearchParams();
@@ -65,8 +65,8 @@ export default function ElearningCourseDetailsLessonsDialog({
   const userLessons = useUserProgress((state) => state.lessons);
   const addToLessons = useUserProgress((state) => state.addToLessons);
   const updateLessons = useUserProgress((state) => state.updateLessons);
-  const reset = useUserProgress((state) => state.reset);
-  console.log({ userLessons });
+  // const reset = useUserProgress((state) => state.reset);
+  // console.log({ userLessons });
 
   const { data } = useQuery({
     queryKey: ['unit', searchParams.get('unit')],
@@ -102,43 +102,43 @@ export default function ElearningCourseDetailsLessonsDialog({
     setDrawerOpen(value);
   };
 
-  const renderVideo = (
-    <Stack
-      alignItems="center"
-      justifyContent="center"
-      sx={{
-        width: 1,
-        height: 1,
-        aspectRatio: 16 / 9,
-      }}
-    >
-      {selectedLesson?.videoPath ? (
-        <Player
-          controls
-          url={selectedLesson?.videoPath}
-          playing={playing}
-          onReady={onReady}
-          onEnded={onEnded}
-          onPlay={onPlay}
-          onPause={onPause}
-        />
-      ) : (
-        <Stack
-          alignItems="center"
-          justifyContent="center"
-          sx={{
-            width: 1,
-            height: 1,
-            typography: 'h6',
-            color: 'text.disabled',
-            bgcolor: 'background.neutral',
-          }}
-        >
-          No Data
-        </Stack>
-      )}
-    </Stack>
-  );
+  // const renderVideo = (
+  //   <Stack
+  //     alignItems="center"
+  //     justifyContent="center"
+  //     sx={{
+  //       width: 1,
+  //       height: 1,
+  //       aspectRatio: 16 / 9,
+  //     }}
+  //   >
+  //     {selectedLesson?.videoPath ? (
+  //       <Player
+  //         controls
+  //         url={selectedLesson?.videoPath}
+  //         playing={playing}
+  //         onReady={onReady}
+  //         onEnded={onEnded}
+  //         onPlay={onPlay}
+  //         onPause={onPause}
+  //       />
+  //     ) : (
+  //       <Stack
+  //         alignItems="center"
+  //         justifyContent="center"
+  //         sx={{
+  //           width: 1,
+  //           height: 1,
+  //           typography: 'h6',
+  //           color: 'text.disabled',
+  //           bgcolor: 'background.neutral',
+  //         }}
+  //       >
+  //         No Data
+  //       </Stack>
+  //     )}
+  //   </Stack>
+  // );
   const userToken = localStorage.getItem('token');
 
   const getUserProgress = async (lesson) => {
@@ -159,17 +159,17 @@ export default function ElearningCourseDetailsLessonsDialog({
     }
   };
 
-  console.log({ metaDataId });
+  // console.log({ metaDataId });
 
   const addingLessonToUser = async () => {
-    console.log('add lesson to user');
+    // console.log('add lesson to user');
     const requestBody = {
       data: {
         data: [...userLessons, { LessonTitle: searchParams.get('lesson') }],
       },
     };
     try {
-      const res = await axios.put(
+      await axios.put(
         `${process.env.NEXT_PUBLIC_METADATA_URL}/${metaDataId.id}`,
         requestBody,
         {
@@ -186,7 +186,7 @@ export default function ElearningCourseDetailsLessonsDialog({
 
   const addingUserProgress = async () => {
     // controller.abort();
-    console.log('add user to data');
+    // console.log('add user to data');
 
     const requestBody = {
       data: {
@@ -202,7 +202,7 @@ export default function ElearningCourseDetailsLessonsDialog({
     };
 
     try {
-      const response = await axios.post(
+      await axios.post(
         process.env.NEXT_PUBLIC_METADATA_URL,
         requestBody,
 
@@ -486,10 +486,10 @@ ElearningCourseDetailsLessonsDialog.propTypes = {
   onPlay: PropTypes.func,
   onReady: PropTypes.func,
   onSelectedLesson: PropTypes.func,
-  open: PropTypes.bool,
+  // open: PropTypes.bool,
   playing: PropTypes.bool,
   selectedLesson: PropTypes.object,
   units: PropTypes.array,
-  pauseVideo: PropTypes.func,
+  // pauseVideo: PropTypes.func,
   hasBoughtCourse: PropTypes.bool,
 };

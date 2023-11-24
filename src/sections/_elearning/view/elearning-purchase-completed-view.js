@@ -61,7 +61,7 @@ export default function ElearningPurchaseCompletedView() {
     queryFn: () => username === UserData.username && cart.forEach(({ id }) => addUserToCourse(id)),
   });
 
-  console.log({ data });
+  // console.log({ data });
 
   return (
     <Container

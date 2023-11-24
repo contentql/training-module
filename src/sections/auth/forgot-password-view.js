@@ -42,7 +42,7 @@ export default function ForgotPasswordView() {
 
   const onSubmit = handleSubmit(async (data) => {
     const { email } = data;
-    console.log(email);
+    // console.log(email);
 
     try {
       // Request API.
