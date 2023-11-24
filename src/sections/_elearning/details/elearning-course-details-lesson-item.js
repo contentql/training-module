@@ -208,5 +208,5 @@ ElearningCourseDetailsLessonItem.propTypes = {
   onSelected: PropTypes.func,
   selected: PropTypes.bool,
   hasBoughtCourse: PropTypes.bool,
-  unitId: PropTypes.number,
+  unitId: PropTypes.string,
 };
