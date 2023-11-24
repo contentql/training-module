@@ -120,7 +120,6 @@ export default function ElearningCheckoutView({ courseId }) {
   });
 
   const {
-    reset,
     handleSubmit,
     formState: { isSubmitting },
   } = methods;
@@ -128,9 +127,6 @@ export default function ElearningCheckoutView({ courseId }) {
   const onSubmit = handleSubmit(async (data) => {
     try {
       makePayment(data);
-      // cart.forEach(({ id }) => addUserToCourse(id));
-      // reset();
-      // if (!courseId) emptyCart();
     } catch (error) {
       console.error(error);
     }
