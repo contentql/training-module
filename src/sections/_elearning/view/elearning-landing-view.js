@@ -2,7 +2,7 @@
 
 import { useQuery } from 'react-query';
 
-import { _courses, _testimonials } from 'src/_mock';
+import { _testimonials } from 'src/_mock';
 import { getCoursesData } from 'src/queries/courses';
 import { SplashScreen } from 'src/components/loading-screen';
 
@@ -24,7 +24,7 @@ export default function ElearningLandingView() {
     queryFn: getCoursesData,
   });
 
-  console.log('landingData', data);
+  // console.log('landingData', data);
 
   if (isLoading) return <SplashScreen />;
 
