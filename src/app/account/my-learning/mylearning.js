@@ -1,24 +1,21 @@
 'use client';
 
-import * as Yup from 'yup';
+// import * as Yup from 'yup';
 import { useQuery } from 'react-query';
-import { yupResolver } from '@hookform/resolvers/yup';
-import {
-  useForm,
-  // Controller
-} from 'react-hook-form';
+// import { yupResolver } from '@hookform/resolvers/yup';
+// import { useForm, Controller } from 'react-hook-form';
 
-import Box from '@mui/material/Box';
+// import Box from '@mui/material/Box';
 import { Link } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
-import Avatar from '@mui/material/Avatar';
+// import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import Container from '@mui/material/Container';
+// import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
-import LoadingButton from '@mui/lab/LoadingButton';
+// import LoadingButton from '@mui/lab/LoadingButton';
 
-import { _mock } from 'src/_mock';
+// import { _mock } from 'src/_mock';
 import Image from 'src/components/image';
 import { paths } from 'src/routes/paths';
 import Iconify from 'src/components/iconify';
@@ -33,7 +30,7 @@ export default function AccountPersonalView() {
 
   // console.log(userData);
 
-  const { isLoading, data } = useQuery(['repoData', userData.id], () =>
+  const { data } = useQuery(['repoData', userData.id], () =>
     fetch(process.env.NEXT_PUBLIC_MY_LEARNING_URL, {
       method: 'GET',
       headers: {

@@ -1,5 +1,5 @@
+import React from 'react';
 import PropTypes from 'prop-types';
-import React, { memo } from 'react';
 
 import { Group13Icon } from './Group13Icon';
 import classes from './NumberDone.module.css';

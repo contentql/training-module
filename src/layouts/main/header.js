@@ -12,7 +12,7 @@ import { useTheme } from '@mui/material/styles';
 import Container from '@mui/material/Container';
 import IconButton from '@mui/material/IconButton';
 
-import { _mock } from 'src/_mock';
+// import { _mock } from 'src/_mock';
 import Logo from 'src/components/logo';
 import { bgBlur } from 'src/theme/css';
 import { paths } from 'src/routes/paths';

@@ -3,14 +3,14 @@
 import * as Yup from 'yup';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useRouter } from 'next/navigation';
+// import { useRouter } from 'next/navigation';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import Link from '@mui/material/Link';
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
-import Divider from '@mui/material/Divider';
+// import Button from '@mui/material/Button';
+// import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import LoadingButton from '@mui/lab/LoadingButton';
@@ -32,7 +32,7 @@ export default function RegisterBackgroundView() {
   const [loginError, setLoginError] = useState('');
   const [success, setSuccess] = useState(false);
 
-  const userdata = useUserStore((store) => store?.UserData);
+  // const userdata = useUserStore((store) => store?.UserData);
 
   const updateUserData = useUserStore((store) => store?.updateUserData);
 
@@ -145,21 +145,21 @@ export default function RegisterBackgroundView() {
     </div>
   );
 
-  const renderSocials = (
-    <Stack direction="row" spacing={2}>
-      <Button fullWidth size="large" color="inherit" variant="outlined">
-        <Iconify icon="logos:google-icon" width={24} />
-      </Button>
+  // const renderSocials = (
+  //   <Stack direction="row" spacing={2}>
+  //     <Button fullWidth size="large" color="inherit" variant="outlined">
+  //       <Iconify icon="logos:google-icon" width={24} />
+  //     </Button>
 
-      <Button fullWidth size="large" color="inherit" variant="outlined">
-        <Iconify icon="carbon:logo-facebook" width={24} sx={{ color: '#1877F2' }} />
-      </Button>
+  //     <Button fullWidth size="large" color="inherit" variant="outlined">
+  //       <Iconify icon="carbon:logo-facebook" width={24} sx={{ color: '#1877F2' }} />
+  //     </Button>
 
-      <Button color="inherit" fullWidth variant="outlined" size="large">
-        <Iconify icon="carbon:logo-github" width={24} sx={{ color: 'text.primary' }} />
-      </Button>
-    </Stack>
-  );
+  //     <Button color="inherit" fullWidth variant="outlined" size="large">
+  //       <Iconify icon="carbon:logo-github" width={24} sx={{ color: 'text.primary' }} />
+  //     </Button>
+  //   </Stack>
+  // );
 
   const renderForm = (
     <FormProvider methods={methods} onSubmit={onSubmit}>

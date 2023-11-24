@@ -4,16 +4,16 @@ import * as Yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import Link from '@mui/material/Link';
+// import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import LoadingButton from '@mui/lab/LoadingButton';
+// import LoadingButton from '@mui/lab/LoadingButton';
 
-import { paths } from 'src/routes/paths';
+// import { paths } from 'src/routes/paths';
 import Image from 'src/components/image';
-import Iconify from 'src/components/iconify';
-import { RouterLink } from 'src/routes/components';
-import FormProvider, { RHFCode } from 'src/components/hook-form';
+// import Iconify from 'src/components/iconify';
+// import { RouterLink } from 'src/routes/components';
+import FormProvider from 'src/components/hook-form';
 
 // ----------------------------------------------------------------------
 
@@ -34,7 +34,7 @@ export default function VerifyView() {
 
   const {
     handleSubmit,
-    formState: { isSubmitting },
+    // formState: { isSubmitting },
   } = methods;
 
   const onSubmit = handleSubmit(async (data) => {
