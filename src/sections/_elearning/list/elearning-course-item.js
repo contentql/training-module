@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
-import Avatar from '@mui/material/Avatar';
+// import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
@@ -23,16 +23,11 @@ import { fCurrency, fShortenNumber } from 'src/utils/format-number';
 
 // ----------------------------------------------------------------------
 
-// eslint-disable-next-line react/prop-types
 export default function ElearningCourseItem({ course, vertical, isMyLearning }) {
   const { id } = course;
   const {
-    slug,
     title,
-    level,
     price,
-    teachers,
-    coverUrl,
     category,
     priceSale,
     bestSeller,
@@ -70,10 +65,10 @@ export default function ElearningCourseItem({ course, vertical, isMyLearning }) 
 
   const wishlistIcon = isCourseInWishlist ? 'solar:heart-linear' : 'solar:heart-bold';
 
-  console.log(id);
-  console.log('Cart', cart, isCourseInCart);
-  console.log(wishlist, isCourseInWishlist);
-  console.log();
+  // console.log(id);
+  // console.log('Cart', cart, isCourseInCart);
+  // console.log(wishlist, isCourseInWishlist);
+  // console.log();
 
   return (
     <Card
@@ -292,23 +287,19 @@ export default function ElearningCourseItem({ course, vertical, isMyLearning }) 
 
 ElearningCourseItem.propTypes = {
   course: PropTypes.shape({
-    id: PropTypes.string,
+    id: PropTypes.any,
     attributes: PropTypes.shape({
-      slug: PropTypes.string,
       title: PropTypes.string,
-      level: PropTypes.string,
       price: PropTypes.number,
-      teachers: PropTypes.array,
-      bestSeller: PropTypes.bool,
       category: PropTypes.string,
-      coverUrl: PropTypes.string,
       priceSale: PropTypes.number,
+      bestSeller: PropTypes.bool,
       time: PropTypes.number,
       description: PropTypes.string,
       rating: PropTypes.number,
       totalReviews: PropTypes.number,
       totalStudents: PropTypes.number,
-      users: PropTypes.array,
+      users: PropTypes.any,
     }),
   }),
   vertical: PropTypes.bool,

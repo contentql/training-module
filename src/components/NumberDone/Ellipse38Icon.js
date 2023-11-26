@@ -1,4 +1,7 @@
-import { memo, SVGProps } from 'react';
+import {
+  memo,
+  // SVGProps
+} from 'react';
 
 const Ellipse38Icon = (props) => (
   <svg

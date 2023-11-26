@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+// import { useEffect } from 'react';
 
 import { Link } from '@mui/material';
 import Grid from '@mui/material/Grid';
@@ -13,9 +13,9 @@ import { paths } from 'src/routes/paths';
 import Image from 'src/components/image';
 import Iconify from 'src/components/iconify';
 import { useCartStore } from 'src/states/cart';
-import { useBoolean } from 'src/hooks/use-boolean';
+// import { useBoolean } from 'src/hooks/use-boolean';
 import { RouterLink } from 'src/routes/components';
-import { SplashScreen } from 'src/components/loading-screen';
+// import { SplashScreen } from 'src/components/loading-screen';
 
 import ElearningNewsletter from '../elearning-newsletter';
 import ElearningCartList from '../cart/elearning-cart-list';
@@ -26,7 +26,7 @@ import ElearningCartSummary from '../cart/elearning-cart-summary';
 export default function ElearningCartView() {
   const _courses = useCartStore((state) => state.cart);
 
-  const loading = useBoolean(true);
+  // const loading = useBoolean(true);
 
   const cost = _courses.map((course) => course.attributes.price).reduce((a, b) => a + b, 0);
   const discountPercent = cost && 7;

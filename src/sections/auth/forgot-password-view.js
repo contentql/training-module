@@ -16,7 +16,7 @@ import Iconify from 'src/components/iconify';
 import { RouterLink } from 'src/routes/components';
 import FormProvider, { RHFTextField } from 'src/components/hook-form';
 
-import { toastSettings } from '../../states/toast-settings';
+// import { toastSettings } from '../../states/toast-settings';
 
 // ----------------------------------------------------------------------
 
@@ -42,7 +42,7 @@ export default function ForgotPasswordView() {
 
   const onSubmit = handleSubmit(async (data) => {
     const { email } = data;
-    console.log(email);
+    // console.log(email);
 
     try {
       // Request API.

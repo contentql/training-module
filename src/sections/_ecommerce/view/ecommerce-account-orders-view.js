@@ -6,22 +6,22 @@ import { useState, useCallback } from 'react';
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
-import Stack from '@mui/material/Stack';
+// import Stack from '@mui/material/Stack';
 import Table from '@mui/material/Table';
-import Switch from '@mui/material/Switch';
+// import Switch from '@mui/material/Switch';
 import TableRow from '@mui/material/TableRow';
 import TableBody from '@mui/material/TableBody';
-import TextField from '@mui/material/TextField';
+// import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import InputAdornment from '@mui/material/InputAdornment';
+// import InputAdornment from '@mui/material/InputAdornment';
 import TableContainer from '@mui/material/TableContainer';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+// import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import TablePagination from '@mui/material/TablePagination';
-import FormControlLabel from '@mui/material/FormControlLabel';
+// import FormControlLabel from '@mui/material/FormControlLabel';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 
 // import { _productsTable } from 'src/_mock';
-import Iconify from 'src/components/iconify';
+// import Iconify from 'src/components/iconify';
 import Scrollbar from 'src/components/scrollbar';
 import { getOrdersData } from 'src/queries/orders';
 import { useUserStore } from 'src/states/auth-store';
@@ -57,13 +57,19 @@ export default function EcommerceAccountOrdersPage() {
 
   const [page, setPage] = useState(0);
 
-  const [dense, setDense] = useState(false);
+  const [
+    dense,
+    // setDense
+  ] = useState(false);
 
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
   const userData = useUserStore((state) => state.UserData);
 
-  const { data, isLoading } = useQuery({
+  const {
+    data,
+    // isLoading
+  } = useQuery({
     queryKey: ['orders', userData.id],
     queryFn: getOrdersData,
     select: (ordersData) =>

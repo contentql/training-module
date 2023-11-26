@@ -123,7 +123,7 @@ export default function EcommerceCheckoutView() {
       await new Promise((resolve) => setTimeout(resolve, 500));
       reset();
       router.push(paths.eCommerce.orderCompleted);
-      console.log('DATA', data);
+      // console.log('DATA', data);
     } catch (error) {
       console.error(error);
     }

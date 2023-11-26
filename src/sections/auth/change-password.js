@@ -24,7 +24,7 @@ import { useBoolean } from 'src/hooks/use-boolean';
 import { RouterLink } from 'src/routes/components';
 import FormProvider, { RHFTextField } from 'src/components/hook-form';
 
-import { useUserStore } from '../../states/auth-store';
+// import { useUserStore } from '../../states/auth-store';
 
 // ----------------------------------------------------------------------
 
@@ -34,7 +34,7 @@ export default function ChangePassword() {
 
   const code = searchParams.get('code');
 
-  const [loginError, setLoginError] = useState('');
+  const [loginError] = useState('');
   const [success, setSuccess] = useState(false);
 
   const RegisterSchema = Yup.object().shape({
@@ -57,7 +57,7 @@ export default function ChangePassword() {
   });
 
   const {
-    reset,
+    // reset,
     handleSubmit,
     formState: { isSubmitting },
   } = methods;

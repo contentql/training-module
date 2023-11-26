@@ -12,7 +12,7 @@ import { useResponsive } from 'src/hooks/use-responsive';
 
 import FilterFee from './filter-fee';
 // import FilterLevel from './filter-level';
-import FilterRating from './filter-rating';
+// import FilterRating from './filter-rating';
 // import FilterLanguage from './filter-language';
 // import FilterDuration from './filter-duration';
 // import FilterCategories from './filter-categories';

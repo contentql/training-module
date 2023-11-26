@@ -7,7 +7,7 @@ import Accordion, { accordionClasses } from '@mui/material/Accordion';
 import AccordionSummary, { accordionSummaryClasses } from '@mui/material/AccordionSummary';
 
 import Quiz from 'src/sections/quiz';
-import { _questions } from 'src/_mock';
+// import { _questions } from 'src/_mock';
 import Iconify from 'src/components/iconify';
 
 import ElearningCourseDetailsLessonList from './elearning-course-details-lesson-list';
@@ -93,5 +93,5 @@ ElearningCourseDetailsUnitItem.propTypes = {
   index: PropTypes.number,
   hasBoughtCourse: PropTypes.bool,
   courseName: PropTypes.any,
-  unitId: PropTypes.number,
+  unitId: PropTypes.string,
 };

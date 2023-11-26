@@ -3,7 +3,7 @@
 import PropTypes from 'prop-types';
 import { useState, useCallback } from 'react';
 
-import { useBoolean } from 'src/hooks/use-boolean';
+// import { useBoolean } from 'src/hooks/use-boolean';
 
 import ElearningCourseDetailsLessonItem from './elearning-course-details-lesson-item';
 // import ElearningCourseDetailsLessonsDialog from './elearning-course-details-lessons-dialog';
@@ -11,15 +11,15 @@ import ElearningCourseDetailsLessonItem from './elearning-course-details-lesson-
 // ----------------------------------------------------------------------
 
 export default function ElearningCourseDetailsLessonList({ lessons, hasBoughtCourse, unitId }) {
-  const videoPlay = useBoolean();
+  // const videoPlay = useBoolean();
 
   const [expanded, setExpanded] = useState(false);
 
   const [selectedLesson, setSelectedLesson] = useState(null);
 
-  const handleReady = useCallback(() => {
-    setTimeout(() => videoPlay.onTrue(), 500);
-  }, [videoPlay]);
+  // const handleReady = useCallback(() => {
+  //   setTimeout(() => videoPlay.onTrue(), 500);
+  // }, [videoPlay]);
 
   const handleSelectedLesson = useCallback((lesson) => {
     if (lesson.unLocked) {
@@ -27,10 +27,10 @@ export default function ElearningCourseDetailsLessonList({ lessons, hasBoughtCou
     }
   }, []);
 
-  const handleClose = useCallback(() => {
-    setSelectedLesson(null);
-    videoPlay.onFalse();
-  }, [videoPlay]);
+  // const handleClose = useCallback(() => {
+  //   setSelectedLesson(null);
+  //   videoPlay.onFalse();
+  // }, [videoPlay]);
 
   const handleExpandedLesson = useCallback(
     (panel) => (event, isExpanded) => {
@@ -39,9 +39,9 @@ export default function ElearningCourseDetailsLessonList({ lessons, hasBoughtCou
     []
   );
 
-  const pauseVideo = useCallback(() => {
-    videoPlay.onFalse();
-  }, [videoPlay]);
+  // const pauseVideo = useCallback(() => {
+  //   videoPlay.onFalse();
+  // }, [videoPlay]);
 
   return (
     <div>
@@ -86,5 +86,5 @@ export default function ElearningCourseDetailsLessonList({ lessons, hasBoughtCou
 ElearningCourseDetailsLessonList.propTypes = {
   lessons: PropTypes.array,
   hasBoughtCourse: PropTypes.bool,
-  unitId: PropTypes.number,
+  unitId: PropTypes.string,
 };

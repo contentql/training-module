@@ -1,6 +1,6 @@
 'use client';
 
-import axios from 'axios';
+// import axios from 'axios';
 import PropTypes from 'prop-types';
 import { useMemo, useState, useEffect } from 'react';
 
@@ -113,7 +113,7 @@ export default function QuizHookForm(props) {
     }
   }
 
-  console.log('correctAnswers', correctAnswers);
+  // console.log('correctAnswers', correctAnswers);
   const submitQuiz = () => {
     setFinishedQuiz(true);
     if (score) {

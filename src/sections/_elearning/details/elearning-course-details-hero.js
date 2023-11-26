@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
-import { useState, useCallback } from 'react';
+// import { useState, useCallback } from 'react';
 
 import Box from '@mui/material/Box';
 import Fab from '@mui/material/Fab';
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
 // import Button from '@mui/material/Button';
-import Avatar from '@mui/material/Avatar';
+// import Avatar from '@mui/material/Avatar';
 import Divider from '@mui/material/Divider';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
@@ -31,10 +31,10 @@ import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
 export default function ElearningCourseDetailsHero({ course }) {
   const {
     title,
-    level = 'Beginner',
-    lessons,
+    // level = 'Beginner',
+    // lessons,
     category,
-    coverUrl,
+    // coverUrl,
     languages,
     bestSeller,
     time,
@@ -42,11 +42,11 @@ export default function ElearningCourseDetailsHero({ course }) {
     rating,
     totalReviews,
     totalStudents,
-    teachers = [],
+    // teachers = [],
     units,
   } = course;
 
-  const [selectedLesson, setSelectedLesson] = useState(null);
+  // const [selectedLesson, setSelectedLesson] = useState(null);
 
   const theme = useTheme();
 
@@ -54,7 +54,7 @@ export default function ElearningCourseDetailsHero({ course }) {
 
   const videoOpen = useBoolean();
 
-  const videoPlay = useBoolean();
+  // const videoPlay = useBoolean();
 
   const totalLessons = units?.data.reduce(
     (count, unit) => (unit.attributes.lesson ? count + unit.attributes.lesson.length : count),
@@ -69,14 +69,14 @@ export default function ElearningCourseDetailsHero({ course }) {
   //   }
   // }, []);
 
-  const handleClose = useCallback(() => {
-    setSelectedLesson(null);
-    videoPlay.onFalse();
-  }, [videoPlay]);
+  // const handleClose = useCallback(() => {
+  //   setSelectedLesson(null);
+  //   videoPlay.onFalse();
+  // }, [videoPlay]);
 
-  const handleReady = useCallback(() => {
-    setTimeout(() => videoPlay.onTrue(), 500);
-  }, [videoPlay]);
+  // const handleReady = useCallback(() => {
+  //   setTimeout(() => videoPlay.onTrue(), 500);
+  // }, [videoPlay]);
 
   return (
     <>

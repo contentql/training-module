@@ -1,4 +1,4 @@
-import Fab from '@mui/material/Fab';
+// import Fab from '@mui/material/Fab';
 import Box from '@mui/material/Box';
 import { Link } from '@mui/material';
 import Stack from '@mui/material/Stack';
@@ -9,12 +9,12 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import { alpha, useTheme } from '@mui/material/styles';
 
-import { _mock } from 'src/_mock';
+// import { _mock } from 'src/_mock';
 import { paths } from 'src/routes/paths';
 import { bgGradient } from 'src/theme/css';
-import { useBoolean } from 'src/hooks/use-boolean';
+// import { useBoolean } from 'src/hooks/use-boolean';
 import { RouterLink } from 'src/routes/components';
-import { PlayerDialog } from 'src/components/player';
+// import { PlayerDialog } from 'src/components/player';
 import { fShortenNumber } from 'src/utils/format-number';
 import { useResponsive } from 'src/hooks/use-responsive';
 import ElearningHeroIllustration from 'src/assets/illustrations/elearning-hero-illustration';
@@ -34,7 +34,7 @@ export default function ElearningLandingHero() {
 
   const mdUp = useResponsive('up', 'md');
 
-  const videoOpen = useBoolean();
+  // const videoOpen = useBoolean();
 
   return (
     <>

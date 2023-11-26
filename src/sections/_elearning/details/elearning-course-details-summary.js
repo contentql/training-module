@@ -94,7 +94,7 @@ ElearningCourseDetailsSummary.propTypes = {
     learnList: PropTypes.array,
     units: PropTypes.object,
     skills: PropTypes.array,
-    users: PropTypes.array,
+    users: PropTypes.object,
     quiz: PropTypes.any,
     WhatYouWillLearn: PropTypes.array,
     Skills: PropTypes.array,

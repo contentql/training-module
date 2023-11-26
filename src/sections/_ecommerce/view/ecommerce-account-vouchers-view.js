@@ -1,91 +1,91 @@
 'use client';
 
-import { add } from 'date-fns';
-import { useQuery } from 'react-query';
-import { useState, useEffect, useCallback } from 'react';
+// import { add } from 'date-fns';
+// import { useQuery } from 'react-query';
+import { useState, useEffect } from 'react';
 
 import Box from '@mui/material/Box';
-import Tab from '@mui/material/Tab';
-import Tabs from '@mui/material/Tabs';
-import Button from '@mui/material/Button';
+// import Tab from '@mui/material/Tab';
+// import Tabs from '@mui/material/Tabs';
+// import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
-import TextField from '@mui/material/TextField';
+// import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import InputAdornment from '@mui/material/InputAdornment';
+// import InputAdornment from '@mui/material/InputAdornment';
 
-import { _mock } from 'src/_mock';
-import { getScoreData } from 'src/queries/score';
+// import { _mock } from 'src/_mock';
+// import { getScoreData } from 'src/queries/score';
 import { useUserStore } from 'src/states/auth-store';
 
 import EcommerceAccountVoucherItem from '../account/ecommerce-account-voucher-item';
 
 // ----------------------------------------------------------------------
 
-const TABS = ['All Vouchers', 'Latest', 'Popular', 'Expiring'];
+// const TABS = ['All Vouchers', 'Latest', 'Popular', 'Expiring'];
 
-const VOUCHERS = [
-  {
-    id: _mock.id(1),
-    type: 'shipping',
-    label: 'Shipping',
-    title: '6% off',
-    description: 'Min. Spend $0',
-    dueOn: add(new Date(), { days: 1 }),
-  },
-  {
-    id: _mock.id(2),
-    type: 'shipping',
-    label: 'Shipping',
-    title: '6% off',
-    description: 'Min. Spend $0',
-    dueOn: add(new Date(), { days: 2 }),
-  },
-  {
-    id: _mock.id(3),
-    type: 'all',
-    label: 'All Categories',
-    title: '6% off',
-    description: 'Min. Spend $0 Capped at $10',
-    dueOn: add(new Date(), { days: 1 }),
-  },
-  {
-    id: _mock.id(4),
-    type: 'shipping',
-    label: 'Shipping',
-    title: '6% off',
-    description: 'Min. Spend $0 Capped at $10',
-    dueOn: add(new Date(), { days: 2 }),
-  },
-  {
-    id: _mock.id(5),
-    type: 'category',
-    label: 'Men Clothes',
-    title: 'Up to 50%',
-    description: 'Min. Spend $0 Capped at $10',
-    dueOn: add(new Date(), { days: 3 }),
-  },
-  {
-    id: _mock.id(6),
-    type: 'shipping',
-    label: 'Shipping',
-    title: '6% off',
-    description: 'Min. Spend $0',
-    dueOn: add(new Date(), { days: 4 }),
-  },
-  {
-    id: _mock.id(7),
-    type: 'shipping',
-    label: 'Shipping',
-    title: '6% off',
-    description: 'Min. Spend $0',
-    dueOn: add(new Date(), { days: 5 }),
-  },
-];
+// const VOUCHERS = [
+//   {
+//     id: _mock.id(1),
+//     type: 'shipping',
+//     label: 'Shipping',
+//     title: '6% off',
+//     description: 'Min. Spend $0',
+//     dueOn: add(new Date(), { days: 1 }),
+//   },
+//   {
+//     id: _mock.id(2),
+//     type: 'shipping',
+//     label: 'Shipping',
+//     title: '6% off',
+//     description: 'Min. Spend $0',
+//     dueOn: add(new Date(), { days: 2 }),
+//   },
+//   {
+//     id: _mock.id(3),
+//     type: 'all',
+//     label: 'All Categories',
+//     title: '6% off',
+//     description: 'Min. Spend $0 Capped at $10',
+//     dueOn: add(new Date(), { days: 1 }),
+//   },
+//   {
+//     id: _mock.id(4),
+//     type: 'shipping',
+//     label: 'Shipping',
+//     title: '6% off',
+//     description: 'Min. Spend $0 Capped at $10',
+//     dueOn: add(new Date(), { days: 2 }),
+//   },
+//   {
+//     id: _mock.id(5),
+//     type: 'category',
+//     label: 'Men Clothes',
+//     title: 'Up to 50%',
+//     description: 'Min. Spend $0 Capped at $10',
+//     dueOn: add(new Date(), { days: 3 }),
+//   },
+//   {
+//     id: _mock.id(6),
+//     type: 'shipping',
+//     label: 'Shipping',
+//     title: '6% off',
+//     description: 'Min. Spend $0',
+//     dueOn: add(new Date(), { days: 4 }),
+//   },
+//   {
+//     id: _mock.id(7),
+//     type: 'shipping',
+//     label: 'Shipping',
+//     title: '6% off',
+//     description: 'Min. Spend $0',
+//     dueOn: add(new Date(), { days: 5 }),
+//   },
+// ];
 
 // ----------------------------------------------------------------------
 
 export default function EcommerceAccountVouchersView() {
-  const [tab, setTab] = useState('All Vouchers');
+  // const [tab, setTab] = useState('All Vouchers');
 
   const userData = useUserStore((state) => state.UserData);
 
@@ -112,11 +112,11 @@ export default function EcommerceAccountVouchersView() {
     fetchScore();
   }, [userData.username]);
 
-  console.log(quizScore);
+  // console.log(quizScore);
 
-  const handleChangeTab = useCallback((event, newValue) => {
-    setTab(newValue);
-  }, []);
+  // const handleChangeTab = useCallback((event, newValue) => {
+  //   setTab(newValue);
+  // }, []);
 
   return (
     <>

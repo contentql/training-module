@@ -1,11 +1,11 @@
 'use client';
 
-import { useEffect } from 'react';
+// import { useEffect } from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import PropTypes from 'prop-types';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { useQuery } from 'react-query';
-import { redirect } from 'next/navigation';
+// import { redirect } from 'next/navigation';
 
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
@@ -15,15 +15,15 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
 
+import { _socials } from 'src/_mock';
 import Iconify from 'src/components/iconify';
-import { _socials, _courses } from 'src/_mock';
-import { useBoolean } from 'src/hooks/use-boolean';
+// import { useBoolean } from 'src/hooks/use-boolean';
 import { getCourseData } from 'src/queries/course';
 import { useResponsive } from 'src/hooks/use-responsive';
 import { SplashScreen } from 'src/components/loading-screen';
 
 import ElearningNewsletter from '../elearning-newsletter';
-import ElearningCourseListSimilar from '../list/elearning-course-list-similar';
+// import ElearningCourseListSimilar from '../list/elearning-course-list-similar';
 import ElearningCourseDetailsHero from '../details/elearning-course-details-hero';
 import ElearningCourseDetailsInfo from '../details/elearning-course-details-info';
 import ElearningCourseDetailsSummary from '../details/elearning-course-details-summary';
@@ -37,7 +37,7 @@ export default function ElearningCourseView({ courseId }) {
 
   // const loading = useBoolean(true);
 
-  const courseSimilar = _courses.slice(-3);
+  // const courseSimilar = _courses.slice(-3);
 
   // const _mockCourse = _courses.filter((course) => course.id === courseId).at(0);
 

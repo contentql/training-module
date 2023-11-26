@@ -1,8 +1,8 @@
 'use client';
 
-import axios from 'axios';
+// import axios from 'axios';
 import * as Yup from 'yup';
-import { useEffect } from 'react';
+// import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useQuery } from 'react-query';
 import { useForm } from 'react-hook-form';
@@ -12,27 +12,27 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
+// import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
-import Collapse from '@mui/material/Collapse';
+// import Collapse from '@mui/material/Collapse';
 import Grid from '@mui/material/Unstable_Grid2';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
-import { paths } from 'src/routes/paths';
-import Iconify from 'src/components/iconify';
-import { useRouter } from 'src/routes/hooks';
+// import { paths } from 'src/routes/paths';
+// import Iconify from 'src/components/iconify';
+// import { useRouter } from 'src/routes/hooks';
 import { useCartStore } from 'src/states/cart';
-import { useBoolean } from 'src/hooks/use-boolean';
+// import { useBoolean } from 'src/hooks/use-boolean';
 import FormProvider from 'src/components/hook-form';
 import { getCourseInfo } from 'src/queries/checkout';
 import { useUserStore } from 'src/states/auth-store';
 import { SplashScreen } from 'src/components/loading-screen';
 
 import ElearningNewsletter from '../elearning-newsletter';
-import ElearningCheckoutNewCardForm from '../checkout/elearning-checkout-new-card-form';
+// import ElearningCheckoutNewCardForm from '../checkout/elearning-checkout-new-card-form';
 import ElearningCheckoutOrderSummary from '../checkout/elearning-checkout-order-summary';
-import ElearningCheckoutPaymentMethod from '../checkout/elearning-checkout-payment-method';
+// import ElearningCheckoutPaymentMethod from '../checkout/elearning-checkout-payment-method';
 import ElearningCheckoutPersonalDetails from '../checkout/elearning-checkout-personal-details';
 
 // ----------------------------------------------------------------------
@@ -64,9 +64,9 @@ const stripePromise = loadStripe(
 export default function ElearningCheckoutView({ courseId }) {
   // const loading = useBoolean(true);
 
-  const router = useRouter();
+  // const router = useRouter();
 
-  const formOpen = useBoolean();
+  // const formOpen = useBoolean();
 
   const { UserData } = useUserStore();
 
@@ -79,7 +79,7 @@ export default function ElearningCheckoutView({ courseId }) {
   const loading = queryRes.isLoading;
 
   const cartCourses = useCartStore((state) => state.cart);
-  const emptyCart = useCartStore((state) => state.emptyCart);
+  // const emptyCart = useCartStore((state) => state.emptyCart);
   const cart = useCartStore((state) => state.cart);
 
   const _courses = courseId ? [queryData] : cartCourses;
@@ -157,7 +157,7 @@ export default function ElearningCheckoutView({ courseId }) {
       body: JSON.stringify(requestBody),
     });
     const session = await response.json();
-    console.log({ session });
+    // console.log({ session });
     await stripe.redirectToCheckout({
       sessionId: session.id,
     });
