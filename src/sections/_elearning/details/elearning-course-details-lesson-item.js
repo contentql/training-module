@@ -52,75 +52,6 @@ export default function ElearningCourseDetailsLessonItem({
       onExpanded();
     }
   };
-  // const userToken = localStorage.getItem('token');
-
-  // const getUserProgress = async () => {
-  //   try {
-  //     const res = await fetch('http://localhost:1337/api/metadatas', {
-  //       method: 'GET',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         Authorization: `Bearer ${userToken}`,
-  //       },
-  //     });
-  //     const data = await res.json();
-  //     setProgress(data);
-  //     // console.log({ data });
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  // const addingLessonToUser = async () => {
-  //   const requestBody = {
-  //     data: {
-  //       data: [
-  //         {
-  //           LessonTitle: lesson.id,
-  //         },
-  //       ],
-  //     },
-  //   };
-  //   try {
-  //     const res = await fetch(`http://localhost:1337/api/matadatas/${UserData.id}`, {
-  //       method: 'PUT',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         Authorization: `Bearer ${userToken}`,
-  //       },
-  //       body: JSON.stringify(requestBody),
-  //     });
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  // const addingUserProgress = async () => {
-  //   const requestBody = {
-  //     data: {
-  //       users: {
-  //         connect: [UserData.id],
-  //       },
-  //       data: [
-  //         {
-  //           LessonTitle: lesson.id,
-  //         },
-  //       ],
-  //     },
-  //   };
-  //   try {
-  //     await fetch('http://localhost:1337/api/metadatas', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         Authorization: `Bearer ${userToken}`,
-  //       },
-  //       body: JSON.stringify(requestBody),
-  //     });
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
 
   return (
     <Accordion
@@ -148,7 +79,15 @@ export default function ElearningCourseDetailsLessonItem({
         }}
       >
         {lesson.unLocked ? (
-          <NumberDone index={index} lessonComplete={lessonComplete} />
+          // <NumberDone index={index} lessonComplete={lessonComplete} />
+          <Typography sx={{ mr: 1 }}>
+            <NumberDone
+              index={index}
+              lessonComplete={lessonComplete}
+              sx={{ ml: 2 }}
+              // lessonComplete={metaData?.filter((l) => l.LessonTitle === lesson?.title)}
+            />
+          </Typography>
         ) : (
           <img src="/icons/lock.svg" alt="lesson" />
         )}

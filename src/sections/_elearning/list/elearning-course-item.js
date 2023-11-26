@@ -88,7 +88,7 @@ export default function ElearningCourseItem({ course, vertical, isMyLearning }) 
           src="/assets/images/course/course_1.jpg"
           sx={{
             height: 1,
-            objectFit: 'cover',
+            // objectFit: 'cover',
             width: { sm: 240 },
             ...(vertical && {
               width: { sm: 1 },
