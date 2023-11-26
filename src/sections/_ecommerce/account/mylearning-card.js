@@ -1,20 +1,14 @@
 /* eslint-disable react/prop-types */
 import PropTypes from 'prop-types';
-// import { differenceInCalendarDays } from 'date-fns';
 
 import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
 import Iconify from 'src/components/iconify';
-// import { fDate } from 'src/utils/format-time';
-import TextMaxLine from 'src/components/text-max-line';
 
 // ----------------------------------------------------------------------
 
 export default function MyLearningCard({ voucher }) {
-  // const dayLeft = differenceInCalendarDays(voucher.dueOn, new Date());
-
   return (
     <Stack
       direction="row"
@@ -22,7 +16,6 @@ export default function MyLearningCard({ voucher }) {
         borderRadius: 1,
         overflow: 'hidden',
         mr: 2,
-        // backgroundColor: '#FDDED4',
         border: (theme) => `solid 1px #FF9470`,
       }}
     >
