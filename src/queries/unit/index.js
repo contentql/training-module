@@ -15,6 +15,7 @@ export const getUnitData = async (unitId) => {
                             subtitle
                             time
                             content
+                            lessonContent
                         }
                     }
                 }
