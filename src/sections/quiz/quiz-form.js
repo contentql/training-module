@@ -55,7 +55,7 @@ export default function QuizForm(props) {
     <>
       <ElearningCourseDetailsLessonItem
         handleClickOpen={handleClickOpen}
-        questionsLength={_questions.length}
+        questionsLength={_questions?.length}
         isTest
         quizIcon
       >
