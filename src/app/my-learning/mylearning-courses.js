@@ -25,6 +25,16 @@ export default function ElearningLandingFeaturedCourses() {
     }).then((res) => res.json())
   );
 
+  const ProfileData = [
+    {
+      attributes: {
+        id: 1,
+        courseTitle: 'Number of courses enrolled',
+        score: data.courses.length,
+      },
+    },
+  ];
+
   if (isLoading) return <SplashScreen />;
   return (
     <Container

@@ -1,7 +1,8 @@
 'use client';
 
-// import * as Yup from 'yup';
 import { useQuery } from 'react-query';
+// import * as Yup from 'yup';
+import { useState, useEffect } from 'react';
 // import { yupResolver } from '@hookform/resolvers/yup';
 // import { useForm, Controller } from 'react-hook-form';
 
@@ -15,20 +16,33 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 // import LoadingButton from '@mui/lab/LoadingButton';
 
+import { paths } from 'src/routes/paths';
 // import { _mock } from 'src/_mock';
 import Image from 'src/components/image';
-import { paths } from 'src/routes/paths';
 import Iconify from 'src/components/iconify';
 import { RouterLink } from 'src/routes/components';
 import { useUserStore } from 'src/states/auth-store';
 import ElearningCourseItem from 'src/sections/_elearning/list/elearning-course-item';
 
+import MyLearningCard from '../../../sections/_ecommerce/account/mylearning-card';
+
 // ----------------------------------------------------------------------
 
 export default function AccountPersonalView() {
   const userData = useUserStore((state) => state.UserData);
+  const [quizScore, setQuizScore] = useState([]);
 
-  // console.log(userData);
+  useEffect(() => {
+    const fetchScore = async () => {
+      const res = await fetch(process.env.NEXT_PUBLIC_QUIZ_SCORE);
+      const data = await res.json();
+
+      setQuizScore(
+        data.data.filter((scoreData) => userData.username === scoreData.attributes.username)
+      );
+    };
+    fetchScore();
+  }, [userData.username]);
 
   const { data } = useQuery(['repoData', userData.id], () =>
     fetch(process.env.NEXT_PUBLIC_MY_LEARNING_URL, {
@@ -39,11 +53,36 @@ export default function AccountPersonalView() {
     }).then((res) => res.json())
   );
 
+  const ProfileData = [
+    {
+      id: 1,
+      title: 'Courses Enrolled',
+      score: data?.length,
+    },
+    {
+      id: 2,
+      title: 'Lessons Completed',
+      score: '4',
+    },
+    {
+      id: 3,
+      title: 'Courses Completed',
+      score: quizScore.length,
+    },
+  ];
+
   return (
     <>
       <Typography variant="h5" sx={{ mb: 3 }}>
         My Courses
       </Typography>
+
+      <Stack direction="row" spacing={2}>
+        {ProfileData.map((profile) => (
+          <MyLearningCard voucher={profile} />
+        ))}
+      </Stack>
+
       {data &&
         (data?.length > 0 ? (
           <Grid

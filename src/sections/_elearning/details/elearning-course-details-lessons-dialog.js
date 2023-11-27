@@ -87,14 +87,14 @@ export default function ElearningCourseDetailsLessonsDialog({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [units, searchParams]);
 
-  useEffect(() => {
-    getUserProgress();
-    addToLessons(debouncedValue);
-    // if (debouncedValue) {b
-    handleClick(debouncedValue);
-    // }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [debouncedValue]);
+  // useEffect(() => {
+  //   getUserProgress();
+  //   addToLessons(debouncedValue);
+  //   // if (debouncedValue) {b
+  //   handleClick(debouncedValue);
+  //   // }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [debouncedValue]);
 
   const { UserData } = useUserStore();
 
@@ -159,8 +159,6 @@ export default function ElearningCourseDetailsLessonsDialog({
     }
   };
 
-  // console.log({ metaDataId });
-
   const addingLessonToUser = async () => {
     // console.log('add lesson to user');
     const requestBody = {
@@ -169,16 +167,12 @@ export default function ElearningCourseDetailsLessonsDialog({
       },
     };
     try {
-      await axios.put(
-        `${process.env.NEXT_PUBLIC_METADATA_URL}/${metaDataId.id}`,
-        requestBody,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${userToken}`,
-          },
-        }
-      );
+      await axios.put(`${process.env.NEXT_PUBLIC_METADATA_URL}/${metaDataId.id}`, requestBody, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${userToken}`,
+        },
+      });
     } catch (error) {
       console.log(error);
     }
@@ -220,12 +214,14 @@ export default function ElearningCourseDetailsLessonsDialog({
 
   const handleClick = async (lesson) => {
     // const isMetaDataExisting = userLessons.filter((details) => details.LessonTitle === id);
-    if (metaDataId === null) {
-      addingUserProgress(lesson);
-    } else {
-      // setMetaData([...metaData, { LessonTitle: lesson.title }]);
-      addingLessonToUser(lesson);
-    }
+    // if (metaDataId === null) {
+    //   addingUserProgress(lesson);
+    // } else {
+    //   setMetaData([...metaData, { LessonTitle: lesson.title }]);
+    //   addingLessonToUser(lesson);
+    // }
+    console.log('working');
+    addToLessons(debouncedValue);
   };
 
   const renderLesson = (
@@ -252,7 +248,7 @@ export default function ElearningCourseDetailsLessonsDialog({
               {time} mins read
             </Typography>
 
-            <Typography variant="h2" component="h1">
+            <Typography variant="h2" component="h1" onClick={() => handleClick()}>
               {title}
             </Typography>
 
@@ -335,7 +331,7 @@ export default function ElearningCourseDetailsLessonsDialog({
 
           lesson.unLocked = true;
           // const filterData = metaData?.filter((l) => l.LessonTitle !== lesson?.title);
-          const hasMatch = Boolean(userLessons.find((a) => a.LessonTitle === lesson.id));
+          const hasMatch = Boolean(userLessons.find((a) => a.LessonTitle === id));
 
           return (
             <Link
@@ -361,7 +357,7 @@ export default function ElearningCourseDetailsLessonsDialog({
                 </Typography>
 
                 <ListItemText
-                  // onClick={() => handleClick(lesson)}
+                  onClick={() => handleClick(lesson)}
                   primary={lesson.title}
                   secondary={lesson.description}
                   primaryTypographyProps={{

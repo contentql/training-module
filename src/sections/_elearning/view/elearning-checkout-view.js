@@ -83,6 +83,7 @@ export default function ElearningCheckoutView({ courseId }) {
   const cart = useCartStore((state) => state.cart);
 
   const _courses = courseId ? [queryData] : cartCourses;
+  console.log({ _courses });
 
   const cost = _courses?.map((course) => course?.attributes.price).reduce((a, b) => a + b, 0);
   const discountPercent = cost && 7;
@@ -141,7 +142,7 @@ export default function ElearningCheckoutView({ courseId }) {
     const requestBody = {
       username: UserData.username,
       email: UserData.email,
-      products: cart.map(({ id, attributes }) => ({
+      products: _courses.map(({ id, attributes }) => ({
         id,
         title: attributes.title,
         price: attributes.price,
@@ -157,7 +158,6 @@ export default function ElearningCheckoutView({ courseId }) {
       body: JSON.stringify(requestBody),
     });
     const session = await response.json();
-    // console.log({ session });
     await stripe.redirectToCheckout({
       sessionId: session.id,
     });

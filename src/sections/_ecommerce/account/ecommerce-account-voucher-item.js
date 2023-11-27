@@ -2,10 +2,12 @@
 import PropTypes from 'prop-types';
 // import { differenceInCalendarDays } from 'date-fns';
 
+import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
+import Image from 'src/components/image';
 import Iconify from 'src/components/iconify';
 // import { fDate } from 'src/utils/format-time';
 import TextMaxLine from 'src/components/text-max-line';
@@ -21,7 +23,7 @@ export default function EcommerceAccountVoucherItem({ voucher }) {
       sx={{
         borderRadius: 1,
         overflow: 'hidden',
-        border: (theme) => `dashed 1px ${theme.palette.divider}`,
+        border: (theme) => `solid 1px #FF9470`,
       }}
     >
       <Stack
@@ -32,24 +34,37 @@ export default function EcommerceAccountVoucherItem({ voucher }) {
           width: 120,
           height: 120,
           flexShrink: 0,
-          borderRight: (theme) => `dashed 1px ${theme.palette.divider}`,
+          // borderRight: (theme) => `dashed 1px #FF9470`,
         }}
       >
-        {getIcon(voucher.type)}
+        <Box sx={{ flexShrink: { sm: 0 }, pt: 1 }}>
+          <Image
+            alt="images"
+            src="/assets/images/course/course_1.jpg"
+            sx={{
+              height: 1,
+              objectFit: 'cover',
+              width: 100,
+              // ...(vertical && {
+              //   width: { sm: 1 },
+              // }),
+            }}
+          />
+        </Box>
 
-        <TextMaxLine variant="overline" line={1}>
-          {/* {voucher.label} */}
-          {/* {voucher.attributes.courseTitle} */}
-        </TextMaxLine>
+        {/* <TextMaxLine variant="overline" line={1}> */}
+        {/* {voucher.label} */}
+        {/* {voucher.attributes.courseTitle} */}
+        {/* </TextMaxLine> */}
       </Stack>
 
-      <Stack sx={{ p: 2.5, pb: 0 }}>
+      <Stack sx={{ pl: 2.5, pr: 2.5, pb: 1, pt: 1 }}>
         <Typography variant="h6" sx={{ color: '#FF774C' }}>
           {voucher?.attributes.courseTitle}
         </Typography>
-        <Typography variant="h7" sx={{ mt: 0.5, mb: 0.5 }}>
+        {/* <Typography variant="h7" sx={{ mt: 0.5, mb: 0.5 }}>
           Username : {voucher?.attributes.username}
-        </Typography>
+        </Typography> */}
         {/* <Typography variant="h7" sx={{ mb: 1 }}>
           {voucher?.attributes.email}
         </Typography> */}
@@ -67,7 +82,7 @@ export default function EcommerceAccountVoucherItem({ voucher }) {
         > */}
         {/* <Iconify icon="carbon:time" width={16} sx={{ mr: 1 }} /> */}
         <Typography variant="h7" sx={{ mb: 1 }}>
-          Quiz-Score : {voucher?.attributes.score}
+          Score : {voucher?.attributes.score}/20
         </Typography>
         <Button sx={{ bgcolor: '#FF774B', mb: 1 }} size="large" variant="contained">
           Download
