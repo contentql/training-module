@@ -73,12 +73,17 @@ export default function ElearningCourseDetailsLessonsDialog({
   // console.log({ userLessons });
 
   const { data } = useQuery({
-    queryKey: ['unit', searchParams.get('unit')],
-    queryFn: () => getUnitData(Number(searchParams.get('unit'))),
+    queryKey: ['unit', searchParams.get('unit'), searchParams.get('lesson')],
+    queryFn: () =>
+      getUnitData(Number(searchParams.get('unit')), String(searchParams.get('lesson'))),
     refetchOnWindowFocus: false,
   });
+
   const lessonData =
-    data && data?.attributes.lesson.find((l) => l.id.toString() === searchParams.get('lesson'));
+    data &&
+    data?.attributes.lesson.find(
+      (l) => l.title.toString() === searchParams.get('lesson').toString()
+    );
 
   const { title, subtitle, content, time, id, lessonContent } = lessonData ?? {};
   const debouncedValue = useDebounce(id, 3000);
@@ -392,7 +397,7 @@ export default function ElearningCourseDetailsLessonsDialog({
           return (
             <Link
               component={RouterLink}
-              href={`?unit=${unit.id}&lesson=${lesson.id}`}
+              href={`?unit=${unit.id}&lesson=${lesson.title}`}
               color="inherit"
               underline="none"
             >

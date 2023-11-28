@@ -94,7 +94,7 @@ export default function ElearningCourseDetailsLessonItem({
         {hasBoughtCourse ? (
           <Link
             component={RouterLink}
-            href={`lessons/?unit=${unitId}&lesson=${lesson.id}`}
+            href={`lessons/?unit=${unitId}&lesson=${lesson.title}`}
             color="inherit"
             sx={{
               pl: 2,
