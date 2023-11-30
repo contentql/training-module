@@ -30,11 +30,55 @@ const StyledMarkdown = styled('div', {
   },
 
   // List
-  '& ul, & ol': {
+
+  // '& ul, & ol': {
+  //   margin: 0,
+  //   listStyleType: 'disc',
+  //   '& li': {
+  //     lineHeight: 2,
+  //   },
+  // },
+
+  ul: {
+    listStyleType: 'disc',
+    padding: 0,
     margin: 0,
-    '& li': {
-      lineHeight: 2,
-    },
+    paddingLeft: '20px',
+  },
+
+  'ul ul': {
+    listStyleType: 'circle',
+    padding: 0,
+    margin: 0,
+    paddingLeft: '20px',
+  },
+
+  'ul ul ul': {
+    listStyleType: 'square',
+    padding: 0,
+    margin: 0,
+    paddingLeft: '20px',
+  },
+
+  ol: {
+    listStyleType: 'decimal',
+    padding: 0,
+    margin: 0,
+    paddingLeft: '20px',
+  },
+
+  'ol ol': {
+    listStyleType: 'lower-alpha',
+    padding: 0,
+    margin: 0,
+    paddingLeft: '20px',
+  },
+
+  'ol ol ol': {
+    listStyleType: 'lower-roman',
+    padding: 0,
+    margin: 0,
+    paddingLeft: '20px',
   },
 
   // Divider

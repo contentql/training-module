@@ -37,9 +37,6 @@ import { useResponsive } from 'src/hooks/use-responsive';
 import { useUserProgress } from 'src/states/user-progress';
 // import PostTags from '../../blog/common/post-tags';
 
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { BlocksRenderer } from '@strapi/blocks-react-renderer';
-
 // ----------------------------------------------------------------------
 
 export default function ElearningCourseDetailsLessonsDialog({
@@ -266,59 +263,7 @@ export default function ElearningCourseDetailsLessonsDialog({
 
           <Divider sx={{ mb: 6 }} />
 
-          {/* <Markdown content={content} firstLetter /> */}
-
-          <BlocksRenderer
-            content={lessonContent}
-            blocks={{
-              paragraph: ({ children }) => <Typography>{children}</Typography>,
-              list: ({ children, format }) => {
-                switch (format) {
-                  case 'ordered':
-                    return (
-                      <ListItem type="1">
-                        <ListItemText disableTypography>{children}</ListItemText>
-                      </ListItem>
-                    );
-                  case 'unordered':
-                    return (
-                      <ListItem type="disc">
-                        <ListItemText disableTypography>{children}</ListItemText>
-                      </ListItem>
-                    );
-                  default:
-                    return (
-                      <ListItem type="disc">
-                        <ListItemText disableTypography>{children}</ListItemText>
-                      </ListItem>
-                    );
-                }
-              },
-              heading: ({ children, level }) => {
-                switch (level) {
-                  case 1:
-                    return <Typography variant="h1">{children}</Typography>;
-                  case 2:
-                    return <Typography variant="h2">{children}</Typography>;
-                  case 3:
-                    return <Typography variant="h3">{children}</Typography>;
-                  case 4:
-                    return <Typography variant="h4">{children}</Typography>;
-                  case 5:
-                    return <Typography variant="h5">{children}</Typography>;
-                  case 6:
-                    return <Typography variant="h6">{children}</Typography>;
-                  default:
-                    return <Typography variant="h7">{children}</Typography>;
-                }
-              },
-              link: ({ children, url }) => <Link to={url}>{children}</Link>,
-            }}
-            modifiers={{
-              bold: ({ children }) => <strong>{children}</strong>,
-              italic: ({ children }) => <span className="italic">{children}</span>,
-            }}
-          />
+          <Markdown content={content} />
 
           {/* <PostTags tags={tags} /> */}
 
