@@ -37,7 +37,7 @@ export default function QuizHookForm(props) {
   const [answers, setAnswers] = useState([...Array(questions.length)]);
   const [areAllAnswersMarked, setAreAllAnswersMarked] = useState(false);
   useEffect(() => {
-    if (answers.filter((answer) => answer === undefined).length === 0) setAreAllAnswersMarked(true);
+    setAreAllAnswersMarked(answers.filter((answer) => answer === undefined).length === 0);
   }, [answers]);
 
   const [finishedQuiz, setFinishedQuiz] = useState(false);
@@ -168,7 +168,7 @@ export default function QuizHookForm(props) {
           <Result restartQuiz={restartQuiz} answers={answers} questions={questions} />
         ) : (
           <Grid direction={{ xs: 'column-reverse', md: 'row' }} container className="h-full">
-            <Grid item md={4}>
+            <Grid item md={4} className="md:px-5 h-fit">
               <Card variant="outlined">
                 <Stack direction="column">
                   <Box className="mb-2">
@@ -221,7 +221,7 @@ export default function QuizHookForm(props) {
               </Card>
             </Grid>
 
-            <Grid item md={8}>
+            <Grid item md={8} className="h-fit">
               <QuestionCard
                 question={currentQuestion}
                 questionNumber={currentQuestionIndex + 1}

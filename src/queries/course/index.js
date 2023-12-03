@@ -19,7 +19,7 @@ export const getCourseData = async (courseId) => {
                                 id
                                 attributes {
                                     title
-                                    lesson {
+                                    lesson (pagination: {limit: 100}){
                                         id
                                         title
                                     }

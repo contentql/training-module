@@ -52,7 +52,7 @@ export const paths = {
       root: `/account`,
       personal: `/account/personal`,
       wishlist: `/account/wishlist`,
-      vouchers: `/account/vouchers`,
+      vouchers: `/account/certificates`,
       orders: `/account/orders`,
       payment: `/account/payment`,
       myLearning: `/account/my-learning`,

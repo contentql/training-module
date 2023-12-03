@@ -32,7 +32,7 @@ export default function ElearningLessonsView({ params }) {
       setSelectedLesson(
         data.attributes.units.data
           .find((unit) => unit.id.toString() === searchParams.get('unit'))
-          ?.attributes.lesson.find((lesson) => lesson.id.toString() === searchParams.get('lesson'))
+          ?.attributes.lesson.find((lesson) => lesson.title === searchParams.get('lesson'))
       );
   }, [data, searchParams]);
 

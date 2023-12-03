@@ -3,7 +3,7 @@ import EcommerceAccountVouchersView from 'src/sections/_ecommerce/view/ecommerce
 // ----------------------------------------------------------------------
 
 export const metadata = {
-  title: 'Account: Vouchers',
+  title: 'Account: Certificates',
 };
 
 export default function EcommerceAccountVouchersPage() {

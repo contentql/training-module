@@ -46,6 +46,11 @@ export default function ElearningCourseDetailsInfo({ course }) {
 
   const wishlistIcon = isCourseInWishlist ? 'solar:heart-linear' : 'solar:heart-bold';
 
+  const totalLessons = course?.attributes.units.data.reduce(
+    (count, unit) => (unit.attributes.lesson ? count + unit.attributes.lesson.length : count),
+    0
+  );
+
   return (
     <Card sx={{ p: 3, borderRadius: 2 }}>
       <Stack spacing={3}>
@@ -72,7 +77,7 @@ export default function ElearningCourseDetailsInfo({ course }) {
           <Stack direction="row" alignItems="center" sx={{ typography: 'body2' }}>
             <Iconify icon="carbon:document" sx={{ mr: 1 }} />
             <Box component="strong" sx={{ mr: 0.5 }}>
-              {course.lessons?.length}
+              {totalLessons}
             </Box>
             Lessons
           </Stack>
@@ -80,7 +85,7 @@ export default function ElearningCourseDetailsInfo({ course }) {
           <Stack direction="row" alignItems="center" sx={{ typography: 'body2' }}>
             <Iconify icon="carbon:document-download" sx={{ mr: 1 }} />
             <Box component="strong" sx={{ mr: 0.5 }}>
-              {course.resources}
+              {course.attributes.resources}
             </Box>
             Downloadable resources
           </Stack>
