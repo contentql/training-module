@@ -23,25 +23,16 @@ export default function ElearningCourseDetailsQuestionSubmit({ areAllAnswersMark
 
   return (
     <Accordion
-      sx={{
-        [`&.${accordionClasses.expanded}`]: {
-          bgcolor: 'inherit',
-          color: 'inherit',
-        },
-      }}
+      expanded
       onClick={() => {
         if (areAllAnswersMarked) handlePopupToggle();
       }}
-      className="flex justify-end align-center"
+      className="flex justify-end align-end"
     >
       <AccordionSummary
         sx={{
           px: 1,
           minHeight: 64,
-          [`& .${accordionSummaryClasses.content}`]: {
-            p: 0,
-            m: 0,
-          },
         }}
       >
         <div className="flex flex-col">

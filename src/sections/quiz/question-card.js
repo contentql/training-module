@@ -61,7 +61,7 @@ export default function QuestionCard(props) {
   };
 
   return (
-    <Box className="w-full h-full pb-10 md:pb-0 md:px-5" md={7}>
+    <Box className="w-full h-full pb-10 lg:pb-0 md:px-5" md={7}>
       <Card variant="outlined">
         <CardContent>
           <Typography variant="h5" component="div">
