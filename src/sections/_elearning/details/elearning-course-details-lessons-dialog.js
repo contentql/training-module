@@ -3,19 +3,20 @@
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import { useQuery } from 'react-query';
+import { Global } from '@emotion/react';
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 
-import { Link } from '@mui/material';
 import Stack from '@mui/material/Stack';
-// import Dialog from '@mui/material/Dialog';
-import Divider from '@mui/material/Divider';
-import ListItem from '@mui/material/ListItem';
+import { Box, styled } from '@mui/system';
+import { grey } from '@mui/material/colors';
+import { Link, Divider } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import Container from '@mui/material/Container';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import ListItemText from '@mui/material/ListItemText';
+// import Dialog from '@mui/material/Dialog';
 import ListItemButton from '@mui/material/ListItemButton';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import AccordionDetails from '@mui/material/AccordionDetails';
@@ -32,7 +33,6 @@ import { RouterLink } from 'src/routes/components';
 import NumberDone from 'src/components/NumberDone';
 import { useUserStore } from 'src/states/auth-store';
 import { useDebounce } from 'src/hooks/use-debounce';
-// import { _questions, _coursePosts } from 'src/_mock';
 import { useResponsive } from 'src/hooks/use-responsive';
 import { useUserProgress } from 'src/states/user-progress';
 // import PostTags from '../../blog/common/post-tags';
@@ -69,7 +69,7 @@ export default function ElearningCourseDetailsLessonsDialog({
   // const reset = useUserProgress((state) => state.reset);
   // console.log({ userLessons });
 
-  const { data } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ['unit', searchParams.get('unit'), searchParams.get('lesson')],
     queryFn: () =>
       getUnitData(Number(searchParams.get('unit')), String(searchParams.get('lesson'))),
@@ -229,6 +229,27 @@ export default function ElearningCourseDetailsLessonsDialog({
     console.log('working');
     addToLessons(debouncedValue);
   };
+
+  const StyledBox = styled(Box)(({ theme }) => ({
+    backgroundColor: theme.palette.mode === 'light' ? '#fff' : grey[800],
+  }));
+
+  const Puller = styled(Box)(({ theme }) => ({
+    width: 30,
+    height: 6,
+    backgroundColor: theme.palette.mode === 'light' ? grey[300] : grey[900],
+    borderRadius: 3,
+    position: 'absolute',
+    top: 8,
+    left: 'calc(50% - 15px)',
+  }));
+
+  const drawerBleeding = 56;
+
+  const totalLessons = units?.reduce(
+    (count, unit) => (unit.attributes.lesson ? count + unit.attributes.lesson.length : count),
+    0
+  );
 
   const renderLesson = (
     <Container className="overflow-y-scroll py-14">
@@ -403,60 +424,54 @@ export default function ElearningCourseDetailsLessonsDialog({
   );
 
   const renderListMobile = (
-    <SwipeableDrawer
-      anchor="bottom"
-      open={drawerOpen}
-      onClose={() => toggleDrawer(false)}
-      onOpen={() => toggleDrawer(true)}
-      swipeAreaWidth={56}
-      ModalProps={{
-        keepMounted: true,
-        style: { zIndex: 1300 },
-      }}
-      sx={{ '.MuiDrawer-paper': { height: '60%', overflow: 'visible' } }}
-    >
-      <Stack
-        sx={{
-          position: 'absolute',
-          top: -56,
-          borderTopLeftRadius: 8,
-          borderTopRightRadius: 8,
-          visibility: 'visible',
-          right: 0,
-          left: 0,
+    <>
+      <Global
+        styles={{
+          '.MuiDrawer-root > .MuiPaper-root': {
+            height: `calc(80% - ${drawerBleeding}px)`,
+            overflow: 'visible',
+          },
+        }}
+      />
+      <SwipeableDrawer
+        anchor="bottom"
+        open={drawerOpen}
+        onClose={() => toggleDrawer(false)}
+        onOpen={() => toggleDrawer(true)}
+        swipeAreaWidth={drawerBleeding}
+        disableSwipeToOpen={false}
+        ModalProps={{
+          keepMounted: true,
         }}
       >
-        <IconButton
+        <StyledBox
           sx={{
-            alignSelf: 'center',
-            width: 40,
-            height: 40,
-            borderRadius: 3,
-            top: 8,
-            background: 'white',
+            position: 'absolute',
+            top: -drawerBleeding,
+            borderTopLeftRadius: 8,
+            borderTopRightRadius: 8,
+            visibility: 'visible',
+            right: 0,
+            left: 0,
           }}
-          className="animate-bounce"
         >
-          <Iconify
-            icon={drawerOpen ? 'carbon:arrow-down' : 'carbon:arrow-up'}
-            width="25px"
-            height="25px"
-          />
-        </IconButton>
-      </Stack>
-      <Stack
-        spacing={0.5}
-        sx={{
-          p: 1,
-          pt: 2,
-          overflowY: 'scroll',
-          width: 1,
-          height: 1,
-        }}
-      >
-        {unitList}
-      </Stack>
-    </SwipeableDrawer>
+          <Puller />
+          <Typography sx={{ p: 2, color: 'text.secondary' }}>
+            {units.length} units, {totalLessons} lessons
+          </Typography>
+        </StyledBox>
+        <StyledBox
+          sx={{
+            px: 2,
+            pb: 2,
+            height: '100%',
+            overflow: 'auto',
+          }}
+        >
+          {unitList}
+        </StyledBox>
+      </SwipeableDrawer>
+    </>
   );
 
   return (
