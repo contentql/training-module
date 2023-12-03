@@ -341,7 +341,7 @@ export default function ElearningCourseDetailsLessonsDialog({
 
         <Iconify
           icon={expandedUnits[index] ? 'carbon:chevron-down' : 'carbon:chevron-right'}
-          sx={{ ml: 2 }}
+          sx={{ ml: 2, minHeight: 16, minWidth: 16 }}
         />
       </AccordionSummary>
 
