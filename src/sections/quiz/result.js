@@ -74,7 +74,7 @@ const Result = ({ answers, restartQuiz, questions }) => {
                   aria-controls={`panel${i}-content`}
                   id={`panel${i}-header`}
                 >
-                  <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
+                  <Typography variant="subtitle1" sx={{ fontWeight: 'bold', textAlign: 'left' }}>
                     {q.title}
                   </Typography>
                 </AccordionSummary>
