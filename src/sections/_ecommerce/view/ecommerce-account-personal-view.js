@@ -69,7 +69,6 @@ export default function EcommerceAccountPersonalView() {
     try {
       await new Promise((resolve) => setTimeout(resolve, 500));
       reset();
-      console.log('DATA', data);
     } catch (error) {
       console.error(error);
     }

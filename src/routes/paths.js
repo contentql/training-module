@@ -37,12 +37,26 @@ export const paths = {
   // E-learning
   eLearning: {
     root: '/e-learning',
-    courses: '/e-learning/courses',
-    course: `/e-learning/course`,
+    courses: '/courses',
+    course: `/course`,
     posts: '/e-learning/posts',
     post: `/e-learning/post`,
     about: '/e-learning/about',
     contact: '/e-learning/contact',
+    cart: '/cart',
+    checkout: '/checkout',
+    purchaseCompleted: '/purchase-completed',
+    wishlist: '/wishlist',
+    myLearning: '/account/my-learning',
+    account: {
+      root: `/account`,
+      personal: `/account/personal`,
+      wishlist: `/account/wishlist`,
+      vouchers: `/account/certificates`,
+      orders: `/account/orders`,
+      payment: `/account/payment`,
+      myLearning: `/account/my-learning`,
+    },
   },
   // E-commerce
   eCommerce: {
@@ -65,10 +79,10 @@ export const paths = {
   },
   // Auth
   loginCover: '/auth/login-cover',
-  loginBackground: '/auth/login-background',
+  loginBackground: '/auth/login',
   loginIllustration: '/auth/login-illustration',
   registerCover: '/auth/register-cover',
-  registerBackground: '/auth/register-background',
+  registerBackground: '/auth/register',
   registerIllustration: '/auth/register-illustration',
   forgotPassword: '/auth/forgot-password',
   verify: '/auth/verify',

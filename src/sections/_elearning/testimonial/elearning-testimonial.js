@@ -55,7 +55,7 @@ export default function ElearningTestimonial({ testimonials }) {
         bgcolor: 'background.neutral',
         textAlign: 'center',
         overflow: 'hidden',
-        py: { xs: 10, md: 15 },
+        py: { xs: 5, md: 6 },
       }}
     >
       <Container sx={{ position: 'relative' }}>

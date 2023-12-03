@@ -544,3 +544,168 @@ export const _descriptions = [
   `Ipsam aliquam velit nobis repellendus officiis aut deserunt id et. Nihil sunt aut dolores aut. Dolores est ipsa quia et laborum quidem laborum accusamus id. Facilis odit quod hic laudantium saepe omnis nisi in sint. Sed cupiditate possimus id.`,
   `Magnam non eveniet optio optio ut aliquid atque. Velit libero aspernatur quis laborum consequatur laudantium. Tempora facere optio fugit accusantium ut. Omnis aspernatur reprehenderit autem esse ut ut enim voluptatibus.`,
 ];
+
+export const _questions = [
+  {
+    title: "What's the national flower of Japan?",
+    options: [
+      {
+        options: 'Cherry Blossom',
+      },
+      {
+        options: 'Rose',
+      },
+      {
+        options: 'Jasmine',
+      },
+      {
+        options: 'Lavender',
+      },
+    ],
+    correctAnswer: 'Cherry Blossom',
+  },
+  {
+    title: "What's the national animal of Australia?",
+    options: [
+      {
+        options: 'Lion',
+      },
+      {
+        options: 'Cat',
+      },
+      {
+        options: 'Red Kangaroo',
+      },
+      {
+        options: 'Elephant',
+      },
+    ],
+    correctAnswer: 'Red Kangaroo',
+  },
+  {
+    title: 'Which of the following is used in pencils',
+    options: [
+      {
+        options: 'Phosphorous',
+      },
+      {
+        options: 'Silicon',
+      },
+      {
+        options: 'Charcoal',
+      },
+      {
+        options: 'Graphite',
+      },
+    ],
+    correctAnswer: 'Graphite',
+  },
+  {
+    title: "Which planet is known as the 'Red Planet'?",
+    options: [
+      {
+        options: 'Mars',
+      },
+      {
+        options: 'Venus',
+      },
+      {
+        options: 'Jupiter',
+      },
+      {
+        options: 'Saturn',
+      },
+    ],
+    correctAnswer: 'Mars',
+  },
+  {
+    title: 'In which year did the Titanic sink?',
+    options: [
+      {
+        options: '1912',
+      },
+      {
+        options: '1923',
+      },
+      {
+        options: '1905',
+      },
+      {
+        options: '1931',
+      },
+    ],
+    correctAnswer: '1912',
+  },
+  {
+    title: 'What is the tallest mountain in the world?',
+    options: [
+      {
+        options: 'Mount Everest',
+      },
+      {
+        options: 'K2',
+      },
+      {
+        options: 'Kangchenjunga',
+      },
+      {
+        options: 'Lhotse',
+      },
+    ],
+    correctAnswer: 'Mount Everest',
+  },
+  {
+    title: 'Which famous scientist developed the theory of relativity?',
+    options: [
+      {
+        options: 'Isaac Newton',
+      },
+      {
+        options: 'Albert Einstein',
+      },
+      {
+        options: 'Galileo Galilei',
+      },
+      {
+        options: 'Stephen Hawking',
+      },
+    ],
+    correctAnswer: 'Albert Einstein',
+  },
+  {
+    title: 'What is the capital of France?',
+    options: [
+      {
+        options: 'Berlin',
+      },
+      {
+        options: 'Rome',
+      },
+      {
+        options: 'Madrid',
+      },
+      {
+        options: 'Paris',
+      },
+    ],
+    correctAnswer: 'Paris',
+  },
+  {
+    title: 'Which is a musical instrument',
+    options: [
+      {
+        options: 'Green Apple',
+      },
+      {
+        options: 'Apple',
+      },
+      {
+        options: 'Piano',
+      },
+      {
+        options: 'Flute',
+      },
+    ],
+    correctAnswer: ['Piano', 'Flute'],
+  },
+];

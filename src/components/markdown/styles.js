@@ -29,12 +29,77 @@ const StyledMarkdown = styled('div', {
     },
   },
 
-  // List
-  '& ul, & ol': {
+  // List styles - Customize the appearance of nested lists by updating the styles below
+  // Add more nested lists below
+
+  // Unurdered List
+  ul: {
+    fontWeight: 'bold',
+    padding: 0,
     margin: 0,
-    '& li': {
-      lineHeight: 2,
-    },
+    paddingLeft: '20px',
+  },
+
+  // First Level Nested Unordered List
+  'ul li': {
+    listStyleType: 'disc',
+  },
+
+  // Second Level Nested Unordered List
+  'ul ul li': {
+    listStyleType: 'circle',
+  },
+
+  // Third Level Nested Unordered List
+  'ul ul ul li': {
+    listStyleType: 'square',
+  },
+
+  // Fourth Level Nested Unordered List
+  'ul ul ul ul li': {
+    listStyleType: '"\\2013"',
+    paddingLeft: '0.5em',
+  },
+
+  // Fifth Level Nested Unordered List
+  'ul ul ul ul ul li': {
+    listStyleType: '"\\2192"',
+    paddingLeft: '0.5em',
+  },
+
+  // Add more styles for additional list levels below
+
+  // Ordered List
+  ol: {
+    fontWeight: 'bold',
+    padding: 0,
+    margin: 0,
+    paddingLeft: '20px',
+  },
+
+  // First Level Nested Ordered List
+  'ol li': {
+    listStyleType: 'decimal',
+  },
+
+  // Second Level Nested Ordered List
+  'ol ol li': {
+    listStyleType: 'upper-alpha',
+  },
+
+  // Third Level Nested Ordered List
+  'ol ol ol li': {
+    listStyleType: 'lower-alpha',
+  },
+
+  // Fourth Level Nested Ordered List
+  'ol ol ol ol li': {
+    listStyleType: 'upper-roman',
+  },
+
+  // Fifth Level Nested Ordered List
+  'ol ol ol ol ol li': {
+    listStyleType: 'lower-roman',
   },
 
   // Divider

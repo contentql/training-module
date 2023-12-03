@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useState, useCallback } from 'react';
+// import { useState, useCallback } from 'react';
 
 import Stack from '@mui/material/Stack';
 import Drawer from '@mui/material/Drawer';
@@ -11,96 +11,108 @@ import Iconify from 'src/components/iconify';
 import { useResponsive } from 'src/hooks/use-responsive';
 
 import FilterFee from './filter-fee';
-import FilterLevel from './filter-level';
-import FilterRating from './filter-rating';
-import FilterLanguage from './filter-language';
-import FilterDuration from './filter-duration';
-import FilterCategories from './filter-categories';
+// import FilterLevel from './filter-level';
+// import FilterRating from './filter-rating';
+// import FilterLanguage from './filter-language';
+// import FilterDuration from './filter-duration';
+// import FilterCategories from './filter-categories';
+import FilterMultiSelect from './filter-multiselect';
 
 // ----------------------------------------------------------------------
 
-const defaultValues = {
-  filterDuration: [],
-  filterCategories: [],
-  filterRating: null,
-  filterFee: [],
-  filterLevel: [],
-  filterLanguage: [],
-};
+// const defaultValues = {
+//   filterDuration: [],
+//   filterCategories: [],
+//   filterRating: null,
+//   filterFee: [],
+//   filterLevel: [],
+//   filterLanguage: [],
+// };
 
-export default function ElearningFilters({ open, onClose }) {
+export default function ElearningFilters({ open, onClose, filters, setFilters, categories }) {
   const mdUp = useResponsive('up', 'md');
 
-  const [filters, setFilters] = useState(defaultValues);
+  // const [filters, setFilters] = useState(defaultValues);
 
-  const handleChangeRating = useCallback(
-    (event) => {
-      setFilters({
-        ...filters,
-        filterRating: event.target.value,
-      });
-    },
-    [filters]
-  );
+  // const handleChangeRating = useCallback(
+  //   (event) => {
+  //     setFilters({
+  //       ...filters,
+  //       filterRating: event.target.value,
+  //     });
+  //   },
+  //   [filters]
+  // );
 
-  const handleChangeCategory = useCallback(
-    (newValue) => {
-      setFilters({
-        ...filters,
-        filterCategories: newValue,
-      });
-    },
-    [filters]
-  );
+  // const handleChangeCategory = useCallback(
+  //   (newValue) => {
+  //     setFilters({
+  //       ...filters,
+  //       filterCategories: newValue,
+  //     });
+  //   },
+  //   [filters]
+  // );
 
-  const handleChangeLevel = useCallback(
-    (event) => {
-      const {
-        target: { value },
-      } = event;
-      setFilters({
-        ...filters,
-        filterLevel: typeof value === 'string' ? value.split(',') : value,
-      });
-    },
-    [filters]
-  );
+  // const handleChangeLevel = useCallback(
+  //   (event) => {
+  //     const {
+  //       target: { value },
+  //     } = event;
+  //     setFilters({
+  //       ...filters,
+  //       filterLevel: typeof value === 'string' ? value.split(',') : value,
+  //     });
+  //   },
+  //   [filters]
+  // );
 
-  const handleChangeFee = useCallback(
-    (event) => {
-      const {
-        target: { value },
-      } = event;
-      setFilters({
-        ...filters,
-        filterFee: typeof value === 'string' ? value.split(',') : value,
-      });
-    },
-    [filters]
-  );
+  // const handleChangeFee = useCallback(
+  //   (event) => {
+  //     const {
+  //       target: { value },
+  //     } = event;
+  //     setFilters({
+  //       ...filters,
+  //       filterFee: typeof value === 'string' ? value.split(',') : value,
+  //     });
+  //   },
+  //   [filters]
+  // );
 
-  const handleChangeDuration = useCallback(
-    (event) => {
-      const {
-        target: { value },
-      } = event;
-      setFilters({
-        ...filters,
-        filterDuration: typeof value === 'string' ? value.split(',') : value,
-      });
-    },
-    [filters]
-  );
+  // const handleChangeDuration = useCallback(
+  //   (event) => {
+  //     const {
+  //       target: { value },
+  //     } = event;
+  //     setFilters({
+  //       ...filters,
+  //       filterDuration: typeof value === 'string' ? value.split(',') : value,
+  //     });
+  //   },
+  //   [filters]
+  // );
 
-  const handleChangeLanguage = useCallback(
-    (newValue) => {
-      setFilters({
-        ...filters,
-        filterLanguage: newValue,
-      });
-    },
-    [filters]
-  );
+  // const handleChangeLanguage = useCallback(
+  //   (newValue) => {
+  //     setFilters({
+  //       ...filters,
+  //       filterLanguage: newValue,
+  //     });
+  //   },
+  //   [filters]
+  // );
+
+  // const handleChangeSearch = (event) => {
+  //   setSearch(event.target.value);
+  // };
+
+  const handleFilterChange = (event) => {
+    setFilters((prev) => ({
+      ...prev,
+      [event.target.name]: event.target.value,
+    }));
+  };
 
   const renderContent = (
     <Stack
@@ -121,40 +133,52 @@ export default function ElearningFilters({ open, onClose }) {
             </InputAdornment>
           ),
         }}
+        name="text"
+        value={filters.text}
+        onChange={handleFilterChange}
       />
-
+      {/* 
       <Block title="Ratings">
-        <FilterRating filterRating={filters.filterRating} onChangeRating={handleChangeRating} />
-      </Block>
+        <FilterRating
+          name="rating"
+          filterRating={filters.filterRating}
+          onChangeRating={handleFilterChange}
+        />
+      </Block> */}
 
       <Block title="Duration">
-        <FilterDuration
-          filterDuration={filters.filterDuration}
-          onChangeDuration={handleChangeDuration}
+        <FilterMultiSelect
+          name="duration"
+          filterSelect={filters.duration}
+          onChangeSelect={handleFilterChange}
+          type="duration"
         />
       </Block>
 
       <Block title="Category">
-        <FilterCategories
-          filterCategories={filters.filterCategories}
-          onChangeCategory={handleChangeCategory}
+        <FilterMultiSelect
+          name="category"
+          filterSelect={filters.category}
+          onChangeSelect={handleFilterChange}
+          type="category"
+          categories={categories}
         />
       </Block>
 
-      <Block title="Level">
+      {/* <Block title="Level">
         <FilterLevel filterLevel={filters.filterLevel} onChangeLevel={handleChangeLevel} />
-      </Block>
+      </Block> */}
 
       <Block title="Fee">
-        <FilterFee filterFee={filters.filterFee} onChangeFee={handleChangeFee} />
+        <FilterFee name="fee" filterFee={filters.fee} onChangeFee={handleFilterChange} />
       </Block>
 
-      <Block title="Language">
+      {/* <Block title="Language">
         <FilterLanguage
           filterLanguage={filters.filterLanguage}
           onChangeLanguage={handleChangeLanguage}
         />
-      </Block>
+      </Block> */}
     </Stack>
   );
 
@@ -185,6 +209,9 @@ export default function ElearningFilters({ open, onClose }) {
 ElearningFilters.propTypes = {
   onClose: PropTypes.func,
   open: PropTypes.bool,
+  filters: PropTypes.object,
+  setFilters: PropTypes.func,
+  categories: PropTypes.array,
 };
 
 // ----------------------------------------------------------------------

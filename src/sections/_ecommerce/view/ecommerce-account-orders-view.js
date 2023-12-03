@@ -1,27 +1,30 @@
 'use client';
 
+import { useQuery } from 'react-query';
 import { useState, useCallback } from 'react';
 
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
-import Stack from '@mui/material/Stack';
+// import Stack from '@mui/material/Stack';
 import Table from '@mui/material/Table';
-import Switch from '@mui/material/Switch';
+// import Switch from '@mui/material/Switch';
 import TableRow from '@mui/material/TableRow';
 import TableBody from '@mui/material/TableBody';
-import TextField from '@mui/material/TextField';
+// import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import InputAdornment from '@mui/material/InputAdornment';
+// import InputAdornment from '@mui/material/InputAdornment';
 import TableContainer from '@mui/material/TableContainer';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+// import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import TablePagination from '@mui/material/TablePagination';
-import FormControlLabel from '@mui/material/FormControlLabel';
+// import FormControlLabel from '@mui/material/FormControlLabel';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 
-import { _productsTable } from 'src/_mock';
-import Iconify from 'src/components/iconify';
+// import { _productsTable } from 'src/_mock';
+// import Iconify from 'src/components/iconify';
 import Scrollbar from 'src/components/scrollbar';
+import { getOrdersData } from 'src/queries/orders';
+import { useUserStore } from 'src/states/auth-store';
 
 import { stableSort, getComparator } from '../account/utils';
 import EcommerceAccountOrdersTableRow from '../account/ecommerce-account-orders-table-row';
@@ -54,9 +57,24 @@ export default function EcommerceAccountOrdersPage() {
 
   const [page, setPage] = useState(0);
 
-  const [dense, setDense] = useState(false);
+  const [
+    dense,
+    // setDense
+  ] = useState(false);
 
   const [rowsPerPage, setRowsPerPage] = useState(10);
+
+  const userData = useUserStore((state) => state.UserData);
+
+  const {
+    data,
+    // isLoading
+  } = useQuery({
+    queryKey: ['orders', userData.id],
+    queryFn: getOrdersData,
+    select: (ordersData) =>
+      ordersData.filter((orderData) => userData.username === orderData.attributes.username),
+  });
 
   const handleChangeTab = useCallback((event, newValue) => {
     setTab(newValue);
@@ -73,14 +91,17 @@ export default function EcommerceAccountOrdersPage() {
     [order, orderBy]
   );
 
-  const handleSelectAllRows = useCallback((event) => {
-    if (event.target.checked) {
-      const newSelected = _productsTable.map((n) => n.id);
-      setSelected(newSelected);
-      return;
-    }
-    setSelected([]);
-  }, []);
+  const handleSelectAllRows = useCallback(
+    (event) => {
+      if (event.target.checked) {
+        const newSelected = data.map((n) => n.id);
+        setSelected(newSelected);
+        return;
+      }
+      setSelected([]);
+    },
+    [data]
+  );
 
   const handleSelectRow = useCallback(
     (id) => {
@@ -114,11 +135,11 @@ export default function EcommerceAccountOrdersPage() {
     setPage(0);
   }, []);
 
-  const handleChangeDense = useCallback((event) => {
-    setDense(event.target.checked);
-  }, []);
+  // const handleChangeDense = useCallback((event) => {
+  //   setDense(event.target.checked);
+  // }, []);
 
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - _productsTable.length) : 0;
+  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - data.length) : 0;
 
   return (
     <>
@@ -138,7 +159,7 @@ export default function EcommerceAccountOrdersPage() {
         ))}
       </Tabs>
 
-      <Stack direction={{ xs: 'column', md: 'row' }} spacing={2} sx={{ mt: 5, mb: 3 }}>
+      {/* <Stack direction={{ xs: 'column', md: 'row' }} spacing={2} sx={{ mt: 5, mb: 3 }}>
         <TextField
           fullWidth
           hiddenLabel
@@ -155,7 +176,7 @@ export default function EcommerceAccountOrdersPage() {
           <DatePicker label="Start Date" sx={{ width: 1, minWidth: 180 }} />
           <DatePicker label="End Date" sx={{ width: 1, minWidth: 180 }} />
         </Stack>
-      </Stack>
+      </Stack> */}
 
       <TableContainer
         sx={{
@@ -170,7 +191,7 @@ export default function EcommerceAccountOrdersPage() {
         }}
       >
         <EcommerceAccountOrdersTableToolbar
-          rowCount={_productsTable.length}
+          rowCount={data?.length}
           numSelected={selected.length}
           onSelectAllRows={handleSelectAllRows}
         />
@@ -187,22 +208,23 @@ export default function EcommerceAccountOrdersPage() {
               orderBy={orderBy}
               onSort={handleSort}
               headCells={TABLE_HEAD}
-              rowCount={_productsTable.length}
+              rowCount={data?.length}
               numSelected={selected.length}
               onSelectAllRows={handleSelectAllRows}
             />
 
             <TableBody>
-              {stableSort(_productsTable, getComparator(order, orderBy))
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row) => (
-                  <EcommerceAccountOrdersTableRow
-                    key={row.id}
-                    row={row}
-                    selected={selected.includes(row.id)}
-                    onSelectRow={() => handleSelectRow(row.id)}
-                  />
-                ))}
+              {data &&
+                stableSort(data, getComparator(order, orderBy))
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((row) => (
+                    <EcommerceAccountOrdersTableRow
+                      key={row.id}
+                      row={row.attributes}
+                      selected={selected.includes(row.id)}
+                      onSelectRow={() => handleSelectRow(row.id)}
+                    />
+                  ))}
 
               {emptyRows > 0 && (
                 <TableRow
@@ -222,14 +244,14 @@ export default function EcommerceAccountOrdersPage() {
         <TablePagination
           page={page}
           component="div"
-          count={_productsTable.length}
+          count={data ? data.length : 0}
           rowsPerPage={rowsPerPage}
           onPageChange={handleChangePage}
           rowsPerPageOptions={[5, 10, 25]}
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
 
-        <FormControlLabel
+        {/* <FormControlLabel
           control={<Switch checked={dense} onChange={handleChangeDense} />}
           label="Dense padding"
           sx={{
@@ -240,7 +262,7 @@ export default function EcommerceAccountOrdersPage() {
               sm: 'absolute',
             },
           }}
-        />
+        /> */}
       </Box>
     </>
   );

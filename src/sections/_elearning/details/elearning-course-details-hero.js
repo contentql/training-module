@@ -1,10 +1,12 @@
 import PropTypes from 'prop-types';
+// import { useState, useCallback } from 'react';
 
 import Box from '@mui/material/Box';
 import Fab from '@mui/material/Fab';
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
-import Avatar from '@mui/material/Avatar';
+// import Button from '@mui/material/Button';
+// import Avatar from '@mui/material/Avatar';
 import Divider from '@mui/material/Divider';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
@@ -22,31 +24,59 @@ import { fShortenNumber } from 'src/utils/format-number';
 import { useResponsive } from 'src/hooks/use-responsive';
 import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
 
+// import ElearningCourseDetailsLessonsDialog from './elearning-course-details-lessons-dialog';
+
 // ----------------------------------------------------------------------
 
 export default function ElearningCourseDetailsHero({ course }) {
   const {
-    slug,
-    level,
-    lessons,
+    title,
+    // level = 'Beginner',
+    // lessons,
     category,
-    coverUrl,
+    // coverUrl,
     languages,
     bestSeller,
-    totalHours,
+    time,
     description,
-    ratingNumber,
-    totalQuizzes,
+    rating,
     totalReviews,
     totalStudents,
-    teachers = [],
+    // teachers = [],
+    units,
   } = course;
+
+  // const [selectedLesson, setSelectedLesson] = useState(null);
 
   const theme = useTheme();
 
   const mdUp = useResponsive('up', 'md');
 
   const videoOpen = useBoolean();
+
+  // const videoPlay = useBoolean();
+
+  const totalLessons = units?.data.reduce(
+    (count, unit) => (unit.attributes.lesson ? count + unit.attributes.lesson.length : count),
+    0
+  );
+
+  const totalQuizzes = units?.data.length;
+
+  // const handleSelectedLesson = useCallback((lesson) => {
+  //   if (lesson.unLocked) {
+  //     setSelectedLesson(lesson);
+  //   }
+  // }, []);
+
+  // const handleClose = useCallback(() => {
+  //   setSelectedLesson(null);
+  //   videoPlay.onFalse();
+  // }, [videoPlay]);
+
+  // const handleReady = useCallback(() => {
+  //   setTimeout(() => videoPlay.onTrue(), 500);
+  // }, [videoPlay]);
 
   return (
     <>
@@ -61,7 +91,7 @@ export default function ElearningCourseDetailsHero({ course }) {
             links={[
               { name: 'Home', href: '/' },
               { name: 'Courses', href: paths.eLearning.courses },
-              { name: course.slug || '' },
+              { name: course.title || '' },
             ]}
             sx={{
               pt: 5,
@@ -93,7 +123,7 @@ export default function ElearningCourseDetailsHero({ course }) {
 
                 <Image
                   alt="hero"
-                  src={coverUrl}
+                  src="/assets/images/course/course_1.jpg"
                   ratio={mdUp ? '3/4' : '4/3'}
                   overlay={`linear-gradient(to bottom, ${alpha(
                     theme.palette.common.black,
@@ -117,7 +147,7 @@ export default function ElearningCourseDetailsHero({ course }) {
                   </Typography>
 
                   <Typography variant="h3" component="h1">
-                    {slug}
+                    {title}
                   </Typography>
 
                   <Typography sx={{ color: 'text.secondary' }}>{description}</Typography>
@@ -132,7 +162,7 @@ export default function ElearningCourseDetailsHero({ course }) {
                   <Stack spacing={0.5} direction="row" alignItems="center">
                     <Iconify icon="carbon:star-filled" sx={{ color: 'warning.main' }} />
                     <Box sx={{ typography: 'h6' }}>
-                      {Number.isInteger(ratingNumber) ? `${ratingNumber}.0` : ratingNumber}
+                      {Number.isInteger(rating) ? `${rating}.0` : rating}
                     </Box>
 
                     {totalReviews && (
@@ -150,7 +180,7 @@ export default function ElearningCourseDetailsHero({ course }) {
                   </Stack>
                 </Stack>
 
-                <Stack direction="row" alignItems="center">
+                {/* <Stack direction="row" alignItems="center">
                   <Avatar src={teachers[0]?.avatarUrl} />
 
                   <Typography variant="body2" sx={{ ml: 1, mr: 0.5 }}>
@@ -162,7 +192,16 @@ export default function ElearningCourseDetailsHero({ course }) {
                       + {teachers.length} teachers
                     </Link>
                   )}
-                </Stack>
+                  <Stack className="ml-2 md:ml-12">
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={() => handleSelectedLesson(lessons[0])}
+                    >
+                      Start Now
+                    </Button>
+                  </Stack>
+                </Stack> */}
 
                 <Divider sx={{ borderStyle: 'dashed' }} />
 
@@ -175,15 +214,15 @@ export default function ElearningCourseDetailsHero({ course }) {
                     }}
                   >
                     <Stack direction="row" alignItems="center" sx={{ typography: 'body2' }}>
-                      <Iconify icon="carbon:time" sx={{ mr: 1 }} /> {`${totalHours} hours`}
+                      <Iconify icon="carbon:time" sx={{ mr: 1 }} /> {`${time} hours`}
                     </Stack>
 
                     <Stack direction="row" alignItems="center" sx={{ typography: 'body2' }}>
                       <Iconify icon="carbon:document" sx={{ mr: 1 }} />
-                      {`${lessons?.length} Lessons`}
+                      {`${totalLessons} Lessons`}
                     </Stack>
 
-                    <Stack direction="row" alignItems="center" sx={{ typography: 'body2' }}>
+                    {/* <Stack direction="row" alignItems="center" sx={{ typography: 'body2' }}>
                       <Iconify
                         icon={
                           (level === 'Beginner' && 'carbon:skill-level-basic') ||
@@ -193,7 +232,7 @@ export default function ElearningCourseDetailsHero({ course }) {
                         sx={{ mr: 1 }}
                       />
                       {level}
-                    </Stack>
+                    </Stack> */}
                   </Stack>
 
                   <Stack
@@ -226,19 +265,19 @@ export default function ElearningCourseDetailsHero({ course }) {
 
 ElearningCourseDetailsHero.propTypes = {
   course: PropTypes.shape({
-    slug: PropTypes.string,
+    title: PropTypes.string,
     level: PropTypes.string,
     lessons: PropTypes.array,
     teachers: PropTypes.array,
     bestSeller: PropTypes.bool,
     category: PropTypes.string,
     coverUrl: PropTypes.string,
-    totalHours: PropTypes.number,
+    time: PropTypes.number,
     description: PropTypes.string,
-    totalQuizzes: PropTypes.number,
-    ratingNumber: PropTypes.number,
+    rating: PropTypes.number,
     totalReviews: PropTypes.number,
     totalStudents: PropTypes.number,
     languages: PropTypes.arrayOf(PropTypes.string),
+    units: PropTypes.object,
   }),
 };

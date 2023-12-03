@@ -7,22 +7,36 @@ import { alpha } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 
 import Iconify from 'src/components/iconify';
+import { useUserStore } from 'src/states/auth-store';
 
-import ElearningCourseDetailsLessonList from './elearning-course-details-lesson-list';
+import ElearningCourseDetailsUnitList from './elearning-course-details-unit-list';
 
 // ----------------------------------------------------------------------
 
 export default function ElearningCourseDetailsSummary({ course }) {
+  const userData = useUserStore((state) => state.UserData);
+
+  const { isLoggedIn } = userData;
+
+  const hasBoughtCourse =
+    isLoggedIn &&
+    course.users?.data.filter((user) => user.id === userData.id.toString()).length > 0;
+
   return (
     <Stack spacing={5}>
-      <ElearningCourseDetailsLessonList lessons={course.lessons} />
+      <ElearningCourseDetailsUnitList
+        units={course.units?.data}
+        quiz={course?.quiz}
+        courseName={course}
+        // unitQuiz={course.units?.data.attributes.quiz}
+        hasBoughtCourse={hasBoughtCourse}
+      />
 
       <Stack spacing={3}>
         <Typography variant="h4">What You Will Learn</Typography>
-
         <Stack spacing={1}>
-          {course.learnList?.map((learn) => (
-            <Stack key={learn} direction="row" alignItems="center">
+          {course.WhatYouWillLearn?.map((learn) => (
+            <Stack key={learn.id} direction="row" alignItems="center">
               <Box
                 sx={{
                   mr: 1.5,
@@ -40,7 +54,7 @@ export default function ElearningCourseDetailsSummary({ course }) {
                   sx={{ width: 16, height: 16, color: 'primary.main' }}
                 />
               </Box>
-              {learn}
+              {learn.points}
             </Stack>
           ))}
         </Stack>
@@ -50,8 +64,14 @@ export default function ElearningCourseDetailsSummary({ course }) {
         <Typography variant="h4">Skills You Will Gain</Typography>
 
         <Stack direction="row" flexWrap="wrap" spacing={1}>
-          {course.skills?.map((skill) => (
-            <Chip key={skill} label={skill} size="small" variant="soft" onClick={() => {}} />
+          {course.Skills?.map((skill) => (
+            <Chip
+              key={skill.id}
+              label={skill.points}
+              size="small"
+              variant="soft"
+              onClick={() => {}}
+            />
           ))}
         </Stack>
       </Stack>
@@ -72,7 +92,11 @@ export default function ElearningCourseDetailsSummary({ course }) {
 ElearningCourseDetailsSummary.propTypes = {
   course: PropTypes.shape({
     learnList: PropTypes.array,
-    lessons: PropTypes.array,
+    units: PropTypes.object,
     skills: PropTypes.array,
+    users: PropTypes.object,
+    quiz: PropTypes.any,
+    WhatYouWillLearn: PropTypes.array,
+    Skills: PropTypes.array,
   }),
 };

@@ -4,36 +4,71 @@ import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
-import Avatar from '@mui/material/Avatar';
+// import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 
 import Image from 'src/components/image';
 import Label from 'src/components/label';
 import { paths } from 'src/routes/paths';
 import Iconify from 'src/components/iconify';
+import { useCartStore } from 'src/states/cart';
 import { RouterLink } from 'src/routes/components';
+import { useUserStore } from 'src/states/auth-store';
 import TextMaxLine from 'src/components/text-max-line';
+import { useWishlistStore } from 'src/states/wishlist';
 import { fCurrency, fShortenNumber } from 'src/utils/format-number';
 
 // ----------------------------------------------------------------------
 
-export default function ElearningCourseItem({ course, vertical }) {
+export default function ElearningCourseItem({ course, vertical, isMyLearning }) {
+  const { id } = course;
   const {
-    slug,
-    level,
+    title,
     price,
-    teachers,
-    coverUrl,
     category,
     priceSale,
     bestSeller,
-    totalHours,
+    time,
     description,
-    ratingNumber,
+    rating,
     totalReviews,
     totalStudents,
-  } = course;
+    users,
+  } = course.attributes;
+
+  const [cart, addToCart, removeFromCart] = useCartStore((state) => [
+    state.cart,
+    state.addToCart,
+    state.removeFromCart,
+  ]);
+
+  const [wishlist, addToWishlist, removeFromWishlist] = useWishlistStore((state) => [
+    state.wishlist,
+    state.addToWishlist,
+    state.removeFromWishlist,
+  ]);
+
+  const userData = useUserStore((state) => state.UserData);
+
+  const { isLoggedIn } = userData;
+
+  const hasBoughtCourse =
+    isLoggedIn &&
+    users.data?.filter((user) => user.id.toString() === userData.id.toString()).length > 0;
+
+  const isCourseInCart = cart.filter((cartItem) => cartItem.id === id).length === 0;
+
+  const isCourseInWishlist = wishlist.filter((wishlistItem) => wishlistItem.id === id).length === 0;
+
+  const wishlistIcon = isCourseInWishlist ? 'solar:heart-linear' : 'solar:heart-bold';
+
+  // console.log(id);
+  // console.log('Cart', cart, isCourseInCart);
+  // console.log(wishlist, isCourseInWishlist);
+  // console.log();
 
   return (
     <Card
@@ -49,11 +84,11 @@ export default function ElearningCourseItem({ course, vertical }) {
     >
       <Box sx={{ flexShrink: { sm: 0 } }}>
         <Image
-          alt={slug}
-          src={coverUrl}
+          alt={title}
+          src="/assets/images/course/course_1.jpg"
           sx={{
             height: 1,
-            objectFit: 'cover',
+            // objectFit: 'cover',
             width: { sm: 240 },
             ...(vertical && {
               width: { sm: 1 },
@@ -77,7 +112,7 @@ export default function ElearningCourseItem({ course, vertical }) {
         </Label>
       )}
 
-      <Stack spacing={3} sx={{ p: 3 }}>
+      <Stack spacing={3} sx={{ p: 3 }} width="100%">
         <Stack
           spacing={{
             xs: 3,
@@ -107,9 +142,9 @@ export default function ElearningCourseItem({ course, vertical }) {
           </Stack>
 
           <Stack spacing={1}>
-            <Link component={RouterLink} href={paths.eLearning.course} color="inherit">
+            <Link component={RouterLink} href={`/courses/${id}`} color="inherit">
               <TextMaxLine variant="h6" line={1}>
-                {slug}
+                {title}
               </TextMaxLine>
             </Link>
 
@@ -136,9 +171,7 @@ export default function ElearningCourseItem({ course, vertical }) {
         >
           <Stack spacing={0.5} direction="row" alignItems="center">
             <Iconify icon="carbon:star-filled" sx={{ color: 'warning.main' }} />
-            <Box sx={{ typography: 'h6' }}>
-              {Number.isInteger(ratingNumber) ? `${ratingNumber}.0` : ratingNumber}
-            </Box>
+            <Box sx={{ typography: 'h6' }}>{Number.isInteger(rating) ? `${rating}.0` : rating}</Box>
 
             {totalReviews && (
               <Link variant="body2" sx={{ color: 'text.secondary' }}>
@@ -155,7 +188,7 @@ export default function ElearningCourseItem({ course, vertical }) {
           </Stack>
         </Stack>
 
-        <Stack direction="row" alignItems="center">
+        {/* <Stack direction="row" alignItems="center">
           <Avatar src={teachers[0]?.avatarUrl} />
 
           <Typography variant="body2" sx={{ ml: 1, mr: 0.5 }}>
@@ -167,7 +200,7 @@ export default function ElearningCourseItem({ course, vertical }) {
               + {teachers?.length} teachers
             </Link>
           )}
-        </Stack>
+        </Stack> */}
 
         <Divider
           sx={{
@@ -182,14 +215,15 @@ export default function ElearningCourseItem({ course, vertical }) {
         <Stack
           direction="row"
           flexWrap="wrap"
-          alignItems="center"
+          alignItems="space-around"
+          justifyContent="space-between"
           sx={{ color: 'text.disabled', '& > *:not(:last-child)': { mr: 2.5 } }}
         >
           <Stack direction="row" alignItems="center" sx={{ typography: 'body2' }}>
-            <Iconify icon="carbon:time" sx={{ mr: 1 }} /> {`${totalHours} hours`}
+            <Iconify icon="carbon:time" sx={{ mr: 1 }} /> {`${time} hours`}
           </Stack>
 
-          <Stack direction="row" alignItems="center" sx={{ typography: 'body2' }}>
+          {/* <Stack direction="row" alignItems="center" sx={{ typography: 'body2' }}>
             <Iconify
               icon={
                 (level === 'Beginner' && 'carbon:skill-level-basic') ||
@@ -199,7 +233,52 @@ export default function ElearningCourseItem({ course, vertical }) {
               sx={{ mr: 1 }}
             />
             {level}
-          </Stack>
+          </Stack> */}
+
+          {!isMyLearning &&
+            (hasBoughtCourse ? (
+              <Link
+                component={RouterLink}
+                href={`${paths.eLearning.courses}/${id}`}
+                color="inherit"
+              >
+                <Button variant="contained" size="large" color="inherit" sx={{ width: 1 }}>
+                  Go to Course
+                </Button>
+              </Link>
+            ) : (
+              <Box
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'flex-end',
+                  alignItems: 'center',
+                }}
+              >
+                <IconButton
+                  variant={isCourseInWishlist ? 'contained' : 'outlined'}
+                  size="large"
+                  color="inherit"
+                  onClick={() =>
+                    isCourseInWishlist ? addToWishlist(course) : removeFromWishlist(course)
+                  }
+                >
+                  <Iconify icon={wishlistIcon} color="red" />
+                </IconButton>
+
+                <IconButton
+                  variant={isCourseInCart ? 'contained' : 'outlined'}
+                  size="large"
+                  color="inherit"
+                  onClick={() => (isCourseInCart ? addToCart(course) : removeFromCart(course))}
+                >
+                  {isCourseInCart ? (
+                    <Iconify icon="carbon:shopping-cart-plus" />
+                  ) : (
+                    <Iconify icon="carbon:shopping-cart-minus" />
+                  )}
+                </IconButton>
+              </Box>
+            ))}
         </Stack>
       </Stack>
     </Card>
@@ -208,19 +287,21 @@ export default function ElearningCourseItem({ course, vertical }) {
 
 ElearningCourseItem.propTypes = {
   course: PropTypes.shape({
-    slug: PropTypes.string,
-    level: PropTypes.string,
-    price: PropTypes.number,
-    teachers: PropTypes.array,
-    bestSeller: PropTypes.bool,
-    category: PropTypes.string,
-    coverUrl: PropTypes.string,
-    priceSale: PropTypes.number,
-    totalHours: PropTypes.number,
-    description: PropTypes.string,
-    ratingNumber: PropTypes.number,
-    totalReviews: PropTypes.number,
-    totalStudents: PropTypes.number,
+    id: PropTypes.any,
+    attributes: PropTypes.shape({
+      title: PropTypes.string,
+      price: PropTypes.number,
+      category: PropTypes.string,
+      priceSale: PropTypes.number,
+      bestSeller: PropTypes.bool,
+      time: PropTypes.number,
+      description: PropTypes.string,
+      rating: PropTypes.number,
+      totalReviews: PropTypes.number,
+      totalStudents: PropTypes.number,
+      users: PropTypes.any,
+    }),
   }),
   vertical: PropTypes.bool,
+  isMyLearning: PropTypes.bool,
 };

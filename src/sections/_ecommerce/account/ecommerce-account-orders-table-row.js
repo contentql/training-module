@@ -5,9 +5,9 @@ import Divider from '@mui/material/Divider';
 import Popover from '@mui/material/Popover';
 import MenuItem from '@mui/material/MenuItem';
 import TableRow from '@mui/material/TableRow';
-import Checkbox from '@mui/material/Checkbox';
+// import Checkbox from '@mui/material/Checkbox';
 import TableCell from '@mui/material/TableCell';
-import IconButton from '@mui/material/IconButton';
+// import IconButton from '@mui/material/IconButton';
 import InputBase, { inputBaseClasses } from '@mui/material/InputBase';
 
 import Label from 'src/components/label';
@@ -21,9 +21,9 @@ import { fCurrency } from 'src/utils/format-number';
 export default function EcommerceAccountOrdersTableRow({ row, onSelectRow, selected }) {
   const [open, setOpen] = useState(null);
 
-  const handleOpen = useCallback((event) => {
-    setOpen(event.currentTarget);
-  }, []);
+  // const handleOpen = useCallback((event) => {
+  //   setOpen(event.currentTarget);
+  // }, []);
 
   const handleClose = useCallback(() => {
     setOpen(null);
@@ -36,25 +36,31 @@ export default function EcommerceAccountOrdersTableRow({ row, onSelectRow, selec
     },
   };
 
+  const titles = row.products.map((obj) => obj.title).join(', ');
+
+  const totalPrice = row.products.reduce((total, product) => total + product.price, 0);
+
+  row.status = 'Completed';
+
   return (
     <>
       <TableRow hover selected={selected}>
-        <TableCell padding="checkbox">
+        {/* <TableCell padding="checkbox">
           <Checkbox color="primary" checked={selected} onClick={onSelectRow} />
+        </TableCell> */}
+
+        <TableCell sx={{ px: 1 }}>
+          <InputBase value={row.stripeSessionToken} sx={inputStyles} />
         </TableCell>
 
         <TableCell sx={{ px: 1 }}>
-          <InputBase value={row.orderId} sx={inputStyles} />
+          <InputBase value={titles} sx={inputStyles} />
         </TableCell>
 
-        <TableCell sx={{ px: 1 }}>
-          <InputBase value={row.item} sx={inputStyles} />
-        </TableCell>
-
-        <TableCell>{fDate(row.deliveryDate)}</TableCell>
+        <TableCell>{fDate(row.createdAt)}</TableCell>
 
         <TableCell sx={{ px: 1 }}>
-          <InputBase value={fCurrency(row.price)} sx={inputStyles} />
+          <InputBase value={fCurrency(totalPrice)} sx={inputStyles} />
         </TableCell>
 
         <TableCell>
@@ -70,11 +76,11 @@ export default function EcommerceAccountOrdersTableRow({ row, onSelectRow, selec
           </Label>
         </TableCell>
 
-        <TableCell align="right" padding="none">
+        {/* <TableCell align="right" padding="none">
           <IconButton onClick={handleOpen}>
             <Iconify icon="carbon:overflow-menu-vertical" />
           </IconButton>
-        </TableCell>
+        </TableCell> */}
       </TableRow>
 
       <Popover
