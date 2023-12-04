@@ -3,6 +3,7 @@
 import * as Yup from 'yup';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
 // import { useRouter } from 'next/navigation';
 import { yupResolver } from '@hookform/resolvers/yup';
 
@@ -32,7 +33,9 @@ export default function RegisterBackgroundView() {
   const [loginError, setLoginError] = useState('');
   const [success, setSuccess] = useState(false);
 
-  // const userdata = useUserStore((store) => store?.UserData);
+  const userdata = useUserStore((store) => store?.UserData);
+
+  const router = useRouter();
 
   const updateUserData = useUserStore((store) => store?.updateUserData);
 
@@ -72,6 +75,11 @@ export default function RegisterBackgroundView() {
     resolver: yupResolver(RegisterSchema),
     defaultValues,
   });
+
+  if (userdata.isLoggedIn) {
+    router.back();
+    return null;
+  }
 
   const {
     reset,

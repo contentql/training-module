@@ -30,7 +30,7 @@ export default function LoginBackgroundView() {
 
   const [loginError, setLoginError] = useState('');
 
-  // const userdata = useUserStore((store) => store?.UserData);
+  const userdata = useUserStore((store) => store?.UserData);
 
   const updateUserData = useUserStore((store) => store?.updateUserData);
 
@@ -52,6 +52,11 @@ export default function LoginBackgroundView() {
     resolver: yupResolver(LoginSchema),
     defaultValues,
   });
+
+  if (userdata.isLoggedIn) {
+    router.back();
+    return null;
+  }
 
   const {
     handleSubmit,
@@ -80,7 +85,7 @@ export default function LoginBackgroundView() {
           ...resData.user,
         };
         updateUserData(userData);
-        router.push('/');
+        router.back();
       } else {
         setLoginError(resData.message[0].messages[0].message);
       }
