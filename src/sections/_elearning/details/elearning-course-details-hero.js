@@ -44,6 +44,7 @@ export default function ElearningCourseDetailsHero({ course }) {
     totalStudents,
     // teachers = [],
     units,
+    users,
   } = course;
 
   // const [selectedLesson, setSelectedLesson] = useState(null);
@@ -177,7 +178,7 @@ export default function ElearningCourseDetailsHero({ course }) {
                   <Stack direction="row" sx={{ typography: 'subtitle2' }}>
                     {fShortenNumber(totalStudents)}
                     <Box component="span" typography="body2" sx={{ ml: 0.5 }}>
-                      students
+                      {users?.data.length} students
                     </Box>
                   </Stack>
                 </Stack>
@@ -281,5 +282,6 @@ ElearningCourseDetailsHero.propTypes = {
     totalStudents: PropTypes.number,
     languages: PropTypes.arrayOf(PropTypes.string),
     units: PropTypes.object,
+    users: PropTypes.object,
   }),
 };
