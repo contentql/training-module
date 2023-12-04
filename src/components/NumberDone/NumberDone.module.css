@@ -4,6 +4,7 @@
   width: 29px;
   height: 29px;
   overflow: visible;
+  position: relative;
 }
 .icon {
   width: 100%;
@@ -11,7 +12,7 @@
 }
 ._2 {
   color: #ff541e;
-  position: relative;
+  position: absolute;
   font-size: 14px;
   line-height: 16.9756px;
   font-weight: 600;
@@ -26,9 +27,9 @@
     'Noto Sans',
     'Liberation Sans',
     sans-serif;
-
-  left: 34%;
-  bottom: 78%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   width: min-content;
   height: min-content;
   white-space: nowrap;
