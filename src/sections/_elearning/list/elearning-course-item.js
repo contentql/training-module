@@ -25,7 +25,7 @@ import { fCurrency, fShortenNumber } from 'src/utils/format-number';
 
 export default function ElearningCourseItem({ course, vertical, isMyLearning }) {
   const { id } = course;
-  console.log('course: ', course);
+
   const {
     title,
     price,
