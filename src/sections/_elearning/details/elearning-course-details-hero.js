@@ -35,7 +35,7 @@ export default function ElearningCourseDetailsHero({ course }) {
     // lessons,
     category,
     // coverUrl,
-    languages,
+    // languages,
     bestSeller,
     time,
     description,
@@ -62,6 +62,8 @@ export default function ElearningCourseDetailsHero({ course }) {
   );
 
   const totalQuizzes = units?.data.length;
+
+  const languages = ['English'];
 
   // const handleSelectedLesson = useCallback((lesson) => {
   //   if (lesson.unLocked) {
