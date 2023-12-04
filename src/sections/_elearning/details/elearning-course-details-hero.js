@@ -143,7 +143,7 @@ export default function ElearningCourseDetailsHero({ course }) {
                   )}
 
                   <Typography variant="overline" sx={{ color: 'secondary.main' }}>
-                    {category}
+                    {category?.data?.attributes.name}
                   </Typography>
 
                   <Typography variant="h3" component="h1">
@@ -270,7 +270,7 @@ ElearningCourseDetailsHero.propTypes = {
     lessons: PropTypes.array,
     teachers: PropTypes.array,
     bestSeller: PropTypes.bool,
-    category: PropTypes.string,
+    category: PropTypes.object,
     coverUrl: PropTypes.string,
     time: PropTypes.number,
     description: PropTypes.string,
