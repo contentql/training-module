@@ -176,7 +176,7 @@ export default function AccountPersonalView() {
         </Stack>
       </Stack> */}
 
-      <Stack spacing={2} sx={{ my: 5 }}>
+      {/* <Stack spacing={2} sx={{ my: 5 }}>
         <Typography variant="h5" sx={{ mb: 3 }}>
           Avatar
         </Typography>
@@ -197,9 +197,9 @@ export default function AccountPersonalView() {
             );
           })}
         </Grid>
-      </Stack>
+      </Stack> */}
 
-      <LoadingButton
+      {/* <LoadingButton
         color="inherit"
         size="large"
         type="submit"
@@ -207,7 +207,7 @@ export default function AccountPersonalView() {
         loading={isSubmitting}
       >
         Save Changes
-      </LoadingButton>
+      </LoadingButton> */}
     </FormProvider>
   );
 }
