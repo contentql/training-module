@@ -76,10 +76,10 @@ export default function RegisterBackgroundView() {
     defaultValues,
   });
 
-  if (userdata.isLoggedIn) {
-    router.push('/');
-    return null;
-  }
+  // if (userdata.isLoggedIn) {
+  //   router.push('/');
+  //   return null;
+  // }
 
   const {
     reset,
