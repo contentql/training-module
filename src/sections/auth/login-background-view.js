@@ -54,7 +54,7 @@ export default function LoginBackgroundView() {
   });
 
   if (userdata.isLoggedIn) {
-    router.back();
+    router.push('/');
     return null;
   }
 
@@ -85,7 +85,7 @@ export default function LoginBackgroundView() {
           ...resData.user,
         };
         updateUserData(userData);
-        router.back();
+        router.push('/');
       } else {
         setLoginError(resData.message[0].messages[0].message);
       }

@@ -13,7 +13,6 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 export default function QuestionCard(props) {
   const {
@@ -152,26 +151,42 @@ export default function QuestionCard(props) {
           )}
         </CardActions>
         {Boolean(selectedValue) && (
-          <Box sx={{ px: 1, pt: 4 }}>
-            <Typography
-              variant="body1"
-              sx={{
-                backgroundColor: 'grey.300',
-                p: 2,
-                fontSize: '16px',
-                fontWeight: 500,
-                color: 'grey.600',
-                borderRadius: 1,
-              }}
-            >
-              Correct Answer :{' '}
-              {Array.isArray(question.correctAnswer)
-                ? question.correctAnswer.join(', ')
-                : question.correctAnswer}
-              <br />
-              Description : {question?.description}
-            </Typography>
-          </Box>
+          <>
+            <Box sx={{ px: 1, pt: 4 }}>
+              <Typography
+                variant="body1"
+                sx={{
+                  p: 2,
+                  fontSize: '16px',
+                  fontWeight: 500,
+                  borderRadius: 1,
+                }}
+                className="bg-green-100 text-green-800"
+              >
+                Correct Answer :
+                <strong>
+                  {Array.isArray(question.correctAnswer)
+                    ? question.correctAnswer.join(', ')
+                    : question.correctAnswer}
+                </strong>
+              </Typography>
+            </Box>
+            <Box sx={{ px: 1, pt: 2 }}>
+              <Typography
+                variant="body1"
+                sx={{
+                  backgroundColor: 'grey.300',
+                  p: 2,
+                  fontSize: '16px',
+                  fontWeight: 500,
+                  color: 'grey.600',
+                  borderRadius: 1,
+                }}
+              >
+                Description :<strong>{question?.description}</strong>
+              </Typography>
+            </Box>
+          </>
         )}
       </Card>
     </Box>

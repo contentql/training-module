@@ -77,7 +77,7 @@ export default function RegisterBackgroundView() {
   });
 
   if (userdata.isLoggedIn) {
-    router.back();
+    router.push('/');
     return null;
   }
 

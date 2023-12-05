@@ -1,15 +1,14 @@
-import { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import Backdrop from '@mui/material/Backdrop';
+import Accordion from '@mui/material/Accordion';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
+import AccordionSummary from '@mui/material/AccordionSummary';
 import DialogContentText from '@mui/material/DialogContentText';
-import Accordion, { accordionClasses } from '@mui/material/Accordion';
-import AccordionSummary, { accordionSummaryClasses } from '@mui/material/AccordionSummary';
 
 // import Iconify from 'src/components/iconify';
 
