@@ -29,23 +29,23 @@ export const getCourseData = async (courseId) => {
                                         id
                                         title
                                     }
-                                    quiz {
+                                    quiz(pagination: {limit: 100}) {
                                         title
                                         correctAnswer
                                         description
                                         options {
-                                        options
+                                        option
                                         }
                                     }
                                 }
                             }
                         }
-                        quiz {
+                        quiz(pagination: {limit: 100}) {
                                 title
                                 correctAnswer
                                 description
                                 options {
-                                  options
+                                  option
                                 }
                         }
                         WhatYouWillLearn {

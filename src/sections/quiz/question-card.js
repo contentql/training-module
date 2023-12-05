@@ -88,9 +88,9 @@ export default function QuestionCard(props) {
                 {question.options.map((o, i) => (
                   <FormControlLabel
                     key={i + 1}
-                    value={o.options}
+                    value={o.option}
                     control={<Checkbox />}
-                    label={o.options}
+                    label={o.option}
                   />
                 ))}
               </FormGroup>
@@ -99,9 +99,9 @@ export default function QuestionCard(props) {
                 {question.options.map((o, i) => (
                   <FormControlLabel
                     key={i + 1}
-                    value={o.options}
+                    value={o.option}
                     control={<Radio />}
-                    label={o.options}
+                    label={o.option}
                   />
                 ))}
               </RadioGroup>

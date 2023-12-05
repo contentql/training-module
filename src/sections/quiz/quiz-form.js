@@ -11,18 +11,18 @@ import { useResponsive } from 'src/hooks/use-responsive';
 import ElearningCourseDetailsLessonItem from 'src/sections/_elearning/details/elearning-course-details-quiz-item';
 
 import QuizHookForm from './quiz-hook-form';
-// import { shuffleArray } from './utils/shuffle-array';
+import { shuffleArray } from './utils/shuffle-array';
 
 export default function QuizForm(props) {
   const { _questions, hasBoughtCourse, courseName, score } = props;
 
   const [quizOpen, setOpen] = useState(false);
 
-  // const questions = shuffleArray(_questions);
+  const questions = shuffleArray(_questions).slice(0, 10);
 
-  // questions.forEach((question) => {
-  //   question.options = shuffleArray(question.options);
-  // });
+  questions.forEach((question) => {
+    question.options = shuffleArray(question.options);
+  });
 
   const mdUp = useResponsive('up', 'md');
 
@@ -55,7 +55,7 @@ export default function QuizForm(props) {
     <>
       <ElearningCourseDetailsLessonItem
         handleClickOpen={handleClickOpen}
-        questionsLength={_questions?.length}
+        questionsLength={questions?.length}
         isTest
         quizIcon
       >
@@ -70,7 +70,7 @@ export default function QuizForm(props) {
         {...(!mdUp && bootstrapDialogProperties)}
       >
         <QuizHookForm
-          questions={_questions}
+          questions={questions}
           courseName={courseName}
           handleModalClose={handleModalClose}
           score={score}
