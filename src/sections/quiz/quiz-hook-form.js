@@ -48,6 +48,11 @@ export default function QuizHookForm(props) {
     setPopupOpen((prev) => !prev);
   };
 
+  const [submitPopupOpen, setSubmitPopupOpen] = useState(false);
+  const handleSubmitPopupToggle = () => {
+    setSubmitPopupOpen((prev) => !prev);
+  };
+
   const mdUp = useResponsive('up', 'md');
   const submitButtonScrollStyles = mdUp
     ? { maxHeight: '70vh', overflowY: 'scroll' }
@@ -73,7 +78,6 @@ export default function QuizHookForm(props) {
       newAnswers[index] = value;
       return newAnswers;
     });
-    goToNext();
   };
 
   const userToken = localStorage.getItem('token');
@@ -125,6 +129,9 @@ export default function QuizHookForm(props) {
     setCurrentQuestionIndex(0);
     setAnswers([...Array(questions.length)]);
     setFinishedQuiz(false);
+    setPopupOpen(false);
+    setSubmitPopupOpen(false);
+    setAreAllAnswersMarked(false);
   };
 
   return (
@@ -216,6 +223,8 @@ export default function QuizHookForm(props) {
                   <ElearningCourseDetailsQuestionSubmit
                     areAllAnswersMarked={areAllAnswersMarked}
                     submitQuiz={submitQuiz}
+                    submitPopupOpen={submitPopupOpen}
+                    handleSubmitPopupToggle={handleSubmitPopupToggle}
                   />
                 </Stack>
               </Card>
@@ -230,6 +239,8 @@ export default function QuizHookForm(props) {
                 goToPrevious={goToPrevious}
                 selectedValue={answers[currentQuestionIndex] || null}
                 goToNext={goToNext}
+                areAllAnswersMarked={areAllAnswersMarked}
+                handleSubmitPopupToggle={handleSubmitPopupToggle}
               />
             </Grid>
           </Grid>

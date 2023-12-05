@@ -13,6 +13,7 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 export default function QuestionCard(props) {
   const {
@@ -22,6 +23,9 @@ export default function QuestionCard(props) {
     goToPrevious,
     selectedValue,
     goToNext,
+    islastQuestion,
+    areAllAnswersMarked,
+    handleSubmitPopupToggle,
   } = props;
   const [value, setValue] = React.useState(null);
 
@@ -58,6 +62,13 @@ export default function QuestionCard(props) {
   const handleSubmit = () => {
     submitAnswer(questionNumber - 1, value);
     setValue(null);
+  };
+
+  const colorMap = {
+    Prev: 'secondary',
+    Submit: 'info',
+    Next: 'warning',
+    'Submit Quiz': 'success',
   };
 
   return (
@@ -105,8 +116,9 @@ export default function QuestionCard(props) {
             variant="outlined"
             size="small"
             className="w-1/2"
+            color={colorMap.Prev}
           >
-            Preview
+            Prev
           </Button>
           {!selectedValue ? (
             <Button
@@ -115,12 +127,27 @@ export default function QuestionCard(props) {
               onClick={handleSubmit}
               variant="outlined"
               size="small"
+              color={colorMap.Submit}
             >
-              Submit & Next
+              Submit
             </Button>
           ) : (
-            <Button onClick={handleNext} className="w-1/2" variant="outlined" size="small">
-              Next
+            <Button
+              onClick={areAllAnswersMarked && islastQuestion ? handleSubmitPopupToggle : handleNext}
+              className="w-1/2"
+              variant="outlined"
+              size="small"
+              color={islastQuestion ? colorMap['Submit Quiz'] : colorMap.Next}
+              disabled={islastQuestion && !areAllAnswersMarked}
+            >
+              {islastQuestion ? 'Submit Quiz' : 'Next'}
+              {islastQuestion && areAllAnswersMarked && (
+                <div className="absolute top-50 left-50">
+                  <span className="relative flex h-4 w-4">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75" />
+                  </span>
+                </div>
+              )}
             </Button>
           )}
         </CardActions>
@@ -158,4 +185,7 @@ QuestionCard.propTypes = {
   goToPrevious: PropTypes.func.isRequired,
   selectedValue: PropTypes.number,
   goToNext: PropTypes.func.isRequired,
+  islastQuestion: PropTypes.bool,
+  areAllAnswersMarked: PropTypes.bool,
+  handleSubmitPopupToggle: PropTypes.func,
 };
