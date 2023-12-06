@@ -70,6 +70,10 @@ export default function QuestionCard(props) {
     'Submit Quiz': 'success',
   };
 
+  const correctOption = question.options.findIndex(
+    (option) => option.option === question.correctAnswer
+  );
+
   return (
     <Box className="w-full h-full pb-10 lg:pb-0 md:px-5" md={7}>
       <Card variant="outlined">
@@ -164,7 +168,7 @@ export default function QuestionCard(props) {
                   borderRadius: 1,
                 }}
               >
-                Correct Answer (option ):
+                Correct Answer (Option {String.fromCharCode(correctOption + 1 + 64)}):{' '}
                 <strong>
                   {Array.isArray(question.correctAnswer)
                     ? question.correctAnswer.join(', ')
@@ -184,7 +188,7 @@ export default function QuestionCard(props) {
                   borderRadius: 1,
                 }}
               >
-                Description :<strong>{question?.description}</strong>
+                Description: <strong>{question?.description}</strong>
               </Typography>
             </Box>
           </>
