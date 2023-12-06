@@ -92,18 +92,24 @@ const QuestionCard = ({
                 {question.options.map((o, i) => {
                   const isSelected = selectedValue !== null;
                   const isCorrect = isSelected && o.option === question.correctAnswer;
-
+                  console.log('first');
                   return (
                     <FormControlLabel
                       key={i + 1}
                       value={o.option}
                       control={<Radio />}
                       label={
-                        <span
-                          className={isSelected && (isCorrect ? 'text-green-400' : 'text-red-400')}
-                        >
-                          {o.option}
-                        </span>
+                        selectedValue === o.option ? (
+                          <span
+                            className={
+                              isSelected && (isCorrect ? 'text-green-500' : 'text-red-500')
+                            }
+                          >
+                            {o.option}
+                          </span>
+                        ) : (
+                          o.option
+                        )
                       }
                     />
                   );
