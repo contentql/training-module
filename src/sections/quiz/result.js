@@ -53,6 +53,12 @@ const Result = ({ answers, restartQuiz, questions }) => {
         <CardContent sx={{ textAlign: 'center', backgroundColor: 'background.default' }}>
           <Typography variant="h3" gutterBottom>
             Result
+            <Box className="flex items-center text-base">
+              <div className="bg-green-200 rounded-full h-4 w-4 mr-2" />
+              <span>Correct Answer</span>
+              <div className="bg-red-200 rounded-full h-4 w-4 mx-2" />
+              <span>Wrong Answer</span>
+            </Box>
           </Typography>
           <Divider sx={{ my: 2, backgroundColor: 'divider' }} />
           <Typography variant="h5" gutterBottom>
