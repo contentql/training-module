@@ -89,25 +89,47 @@ export default function QuestionCard(props) {
           <FormControl disabled={Boolean(selectedValue)}>
             {typeof question.correctAnswer === 'object' ? (
               <FormGroup name="checkbox-group-quiz" value={value} onChange={handleChangeCheckbox}>
-                {question.options.map((o, i) => (
-                  <FormControlLabel
-                    key={i + 1}
-                    value={o.option}
-                    control={<Checkbox />}
-                    label={o.option}
-                  />
-                ))}
+                {question.options.map((o, i) => {
+                  const isSelected = selectedValue !== null;
+                  const isCorrect = isSelected && o.option === question.correctAnswer[i];
+
+                  return (
+                    <FormControlLabel
+                      key={i + 1}
+                      value={o.option}
+                      control={<Checkbox />}
+                      label={
+                        <span
+                          className={isSelected && (isCorrect ? 'text-green-500' : 'text-red-500')}
+                        >
+                          {o.option}
+                        </span>
+                      }
+                    />
+                  );
+                })}
               </FormGroup>
             ) : (
               <RadioGroup name="radio-group-quiz" value={value} onChange={handleChangeRadio}>
-                {question.options.map((o, i) => (
-                  <FormControlLabel
-                    key={i + 1}
-                    value={o.option}
-                    control={<Radio />}
-                    label={o.option}
-                  />
-                ))}
+                {question.options.map((o, i) => {
+                  const isSelected = selectedValue !== null;
+                  const isCorrect = isSelected && o.option === question.correctAnswer;
+
+                  return (
+                    <FormControlLabel
+                      key={i + 1}
+                      value={o.option}
+                      control={<Radio />}
+                      label={
+                        <span
+                          className={isSelected && (isCorrect ? 'text-green-500' : 'text-red-500')}
+                        >
+                          {o.option}
+                        </span>
+                      }
+                    />
+                  );
+                })}
               </RadioGroup>
             )}
           </FormControl>
