@@ -45,6 +45,7 @@ export default function ElearningCourseDetailsHero({ course }) {
     // teachers = [],
     units,
     users,
+    image,
   } = course;
 
   // const [selectedLesson, setSelectedLesson] = useState(null);
@@ -123,10 +124,9 @@ export default function ElearningCourseDetailsHero({ course }) {
                 >
                   <Iconify icon="carbon:play" width={24} />
                 </Fab>
-
                 <Image
                   alt="hero"
-                  src="/assets/images/course/course_1.jpg"
+                  src={image}
                   ratio={mdUp ? '3/4' : '4/3'}
                   overlay={`linear-gradient(to bottom, ${alpha(
                     theme.palette.common.black,
@@ -283,5 +283,6 @@ ElearningCourseDetailsHero.propTypes = {
     languages: PropTypes.arrayOf(PropTypes.string),
     units: PropTypes.object,
     users: PropTypes.object,
+    image: PropTypes.string,
   }),
 };
