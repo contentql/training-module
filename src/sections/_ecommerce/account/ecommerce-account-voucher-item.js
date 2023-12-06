@@ -104,7 +104,7 @@ export default function EcommerceAccountVoucherItem({ voucher }) {
         >
           Download
         </Button>
-        <div ref={targetRef}className=''>
+        <div ref={targetRef}>
           <Certificate />
         </div>
       </Stack>

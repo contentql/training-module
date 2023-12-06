@@ -38,6 +38,7 @@ export default function ElearningCourseItem({ course, vertical, isMyLearning }) 
     totalReviews,
     totalStudents,
     users,
+    image,
   } = course.attributes;
 
   const [cart, addToCart, removeFromCart] = useCartStore((state) => [
@@ -86,7 +87,7 @@ export default function ElearningCourseItem({ course, vertical, isMyLearning }) 
       <Box sx={{ flexShrink: { sm: 0 } }}>
         <Image
           alt={title}
-          src="/assets/images/course/course_1.jpg"
+          src={image}
           sx={{
             height: 1,
             // objectFit: 'cover',
@@ -301,6 +302,7 @@ ElearningCourseItem.propTypes = {
       totalReviews: PropTypes.number,
       totalStudents: PropTypes.number,
       users: PropTypes.any,
+      image: PropTypes.string,
     }),
   }),
   vertical: PropTypes.bool,

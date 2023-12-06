@@ -11,6 +11,7 @@ export const getCoursesData = async () => {
                         title
                         description
                         price
+                        image
                         category {
                             data {
                                 attributes {
