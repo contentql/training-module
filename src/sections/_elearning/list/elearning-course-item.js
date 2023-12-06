@@ -182,7 +182,7 @@ export default function ElearningCourseItem({ course, vertical, isMyLearning }) 
           </Stack>
 
           <Stack direction="row" sx={{ typography: 'subtitle2' }}>
-            {fShortenNumber(totalStudents)}
+            {fShortenNumber(users.data.length)}
             <Box component="span" typography="body2" sx={{ ml: 0.5 }}>
               students
             </Box>
