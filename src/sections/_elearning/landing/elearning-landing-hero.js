@@ -68,19 +68,24 @@ export default function ElearningLandingHero() {
                   paddingTop: { md: 12 },
                 }}
               >
-                <Typography variant="h1">
-                  Navigating Your
+                <Typography variant="h2">
+                  Optimal
                   {/* <Box component="span" sx={{ color: 'text.disabled' }}>
                     {`  `}
                   </Box> */}
                   <Box component="span" sx={{ color: 'primary.main', textDecoration: 'underline' }}>
-                    {` Medical Career`}
+                    {' '}
+                    Compliance
+                    {` Training`}
                   </Box>{' '}
-                  with E-Learning
+                  Experience{' '}
                 </Typography>
 
                 <Typography sx={{ color: 'text.secondary', mt: 3, mb: { xs: 0, md: 5 } }}>
-                  Discover a World of Opportunities Through Quality Nursing Education Online.
+                  We facilitate the licensing and training processes for home care businesses.
+                  Embark on our Administrator/Manager Training programs in Texas, offering flexible
+                  durations of 8, 12, or 16 hours. Experience the convenience of our training
+                  programs – upon completion, print your certificates instantly!
                 </Typography>
 
                 <Stack spacing={3} alignItems="center" direction={{ xs: 'column', md: 'row' }}>
@@ -89,17 +94,10 @@ export default function ElearningLandingHero() {
                       Start Learning
                     </Button>
                   </Link>
-
-                  {/* <Stack direction="row" alignItems="center" sx={{ typography: 'h6' }}>
-                    <Fab size="medium" color="info" onClick={videoOpen.onTrue} sx={{ mr: 1 }}>
-                      <Iconify width={24} icon="carbon:play" />
-                    </Fab>
-                    Watch Video
-                  </Stack> */}
                 </Stack>
 
                 <Divider sx={{ borderStyle: 'dashed', mt: 8, mb: 6 }} />
-
+                {/* 
                 <Stack
                   direction="row"
                   spacing={{ xs: 3, sm: 10 }}
@@ -125,7 +123,7 @@ export default function ElearningLandingHero() {
                       </Typography>
                     </Stack>
                   ))}
-                </Stack>
+                </Stack> */}
               </Stack>
             </Grid>
 

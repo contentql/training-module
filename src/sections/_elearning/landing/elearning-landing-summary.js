@@ -20,13 +20,13 @@ const SUMMARY = [
     icon: '/assets/icons/home-steps/step-1.svg',
   },
   {
-    title: 'Accredited',
-    description: 'Our exams are recognized and endorsed by industry authorities.',
+    title: 'Convenient',
+    description: 'Take the online courses and exams at your own pace.',
     icon: '/assets/icons/home-steps/step-2.svg',
   },
   {
-    title: 'Convenient',
-    description: 'Take the online courses and exams at your own pace.',
+    title: 'Certificate',
+    description: 'Certificate will be provided after completion of course.',
     icon: '/assets/icons/home-steps/03.png',
   },
   {
@@ -43,7 +43,7 @@ export default function ElearningLandingSummary() {
     <Container
       sx={{
         textAlign: 'center',
-        py: { xs: 5, md: 10 },
+        py: { xs: 5, md: 4 },
       }}
     >
       <Stack

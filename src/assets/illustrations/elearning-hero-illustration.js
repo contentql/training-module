@@ -56,7 +56,7 @@ function ElearningHeroIllustration({ sx, ...other }) {
     <Box
       sx={{
         width: 850,
-        height: 670,
+        height: 600,
         display: 'flex',
         alignItems: 'center',
         position: 'relative',
@@ -78,7 +78,7 @@ function ElearningHeroIllustration({ sx, ...other }) {
       <Box
         {...varDown}
         component={m.div}
-        sx={{ position: 'absolute', left: 115, bottom: 115, zIndex: 8 }}
+        sx={{ position: 'absolute', left: 105, bottom: 100, zIndex: 8 }}
       >
         <Image
           visibleByDefault

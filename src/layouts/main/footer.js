@@ -1,192 +1,180 @@
 import PropTypes from 'prop-types';
 
 import Link from '@mui/material/Link';
-// import Masonry from '@mui/lab/Masonry';
+import Masonry from '@mui/lab/Masonry';
 import Stack from '@mui/material/Stack';
-// import Divider from '@mui/material/Divider';
+import Divider from '@mui/material/Divider';
 import Collapse from '@mui/material/Collapse';
-// import TextField from '@mui/material/TextField';
-// import Grid from '@mui/material/Unstable_Grid2';
+import TextField from '@mui/material/TextField';
+import Grid from '@mui/material/Unstable_Grid2';
 import Container from '@mui/material/Container';
-// import IconButton from '@mui/material/IconButton';
+import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-// import { alpha, styled } from '@mui/material/styles';
-// import InputAdornment from '@mui/material/InputAdornment';
-// import Button, { buttonClasses } from '@mui/material/Button';
+import { alpha, styled } from '@mui/material/styles';
+import InputAdornment from '@mui/material/InputAdornment';
+import Button, { buttonClasses } from '@mui/material/Button';
 
-// import { _socials } from 'src/_mock';
+import { _socials } from 'src/_mock';
 import Logo from 'src/components/logo';
 import Iconify from 'src/components/iconify';
 import { usePathname } from 'src/routes/hooks';
 import { useBoolean } from 'src/hooks/use-boolean';
 import { RouterLink } from 'src/routes/components';
-// import { useResponsive } from 'src/hooks/use-responsive';
+import { useResponsive } from 'src/hooks/use-responsive';
 
-// import { pageLinks, navConfig } from './config-navigation';
+import { pageLinks, navConfig } from './config-navigation';
 
 // ----------------------------------------------------------------------
 
-// const StyledAppStoreButton = styled(Button)(({ theme }) => ({
-//   flexShrink: 0,
-//   padding: '5px 12px',
-//   color: theme.palette.common.white,
-//   border: `solid 1px ${alpha(theme.palette.common.black, 0.24)}`,
-//   background: `linear-gradient(180deg, ${theme.palette.grey[900]} 0%, ${theme.palette.common.black} 100%)`,
-//   [`& .${buttonClasses.startIcon}`]: {
-//     marginLeft: 0,
-//   },
-// }));
+const StyledAppStoreButton = styled(Button)(({ theme }) => ({
+  flexShrink: 0,
+  padding: '5px 12px',
+  color: theme.palette.common.white,
+  border: `solid 1px ${alpha(theme.palette.common.black, 0.24)}`,
+  background: `linear-gradient(180deg, ${theme.palette.grey[900]} 0%, ${theme.palette.common.black} 100%)`,
+  [`& .${buttonClasses.startIcon}`]: {
+    marginLeft: 0,
+  },
+}));
 
 // ----------------------------------------------------------------------
 
 export default function Footer() {
-  // const mdUp = useResponsive('up', 'md');
+  const mdUp = useResponsive('up', 'md');
 
-  // const pathname = usePathname();
+  const pathname = usePathname();
 
-  // const mobileList = navConfig.find((i) => i.title === 'Pages')?.children || [];
+  const mobileList = navConfig.find((i) => i.title === 'Pages')?.children || [];
 
-  // const desktopList = pageLinks.sort((listA, listB) => Number(listA.order) - Number(listB.order));
+  const desktopList = pageLinks.sort((listA, listB) => Number(listA.order) - Number(listB.order));
 
-  // const renderLists = mdUp ? desktopList : mobileList;
+  const feturedLinks = [
+    { title: 'Home', path: '/' },
+    { title: 'Courses', path: '/courses' },
+    { title: 'About Us', path: '/about-us' },
+  ];
 
-  // const isHome = pathname === '/';
+  const renderLists = mdUp ? desktopList : mobileList;
 
-  const simpleFooter = (
-    <Container sx={{ py: 8, textAlign: 'center' }}>
-      <Logo single />
+  const isHome = pathname === '/';
 
-      <Typography variant="caption" component="div" sx={{ color: 'text.secondary' }}>
-        © 2023. All rights reserved
-      </Typography>
-    </Container>
-  );
+  // const simpleFooter = (
+  //   <Container sx={{ py: 8, textAlign: 'center' }}>
+  //     <Logo single />
 
-  // const mainFooter = (
-  //   <>
-  //     <Divider />
-
-  //     <Container
-  //       sx={{
-  //         overflow: 'hidden',
-  //         py: { xs: 8, md: 10 },
-  //       }}
-  //     >
-  //       <Grid container spacing={3} justifyContent={{ md: 'space-between' }}>
-  //         <Grid xs={12} md={4}>
-  //           <Stack spacing={{ xs: 3, md: 5 }}>
-  //             <Stack alignItems="flex-start" spacing={3}>
-  //               <Logo />
-
-  //               <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-  //                 The starting point for your next project based on easy-to-customize Material-UI ©
-  //                 helps you build apps faster and better.
-  //               </Typography>
-  //             </Stack>
-
-  //             <Stack spacing={1} alignItems="flex-start">
-  //               <Typography variant="h6">Community</Typography>
-  //               <Link variant="body2" sx={{ color: 'text.primary' }}>
-  //                 Documentation
-  //               </Link>
-
-  //               <Link variant="body2" sx={{ color: 'text.primary' }}>
-  //                 Changelog
-  //               </Link>
-
-  //               <Link variant="body2" sx={{ color: 'text.primary' }}>
-  //                 Contributing
-  //               </Link>
-  //             </Stack>
-
-  //             <Stack spacing={2}>
-  //               <Stack spacing={1}>
-  //                 <Typography variant="h6">Let’s stay in touch</Typography>
-  //                 <Typography variant="caption" sx={{ color: 'text.secondary' }}>
-  //                   Ubscribe to our newsletter to receive latest articles to your inbox weekly.
-  //                 </Typography>
-  //               </Stack>
-
-  //               <TextField
-  //                 fullWidth
-  //                 hiddenLabel
-  //                 placeholder="Email address"
-  //                 InputProps={{
-  //                   endAdornment: (
-  //                     <InputAdornment position="end">
-  //                       <Button variant="contained" color="inherit" size="large" sx={{ mr: -1.25 }}>
-  //                         Subscribe
-  //                       </Button>
-  //                     </InputAdornment>
-  //                   ),
-  //                 }}
-  //               />
-  //             </Stack>
-
-  //             <Stack spacing={2}>
-  //               <Typography variant="h6">Social</Typography>
-  //               <Stack direction="row" alignItems="center">
-  //                 {_socials.map((social) => (
-  //                   <IconButton key={social.value} color="primary">
-  //                     <Iconify icon={social.icon} />
-  //                   </IconButton>
-  //                 ))}
-  //               </Stack>
-  //             </Stack>
-
-  //             <Stack spacing={2}>
-  //               <Typography variant="h6">Apps</Typography>
-  //               <AppStoreButton />
-  //             </Stack>
-  //           </Stack>
-  //         </Grid>
-
-  //         <Grid xs={12} md={6}>
-  //           {mdUp ? (
-  //             <Masonry columns={4} spacing={2} defaultColumns={4} defaultSpacing={2}>
-  //               {renderLists.map((list) => (
-  //                 <ListDesktop key={list.subheader} list={list} />
-  //               ))}
-  //             </Masonry>
-  //           ) : (
-  //             <Stack spacing={1.5}>
-  //               {renderLists.map((list) => (
-  //                 <ListMobile key={list.subheader} list={list} />
-  //               ))}
-  //             </Stack>
-  //           )}
-  //         </Grid>
-  //       </Grid>
-  //     </Container>
-
-  //     <Divider />
-
-  //     <Container>
-  //       <Stack
-  //         spacing={2.5}
-  //         direction={{ xs: 'column', md: 'row' }}
-  //         justifyContent="space-between"
-  //         sx={{ py: 3, textAlign: 'center' }}
-  //       >
-  //         <Typography variant="caption" sx={{ color: 'text.secondary' }}>
-  //           © 2023. All rights reserved
-  //         </Typography>
-
-  //         <Stack direction="row" spacing={3} justifyContent="center">
-  //           <Link variant="caption" sx={{ color: 'text.secondary' }}>
-  //             Help Center
-  //           </Link>
-
-  //           <Link variant="caption" sx={{ color: 'text.secondary' }}>
-  //             Terms of Service
-  //           </Link>
-  //         </Stack>
-  //       </Stack>
-  //     </Container>
-  //   </>
+  //     <Typography variant="caption" component="div" sx={{ color: 'text.secondary' }}>
+  //       © 2023. All rights reserved
+  //     </Typography>
+  //   </Container>
   // );
 
-  return <footer>{simpleFooter}</footer>;
+  const mainFooter = (
+    <>
+      <Divider />
+
+      <Container
+        sx={{
+          overflow: 'hidden',
+          py: { xs: 8, md: 10 },
+        }}
+      >
+        <Grid container spacing={6} justifyContent={{ md: 'space-between' }}>
+          <Grid xs={12} md={4}>
+            <Stack spacing={{ xs: 3, md: 5 }}>
+              <Stack alignItems="flex-start" spacing={3}>
+                <Logo />
+
+                <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                  We are an online education platform that helps professional and aspiring
+                  individuals to achieve their goals
+                </Typography>
+              </Stack>
+            </Stack>
+          </Grid>
+          <Grid md={2}>
+            <Typography variant="h6">Featured Links</Typography>
+            {feturedLinks.map((link) => (
+              <Grid sx={{ mt: 1 }}>
+                <Link
+                  component={RouterLink}
+                  key={link.title}
+                  href={link.path}
+                  variant="caption"
+                  sx={{
+                    color: 'text.secondary',
+                    fontWeight: 'fontWeightSemiBold',
+
+                    '&:hover': {
+                      color: 'text.primary',
+                    },
+                  }}
+                >
+                  {link.title}
+                </Link>
+              </Grid>
+            ))}
+          </Grid>
+          <Grid xs={12} md={3}>
+            <Stack spacing={1} alignItems="flex-start">
+              <Typography variant="h6">Contact</Typography>
+              <Link variant="body2" sx={{ color: 'text.primary' }}>
+                Ryzolve LLC, 9309 State Highway 75S, New Waverly TX, 77358
+              </Link>
+
+              <Link variant="body2" sx={{ color: 'text.primary' }}>
+                (936) 355-9490
+              </Link>
+
+              <Link variant="body2" sx={{ color: 'text.primary' }}>
+                care@ryzolve.com
+              </Link>
+            </Stack>
+            <Stack spacing={2} sx={{ mt: 8 }}>
+              <Stack spacing={2}>
+                <Typography variant="h6">Social</Typography>
+                <Stack direction="row" alignItems="center">
+                  {_socials.map((social) => (
+                    <IconButton key={social.value} color="primary">
+                      <Iconify icon={social.icon} />
+                    </IconButton>
+                  ))}
+                </Stack>
+              </Stack>
+            </Stack>
+          </Grid>
+        </Grid>
+      </Container>
+
+      <Divider />
+
+      <Container>
+        <Stack
+          spacing={2.5}
+          direction={{ xs: 'column', md: 'row' }}
+          justifyContent="space-between"
+          sx={{ py: 3, textAlign: 'center' }}
+        >
+          <Typography variant="caption" sx={{ color: 'text.secondary' }}>
+            © 2023. All rights reserved
+          </Typography>
+
+          <Stack direction="row" spacing={3} justifyContent="center">
+            <Link variant="caption" sx={{ color: 'text.secondary' }}>
+              Help Center
+            </Link>
+
+            <Link variant="caption" sx={{ color: 'text.secondary' }}>
+              Terms of Service
+            </Link>
+          </Stack>
+        </Stack>
+      </Container>
+    </>
+  );
+
+  return <footer>{mainFooter}</footer>;
+
+  // return <footer>{simpleFooter}</footer>;
 }
 
 // ----------------------------------------------------------------------
@@ -325,3 +313,18 @@ ListMobile.propTypes = {
 //     </Stack>
 //   );
 // }
+
+<Stack spacing={1} alignItems="flex-start">
+  <Typography variant="h6">Contact</Typography>
+  <Link variant="body2" sx={{ color: 'text.primary' }}>
+    Ryzolve LLC, 9309 State Highway 75S, New Waverly TX, 77358
+  </Link>
+
+  <Link variant="body2" sx={{ color: 'text.primary' }}>
+    (936) 355-9490
+  </Link>
+
+  <Link variant="body2" sx={{ color: 'text.primary' }}>
+    care@ryzolve.com
+  </Link>
+</Stack>;

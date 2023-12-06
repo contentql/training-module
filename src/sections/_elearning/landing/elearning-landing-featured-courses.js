@@ -48,9 +48,6 @@ export default function ElearningLandingFeaturedCourses({ courses }) {
       >
         <Stack spacing={3} flexGrow={1}>
           <Typography variant="h2">Featured Courses</Typography>
-          <Typography sx={{ color: 'text.secondary' }}>
-            Nullam accumsan lorem in dui. Praesent ac massa at ligula laoreet iaculis.
-          </Typography>
         </Stack>
 
         {mdUp && <CarouselArrows spacing={2} onNext={carousel.onNext} onPrev={carousel.onPrev} />}
