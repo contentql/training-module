@@ -35,7 +35,7 @@ export default function ElearningCourseDetailsHero({ course }) {
     // lessons,
     category,
     // coverUrl,
-    languages,
+    // languages,
     bestSeller,
     time,
     description,
@@ -44,6 +44,7 @@ export default function ElearningCourseDetailsHero({ course }) {
     totalStudents,
     // teachers = [],
     units,
+    users,
   } = course;
 
   // const [selectedLesson, setSelectedLesson] = useState(null);
@@ -62,6 +63,8 @@ export default function ElearningCourseDetailsHero({ course }) {
   );
 
   const totalQuizzes = units?.data.length;
+
+  const languages = ['English'];
 
   // const handleSelectedLesson = useCallback((lesson) => {
   //   if (lesson.unLocked) {
@@ -143,7 +146,7 @@ export default function ElearningCourseDetailsHero({ course }) {
                   )}
 
                   <Typography variant="overline" sx={{ color: 'secondary.main' }}>
-                    {category}
+                    {category?.data?.attributes.name}
                   </Typography>
 
                   <Typography variant="h3" component="h1">
@@ -175,7 +178,7 @@ export default function ElearningCourseDetailsHero({ course }) {
                   <Stack direction="row" sx={{ typography: 'subtitle2' }}>
                     {fShortenNumber(totalStudents)}
                     <Box component="span" typography="body2" sx={{ ml: 0.5 }}>
-                      students
+                      {users?.data.length} students
                     </Box>
                   </Stack>
                 </Stack>
@@ -270,7 +273,7 @@ ElearningCourseDetailsHero.propTypes = {
     lessons: PropTypes.array,
     teachers: PropTypes.array,
     bestSeller: PropTypes.bool,
-    category: PropTypes.string,
+    category: PropTypes.object,
     coverUrl: PropTypes.string,
     time: PropTypes.number,
     description: PropTypes.string,
@@ -279,5 +282,6 @@ ElearningCourseDetailsHero.propTypes = {
     totalStudents: PropTypes.number,
     languages: PropTypes.arrayOf(PropTypes.string),
     units: PropTypes.object,
+    users: PropTypes.object,
   }),
 };

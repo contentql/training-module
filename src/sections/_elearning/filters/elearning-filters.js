@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { useQuery } from 'react-query';
 // import { useState, useCallback } from 'react';
 
 import Stack from '@mui/material/Stack';
@@ -9,6 +10,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 
 import Iconify from 'src/components/iconify';
 import { useResponsive } from 'src/hooks/use-responsive';
+import { getCategoriesData } from 'src/queries/categories';
 
 import FilterFee from './filter-fee';
 // import FilterLevel from './filter-level';
@@ -29,8 +31,15 @@ import FilterMultiSelect from './filter-multiselect';
 //   filterLanguage: [],
 // };
 
-export default function ElearningFilters({ open, onClose, filters, setFilters, categories }) {
+export default function ElearningFilters({ open, onClose, filters, setFilters }) {
   const mdUp = useResponsive('up', 'md');
+
+  const { data, isLoading } = useQuery({
+    queryKey: ['categories'],
+    queryFn: getCategoriesData,
+  });
+
+  const categories = data ? data.map((categoryData) => categoryData.attributes.name) : [];
 
   // const [filters, setFilters] = useState(defaultValues);
 
@@ -211,7 +220,6 @@ ElearningFilters.propTypes = {
   open: PropTypes.bool,
   filters: PropTypes.object,
   setFilters: PropTypes.func,
-  categories: PropTypes.array,
 };
 
 // ----------------------------------------------------------------------

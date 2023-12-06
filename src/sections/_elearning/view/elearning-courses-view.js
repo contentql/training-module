@@ -43,7 +43,7 @@ export default function ElearningCoursesView() {
     queryFn: getCoursesData,
   });
 
-  const categories = data?.map((course) => course.attributes.category);
+  // const categories = data?.map((course) => course.attributes.category);
 
   // console.log('data', data);
 
@@ -81,7 +81,6 @@ export default function ElearningCoursesView() {
             onClose={mobileOpen.onFalse}
             filters={filters}
             setFilters={setFilters}
-            categories={categories}
           />
 
           <Box

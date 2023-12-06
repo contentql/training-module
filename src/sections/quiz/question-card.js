@@ -22,6 +22,9 @@ export default function QuestionCard(props) {
     goToPrevious,
     selectedValue,
     goToNext,
+    islastQuestion,
+    areAllAnswersMarked,
+    handleSubmitPopupToggle,
   } = props;
   const [value, setValue] = React.useState(null);
 
@@ -60,6 +63,13 @@ export default function QuestionCard(props) {
     setValue(null);
   };
 
+  const colorMap = {
+    Prev: 'secondary',
+    Submit: 'info',
+    Next: 'warning',
+    'Submit Quiz': 'success',
+  };
+
   return (
     <Box className="w-full h-full pb-10 lg:pb-0 md:px-5" md={7}>
       <Card variant="outlined">
@@ -78,9 +88,9 @@ export default function QuestionCard(props) {
                 {question.options.map((o, i) => (
                   <FormControlLabel
                     key={i + 1}
-                    value={o.options}
+                    value={o.option}
                     control={<Checkbox />}
-                    label={o.options}
+                    label={o.option}
                   />
                 ))}
               </FormGroup>
@@ -89,9 +99,9 @@ export default function QuestionCard(props) {
                 {question.options.map((o, i) => (
                   <FormControlLabel
                     key={i + 1}
-                    value={o.options}
+                    value={o.option}
                     control={<Radio />}
-                    label={o.options}
+                    label={o.option}
                   />
                 ))}
               </RadioGroup>
@@ -105,8 +115,9 @@ export default function QuestionCard(props) {
             variant="outlined"
             size="small"
             className="w-1/2"
+            color={colorMap.Prev}
           >
-            Preview
+            Prev
           </Button>
           {!selectedValue ? (
             <Button
@@ -115,36 +126,67 @@ export default function QuestionCard(props) {
               onClick={handleSubmit}
               variant="outlined"
               size="small"
+              color={colorMap.Submit}
             >
-              Submit & Next
+              Submit
             </Button>
           ) : (
-            <Button onClick={handleNext} className="w-1/2" variant="outlined" size="small">
-              Next
+            <Button
+              onClick={areAllAnswersMarked && islastQuestion ? handleSubmitPopupToggle : handleNext}
+              className="w-1/2"
+              variant="outlined"
+              size="small"
+              color={islastQuestion ? colorMap['Submit Quiz'] : colorMap.Next}
+              disabled={islastQuestion && !areAllAnswersMarked}
+            >
+              {islastQuestion ? 'Submit Quiz' : 'Next'}
+              {islastQuestion && areAllAnswersMarked && (
+                <div className="absolute top-50 left-50">
+                  <span className="relative flex h-4 w-4">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75" />
+                  </span>
+                </div>
+              )}
             </Button>
           )}
         </CardActions>
         {Boolean(selectedValue) && (
-          <Box sx={{ px: 1, pt: 4 }}>
-            <Typography
-              variant="body1"
-              sx={{
-                backgroundColor: 'grey.300',
-                p: 2,
-                fontSize: '16px',
-                fontWeight: 500,
-                color: 'grey.600',
-                borderRadius: 1,
-              }}
-            >
-              Correct Answer :{' '}
-              {Array.isArray(question.correctAnswer)
-                ? question.correctAnswer.join(', ')
-                : question.correctAnswer}
-              <br />
-              Description : {question?.description}
-            </Typography>
-          </Box>
+          <>
+            <Box sx={{ px: 1, pt: 4 }}>
+              <Typography
+                variant="body1"
+                sx={{
+                  p: 2,
+                  fontSize: '16px',
+                  fontWeight: 500,
+                  borderRadius: 1,
+                }}
+                className="bg-green-100 text-green-800"
+              >
+                Correct Answer :
+                <strong>
+                  {Array.isArray(question.correctAnswer)
+                    ? question.correctAnswer.join(', ')
+                    : question.correctAnswer}
+                </strong>
+              </Typography>
+            </Box>
+            <Box sx={{ px: 1, pt: 2 }}>
+              <Typography
+                variant="body1"
+                sx={{
+                  backgroundColor: 'grey.300',
+                  p: 2,
+                  fontSize: '16px',
+                  fontWeight: 500,
+                  color: 'grey.600',
+                  borderRadius: 1,
+                }}
+              >
+                Description :<strong>{question?.description}</strong>
+              </Typography>
+            </Box>
+          </>
         )}
       </Card>
     </Box>
@@ -158,4 +200,7 @@ QuestionCard.propTypes = {
   goToPrevious: PropTypes.func.isRequired,
   selectedValue: PropTypes.number,
   goToNext: PropTypes.func.isRequired,
+  islastQuestion: PropTypes.bool,
+  areAllAnswersMarked: PropTypes.bool,
+  handleSubmitPopupToggle: PropTypes.func,
 };

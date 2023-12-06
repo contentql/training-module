@@ -1,31 +1,30 @@
-import { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import Backdrop from '@mui/material/Backdrop';
+import Accordion from '@mui/material/Accordion';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
+import AccordionSummary from '@mui/material/AccordionSummary';
 import DialogContentText from '@mui/material/DialogContentText';
-import Accordion, { accordionClasses } from '@mui/material/Accordion';
-import AccordionSummary, { accordionSummaryClasses } from '@mui/material/AccordionSummary';
 
 // import Iconify from 'src/components/iconify';
 
 // ----------------------------------------------------------------------
 
-export default function ElearningCourseDetailsQuestionSubmit({ areAllAnswersMarked, submitQuiz }) {
-  const [popupOpen, setPopupOpen] = useState(false);
-  const handlePopupToggle = () => {
-    setPopupOpen((prev) => !prev);
-  };
-
+export default function ElearningCourseDetailsQuestionSubmit({
+  areAllAnswersMarked,
+  submitQuiz,
+  submitPopupOpen,
+  handleSubmitPopupToggle,
+}) {
   return (
     <Accordion
       expanded
       onClick={() => {
-        if (areAllAnswersMarked) handlePopupToggle();
+        if (areAllAnswersMarked) handleSubmitPopupToggle();
       }}
       className="flex justify-end align-end"
     >
@@ -58,10 +57,14 @@ export default function ElearningCourseDetailsQuestionSubmit({ areAllAnswersMark
 
       <Backdrop
         sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={popupOpen}
-        onClick={handlePopupToggle}
+        open={submitPopupOpen}
+        onClick={handleSubmitPopupToggle}
       >
-        <Dialog open={popupOpen} onClose={handlePopupToggle} aria-describedby="popup-confirmation">
+        <Dialog
+          open={submitPopupOpen}
+          onClose={handleSubmitPopupToggle}
+          aria-describedby="popup-confirmation"
+        >
           <DialogTitle>Submit Quiz?</DialogTitle>
           <DialogContent>
             <DialogContentText id="popup-confirmation">
@@ -69,7 +72,7 @@ export default function ElearningCourseDetailsQuestionSubmit({ areAllAnswersMark
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button onClick={handlePopupToggle} variant="outlined">
+            <Button onClick={handleSubmitPopupToggle} variant="outlined">
               Continue Quiz
             </Button>
             <Button onClick={submitQuiz} variant="outlined" color="success">
@@ -85,4 +88,6 @@ export default function ElearningCourseDetailsQuestionSubmit({ areAllAnswersMark
 ElearningCourseDetailsQuestionSubmit.propTypes = {
   areAllAnswersMarked: PropTypes.bool,
   submitQuiz: PropTypes.func,
+  submitPopupOpen: PropTypes.bool,
+  handleSubmitPopupToggle: PropTypes.func,
 };

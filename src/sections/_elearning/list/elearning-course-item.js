@@ -25,6 +25,7 @@ import { fCurrency, fShortenNumber } from 'src/utils/format-number';
 
 export default function ElearningCourseItem({ course, vertical, isMyLearning }) {
   const { id } = course;
+
   const {
     title,
     price,
@@ -121,7 +122,7 @@ export default function ElearningCourseItem({ course, vertical, isMyLearning }) 
         >
           <Stack direction="row" alignItems="center" justifyContent="space-between">
             <Typography variant="overline" sx={{ color: 'primary.main' }}>
-              {category}
+              {category?.data?.attributes.name}
             </Typography>
 
             <Typography variant="h4">
@@ -291,7 +292,7 @@ ElearningCourseItem.propTypes = {
     attributes: PropTypes.shape({
       title: PropTypes.string,
       price: PropTypes.number,
-      category: PropTypes.string,
+      category: PropTypes.object,
       priceSale: PropTypes.number,
       bestSeller: PropTypes.bool,
       time: PropTypes.number,

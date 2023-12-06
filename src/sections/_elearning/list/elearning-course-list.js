@@ -33,7 +33,7 @@ export default function ElearningCourseList({ courses, loading, filters }) {
   const filterByCategory = (course) => {
     if (filters.category.length === 0) return true;
     const categoriesFilter = filters.category.map((value) => value.toLowerCase());
-    return categoriesFilter.includes(course.attributes.category.toLowerCase());
+    return categoriesFilter.includes(course.attributes.category.data.attributes.name.toLowerCase());
   };
 
   const filterByFee = (course) => {
