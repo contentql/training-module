@@ -156,14 +156,15 @@ export default function QuestionCard(props) {
               <Typography
                 variant="body1"
                 sx={{
+                  backgroundColor: 'grey.300',
                   p: 2,
                   fontSize: '16px',
                   fontWeight: 500,
+                  color: 'grey.600',
                   borderRadius: 1,
                 }}
-                className="bg-green-100 text-green-800"
               >
-                Correct Answer :
+                Correct Answer (option ):
                 <strong>
                   {Array.isArray(question.correctAnswer)
                     ? question.correctAnswer.join(', ')
