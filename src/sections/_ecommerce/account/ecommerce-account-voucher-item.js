@@ -1,5 +1,8 @@
 /* eslint-disable react/prop-types */
+import { useRef } from 'react';
 import PropTypes from 'prop-types';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import generatePDF, { Margin } from 'react-to-pdf';
 // import { differenceInCalendarDays } from 'date-fns';
 
 import Box from '@mui/material/Box';
@@ -11,11 +14,14 @@ import Image from 'src/components/image';
 import Iconify from 'src/components/iconify';
 // import { fDate } from 'src/utils/format-time';
 import TextMaxLine from 'src/components/text-max-line';
+import Certificate from 'src/sections/certificate/certificate';
 
 // ----------------------------------------------------------------------
 
 export default function EcommerceAccountVoucherItem({ voucher }) {
   // const dayLeft = differenceInCalendarDays(voucher.dueOn, new Date());
+
+  const targetRef = useRef();
 
   return (
     <Stack
@@ -84,9 +90,23 @@ export default function EcommerceAccountVoucherItem({ voucher }) {
         <Typography variant="h7" sx={{ mb: 1 }}>
           Score : {voucher?.attributes.score}/20
         </Typography>
-        <Button sx={{ bgcolor: '#FF774B', mb: 1 }} size="large" variant="contained">
+        <Button
+          sx={{ bgcolor: '#FF774B', mb: 1 }}
+          size="large"
+          variant="contained"
+          onClick={() =>
+            generatePDF(targetRef, {
+              filename: 'page.pdf',
+              method: 'open',
+              page: { orientation: 'landscape', margin: Margin.NONE },
+            })
+          }
+        >
           Download
         </Button>
+        <div ref={targetRef}className=''>
+          <Certificate />
+        </div>
       </Stack>
     </Stack>
     // </Stack>
