@@ -114,7 +114,7 @@ export default function ElearningCourseDetailsHero({ course }) {
                   overflow: 'hidden',
                 }}
               >
-                <Fab
+                {/* <Fab
                   color="primary"
                   onClick={videoOpen.onTrue}
                   sx={{
@@ -123,15 +123,15 @@ export default function ElearningCourseDetailsHero({ course }) {
                   }}
                 >
                   <Iconify icon="carbon:play" width={24} />
-                </Fab>
+                </Fab> */}
                 <Image
                   alt="hero"
                   src={image}
                   ratio={mdUp ? '3/4' : '4/3'}
-                  overlay={`linear-gradient(to bottom, ${alpha(
-                    theme.palette.common.black,
-                    0
-                  )} 0%, ${theme.palette.common.black} 75%)`}
+                  // overlay={`linear-gradient(to bottom, ${alpha(
+                  //   theme.palette.common.black,
+                  //   0
+                  // )} 0%, ${theme.palette.common.black} 75%)`}
                 />
               </Stack>
             </Grid>
