@@ -36,7 +36,7 @@ export default function ElearningCertificateDialog({ open, handleClose, certific
               color="inherit"
               onClick={handleClose}
               aria-label="close"
-              sx={{ position: 'absolute', top: 2, left: 22, zIndex: 999 }}
+              sx={{ position: 'fixed', top: 8, left: 26, zIndex: 999 }}
             >
               <CloseIcon />
             </IconButton>
