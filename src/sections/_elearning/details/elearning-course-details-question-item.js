@@ -7,6 +7,7 @@ import Accordion, { accordionClasses } from '@mui/material/Accordion';
 import AccordionSummary, { accordionSummaryClasses } from '@mui/material/AccordionSummary';
 
 import Iconify from 'src/components/iconify';
+import NumberDone from 'src/components/NumberDone';
 
 // ----------------------------------------------------------------------
 
@@ -22,17 +23,13 @@ export default function ElearningCourseDetailsQuestionList({
   const onExpanded = () => {
     if (answers[index]) setExpanded(!expanded);
   };
-
+  const iconSize = 20;
   // const playIcon = 'carbon:play';
   const isCorrectAnswer = answers[index] === question.correctAnswer;
 
   let colors = '';
   if (answers[index]) {
-    if (isCorrectAnswer) {
-      colors = 'bg-green-100 text-green-800';
-    } else {
-      colors = 'bg-red-100 text-red-800';
-    }
+    colors = isCorrectAnswer ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800';
   }
 
   return (
@@ -60,21 +57,30 @@ export default function ElearningCourseDetailsQuestionList({
           }}
           className={colors}
         >
-          <img src="/icons/play.svg" alt="quiz" height={20} width={20} />
+          <div className="flex items-center">
+            {/* <img
+              src="/icons/play.svg"
+              alt="quiz"
+              height={iconSize}
+              width={iconSize}
+              className="mr-4"
+            /> */}
+            <NumberDone index={index} />
 
-          <Typography
-            variant="subtitle1"
-            sx={{
-              pl: 2,
-              flexGrow: 1,
-            }}
-          >
-            <p className="line-clamp-1 w-5/6">{question.title}</p>
-          </Typography>
+            <Typography
+              variant="subtitle1"
+              sx={{
+                flexGrow: 1,
+              }}
+              className="line-clamp-1 w-5/6 pl-2"
+            >
+              {question.title}
+            </Typography>
 
-          {answers[index] && (
-            <Iconify icon={expanded ? 'carbon:chevron-down' : 'carbon:chevron-right'} />
-          )}
+            {answers[index] && (
+              <Iconify icon={expanded ? 'carbon:chevron-down' : 'carbon:chevron-right'} />
+            )}
+          </div>
         </AccordionSummary>
       </div>
 
