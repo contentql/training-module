@@ -84,7 +84,7 @@ export default function ElearningCourseView({ courseId }) {
           <Grid xs={12} md={7} lg={8}>
             <ElearningCourseDetailsSummary course={data?.attributes} />
 
-            <Stack direction="row" flexWrap="wrap" sx={{ mt: 5 }}>
+            {/* <Stack direction="row" flexWrap="wrap" sx={{ mt: 5 }}>
               <Typography variant="subtitle2" sx={{ mt: 0.75, mr: 1.5 }}>
                 Share:
               </Typography>
@@ -111,7 +111,7 @@ export default function ElearningCourseView({ courseId }) {
                   </Button>
                 ))}
               </Stack>
-            </Stack>
+            </Stack> */}
 
             <Divider sx={{ my: 5 }} />
 

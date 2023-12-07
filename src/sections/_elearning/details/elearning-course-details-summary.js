@@ -76,7 +76,7 @@ export default function ElearningCourseDetailsSummary({ course }) {
         </Stack>
       </Stack>
 
-      <Stack spacing={2}>
+      {/* <Stack spacing={2}>
         <Typography variant="h4">Overview</Typography>
 
         <Typography>
@@ -84,7 +84,7 @@ export default function ElearningCourseDetailsSummary({ course }) {
           egone dolorem minuis. Secundae neglegi sextilius conantur commodaita siti philosophi ioca
           tenere lorem apparet assentior pudoris sint leves neglegebat unde reliquisti simile.
         </Typography>
-      </Stack>
+      </Stack> */}
     </Stack>
   );
 }
