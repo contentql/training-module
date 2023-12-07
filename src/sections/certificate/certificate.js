@@ -1,4 +1,6 @@
-const Certificate = () => (
+import PropTypes from 'prop-types';
+
+const Certificate = ({ certificateData }) => (
   <div className="relative top-[calc(50%_-_397px)] left-[calc(50%_-_561.5px)] w-[1123px] h-[794px] text-left text-41xl text-black font-montaga">
     <div className="absolute top-[calc(50%_-_372px)] left-[calc(50%_-_536.5px)] rounded-21xl box-border w-[1073px] h-[744px] border-[2px] border-solid border-lightgray" />
     <img
@@ -20,10 +22,10 @@ const Certificate = () => (
             </div>
           </div>
           <div className="flex flex-col items-start justify-start gap-[17px] text-26xl text-darkslateblue font-montserrat">
-            <div className="relative font-semibold">Manikanta Potnuru</div>
+            <div className="relative font-semibold">{certificateData?.attributes.username}</div>
             <div className="relative text-mini leading-[135%] font-medium text-dimgray inline-block w-[461px]">
-              For his/her outstanding completion of the course at Ryzolve from July to December
-              2023.
+              For his/her completion of the course <b>{certificateData?.attributes.courseTitle}</b>{' '}
+              at Ryzolve from July to December 2023.
             </div>
           </div>
         </div>
@@ -76,5 +78,9 @@ const Certificate = () => (
     </div>
   </div>
 );
+
+Certificate.propTypes = {
+  certificateData: PropTypes.object,
+};
 
 export default Certificate;

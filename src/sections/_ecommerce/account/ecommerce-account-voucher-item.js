@@ -18,7 +18,7 @@ import Certificate from 'src/sections/certificate/certificate';
 
 // ----------------------------------------------------------------------
 
-export default function EcommerceAccountVoucherItem({ voucher }) {
+export default function EcommerceAccountVoucherItem({ certificateData }) {
   // const dayLeft = differenceInCalendarDays(voucher.dueOn, new Date());
 
   const targetRef = useRef();
@@ -66,7 +66,7 @@ export default function EcommerceAccountVoucherItem({ voucher }) {
 
       <Stack sx={{ pl: 2.5, pr: 2.5, pb: 1, pt: 1 }}>
         <Typography variant="h6" sx={{ color: '#FF774C' }}>
-          {voucher?.attributes.courseTitle}
+          {certificateData?.attributes.courseTitle}
         </Typography>
         {/* <Typography variant="h7" sx={{ mt: 0.5, mb: 0.5 }}>
           Username : {voucher?.attributes.username}
@@ -88,7 +88,7 @@ export default function EcommerceAccountVoucherItem({ voucher }) {
         > */}
         {/* <Iconify icon="carbon:time" width={16} sx={{ mr: 1 }} /> */}
         <Typography variant="h7" sx={{ mb: 1 }}>
-          Score : {voucher?.attributes.score}/20
+          Score : {certificateData?.attributes.score}/20
         </Typography>
         <Button
           sx={{ bgcolor: '#FF774B', mb: 1 }}
@@ -105,7 +105,7 @@ export default function EcommerceAccountVoucherItem({ voucher }) {
           Download
         </Button>
         <div ref={targetRef}>
-          <Certificate />
+          <Certificate certificateData={certificateData} />
         </div>
       </Stack>
     </Stack>
@@ -114,13 +114,7 @@ export default function EcommerceAccountVoucherItem({ voucher }) {
 }
 
 EcommerceAccountVoucherItem.propTypes = {
-  voucher: PropTypes.shape({
-    type: PropTypes.string,
-    label: PropTypes.string,
-    title: PropTypes.string,
-    description: PropTypes.string,
-    dueOn: PropTypes.instanceOf(Date),
-  }),
+  certificateData: PropTypes.object,
 };
 
 // ----------------------------------------------------------------------
