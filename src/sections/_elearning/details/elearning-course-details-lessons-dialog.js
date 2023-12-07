@@ -58,7 +58,7 @@ export default function ElearningCourseDetailsLessonsDialog({
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [expandedUnits, setExpandedUnits] = useState(Array(units?.length).fill(false));
 
-  // const [metaData, setMetaData] = useState([]);
+  const [metaData, setMetaData] = useState([]);
   const [metaDataId, setMetaDataId] = useState(null);
 
   const searchParams = useSearchParams();
@@ -82,7 +82,7 @@ export default function ElearningCourseDetailsLessonsDialog({
       (l) => l.title.toString() === searchParams.get('lesson').toString()
     );
 
-  const { title, subtitle, content, time, id, lessonContent } = lessonData ?? {};
+  const { title, subtitle, content, time, id } = lessonData ?? {};
   const debouncedValue = useDebounce(id, 3000);
 
   useEffect(() => {
@@ -93,14 +93,15 @@ export default function ElearningCourseDetailsLessonsDialog({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [units, searchParams]);
 
-  // useEffect(() => {
-  //   getUserProgress();
-  //   addToLessons(debouncedValue);
-  //   // if (debouncedValue) {b
-  //   handleClick(debouncedValue);
-  //   // }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [debouncedValue]);
+  useEffect(() => {
+    getUserProgress();
+    // addToLessons(debouncedValue);
+    console.log({ debouncedValue });
+    // if (debouncedValue) {b
+    handleClick(debouncedValue);
+    // }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [debouncedValue]);
 
   const { UserData } = useUserStore();
 
@@ -165,11 +166,15 @@ export default function ElearningCourseDetailsLessonsDialog({
     }
   };
 
-  const addingLessonToUser = async () => {
-    // console.log('add lesson to user');
+  const addingLessonToUser = async (lessonId) => {
+    console.log({ lessonId });
+    console.log('add lesson to user');
+    // const requiredData = [...new Set([...userLessons, { LessonTitle: lessonId }])];
+    const requiredData = [...userLessons, { LessonTitle: lessonId }];
+    console.log({ requiredData });
     const requestBody = {
       data: {
-        data: [...userLessons, { LessonTitle: searchParams.get('lesson') }],
+        data: requiredData,
       },
     };
     try {
@@ -184,9 +189,9 @@ export default function ElearningCourseDetailsLessonsDialog({
     }
   };
 
-  const addingUserProgress = async () => {
+  const addingUserProgress = async (lessonId) => {
     // controller.abort();
-    // console.log('add user to data');
+    console.log('add user to data');
 
     const requestBody = {
       data: {
@@ -195,7 +200,7 @@ export default function ElearningCourseDetailsLessonsDialog({
         },
         data: [
           {
-            LessonTitle: searchParams.get('lesson'),
+            LessonTitle: lessonId,
           },
         ],
       },
@@ -218,17 +223,24 @@ export default function ElearningCourseDetailsLessonsDialog({
     }
   };
 
-  const handleClick = async (lesson) => {
+  const handleClick = (lessonId) => {
     // const isMetaDataExisting = userLessons.filter((details) => details.LessonTitle === id);
-    // if (metaDataId === null) {
-    //   addingUserProgress(lesson);
-    // } else {
-    //   setMetaData([...metaData, { LessonTitle: lesson.title }]);
-    //   addingLessonToUser(lesson);
-    // }
-    console.log('working');
+    if (metaDataId === null) {
+      console.log('1');
+      console.log('lesson_1', lessonId);
+      addingUserProgress(lessonId);
+    } else {
+      // setMetaData([...metaData, { LessonTitle: lesson.title }]);
+      console.log('2');
+      console.log('lesson_2', lessonId);
+
+      addingLessonToUser(lessonId);
+    }
     addToLessons(debouncedValue);
   };
+
+  console.log('id', id);
+  console.log('userLessons', userLessons);
 
   const StyledBox = styled(Box)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'light' ? '#fff' : grey[800],
@@ -275,7 +287,11 @@ export default function ElearningCourseDetailsLessonsDialog({
               {time} mins read
             </Typography>
 
-            <Typography variant="h2" component="h1" onClick={() => handleClick()}>
+            <Typography
+              variant="h2"
+              component="h1"
+              // onClick={() => handleClick()}
+            >
               {title}
             </Typography>
 
@@ -358,7 +374,10 @@ export default function ElearningCourseDetailsLessonsDialog({
 
           lesson.unLocked = true;
           // const filterData = metaData?.filter((l) => l.LessonTitle !== lesson?.title);
-          const hasMatch = Boolean(userLessons.find((a) => a.LessonTitle === id));
+          // const hasMatch = Boolean(userLessons.find((a) => a.LessonTitle === id));
+
+          const hasMatch = Boolean(userLessons.find((a) => a.LessonTitle === lesson.id));
+          console.log({ hasMatch });
 
           return (
             <Link
@@ -384,7 +403,7 @@ export default function ElearningCourseDetailsLessonsDialog({
                 </Typography>
 
                 <ListItemText
-                  onClick={() => handleClick(lesson)}
+                  // onClick={() => handleClick(lesson)}
                   primary={lesson.title}
                   secondary={lesson.description}
                   primaryTypographyProps={{
