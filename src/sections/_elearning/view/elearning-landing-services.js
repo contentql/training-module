@@ -39,14 +39,14 @@ const SERVICES = [
   {
     name: 'Search Engine Oprimization',
     icon: '/assets/icons/service/ic_service_analysis.svg',
-    content: 'Centralized account for all courses for all certificates.',
+    content: 'Enjoy 24/7 support through chat, text, email, and phone',
     path: paths.marketing.services,
     color: '#fff5c9',
   },
   {
     name: 'Social Marketing',
     icon: '/assets/icons/service/ic_service_bullhorn.svg',
-    content: 'Enjoy 24/7 support through chat, text, email, and phone',
+    content: 'Centralized account for all courses and for all certificates.',
     path: paths.marketing.services,
     color: '#d7ffc9',
   },

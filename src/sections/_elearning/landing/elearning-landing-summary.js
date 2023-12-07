@@ -42,6 +42,7 @@ export default function ElearningLandingSummary() {
   return (
     <Container
       sx={{
+        bgcolor: 'background.neutral',
         textAlign: 'center',
         py: { xs: 5, md: 4 },
       }}
