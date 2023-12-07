@@ -2,19 +2,19 @@
 
 import axios from 'axios';
 import PropTypes from 'prop-types';
-import { useQuery } from 'react-query';
 import { Global } from '@emotion/react';
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
+import { useQuery, useQueryClient } from 'react-query';
 
 import Stack from '@mui/material/Stack';
 import { Box, styled } from '@mui/system';
 import { grey } from '@mui/material/colors';
 import { Link, Divider } from '@mui/material';
-import Grid from '@mui/material/Unstable_Grid2';
 import Container from '@mui/material/Container';
-import IconButton from '@mui/material/IconButton';
+import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
+import IconButton from '@mui/material/IconButton';
 import ListItemText from '@mui/material/ListItemText';
 // import Dialog from '@mui/material/Dialog';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -54,11 +54,11 @@ export default function ElearningCourseDetailsLessonsDialog({
   hasBoughtCourse,
 }) {
   const mdUp = useResponsive('up', 'md');
-
+  const queryClient = useQueryClient();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [expandedUnits, setExpandedUnits] = useState(Array(units?.length).fill(false));
 
-  const [metaData, setMetaData] = useState([]);
+  const [userLessonData, setUserLessonData] = useState([]);
   const [metaDataId, setMetaDataId] = useState(null);
 
   const searchParams = useSearchParams();
@@ -69,39 +69,56 @@ export default function ElearningCourseDetailsLessonsDialog({
   // const reset = useUserProgress((state) => state.reset);
   // console.log({ userLessons });
 
-  const { data, isLoading } = useQuery({
+  const { data: lessonData, isLoading } = useQuery({
     queryKey: ['unit', searchParams.get('unit'), searchParams.get('lesson')],
     queryFn: () =>
       getUnitData(Number(searchParams.get('unit')), String(searchParams.get('lesson'))),
     refetchOnWindowFocus: false,
   });
 
-  const lessonData =
-    data &&
-    data?.attributes.lesson.find(
-      (l) => l.title.toString() === searchParams.get('lesson').toString()
-    );
+  // const lessonData =
+  //   data &&
+  //   data?.attributes.lesson.find(
+  //     (l) => l.title.toString() === searchParams.get('lesson').toString()
+  //   );
+
+  const { data: userProgressData } = useQuery({
+    queryKey: ['userProgress'],
+    queryFn: () => getUserProgress(),
+    enabled: !!lessonData?.id,
+    refetchOnWindowFocus: false,
+  });
 
   const { title, subtitle, content, time, id } = lessonData ?? {};
   const debouncedValue = useDebounce(id, 3000);
 
-  useEffect(() => {
-    if (!units) return;
-    // reset();
-    const idx = units?.findIndex((unit) => unit.id === searchParams.get('unit'));
-    setExpandedUnits((prev) => prev.map((_, index) => index === idx));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [units, searchParams]);
+  const { data: addUserProgress, refetch } = useQuery({
+    queryKey: ['userAddProgress', debouncedValue],
+    queryFn: () => addingUserProgress(),
+    enabled: false,
+  });
 
-  useEffect(() => {
-    getUserProgress();
-    // addToLessons(debouncedValue);
-    console.log({ debouncedValue });
-    // if (debouncedValue) {b
-    handleClick(debouncedValue);
-    // }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [debouncedValue]);
+  const { data: updateUserProgress } = useQuery({
+    queryKey: ['updateUserProgress', debouncedValue],
+    queryFn: () => addingLessonToUser(),
+    enabled: !!debouncedValue,
+  });
+
+  // useEffect(() => {
+  //   if (!units) return;
+  //   // reset();
+  //   const idx = units?.findIndex((unit) => unit.id === searchParams.get('unit'));
+  //   setExpandedUnits((prev) => prev.map((_, index) => index === idx));
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [units, searchParams]);
+
+  // useEffect(() => {
+  //   // addToLessons(debouncedValue);
+  //   // if (debouncedValue) {b
+  //   handleClick();
+  //   // }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [debouncedValue]);
 
   const { UserData } = useUserStore();
 
@@ -157,20 +174,40 @@ export default function ElearningCourseDetailsLessonsDialog({
           Authorization: `Bearer ${userToken}`,
         },
       });
-      res?.data.map((list) => setMetaDataId(list));
-      res?.data.map((list) =>
-        updateLessons(list.data.map((l) => ({ LessonTitle: l.LessonTitle })))
-      );
+
+      console.log('res', res.data);
+      res?.data.forEach((list) => {
+        setMetaDataId(list);
+        setUserLessonData(list.data.map((l) => ({ LessonTitle: l.LessonTitle })));
+
+        // list.data.forEach((listData) => {
+        //   userLessonData.forEach((userLesson) => {
+        //     if (userLesson.LessonTitle !== listData.LessonTitle) {
+        //       //
+        //       setUserLessonData((prev) => [...prev, { LessonTitle: listData.LessonTitle }]);
+        //     }
+        //   });
+        // });
+      });
+      if (res.data.length === 0) {
+        console.log('refetch');
+        refetch();
+      }
+      // res?.data.map((list) =>
+      //   if(userLessons.LessonTitle)
+      //   updateLessons(list.data.map((l) => ({ LessonTitle: l.LessonTitle })))
+      // );
     } catch (error) {
       console.log(error);
     }
   };
-
-  const addingLessonToUser = async (lessonId) => {
-    console.log({ lessonId });
+  const addingLessonToUser = async () => {
+    // console.log({ lessonId });
     console.log('add lesson to user');
-    // const requiredData = [...new Set([...userLessons, { LessonTitle: lessonId }])];
-    const requiredData = [...userLessons, { LessonTitle: lessonId }];
+    // const requiredData = [...new Set([...userLessonData, { LessonTitle: id }])];
+    const isMetaDataExisting = userLessonData.filter((details) => details.LessonTitle === id);
+    const requiredData = [...userLessonData, { LessonTitle: id }];
+    if (isMetaDataExisting.length > 0 || !metaDataId) return;
     console.log({ requiredData });
     const requestBody = {
       data: {
@@ -184,12 +221,13 @@ export default function ElearningCourseDetailsLessonsDialog({
           Authorization: `Bearer ${userToken}`,
         },
       });
+      queryClient.invalidateQueries({ queryKey: ['userProgress'] });
     } catch (error) {
       console.log(error);
     }
   };
 
-  const addingUserProgress = async (lessonId) => {
+  const addingUserProgress = async () => {
     // controller.abort();
     console.log('add user to data');
 
@@ -200,7 +238,7 @@ export default function ElearningCourseDetailsLessonsDialog({
         },
         data: [
           {
-            LessonTitle: lessonId,
+            LessonTitle: id,
           },
         ],
       },
@@ -218,29 +256,27 @@ export default function ElearningCourseDetailsLessonsDialog({
           },
         }
       );
+      queryClient.invalidateQueries({ queryKey: ['userProgress'] });
     } catch (error) {
       console.log(error);
     }
   };
 
-  const handleClick = (lessonId) => {
+  const handleClick = () => {
     // const isMetaDataExisting = userLessons.filter((details) => details.LessonTitle === id);
-    if (metaDataId === null) {
-      console.log('1');
-      console.log('lesson_1', lessonId);
-      addingUserProgress(lessonId);
-    } else {
-      // setMetaData([...metaData, { LessonTitle: lesson.title }]);
-      console.log('2');
-      console.log('lesson_2', lessonId);
-
-      addingLessonToUser(lessonId);
-    }
-    addToLessons(debouncedValue);
+    // if (!metaDataId) {
+    //   console.log('1');
+    //   console.log('lesson_1', id);
+    //   // addingUserProgress();
+    //   // refetch();
+    // } else {
+    //   // setMetaData([...metaData, { LessonTitle: lesson.title }]);
+    //   console.log('2');
+    //   console.log('lesson_2', id);
+    //   addingLessonToUser();
+    // }
+    // addToLessons(debouncedValue);
   };
-
-  console.log('id', id);
-  console.log('userLessons', userLessons);
 
   const StyledBox = styled(Box)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'light' ? '#fff' : grey[800],
@@ -310,123 +346,126 @@ export default function ElearningCourseDetailsLessonsDialog({
     </Container>
   );
 
-  const unitList = units?.map((unit, index) => (
-    <Accordion
-      key={unit.id}
-      expanded={expandedUnits[index]}
-      onChange={() => {
-        const newExpandedUnits = [...expandedUnits];
-        newExpandedUnits[index] = !expandedUnits[index];
-        setExpandedUnits(newExpandedUnits);
-      }}
-      sx={{
-        [`&.${accordionClasses.expanded}`]: {
-          borderRadius: 0,
-        },
-      }}
-    >
-      <AccordionSummary
+  const unitList = units?.map((unit, index) => {
+    const idx = units?.findIndex((unitData) => unitData.id === searchParams.get('unit'));
+    return (
+      <Accordion
+        key={unit.id}
+        expanded={idx === index}
+        onChange={() => {
+          const newExpandedUnits = [...expandedUnits];
+          newExpandedUnits[index] = !expandedUnits[index];
+          setExpandedUnits(newExpandedUnits);
+        }}
         sx={{
-          pr: 1,
-          pl: 2,
-          minHeight: { xs: 40, md: 64 },
-          mr: 2,
-          ...(unit.attributes.lesson.includes(selectedLesson) && {
-            color: '#0D5992',
-          }),
-          [`&.${accordionSummaryClasses.content}`]: {
-            p: 0,
-            m: 0,
-          },
-          [`&.${accordionSummaryClasses.expanded}`]: {
-            bgcolor: 'action.selected',
+          [`&.${accordionClasses.expanded}`]: {
+            borderRadius: 0,
           },
         }}
       >
-        <img src="/icons/book.svg" alt="unit" />
-
-        <Typography
-          variant="subtitle1"
+        <AccordionSummary
           sx={{
+            pr: 1,
             pl: 2,
-            flexGrow: 1,
+            minHeight: { xs: 40, md: 64 },
+            mr: 2,
+            ...(unit.attributes.lesson.includes(selectedLesson) && {
+              color: '#0D5992',
+            }),
+            [`&.${accordionSummaryClasses.content}`]: {
+              p: 0,
+              m: 0,
+            },
+            [`&.${accordionSummaryClasses.expanded}`]: {
+              bgcolor: 'action.selected',
+            },
           }}
         >
-          {unit.attributes.title}
-        </Typography>
+          <img src="/icons/book.svg" alt="unit" />
 
-        <Iconify
-          icon={expandedUnits[index] ? 'carbon:chevron-down' : 'carbon:chevron-right'}
-          sx={{ ml: 2, minHeight: 16, minWidth: 16 }}
-        />
-      </AccordionSummary>
+          <Typography
+            variant="subtitle1"
+            sx={{
+              pl: 2,
+              flexGrow: 1,
+            }}
+          >
+            {unit.attributes.title}
+          </Typography>
 
-      <AccordionDetails
-        sx={{
-          p: 2,
-          typography: 'body',
-          color: 'text.secondary',
-        }}
-        className="ml-3"
-      >
-        {unit.attributes.lesson.map((lesson, value) => {
-          const selected = selectedLesson?.id === lesson.id;
+          <Iconify
+            icon={expandedUnits[index] ? 'carbon:chevron-down' : 'carbon:chevron-right'}
+            sx={{ ml: 2, minHeight: 16, minWidth: 16 }}
+          />
+        </AccordionSummary>
 
-          lesson.unLocked = true;
-          // const filterData = metaData?.filter((l) => l.LessonTitle !== lesson?.title);
-          // const hasMatch = Boolean(userLessons.find((a) => a.LessonTitle === id));
+        <AccordionDetails
+          sx={{
+            p: 2,
+            typography: 'body',
+            color: 'text.secondary',
+          }}
+          className="ml-3"
+        >
+          {unit.attributes.lesson.map((lesson, value) => {
+            const selected = selectedLesson?.id === lesson.id;
 
-          const hasMatch = Boolean(userLessons.find((a) => a.LessonTitle === lesson.id));
-          console.log({ hasMatch });
+            lesson.unLocked = true;
+            // const filterData = metaData?.filter((l) => l.LessonTitle !== lesson?.title);
+            // const hasMatch = Boolean(userLessons.find((a) => a.LessonTitle === id));
 
-          return (
-            <Link
-              component={RouterLink}
-              href={`?unit=${unit.id}&lesson=${lesson.title}`}
-              color="inherit"
-              underline="none"
-            >
-              <ListItemButton
-                key={lesson.title}
-                selected={selected}
-                disabled={!lesson.unLocked}
-                onClick={() => onSelectedLesson(lesson)}
-                sx={{ borderRadius: 1, maxHeight: '6rem' }}
+            const hasMatch = Boolean(userLessonData.find((a) => a.LessonTitle === lesson.id));
+            // console.log({ hasMatch });
+
+            return (
+              <Link
+                component={RouterLink}
+                href={`?unit=${unit.id}&lesson=${lesson.title}`}
+                color="inherit"
+                underline="none"
               >
-                <Typography sx={{ mr: 2, ...(selected && { color: 'primary.main' }) }}>
-                  <NumberDone
-                    index={value}
-                    sx={{ ml: 2 }}
-                    lessonComplete={hasMatch}
-                    // lessonComplete={metaData?.filter((l) => l.LessonTitle === lesson?.title)}
-                  />
-                </Typography>
+                <ListItemButton
+                  key={lesson.title}
+                  selected={selected}
+                  disabled={!lesson.unLocked}
+                  onClick={() => onSelectedLesson(lesson)}
+                  sx={{ borderRadius: 1, maxHeight: '6rem' }}
+                >
+                  <Typography sx={{ mr: 2, ...(selected && { color: 'primary.main' }) }}>
+                    <NumberDone
+                      index={value}
+                      sx={{ ml: 2 }}
+                      lessonComplete={hasMatch}
+                      // lessonComplete={metaData?.filter((l) => l.LessonTitle === lesson?.title)}
+                    />
+                  </Typography>
 
-                <ListItemText
-                  // onClick={() => handleClick(lesson)}
-                  primary={lesson.title}
-                  secondary={lesson.description}
-                  primaryTypographyProps={{
-                    typography: 'subtitle1',
-                    sx: {
-                      ...(selected && {
-                        color: 'primary.main',
-                      }),
-                    },
-                  }}
-                  secondaryTypographyProps={{
-                    noWrap: true,
-                    component: 'span',
-                  }}
-                />
-              </ListItemButton>
-            </Link>
-          );
-        })}
-        <Quiz _questions={unit?.attributes?.quiz} hasBoughtCourse={hasBoughtCourse} />
-      </AccordionDetails>
-    </Accordion>
-  ));
+                  <ListItemText
+                    // onClick={() => handleClick(lesson)}
+                    primary={lesson.title}
+                    secondary={lesson.description}
+                    primaryTypographyProps={{
+                      typography: 'subtitle1',
+                      sx: {
+                        ...(selected && {
+                          color: 'primary.main',
+                        }),
+                      },
+                    }}
+                    secondaryTypographyProps={{
+                      noWrap: true,
+                      component: 'span',
+                    }}
+                  />
+                </ListItemButton>
+              </Link>
+            );
+          })}
+          <Quiz _questions={unit?.attributes?.quiz} hasBoughtCourse={hasBoughtCourse} />
+        </AccordionDetails>
+      </Accordion>
+    );
+  });
 
   const renderListDesktop = (
     <Stack
