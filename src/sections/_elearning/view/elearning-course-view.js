@@ -8,15 +8,15 @@ import { useQuery } from 'react-query';
 // import { redirect } from 'next/navigation';
 
 import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
+// import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
-import { alpha } from '@mui/material/styles';
+// import { alpha } from '@mui/material/styles';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
-import Typography from '@mui/material/Typography';
+// import Typography from '@mui/material/Typography';
 
-import { _socials } from 'src/_mock';
-import Iconify from 'src/components/iconify';
+// import { _socials } from 'src/_mock';
+// import Iconify from 'src/components/iconify';
 // import { useBoolean } from 'src/hooks/use-boolean';
 import { getCourseData } from 'src/queries/course';
 import { useResponsive } from 'src/hooks/use-responsive';
