@@ -41,13 +41,15 @@ export default function ElearningCertificateDialog({ open, handleClose, certific
               <CloseIcon />
             </IconButton>
             <IconButton
+              autoFocus={false}
               sx={{
-                position: 'absolute',
-                top: 2,
-                right: 2,
+                position: 'fixed',
+                bottom: 14,
+                right: 50,
                 zIndex: 999,
+                backgroundColor: (theme) => `${theme.palette.error.main}30`,
                 '&:hover': {
-                  backgroundColor: (theme) => `${theme.palette.error.main}30`,
+                  backgroundColor: (theme) => `${theme.palette.error.main}50`,
                 },
               }}
               size="large"
@@ -55,10 +57,11 @@ export default function ElearningCertificateDialog({ open, handleClose, certific
               onClick={() =>
                 generatePDF(targetRef, {
                   filename: 'page.pdf',
-                  method: 'download',
+                  method: 'open',
                   page: { orientation: 'landscape', margin: Margin.NONE },
                 })
               }
+              className="animate-bounce hover:animate-none"
             >
               <FileDownloadIcon color="error" />
             </IconButton>
