@@ -1,8 +1,6 @@
 /* eslint-disable react/prop-types */
-import { useRef } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import generatePDF, { Margin } from 'react-to-pdf';
 // import { differenceInCalendarDays } from 'date-fns';
 
 import Box from '@mui/material/Box';
@@ -11,17 +9,26 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
 import Image from 'src/components/image';
-import Iconify from 'src/components/iconify';
+// import Iconify from 'src/components/iconify';
+import ElearningCertificateDialog from 'src/sections/certificate/elearning-certificate-dialog';
 // import { fDate } from 'src/utils/format-time';
-import TextMaxLine from 'src/components/text-max-line';
-import Certificate from 'src/sections/certificate/certificate';
+// import TextMaxLine from 'src/components/text-max-line';
+// import Certificate from 'src/sections/certificate/certificate';
 
 // ----------------------------------------------------------------------
 
 export default function EcommerceAccountVoucherItem({ certificateData }) {
   // const dayLeft = differenceInCalendarDays(voucher.dueOn, new Date());
 
-  const targetRef = useRef();
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
     <Stack
@@ -94,19 +101,15 @@ export default function EcommerceAccountVoucherItem({ certificateData }) {
           sx={{ bgcolor: '#FF774B', mb: 1 }}
           size="large"
           variant="contained"
-          onClick={() =>
-            generatePDF(targetRef, {
-              filename: 'page.pdf',
-              method: 'open',
-              page: { orientation: 'landscape', margin: Margin.NONE },
-            })
-          }
+          onClick={() => handleClickOpen()}
         >
-          Download
+          View
         </Button>
-        <div ref={targetRef}>
-          <Certificate certificateData={certificateData} />
-        </div>
+        <ElearningCertificateDialog
+          open={open}
+          handleClose={handleClose}
+          certificateData={certificateData}
+        />
       </Stack>
     </Stack>
     // </Stack>
@@ -119,18 +122,18 @@ EcommerceAccountVoucherItem.propTypes = {
 
 // ----------------------------------------------------------------------
 
-function getIcon(type) {
-  let icon;
+// function getIcon(type) {
+//   let icon;
 
-  switch (type) {
-    case 'shipping':
-      icon = <Iconify icon="carbon:delivery" width={32} />;
-      break;
-    case 'category':
-      icon = <Iconify icon="carbon:cut-out" width={32} />;
-      break;
-    default:
-      icon = <Iconify icon="carbon:star" width={32} />;
-  }
-  return icon;
-}
+//   switch (type) {
+//     case 'shipping':
+//       icon = <Iconify icon="carbon:delivery" width={32} />;
+//       break;
+//     case 'category':
+//       icon = <Iconify icon="carbon:cut-out" width={32} />;
+//       break;
+//     default:
+//       icon = <Iconify icon="carbon:star" width={32} />;
+//   }
+//   return icon;
+// }
