@@ -97,7 +97,7 @@ const QuestionCard = ({
                     <FormControlLabel
                       key={i + 1}
                       value={o.option}
-                      control={<Radio />}
+                      control={<Radio color="info" />}
                       label={
                         selectedValue === o.option ? (
                           <span
