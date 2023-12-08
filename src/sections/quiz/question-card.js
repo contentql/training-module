@@ -75,7 +75,7 @@ const QuestionCard = ({
                     <FormControlLabel
                       key={i + 1}
                       value={o.option}
-                      control={<Checkbox />}
+                      control={<Checkbox color="info" />}
                       label={
                         <span
                           className={isSelected && (isCorrect ? 'text-green-500' : 'text-red-500')}
