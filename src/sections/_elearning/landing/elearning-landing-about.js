@@ -67,14 +67,14 @@ export default function ElearningLandingAbout() {
             in the field of nursing.
           </Typography>
 
-          <Button
+          {/* <Button
             size="large"
             color="inherit"
             endIcon={<Iconify icon="carbon:chevron-right" />}
             sx={{ my: 5 }}
           >
             Lean more
-          </Button>
+          </Button> */}
         </Grid>
 
         <Grid xs={12} md={6}>
@@ -113,7 +113,7 @@ export default function ElearningLandingAbout() {
           </Stack>
         </Grid>
       </Grid>
-      <Image
+      {/* <Image
         alt="landing about"
         src="/assets/images/marketing/training-module-about.jpg"
         ratio="16/9"
@@ -121,8 +121,8 @@ export default function ElearningLandingAbout() {
           mt: 8,
           borderRadius: 1.5,
         }}
-      />
-      <Divider sx={{ borderStyle: 'dashed', mt: 8, mb: 1, bgcolor: 'primary.main' }} />
+      /> */}
+      {/* <Divider sx={{ borderStyle: 'dashed', mt: 8, mb: 1, bgcolor: 'primary.main' }} /> */}
     </Container>
   );
 }
