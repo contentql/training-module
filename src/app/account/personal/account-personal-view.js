@@ -87,11 +87,11 @@ export default function AccountPersonalView() {
         display="grid"
         gridTemplateColumns={{ xs: 'repeat(1, 1fr)', md: 'repeat(2, 1fr)' }}
       >
-        <RHFTextField name="username" label="User Name" value={userData.username} />
+        <RHFTextField name="username" label="User Name" value={userData.username} disabled />
 
-        <RHFTextField name="emailAddress" label="Email Address" value={userData.email} />
+        <RHFTextField name="emailAddress" label="Email Address" value={userData.email} disabled />
 
-        <RHFTextField name="phoneNumber" label="Phone Number" value={userData.phone} />
+        <RHFTextField name="phoneNumber" label="Phone Number" value={userData.phone} disabled />
 
         {/* <Controller
           name="birthday"
@@ -118,11 +118,11 @@ export default function AccountPersonalView() {
           ))}
         </RHFSelect> */}
 
-        <RHFTextField name="city" label="city" value={userData.city} />
+        <RHFTextField name="city" label="city" value={userData.city} disabled />
 
-        <RHFTextField name="country" label="country" value={userData.country} />
+        <RHFTextField name="country" label="country" value={userData.country} disabled />
 
-        <RHFTextField name="agency" label="agency" value={userData.agency} />
+        <RHFTextField name="agency" label="agency" value={userData.agency} disabled />
       </Box>
 
       {/* <Stack spacing={3} sx={{ my: 5 }}>

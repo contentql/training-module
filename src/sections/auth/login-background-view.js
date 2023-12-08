@@ -181,13 +181,13 @@ export default function LoginBackgroundView() {
 
       {renderForm}
 
-      <Divider>
+      {/* <Divider>
         <Typography variant="body2" sx={{ color: 'text.disabled' }}>
           or continue with
         </Typography>
       </Divider>
 
-      {renderSocials}
+      {renderSocials} */}
     </>
   );
 }

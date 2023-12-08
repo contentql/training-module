@@ -27,8 +27,8 @@ export default function ElearningCourseDetailsUnitItem({
 
   return (
     <Accordion
-      expanded={expanded}
-      onChange={() => setExpanded(!expanded)}
+      expanded={unit.lesson.length && expanded}
+      onChange={() => unit.lesson.length && setExpanded(!expanded)}
       sx={{
         [`&.${accordionClasses.expanded}`]: {
           borderRadius: 0,
@@ -61,7 +61,10 @@ export default function ElearningCourseDetailsUnitItem({
           {unit.title}
         </Typography>
 
-        <Iconify icon={expanded ? 'carbon:chevron-down' : 'carbon:chevron-right'} sx={{ ml: 2 }} />
+        <Iconify
+          icon={unit.lesson.length && expanded ? 'carbon:chevron-down' : 'carbon:chevron-right'}
+          sx={{ ml: 2 }}
+        />
       </AccordionSummary>
 
       <AccordionDetails

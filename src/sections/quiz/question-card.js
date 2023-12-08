@@ -1,5 +1,5 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import { useState, useEffect } from 'react';
 
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
@@ -14,61 +14,45 @@ import CardContent from '@mui/material/CardContent';
 import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
-export default function QuestionCard(props) {
-  const {
-    question = {},
-    questionNumber,
-    submitAnswer,
-    goToPrevious,
-    selectedValue,
-    goToNext,
-    islastQuestion,
-    areAllAnswersMarked,
-    handleSubmitPopupToggle,
-  } = props;
-  const [value, setValue] = React.useState(null);
+const QuestionCard = ({
+  question = {},
+  questionNumber,
+  submitAnswer,
+  goToPrevious,
+  selectedValue,
+  goToNext,
+  islastQuestion,
+  areAllAnswersMarked,
+  handleSubmitPopupToggle,
+}) => {
+  const [value, setValue] = useState(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setValue(selectedValue);
   }, [selectedValue]);
 
-  const handleChangeRadio = (e) => {
-    setValue(e.target.value);
-  };
+  const handleChangeRadio = (e) => setValue(e.target.value);
+
   const handleChangeCheckbox = (e) => {
-    if (e.target.checked) {
-      setValue((prev) => {
-        if (!prev) return [e.target.value];
-        if (prev.includes(e.target.value)) return prev;
-        return [...prev, e.target.value];
-      });
-    } else {
-      setValue((prev) => {
-        if (!prev) return null;
-        return prev.filter((p) => p !== e.target.value);
-      });
-    }
+    setValue((prev) => {
+      if (!prev) return [e.target.value];
+      if (prev.includes(e.target.value)) return prev;
+      return [...prev, e.target.value];
+    });
   };
 
-  const handlePreview = () => {
-    goToPrevious();
-  };
+  const handlePreview = () => goToPrevious();
 
-  const handleNext = () => {
-    goToNext();
-  };
+  const handleNext = () => goToNext();
 
   const handleSubmit = () => {
     submitAnswer(questionNumber - 1, value);
     setValue(null);
   };
 
-  const colorMap = {
-    Prev: 'secondary',
-    Submit: 'info',
-    Next: 'warning',
-    'Submit Quiz': 'success',
-  };
+  const correctOption = question.options.findIndex(
+    (option) => option.option === question.correctAnswer
+  );
 
   return (
     <Box className="w-full h-full pb-10 lg:pb-0 md:px-5" md={7}>
@@ -77,33 +61,59 @@ export default function QuestionCard(props) {
           <Typography variant="h5" component="div">
             Question {questionNumber}
           </Typography>
-
           <Typography sx={{ mb: 1.5 }} color="text.secondary">
             {question.title}
           </Typography>
-
           <FormControl disabled={Boolean(selectedValue)}>
             {typeof question.correctAnswer === 'object' ? (
               <FormGroup name="checkbox-group-quiz" value={value} onChange={handleChangeCheckbox}>
-                {question.options.map((o, i) => (
-                  <FormControlLabel
-                    key={i + 1}
-                    value={o.option}
-                    control={<Checkbox />}
-                    label={o.option}
-                  />
-                ))}
+                {question.options.map((o, i) => {
+                  const isSelected = selectedValue !== null;
+                  const isCorrect = isSelected && o.option === question.correctAnswer[i];
+
+                  return (
+                    <FormControlLabel
+                      key={i + 1}
+                      value={o.option}
+                      control={<Checkbox color="info" />}
+                      label={
+                        <span
+                          className={isSelected && (isCorrect ? 'text-green-500' : 'text-red-500')}
+                        >
+                          {o.option}
+                        </span>
+                      }
+                    />
+                  );
+                })}
               </FormGroup>
             ) : (
               <RadioGroup name="radio-group-quiz" value={value} onChange={handleChangeRadio}>
-                {question.options.map((o, i) => (
-                  <FormControlLabel
-                    key={i + 1}
-                    value={o.option}
-                    control={<Radio />}
-                    label={o.option}
-                  />
-                ))}
+                {question.options.map((o, i) => {
+                  const isSelected = selectedValue !== null;
+                  const isCorrect = isSelected && o.option === question.correctAnswer;
+                  console.log('first');
+                  return (
+                    <FormControlLabel
+                      key={i + 1}
+                      value={o.option}
+                      control={<Radio color="info" />}
+                      label={
+                        selectedValue === o.option ? (
+                          <span
+                            className={
+                              isSelected && (isCorrect ? 'text-green-500' : 'text-red-500')
+                            }
+                          >
+                            {o.option}
+                          </span>
+                        ) : (
+                          o.option
+                        )
+                      }
+                    />
+                  );
+                })}
               </RadioGroup>
             )}
           </FormControl>
@@ -112,31 +122,31 @@ export default function QuestionCard(props) {
           <Button
             disabled={questionNumber === 1}
             onClick={handlePreview}
+            color="secondary"
             variant="outlined"
             size="small"
             className="w-1/2"
-            color={colorMap.Prev}
           >
             Prev
           </Button>
           {!selectedValue ? (
             <Button
               disabled={!value}
-              className="w-1/2"
               onClick={handleSubmit}
+              color="info"
               variant="outlined"
               size="small"
-              color={colorMap.Submit}
+              className="w-1/2"
             >
               Submit
             </Button>
           ) : (
             <Button
               onClick={areAllAnswersMarked && islastQuestion ? handleSubmitPopupToggle : handleNext}
-              className="w-1/2"
+              color={islastQuestion ? 'success' : 'warning'}
               variant="outlined"
               size="small"
-              color={islastQuestion ? colorMap['Submit Quiz'] : colorMap.Next}
+              className="w-1/2"
               disabled={islastQuestion && !areAllAnswersMarked}
             >
               {islastQuestion ? 'Submit Quiz' : 'Next'}
@@ -156,14 +166,15 @@ export default function QuestionCard(props) {
               <Typography
                 variant="body1"
                 sx={{
+                  backgroundColor: 'grey.300',
                   p: 2,
                   fontSize: '16px',
                   fontWeight: 500,
+                  color: 'grey.600',
                   borderRadius: 1,
                 }}
-                className="bg-green-100 text-green-800"
               >
-                Correct Answer :
+                Correct Answer (Option {String.fromCharCode(correctOption + 1 + 64)}):{' '}
                 <strong>
                   {Array.isArray(question.correctAnswer)
                     ? question.correctAnswer.join(', ')
@@ -183,7 +194,7 @@ export default function QuestionCard(props) {
                   borderRadius: 1,
                 }}
               >
-                Description :<strong>{question?.description}</strong>
+                Description: <strong>{question?.description}</strong>
               </Typography>
             </Box>
           </>
@@ -191,7 +202,7 @@ export default function QuestionCard(props) {
       </Card>
     </Box>
   );
-}
+};
 
 QuestionCard.propTypes = {
   question: PropTypes.object.isRequired,
@@ -204,3 +215,5 @@ QuestionCard.propTypes = {
   areAllAnswersMarked: PropTypes.bool,
   handleSubmitPopupToggle: PropTypes.func,
 };
+
+export default QuestionCard;

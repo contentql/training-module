@@ -156,7 +156,7 @@ export default function EcommerceAccountVouchersView() {
         }}
       >
         {quizScore.map((data) => (
-          <EcommerceAccountVoucherItem key={data.id} voucher={data} />
+          <EcommerceAccountVoucherItem key={data.id} certificateData={data} userData={userData} />
         ))}
       </Box>
     </>
