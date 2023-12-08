@@ -16,6 +16,7 @@ import ElearningLandingIntroduce from '../landing/elearning-landing-introduce';
 // import ElearningLatestPosts from '../../blog/elearning/elearning-latest-posts';
 import ElearningLandingFeaturedCourses from '../landing/elearning-landing-featured-courses';
 
+import ElearningLandingProcess from './elearning-landing-process';
 import ElearningLandingServices from './elearning-landing-services';
 
 // ----------------------------------------------------------------------
@@ -39,7 +40,9 @@ export default function ElearningLandingView() {
       {/* <ElearningLandingIntroduce /> */}
       <ElearningLandingServices />
 
-      <ElearningLandingSummary />
+      <ElearningLandingProcess />
+
+      {/* <ElearningLandingSummary /> */}
 
       <ElearningLandingFeaturedCourses courses={data} />
 

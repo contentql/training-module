@@ -1,20 +1,55 @@
 import Box from '@mui/material/Box';
+import { Link } from '@mui/material';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
+import { alpha, useTheme } from '@mui/material/styles';
 
 import Image from 'src/components/image';
+import { paths } from 'src/routes/paths';
+import { RouterLink } from 'src/routes/components';
 
 // ----------------------------------------------------------------------
 
+export function bgGradient(props) {
+  const direction = props?.direction || 'to bottom';
+  const startColor = props?.startColor;
+  const endColor = props?.endColor;
+  // const imgUrl = props?.imgUrl;
+  // const color = props?.color;
+
+  // if (imgUrl) {
+  //   return {
+  //     background: `linear-gradient(${direction}, ${startColor || color}, ${
+  //       endColor || color
+  //     }), url(${imgUrl})`,
+  //     backgroundSize: 'cover',
+  //     backgroundRepeat: 'no-repeat',
+  //     backgroundPosition: 'center center',
+  //   };
+  // }
+
+  return {
+    background: `linear-gradient(${direction}, ${startColor}, ${endColor})`,
+  };
+}
+
 export default function ElearningAboutHero() {
+  const theme = useTheme();
+
   return (
     <Box
       sx={{
-        py: { xs: 10, md: 20 },
+        py: { xs: 10, md: 10 },
         overflow: 'hidden',
-        bgcolor: 'primary.lighter',
+        // bgcolor: 'primary.lighter',
+        ...bgGradient({
+          endColor: '#FFCEBD',
+          startColor: '#f7f5f4',
+          color: alpha(theme.palette.background.default, 0.1),
+          // imgUrl: '/assets/background/overlay_3.jpg',
+        }),
       }}
     >
       <Container>
@@ -30,14 +65,27 @@ export default function ElearningAboutHero() {
           >
             <Typography variant="h1">Online Courses</Typography>
 
+            <Typography sx={{ mt: 3, mb: 2 }}>
+              Ryzolve is the education division of Ryzolve LLC. One of the pioneers in providing
+              consultancy services to HCSSA agencies.
+            </Typography>
             <Typography sx={{ mt: 3, mb: 6 }}>
-              Nunc nulla. Ut leo. Pellentesque commodo eros a enim. Nunc egestas, augue at
-              pellentesque laoreet, felis eros vehicula leo, at malesuada velit leo quis pede.
+              The courses that we have for Administrators and Alternate Administrators of Home
+              Health, Hospice and Personal Care Services have been created in an easy to study
+              method for the convenience and comfort of students. The charges for the courses too
+              are one of the lowest in the industry. Quality with Affordable pricing is one of our
+              hallmarks and we pride ourselves in giving our clients and students the best possible
+              services.
             </Typography>
 
-            <Button variant="contained" size="large" color="primary">
+            {/* <Button variant="contained" size="large" color="primary">
               Browse Courses
-            </Button>
+            </Button> */}
+            <Link component={RouterLink} href={paths.eLearning.courses}>
+              <Button sx={{ bgcolor: '#FF774B' }} size="large" variant="contained">
+                Start Learning
+              </Button>
+            </Link>
           </Grid>
 
           <Grid xs={12} md={6} lg={6}>
