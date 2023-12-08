@@ -127,7 +127,7 @@ export default function ElearningCourseDetailsHero({ course }) {
                 <Image
                   alt="hero"
                   src={image}
-                  ratio={mdUp ? '3/4' : '4/3'}
+                  sx={{ height: '100%', width: '100%', objectFit: 'cover' }}
                   // overlay={`linear-gradient(to bottom, ${alpha(
                   //   theme.palette.common.black,
                   //   0
