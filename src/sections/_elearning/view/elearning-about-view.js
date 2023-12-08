@@ -7,6 +7,7 @@ import ElearningNewsletter from '../elearning-newsletter';
 import ElearningOurClients from '../elearning-our-clients';
 import TeamElearningAbout from '../team/elearning-team-about';
 import ElearningAboutHero from '../about/elearning-about-hero';
+import ElearningPrivacy from '../landing/elearning-privacy-about';
 import ElearningLandingAbout from '../landing/elearning-landing-about';
 import ElearningTestimonial from '../testimonial/elearning-testimonial';
 import ElearningAboutCoreValues from '../about/elearning-about-core-values';
@@ -19,6 +20,7 @@ export default function ElearningAboutView() {
     <>
       <ElearningAboutHero />
       <ElearningLandingAbout />
+      <ElearningPrivacy />
 
       {/* <ElearningAbout /> */}
 
