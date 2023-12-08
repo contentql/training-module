@@ -29,5 +29,5 @@ export const getUnitData = async (unitId, lessonTitle) => {
     }
   );
 
-  return data.data.unit.data;
+  return data.data.unit.data.attributes.lesson.find((l) => l.title.toString() === lessonTitle);
 };
