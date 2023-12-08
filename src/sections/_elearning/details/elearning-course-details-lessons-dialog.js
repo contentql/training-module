@@ -104,13 +104,13 @@ export default function ElearningCourseDetailsLessonsDialog({
     enabled: !!debouncedValue,
   });
 
-  // useEffect(() => {
-  //   if (!units) return;
-  //   // reset();
-  //   const idx = units?.findIndex((unit) => unit.id === searchParams.get('unit'));
-  //   setExpandedUnits((prev) => prev.map((_, index) => index === idx));
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [units, searchParams]);
+  useEffect(() => {
+    if (!units) return;
+    // reset();
+    const idx = units?.findIndex((unit) => unit.id === searchParams.get('unit'));
+    setExpandedUnits((prev) => prev.map((_, index) => index === idx));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [units, searchParams]);
 
   // useEffect(() => {
   //   // addToLessons(debouncedValue);
@@ -351,7 +351,7 @@ export default function ElearningCourseDetailsLessonsDialog({
     return (
       <Accordion
         key={unit.id}
-        expanded={idx === index}
+        expanded={expandedUnits[index]}
         onChange={() => {
           const newExpandedUnits = [...expandedUnits];
           newExpandedUnits[index] = !expandedUnits[index];
