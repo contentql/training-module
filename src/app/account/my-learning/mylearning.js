@@ -34,7 +34,12 @@ export default function AccountPersonalView() {
 
   useEffect(() => {
     const fetchScore = async () => {
-      const res = await fetch(process.env.NEXT_PUBLIC_QUIZ_SCORE);
+      const res = await fetch(process.env.NEXT_PUBLIC_QUIZ_SCORE, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${userData.authToken}`,
+        },
+      });
       const data = await res.json();
 
       setQuizScore(
@@ -42,7 +47,7 @@ export default function AccountPersonalView() {
       );
     };
     fetchScore();
-  }, [userData.username]);
+  }, [userData.authToken, userData.username]);
 
   const { data } = useQuery(['repoData', userData.id], () =>
     fetch(process.env.NEXT_PUBLIC_MY_LEARNING_URL, {
