@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
 const Certificate = ({ certificateData }) => {
-  const formattedDate = certificateData?.attributes.updatedAt
+  const formattedDate = certificateData?.attributes.createdAt
     ? new Date(certificateData.attributes.updatedAt).toLocaleDateString('en-US', {
         month: '2-digit',
         day: '2-digit',

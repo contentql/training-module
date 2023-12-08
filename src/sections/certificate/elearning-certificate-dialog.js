@@ -27,7 +27,7 @@ export default function ElearningCertificateDialog({ open, handleClose, certific
       setIsLoading(true);
 
       await generatePDF(targetRef, {
-        filename: `${certificateData.attributes.username}.pdf`,
+        filename: `${certificateData?.attributes.username}_${certificateData?.attributes.courseTitle}_Certificate.pdf`,
         method: 'download',
         resolution: Resolution.HIGH,
         format: 'letter',
