@@ -16,14 +16,14 @@ import TextMaxLine from 'src/components/text-max-line';
 
 // ----------------------------------------------------------------------
 
-const COLORS = ['primary', 'secondary', 'success', 'warning'];
+const COLORS = ['primary', 'secondary', 'warning', 'success'];
 
 const SERVICES = [
   {
     name: 'SEO',
     icon: '/assets/icons/service/ic_service_seo.svg',
     content:
-      'We have meticulously crafted our programs to serve as comprehensive learning environments,allowing each Administrator or Manager to partake in personalized learning experiences.',
+      'Our programs not only meet but surpass the licensing standards mandated by the states of Texas.',
     path: paths.marketing.services,
     color: '#ffe1c9',
   },
@@ -31,21 +31,21 @@ const SERVICES = [
     name: 'Email Marketing',
     icon: '/assets/icons/service/ic_service_mail.svg',
     content:
-      'Our programs not only meet but surpass the licensing standards mandated by the states of Texas.',
+      'We have meticulously crafted our programs to serve as comprehensive learning environments,allowing each Administrator or Manager to partake in personalized learning experiences.',
 
     path: paths.marketing.services,
     color: '#e2c9ff',
   },
   {
     name: 'Search Engine Oprimization',
-    icon: '/assets/icons/service/ic_service_analysis.svg',
+    icon: '/assets/icons/service/ic_service_bullhorn.svg',
     content: 'Enjoy 24/7 support through chat, text, email, and phone',
     path: paths.marketing.services,
     color: '#fff5c9',
   },
   {
     name: 'Social Marketing',
-    icon: '/assets/icons/service/ic_service_bullhorn.svg',
+    icon: '/assets/icons/service/ic_service_analysis.svg',
     content: 'Centralized account for all courses and for all certificates.',
     path: paths.marketing.services,
     color: '#d7ffc9',
@@ -117,9 +117,24 @@ function ServiceItem({ service, index }) {
         }),
       }}
     >
+      <SvgColor
+        src={icon}
+        sx={{
+          width: 88,
+          height: 88,
+          mx: 'auto',
+          color: (theme) => theme.palette[COLORS[index]].main,
+        }}
+      />
+
       <Stack spacing={1} sx={{ my: 2 }}>
         {/* <TextMaxLine variant="h6">{name}</TextMaxLine> */}
-        <Typography variant="body1" sx={{ color: 'text.primary' }}>
+        <Typography
+          variant="body1"
+          sx={{
+            color: (theme) => theme.palette[COLORS[index]].darker,
+          }}
+        >
           {content}
         </Typography>
       </Stack>

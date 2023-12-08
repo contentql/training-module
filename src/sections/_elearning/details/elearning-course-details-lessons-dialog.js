@@ -368,6 +368,7 @@ export default function ElearningCourseDetailsLessonsDialog({
             pr: 1,
             pl: 2,
             minHeight: { xs: 40, md: 64 },
+            // maxWidth: 450,
             mr: 2,
             ...(unit.attributes.lesson.includes(selectedLesson) && {
               color: '#0D5992',
@@ -473,7 +474,8 @@ export default function ElearningCourseDetailsLessonsDialog({
       sx={{
         p: 1,
         overflowY: 'scroll',
-        width: { xs: 1, md: '44%' },
+        // width: { xs: 1, md: '44%' },
+        maxWidth: 450,
         height: 1,
       }}
     >
