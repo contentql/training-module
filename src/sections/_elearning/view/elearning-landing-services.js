@@ -91,7 +91,7 @@ export default function ElearningLandingServices() {
           <ServiceItem key={service.name} service={service} index={index} />
         ))}
       </Box>
-      <Divider sx={{ borderStyle: 'dashed', mt: 8, bgcolor: 'primary.main' }} />
+      {/* <Divider sx={{ borderStyle: 'dashed', mt: 8, bgcolor: 'primary.main' }} /> */}
     </Container>
   );
 }
@@ -107,7 +107,8 @@ function ServiceItem({ service, index }) {
         px: 4,
         py: 5,
         textAlign: 'center',
-        backgroundColor: color,
+        color: (theme) => theme.palette[COLORS[index]].darker,
+        bgcolor: (theme) => theme.palette[COLORS[index]].light,
         ...(index === 1 && {
           py: { xs: 5, md: 8 },
         }),
@@ -123,7 +124,7 @@ function ServiceItem({ service, index }) {
           width: 88,
           height: 88,
           mx: 'auto',
-          color: (theme) => theme.palette[COLORS[index]].main,
+          // color: (theme) => theme.palette[COLORS[index]].main,
         }}
       />
 
