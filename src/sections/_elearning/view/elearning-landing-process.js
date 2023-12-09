@@ -16,24 +16,28 @@ const COLORS = ['primary', 'secondary', 'warning', 'success'];
 const SERVICES = [
   {
     name: 'Comprehensive',
-    icon: '/assets/icons/ic_sketch_design.svg',
+    icon: '/assets/icons/service/comprehensive.svg',
     content: 'Our exams cover a wide range of topics to ensure a thorough evaluation.',
+    bgcolor: '#f7efff',
   },
   {
     name: 'Convenient',
-    icon: '/assets/icons/ic_search.svg',
+    icon: '/assets/icons/service/convienent.svg',
     content: 'Take our online courses and examinations at a pace that suits your unique schedule.',
+    bgcolor: '#ffe0f2',
   },
   {
     name: 'Certificate',
-    icon: '/assets/icons/ic_optimization.svg',
+    icon: '/assets/icons/service/certificate.svg',
     content:
       'Upon completion of the course certificate will be provided after completion of course.',
+    bgcolor: '#ffe2d3',
   },
   {
     name: 'Quality Assurance',
-    icon: '/assets/icons/ic_analysis.svg',
+    icon: '/assets/icons/service/quality.svg',
     content: 'We set the bar for excellence in home and community support services.',
+    bgcolor: '#d6eded',
   },
 ];
 
@@ -93,14 +97,15 @@ export default function ElearningLandingProcess() {
 // ----------------------------------------------------------------------
 
 function ServiceItem({ service, index }) {
-  const { name, icon, content } = service;
+  const { name, icon, content, bgcolor } = service;
 
   return (
     <Card
       sx={{
         p: 2,
         color: (theme) => theme.palette[COLORS[index]].darker,
-        bgcolor: (theme) => theme.palette[COLORS[index]].light,
+        // bgcolor: (theme) => theme.palette[COLORS[index]].light,
+        bgcolor,
         boxShadow: (theme) => `-8px 12px 32px 0px ${alpha(theme.palette[COLORS[index]].main, 0.2)}`,
         ...(index === 1 && {
           mb: { md: 2.5 },
@@ -118,7 +123,7 @@ function ServiceItem({ service, index }) {
         sx={{
           width: 64,
           height: 64,
-          opacity: 0.48,
+          // opacity: 0.48,
         }}
       />
 
@@ -138,5 +143,6 @@ ServiceItem.propTypes = {
     name: PropTypes.string,
     icon: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
     content: PropTypes.string,
+    bgcolor: PropTypes.string,
   }),
 };

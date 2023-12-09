@@ -21,34 +21,34 @@ const COLORS = ['primary', 'secondary', 'warning', 'success'];
 const SERVICES = [
   {
     name: 'SEO',
-    icon: '/assets/icons/service/ic_service_seo.svg',
+    icon: '/assets/icons/service/standard.svg',
     content:
       'Our programs not only meet but surpass the licensing standards mandated by the states of Texas.',
     path: paths.marketing.services,
-    color: '#ffe1c9',
+    color: '#f7efff',
   },
   {
     name: 'Email Marketing',
-    icon: '/assets/icons/service/ic_service_mail.svg',
+    icon: '/assets/icons/service/learning.svg',
     content:
       'We have meticulously crafted our programs to serve as comprehensive learning environments,allowing each Administrator or Manager to partake in personalized learning experiences.',
 
     path: paths.marketing.services,
-    color: '#e2c9ff',
+    color: '#ffe0f2',
   },
   {
     name: 'Search Engine Oprimization',
-    icon: '/assets/icons/service/ic_service_bullhorn.svg',
+    icon: '/assets/icons/service/support.svg',
     content: 'Enjoy 24/7 support through chat, text, email, and phone',
     path: paths.marketing.services,
-    color: '#fff5c9',
+    color: '#ffe2d3',
   },
   {
     name: 'Social Marketing',
-    icon: '/assets/icons/service/ic_service_analysis.svg',
+    icon: '/assets/icons/service/centralized.svg',
     content: 'Centralized account for all courses and for all certificates.',
     path: paths.marketing.services,
-    color: '#d7ffc9',
+    color: '#d6eded',
   },
 ];
 
@@ -108,14 +108,15 @@ function ServiceItem({ service, index }) {
         py: 5,
         textAlign: 'center',
         color: (theme) => theme.palette[COLORS[index]].darker,
-        bgcolor: (theme) => theme.palette[COLORS[index]].light,
-        ...(index === 1 && {
-          py: { xs: 5, md: 8 },
-        }),
-        ...(index === 2 && {
-          py: { xs: 5, md: 10 },
-          boxShadow: (theme) => ({ md: theme.customShadows.z24 }),
-        }),
+        // bgcolor: (theme) => theme.palette[COLORS[index]].light,
+        bgcolor: color,
+        // ...(index === 1 && {
+        //   py: { xs: 5, md: 8 },
+        // }),
+        // ...(index === 2 && {
+        //   py: { xs: 5, md: 10 },
+        //   boxShadow: (theme) => ({ md: theme.customShadows.z24 }),
+        // }),
       }}
     >
       <SvgColor
