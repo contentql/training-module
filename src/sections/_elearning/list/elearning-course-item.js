@@ -91,7 +91,7 @@ export default function ElearningCourseItem({ course, vertical, isMyLearning }) 
           sx={{
             height: 1,
             // objectFit: 'cover',
-            width: { sm: 240 },
+            width: { sm: 240, md: 270 },
             ...(vertical && {
               width: { sm: 1 },
             }),
