@@ -36,27 +36,27 @@ export default function ElearningLandingAbout() {
   return (
     <Container
       sx={{
-        py: { xs: 5, md: 10 },
+        py: { xs: 5, md: 10, width: 'full', textAlign: 'center' },
       }}
     >
       <Grid
         container
         columnSpacing={{ xs: 0, md: 3 }}
         rowSpacing={{ xs: 5, md: 0 }}
-        justifyContent="space-between"
+        // justifyContent="space-between"
       >
         <Grid
           xs={12}
-          md={5}
+          // md={5}
           sx={{
-            textAlign: { xs: 'center', md: 'right' },
+            textAlign: { xs: 'center', md: 'center' },
           }}
         >
-          <Typography component="div" variant="overline" sx={{ color: 'text.disabled' }}>
+          {/* <Typography component="div" variant="overline" sx={{ color: 'text.disabled' }}>
             About Us
-          </Typography>
+          </Typography> */}
 
-          <Typography variant="h2" sx={{ my: 3 }}>
+          <Typography variant="h2" sx={{ my: 3, textAlign: 'center' }}>
             Who We Are
           </Typography>
 
@@ -77,7 +77,7 @@ export default function ElearningLandingAbout() {
           </Button> */}
         </Grid>
 
-        <Grid xs={12} md={6}>
+        {/* <Grid xs={12} md={6}>
           <Stack spacing={5}>
             {ROWS.map((row) => (
               <Stack
@@ -111,7 +111,7 @@ export default function ElearningLandingAbout() {
               </Stack>
             ))}
           </Stack>
-        </Grid>
+        </Grid> */}
       </Grid>
       {/* <Image
         alt="landing about"

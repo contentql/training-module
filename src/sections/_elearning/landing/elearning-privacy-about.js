@@ -6,10 +6,10 @@ import Typography from '@mui/material/Typography';
 export default function ElearningPrivacy() {
   return (
     <Box sx={{ ml: 10, mr: 10, mb: 4 }}>
-      <Typography variant="h2" sx={{ mb: 2 }}>
+      <Typography variant="h2" sx={{ mb: 2, textAlign: 'center' }}>
         Privacy Policy
       </Typography>
-      <Typography variant="body">
+      <Typography sx={{ color: 'text.secondary' }}>
         The company collects your name, email address, mailing address etc. so as to deliver the
         course details and mail the certificate. The company does not misuse or distribute or sell
         any client or student contact or other information for whatsoever reason other than to
@@ -22,10 +22,10 @@ export default function ElearningPrivacy() {
         than make the changes on the website. By using this site, you consent to the collection and
         use of the information as described in this privacy statement.
       </Typography>
-      <Typography variant="h2" sx={{ mb: 2 }}>
+      <Typography variant="h2" sx={{ mb: 2, mt: 4, textAlign: 'center' }}>
         Security
       </Typography>
-      <Typography variant="body">
+      <Typography sx={{ color: 'text.secondary' }}>
         Security measures have been provided by this site to protect against loss, misuse of user
         information. Credit card information goes through secure socket layer (SSL) of paypal and is
         the best and safest way for online ecommerce transactions. The company does not have a
