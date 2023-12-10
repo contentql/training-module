@@ -9,11 +9,15 @@ import Stack from '@mui/material/Stack';
 import AppBar from '@mui/material/AppBar';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
 import Toolbar from '@mui/material/Toolbar';
+import Divider from '@mui/material/Divider';
 import MenuItem from '@mui/material/MenuItem';
 import { useTheme } from '@mui/material/styles';
 import Container from '@mui/material/Container';
+import Logout from '@mui/icons-material/Logout';
 import IconButton from '@mui/material/IconButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
 
 // import { _mock } from 'src/_mock';
 import Logo from 'src/components/logo';
@@ -38,6 +42,34 @@ import NavDesktop from './nav/desktop';
 import { navConfig } from './config-navigation';
 
 // ----------------------------------------------------------------------
+
+const navigations = [
+  {
+    title: 'Personal Info',
+    path: paths.eLearning.account.personal,
+    icon: <Iconify icon="carbon:user" />,
+  },
+  {
+    title: 'Wishlist',
+    path: paths.eLearning.account.wishlist,
+    icon: <Iconify icon="carbon:favorite" />,
+  },
+  {
+    title: 'My Learning',
+    path: paths.eLearning.account.myLearning,
+    icon: <Iconify icon="fluent-mdl2:publish-course" />,
+  },
+  {
+    title: 'Certificates',
+    path: paths.eLearning.account.vouchers,
+    icon: <Iconify icon="carbon:certificate" />,
+  },
+  {
+    title: 'Orders',
+    path: paths.eLearning.account.orders,
+    icon: <Iconify icon="carbon:document" />,
+  },
+];
 
 export default function Header({ headerOnDark }) {
   // const [user, updateUser] = useUserStore((state) => [state.user, state.updateUser]);
@@ -128,16 +160,91 @@ export default function Header({ headerOnDark }) {
                 {isLoggedIn ? (
                   <>
                     {/* <Link component={RouterLink} href={paths.eLearning.account.personal}> */}
-                    <Avatar
-                      aria-controls={open ? 'basic-menu' : undefined}
-                      aria-haspopup="true"
-                      aria-expanded={open ? 'true' : undefined}
-                      onClick={handleClick}
-                      src={image}
-                      sx={{ width: 40, height: 40 }}
-                    />
+                    <Tooltip title="Account settings">
+                      <Avatar
+                        aria-controls={open ? 'basic-menu' : undefined}
+                        aria-haspopup="true"
+                        aria-expanded={open ? 'true' : undefined}
+                        onClick={handleClick}
+                        src={image}
+                        sx={{ width: 40, height: 40, cursor: 'pointer' }}
+                      />
+                    </Tooltip>
                     <Menu
-                      id="basic-menu"
+                      anchorEl={anchorEl}
+                      id="account-menu"
+                      open={open}
+                      onClose={handleClose}
+                      onClick={handleClose}
+                      PaperProps={{
+                        elevation: 0,
+                        sx: {
+                          overflow: 'visible',
+                          filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                          mt: 1.5,
+                          '& .MuiAvatar-root': {
+                            width: 32,
+                            height: 32,
+                            ml: -0.5,
+                            mr: 1,
+                          },
+                          '&:before': {
+                            content: '""',
+                            display: 'block',
+                            position: 'absolute',
+                            top: 0,
+                            right: 14,
+                            width: 10,
+                            height: 10,
+                            bgcolor: 'background.paper',
+                            transform: 'translateY(-50%) rotate(45deg)',
+                            zIndex: 0,
+                          },
+                        },
+                      }}
+                      transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                      anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+                    >
+                      <Link
+                        sx={{ color: 'black' }}
+                        component={RouterLink}
+                        href={paths.eLearning.account.personal}
+                        underline="none"
+                      >
+                        <MenuItem onClick={handleClose}>
+                          <Avatar src={image} />
+                          {userData.UserData.username}
+                        </MenuItem>
+                      </Link>
+                      <Divider sx={{ my: 1 }} />
+                      {navigations.map(({ title, path, icon }) => (
+                        <Link
+                          sx={{ color: 'black' }}
+                          component={RouterLink}
+                          href={path}
+                          underline="none"
+                        >
+                          <MenuItem onClick={handleClose}>
+                            <ListItemIcon>{icon}</ListItemIcon>
+                            {title}
+                          </MenuItem>
+                        </Link>
+                      ))}
+                      <Divider sx={{ my: 1 }} />
+                      <MenuItem
+                        onClick={() => {
+                          handleClose();
+                          userData.removeUserData();
+                        }}
+                      >
+                        <ListItemIcon>
+                          <Logout fontSize="small" />
+                        </ListItemIcon>
+                        Logout
+                      </MenuItem>
+                    </Menu>
+                    {/* <Menu
+                      id="demo-positioned-menu"
                       sx={{ mx: 'auto', mt: 1 }}
                       anchorEl={anchorEl}
                       open={open}
@@ -156,7 +263,7 @@ export default function Header({ headerOnDark }) {
                       <Link sx={{ color: 'black' }}>
                         <MenuItem onClick={() => userData.removeUserData()}>Logout</MenuItem>
                       </Link>
-                    </Menu>
+                    </Menu> */}
                     {/* </Link> */}
                     {/* <Button variant="contained" color="error" onClick={() => removeUserData()}>
                       logout

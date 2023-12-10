@@ -67,6 +67,8 @@ export default function ElearningCourseItem({ course, vertical, isMyLearning }) 
 
   const wishlistIcon = isCourseInWishlist ? 'solar:heart-linear' : 'solar:heart-bold';
 
+  const usersCount = users.data ? users.data.length : users.length;
+
   // console.log(id);
   // console.log('Cart', cart, isCourseInCart);
   // console.log(wishlist, isCourseInWishlist);
@@ -189,8 +191,7 @@ export default function ElearningCourseItem({ course, vertical, isMyLearning }) 
             <Iconify icon="heroicons-outline:users" />
             <Typography sx={{ fontSize: 14 }}>
               {' '}
-              {fShortenNumber(users?.data.length)}{' '}
-              {users?.data.length === 1 ? 'student' : 'students'} enrolled
+              {fShortenNumber(usersCount)} {usersCount === 1 ? 'student' : 'students'} enrolled
             </Typography>
           </Stack>
         </Stack>
