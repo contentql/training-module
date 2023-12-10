@@ -261,14 +261,17 @@ export default function ElearningCourseDetailsHero({ course }) {
                       {totalQuizzes > 0 ? (
                         <Stack direction="row">
                           <Iconify icon="carbon:help" sx={{ mr: 1 }} />
-                          <span>
-                            {`${totalQuizzes} practice assessments`}
-                            <br />+ 1 certification assessment
-                          </span>
+                          {`${totalQuizzes} practice assessments`}
                         </Stack>
                       ) : (
-                        'No assessments'
+                        'No practice assessments'
                       )}
+                    </Stack>
+                  </Stack>
+                  <Stack direction="row" alignItems="center" sx={{ typography: 'body2' }}>
+                    <Stack direction="row">
+                      <Iconify icon="carbon:certificate" sx={{ mr: 1 }} />
+                      <span>1 certification assessment</span>
                     </Stack>
                   </Stack>
                 </Stack>
