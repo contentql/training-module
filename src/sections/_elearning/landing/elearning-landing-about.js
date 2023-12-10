@@ -36,7 +36,7 @@ export default function ElearningLandingAbout() {
   return (
     <Container
       sx={{
-        py: { xs: 5, md: 10, width: 'full', textAlign: 'center' },
+        py: { xs: 5, md: 10, width: '71%', textAlign: 'center' },
       }}
     >
       <Grid
