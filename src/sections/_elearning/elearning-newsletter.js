@@ -31,8 +31,8 @@ export default function ElearningNewsletter() {
             <Typography variant="h3">Register Now Forget 20% Discount Every Courses</Typography>
 
             <Typography sx={{ mt: 2.5, mb: 5 }}>
-              Nam ipsum risus, rutrum vitae, vestibulum eu, molestie vel, lacus. Sed magna purus,
-              fermentum eu
+              Embark on our Administrator/Manager Training programs in Texas, offering flexible
+              durations of 8, 12, or 16 hours.
             </Typography>
 
             <InputBase

@@ -91,7 +91,7 @@ export default function ElearningCourseItem({ course, vertical, isMyLearning }) 
           sx={{
             height: 1,
             // objectFit: 'cover',
-            width: { sm: 240 },
+            width: { sm: 240, md: 270 },
             ...(vertical && {
               width: { sm: 1 },
             }),
@@ -145,9 +145,7 @@ export default function ElearningCourseItem({ course, vertical, isMyLearning }) 
 
           <Stack spacing={1}>
             <Link component={RouterLink} href={`/courses/${id}`} color="inherit">
-              <TextMaxLine variant="h6" line={1}>
-                {title}
-              </TextMaxLine>
+              <TextMaxLine variant="h6">{title}</TextMaxLine>
             </Link>
 
             <TextMaxLine

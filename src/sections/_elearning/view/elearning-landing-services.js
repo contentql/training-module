@@ -21,34 +21,38 @@ const COLORS = ['primary', 'secondary', 'warning', 'success'];
 const SERVICES = [
   {
     name: 'SEO',
-    icon: '/assets/icons/service/ic_service_seo.svg',
+    icon: '/assets/icons/service/standard.svg',
     content:
       'Our programs not only meet but surpass the licensing standards mandated by the states of Texas.',
     path: paths.marketing.services,
-    color: '#ffe1c9',
+    bgcolor: '#f7efff',
+    color: '#b566ff',
   },
   {
     name: 'Email Marketing',
-    icon: '/assets/icons/service/ic_service_mail.svg',
+    icon: '/assets/icons/service/learning.svg',
     content:
       'We have meticulously crafted our programs to serve as comprehensive learning environments,allowing each Administrator or Manager to partake in personalized learning experiences.',
 
     path: paths.marketing.services,
-    color: '#e2c9ff',
+    bgcolor: '#ffe0f2',
+    color: '#ff6bc1',
   },
   {
     name: 'Search Engine Oprimization',
-    icon: '/assets/icons/service/ic_service_bullhorn.svg',
+    icon: '/assets/icons/service/support.svg',
     content: 'Enjoy 24/7 support through chat, text, email, and phone',
     path: paths.marketing.services,
-    color: '#fff5c9',
+    bgcolor: '#ffe2d3',
+    color: '#f56025',
   },
   {
     name: 'Social Marketing',
-    icon: '/assets/icons/service/ic_service_analysis.svg',
+    icon: '/assets/icons/service/centralized.svg',
     content: 'Centralized account for all courses and for all certificates.',
     path: paths.marketing.services,
-    color: '#d7ffc9',
+    bgcolor: '#d6eded',
+    color: '#35b27c',
   },
 ];
 
@@ -99,7 +103,7 @@ export default function ElearningLandingServices() {
 // ----------------------------------------------------------------------
 
 function ServiceItem({ service, index }) {
-  const { name, icon, content, path, color } = service;
+  const { name, icon, content, path, color, bgcolor } = service;
 
   return (
     <Card
@@ -107,15 +111,16 @@ function ServiceItem({ service, index }) {
         px: 4,
         py: 5,
         textAlign: 'center',
-        color: (theme) => theme.palette[COLORS[index]].darker,
-        bgcolor: (theme) => theme.palette[COLORS[index]].light,
-        ...(index === 1 && {
-          py: { xs: 5, md: 8 },
-        }),
-        ...(index === 2 && {
-          py: { xs: 5, md: 10 },
-          boxShadow: (theme) => ({ md: theme.customShadows.z24 }),
-        }),
+        color,
+        // bgcolor: (theme) => theme.palette[COLORS[index]].light,
+        bgcolor,
+        // ...(index === 1 && {
+        //   py: { xs: 5, md: 8 },
+        // }),
+        // ...(index === 2 && {
+        //   py: { xs: 5, md: 10 },
+        //   boxShadow: (theme) => ({ md: theme.customShadows.z24 }),
+        // }),
       }}
     >
       <SvgColor
@@ -125,6 +130,7 @@ function ServiceItem({ service, index }) {
           height: 88,
           mx: 'auto',
           // color: (theme) => theme.palette[COLORS[index]].main,
+          color,
         }}
       />
 
@@ -163,6 +169,7 @@ ServiceItem.propTypes = {
     path: PropTypes.string,
     content: PropTypes.string,
     color: PropTypes.string,
+    bgcolor: PropTypes.string,
     icon: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   }),
 };

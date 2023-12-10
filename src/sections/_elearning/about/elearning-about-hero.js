@@ -72,10 +72,7 @@ export default function ElearningAboutHero() {
             <Typography sx={{ mt: 3, mb: 6 }}>
               The courses that we have for Administrators and Alternate Administrators of Home
               Health, Hospice and Personal Care Services have been created in an easy to study
-              method for the convenience and comfort of students. The charges for the courses too
-              are one of the lowest in the industry. Quality with Affordable pricing is one of our
-              hallmarks and we pride ourselves in giving our clients and students the best possible
-              services.
+              method for the convenience and comfort of students.
             </Typography>
 
             {/* <Button variant="contained" size="large" color="primary">

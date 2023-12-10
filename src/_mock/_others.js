@@ -102,16 +102,38 @@ export const _brandsColor = BRANDS_NAME.map((brand, index) => ({
 // ----------------------------------------------------------------------
 
 export const _faqs = [
-  'Sed augue ipsum, egestas nec, vestibulum et',
-  'alesuada adipiscing, dui vestibulum suscipit nulla quis orci.',
-  'Ut varius tincidunt libero',
-  'In ut quam vitae odio lacinia tincidunt.',
-  'Fusce vel dui Morbi nec metus.',
-].map((question, index) => ({
+  {
+    question: 'How do I sign up for the ryzolve traning module platform?',
+    answer:
+      'Login with your email address, after verification process your account will be created',
+  },
+  {
+    question: 'I forgot my password. How can I reset it?',
+    answer:
+      'Click on forget password and enter your registered email address reset password link will we send to respective email',
+  },
+  {
+    question: 'How do I enroll in a course?',
+    answer: 'Add your course to cart and go through the payment process',
+  },
+  {
+    question: 'Can I download course materials for offline access?',
+    answer:
+      'No, we are not providing course materials for offline access. But you have lifetime access to the course once enrolled',
+  },
+  {
+    question: 'Do you offer certificates upon course completion?',
+    answer: 'Yes, we offer certificates. Go to your profile and navigate to certificates',
+  },
+  // 'How do I sign up for the ryzolve traning module platform?',
+  // 'I forgot my password. How can I reset it?',
+  // 'How do I enroll in a course?',
+  // 'Can I download course materials for offline access?',
+  // 'Do you offer certificates upon course completion?',
+].map((faq, index) => ({
   id: _mock.id(index),
-  question,
-  answer:
-    'Amazing experience i love it a lot. Thanks to the team that dreams come true, great! I appreciate there attitude and approach.',
+  question: faq.question,
+  answer: faq.answer,
 }));
 
 export const _faqsSupport = [
