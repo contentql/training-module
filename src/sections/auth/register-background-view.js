@@ -53,11 +53,11 @@ export default function RegisterBackgroundView() {
       .oneOf([Yup.ref('password')], "Password's not match"),
     agency: Yup.string().required('Agency name is required'),
 
-    city: Yup.string().required('Email is required'),
+    city: Yup.string().required('City is required'),
 
-    country: Yup.string().required('Email is required'),
+    country: Yup.string().required('Country is required'),
 
-    phone: Yup.string().required('Email is required'),
+    phone: Yup.string().required('Phone number is required'),
   });
 
   const defaultValues = {
@@ -90,6 +90,8 @@ export default function RegisterBackgroundView() {
   const onSubmit = handleSubmit(async (data) => {
     try {
       const { userName, email, password, agency, city, country, phone } = data;
+      const image = `/assets/images/avatar/avatar_${Math.floor(Math.random() * 25 + 1)}.jpg`;
+
       const response = await fetch(process.env.NEXT_PUBLIC_REGISTER_URL, {
         method: 'POST',
         headers: {
@@ -103,8 +105,10 @@ export default function RegisterBackgroundView() {
           city,
           country,
           phone,
+          image,
         }),
       });
+
       const resData = await response.json();
       const { jwt } = resData;
       localStorage.setItem('token', jwt);
