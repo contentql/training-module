@@ -225,7 +225,7 @@ export default function Header({ headerOnDark }) {
                           underline="none"
                         >
                           <MenuItem onClick={handleClose}>
-                            <ListItemIcon>{icon}</ListItemIcon>
+                            <ListItemIcon sx={{ mr: 0 }}>{icon}</ListItemIcon>
                             {title}
                           </MenuItem>
                         </Link>
