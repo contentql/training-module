@@ -113,7 +113,7 @@ export default function ElearningCourseView({ courseId }) {
               </Stack>
             </Stack> */}
 
-            <Divider sx={{ my: 5 }} />
+            {/* <Divider sx={{ my: 5 }} /> */}
 
             {/* <ElearningCourseDetailsTeachersInfo teachers={data.teachers} /> */}
           </Grid>
