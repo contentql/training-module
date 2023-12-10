@@ -4,7 +4,7 @@ import ElearningAboutView from 'src/sections/_elearning/view/elearning-about-vie
 // ----------------------------------------------------------------------
 
 export const metadata = {
-  title: 'Coming Soon',
+  title: 'About Us',
 };
 
 export default function ComingSoonPage() {

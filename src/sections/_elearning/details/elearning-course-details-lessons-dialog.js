@@ -26,6 +26,7 @@ import AccordionSummary, { accordionSummaryClasses } from '@mui/material/Accordi
 import Quiz from 'src/sections/quiz';
 // import { paths } from 'src/routes/paths';
 // import Player from 'src/components/player';
+import Logo from 'src/components/logo';
 import Iconify from 'src/components/iconify';
 import Markdown from 'src/components/markdown';
 import { getUnitData } from 'src/queries/unit';
@@ -477,6 +478,7 @@ export default function ElearningCourseDetailsLessonsDialog({
         // width: { xs: 1, md: '44%' },
         maxWidth: 450,
         height: 1,
+        mt: 8,
       }}
     >
       {unitList}
@@ -535,7 +537,15 @@ export default function ElearningCourseDetailsLessonsDialog({
   );
 
   return (
-    <Stack direction={{ xs: 'column-reverse', md: 'row' }} sx={{ height: 1 }}>
+    <Stack direction={{ xs: 'column-reverse', md: 'row' }} sx={{ height: 1, overflow: 'hidden' }}>
+      <Link
+        component={RouterLink}
+        href="../"
+        color="inherit"
+        sx={{ position: 'fixed', top: 3, left: 24, zIndex: 9 }}
+      >
+        <Logo />
+      </Link>
       <Link component={RouterLink} href="../" color="inherit">
         <IconButton
           onClick={onClose}

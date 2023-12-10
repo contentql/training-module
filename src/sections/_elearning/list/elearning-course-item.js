@@ -67,6 +67,8 @@ export default function ElearningCourseItem({ course, vertical, isMyLearning }) 
 
   const wishlistIcon = isCourseInWishlist ? 'solar:heart-linear' : 'solar:heart-bold';
 
+  const usersCount = users.data ? users.data.length : users.length;
+
   // console.log(id);
   // console.log('Cart', cart, isCourseInCart);
   // console.log(wishlist, isCourseInWishlist);
@@ -169,7 +171,7 @@ export default function ElearningCourseItem({ course, vertical, isMyLearning }) 
           flexWrap="wrap"
           divider={<Divider orientation="vertical" sx={{ height: 20, my: 'auto' }} />}
         >
-          <Stack spacing={0.5} direction="row" alignItems="center">
+          {/* <Stack spacing={0.5} direction="row" alignItems="center">
             <Iconify icon="carbon:star-filled" sx={{ color: 'warning.main' }} />
             <Box sx={{ typography: 'h6' }}>{Number.isInteger(rating) ? `${rating}.0` : rating}</Box>
 
@@ -178,13 +180,19 @@ export default function ElearningCourseItem({ course, vertical, isMyLearning }) 
                 ({fShortenNumber(totalReviews)} totalReviews)
               </Link>
             )}
-          </Stack>
+          </Stack> */}
 
-          <Stack direction="row" sx={{ typography: 'subtitle2' }}>
-            {fShortenNumber(users.data?.length)}
-            <Box component="span" typography="body2" sx={{ ml: 0.5 }}>
-              students
-            </Box>
+          <Stack
+            direction="row"
+            alignItems="center"
+            spacing={1.2}
+            divider={<Divider orientation="vertical" sx={{ height: 18 }} />}
+          >
+            <Iconify icon="heroicons-outline:users" />
+            <Typography sx={{ fontSize: 14 }}>
+              {' '}
+              {fShortenNumber(usersCount)} {usersCount === 1 ? 'student' : 'students'} enrolled
+            </Typography>
           </Stack>
         </Stack>
 

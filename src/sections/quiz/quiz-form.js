@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { PropTypes } from 'prop-types';
+import { toast } from 'react-toastify';
 
 // import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -27,7 +28,18 @@ export default function QuizForm(props) {
   const mdUp = useResponsive('up', 'md');
 
   const handleClickOpen = () => {
-    setOpen(true);
+    if (hasBoughtCourse) setOpen(true);
+    else
+      toast.error('Please buy the course to start the test', {
+        position: 'bottom-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
   };
   const handleModalClose = () => {
     setOpen(false);
