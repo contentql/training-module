@@ -16,7 +16,7 @@ import { fCurrency } from 'src/utils/format-number';
 export default function ElearningCartItem({ course }) {
   const removeCourseFromCart = useCartStore((state) => state.removeFromCart);
 
-  // console.log('courseTitle', course);
+  console.log('courseImage', course.attributes.image);
 
   return (
     <Stack
@@ -30,7 +30,8 @@ export default function ElearningCartItem({ course }) {
     >
       <Stack direction="row" alignItems="center" flexGrow={1}>
         <Image
-          src={course.coverUrl}
+          src={course.attributes.image}
+          // src="/assets/images/course/advanced.png"
           // eslint-disable-next-line react/prop-types
           alt={course.attributes.title}
           sx={{

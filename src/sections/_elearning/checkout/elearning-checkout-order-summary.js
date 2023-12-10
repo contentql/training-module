@@ -112,7 +112,7 @@ function CourseItem({ course, isDelete, ...other }) {
   return (
     <Stack direction="row" alignItems="flex-start" {...other}>
       <Image
-        src={course?.coverUrl}
+        src={course?.attributes.image}
         sx={{
           mr: 2,
           width: 64,
