@@ -65,17 +65,17 @@ function ElearningHeroIllustration({ sx, ...other }) {
       }}
       {...other}
     >
-      <Box sx={{ right: 15, bottom: 28, zIndex: 8 }}>
+      <Box sx={{ right: 10, bottom: 28, zIndex: 8 }}>
         <Image
           visibleByDefault
-          disabledEffect
+          // disabledEffect
           alt="teacher"
-          src="/assets/images/course/course_hero.svg"
-          sx={{ width: 746, height: 580 }}
+          src="/assets/images/course/group16.png"
+          sx={{ width: 846, height: 490 }}
         />
       </Box>
 
-      <Box
+      {/* <Box
         {...varDown}
         component={m.div}
         sx={{ position: 'absolute', left: 105, bottom: 100, zIndex: 8 }}
@@ -101,7 +101,7 @@ function ElearningHeroIllustration({ sx, ...other }) {
           src="/assets/icons/ic_pencil.png"
           sx={{ width: 60, height: 77 }}
         />
-      </Box>
+      </Box> */}
 
       {/* <Box
         {...varUp}

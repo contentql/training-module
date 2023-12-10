@@ -90,7 +90,8 @@ export default function ElearningCourseDetailsLessonsDialog({
     refetchOnWindowFocus: false,
   });
 
-  const { title, subtitle, content, time, id } = lessonData ?? {};
+  const { title, subtitle, content, id } = lessonData ?? {};
+  const time = content && Math.round(content.replace(/<[^>]+>/g, '').split(' ').length / 250);
   const debouncedValue = useDebounce(id, 3000);
 
   const { data: addUserProgress, refetch } = useQuery({

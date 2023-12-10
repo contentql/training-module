@@ -45,10 +45,6 @@ export default function ElearningCourseDetailsLessonList({ lessons, hasBoughtCou
 
   return (
     <div>
-      {/* <Typography variant="h4" sx={{ mb: 3 }}>
-        Lessons
-      </Typography> */}
-
       {lessons.map((lesson, index) => (
         <ElearningCourseDetailsLessonItem
           key={index}

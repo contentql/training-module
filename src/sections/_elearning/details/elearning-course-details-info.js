@@ -106,13 +106,13 @@ export default function ElearningCourseDetailsInfo({ course }) {
           </Stack>
         </Stack>
 
-        {!hasBoughtCourse && (
+        {/* {!hasBoughtCourse && (
           <Link component={RouterLink} href={`${paths.eLearning.checkout}/${course.id}`}>
             <Button variant="contained" size="large" color="inherit" sx={{ width: 1 }}>
               Enroll Now
             </Button>
           </Link>
-        )}
+        )} */}
 
         {!hasBoughtCourse && (
           <Box

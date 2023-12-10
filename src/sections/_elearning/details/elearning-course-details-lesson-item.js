@@ -67,7 +67,7 @@ export default function ElearningCourseDetailsLessonItem({
       <AccordionSummary
         sx={{
           pr: 1,
-          pl: 2,
+          pl: 1,
           minHeight: 64,
           [`& .${accordionSummaryClasses.content}`]: {
             p: 0,
@@ -97,7 +97,7 @@ export default function ElearningCourseDetailsLessonItem({
             href={`lessons/?unit=${unitId}&lesson=${lesson.title}`}
             color="inherit"
             sx={{
-              pl: 2,
+              pl: 1,
               flexGrow: 1,
             }}
           >
@@ -122,8 +122,8 @@ export default function ElearningCourseDetailsLessonItem({
             {lesson.title}
           </Typography>
         )}
-        <Typography variant="body2">{lesson.time} minutes</Typography>
-        <Iconify icon={expanded ? 'carbon:chevron-down' : 'carbon:chevron-right'} sx={{ ml: 2 }} />
+        {/* <Typography variant="body2">{lesson.time} minutes</Typography> */}
+        {/* <Iconify icon={expanded ? 'carbon:chevron-down' : 'carbon:chevron-right'} sx={{ ml: 2 }} /> */}
       </AccordionSummary>
 
       <AccordionDetails
