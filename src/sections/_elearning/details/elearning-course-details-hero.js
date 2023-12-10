@@ -65,7 +65,7 @@ export default function ElearningCourseDetailsHero({ course }) {
 
   const totalQuizzes = units?.data.length;
 
-  const languages = ['English'];
+  const languages = ['english'];
 
   // const handleSelectedLesson = useCallback((lesson) => {
   //   if (lesson.unLocked) {
@@ -162,7 +162,7 @@ export default function ElearningCourseDetailsHero({ course }) {
                   alignItems="center"
                   divider={<Divider orientation="vertical" sx={{ height: 20 }} />}
                 >
-                  <Stack spacing={0.5} direction="row" alignItems="center">
+                  {/* <Stack spacing={0.5} direction="row" alignItems="center">
                     <Iconify icon="carbon:star-filled" sx={{ color: 'warning.main' }} />
                     <Box sx={{ typography: 'h6' }}>
                       {Number.isInteger(rating) ? `${rating}.0` : rating}
@@ -173,13 +173,20 @@ export default function ElearningCourseDetailsHero({ course }) {
                         ({fShortenNumber(totalReviews)} reviews)
                       </Link>
                     )}
-                  </Stack>
+                  </Stack> */}
 
-                  <Stack direction="row" sx={{ typography: 'subtitle2' }}>
-                    {fShortenNumber(totalStudents)}
-                    <Box component="span" typography="body2" sx={{ ml: 0.5 }}>
-                      {users?.data.length} students
-                    </Box>
+                  <Stack
+                    direction="row"
+                    alignItems="center"
+                    spacing={1.2}
+                    divider={<Divider orientation="vertical" sx={{ height: 18 }} />}
+                  >
+                    <Iconify icon="heroicons-outline:users" />
+                    <Typography sx={{ fontSize: 14 }}>
+                      {' '}
+                      {fShortenNumber(users?.data.length)}{' '}
+                      {users?.data.length === 1 ? 'student' : 'students'} enrolled
+                    </Typography>
                   </Stack>
                 </Stack>
 
@@ -222,7 +229,7 @@ export default function ElearningCourseDetailsHero({ course }) {
 
                     <Stack direction="row" alignItems="center" sx={{ typography: 'body2' }}>
                       <Iconify icon="carbon:document" sx={{ mr: 1 }} />
-                      {`${totalLessons} Lessons`}
+                      {`${totalLessons} lessons`}
                     </Stack>
 
                     {/* <Stack direction="row" alignItems="center" sx={{ typography: 'body2' }}>
@@ -245,13 +252,23 @@ export default function ElearningCourseDetailsHero({ course }) {
                       '& > *': { my: 0.5, mr: 3 },
                     }}
                   >
-                    <Stack direction="row" alignItems="center" sx={{ typography: 'body2' }}>
+                    <Stack direction="row" alignItems="start" sx={{ typography: 'body2' }}>
                       <Iconify icon="carbon:content-delivery-network" sx={{ mr: 1 }} />
                       {typeof languages === 'string' ? languages : languages?.join(', ')}
                     </Stack>
 
                     <Stack direction="row" alignItems="center" sx={{ typography: 'body2' }}>
-                      <Iconify icon="carbon:help" sx={{ mr: 1 }} /> {`${totalQuizzes} Quizzes`}
+                      {totalQuizzes > 0 ? (
+                        <Stack direction="row">
+                          <Iconify icon="carbon:help" sx={{ mr: 1 }} />
+                          <span>
+                            {`${totalQuizzes} practice assessments`}
+                            <br />+ 1 certification assessment
+                          </span>
+                        </Stack>
+                      ) : (
+                        'No assessments'
+                      )}
                     </Stack>
                   </Stack>
                 </Stack>
