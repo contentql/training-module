@@ -58,6 +58,7 @@ export default function ElearningLessonsView({ params }) {
       selectedLesson={selectedLesson}
       onSelectedLesson={handleSelectedLesson}
       hasBoughtCourse={hasBoughtCourse}
+      params={params}
     />
   );
 }

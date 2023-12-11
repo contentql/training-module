@@ -40,6 +40,12 @@ import { useUserProgress } from 'src/states/user-progress';
 
 // ----------------------------------------------------------------------
 
+const categoryMapping = {
+  2: 'Basic',
+  3: 'Advanced',
+  4: 'Basic & Beyond',
+};
+
 export default function ElearningCourseDetailsLessonsDialog({
   selectedLesson,
   onSelectedLesson,
@@ -53,6 +59,7 @@ export default function ElearningCourseDetailsLessonsDialog({
   units,
   // pauseVideo,
   hasBoughtCourse,
+  params,
 }) {
   const mdUp = useResponsive('up', 'md');
   const queryClient = useQueryClient();
@@ -67,6 +74,7 @@ export default function ElearningCourseDetailsLessonsDialog({
   const userLessons = useUserProgress((state) => state.lessons);
   const addToLessons = useUserProgress((state) => state.addToLessons);
   const updateLessons = useUserProgress((state) => state.updateLessons);
+  // const query = router.query;
   // const reset = useUserProgress((state) => state.reset);
   // console.log({ userLessons });
 
@@ -180,7 +188,9 @@ export default function ElearningCourseDetailsLessonsDialog({
       console.log('res', res.data);
       res?.data.forEach((list) => {
         setMetaDataId(list);
-        setUserLessonData(list.data.map((l) => ({ LessonTitle: l.LessonTitle })));
+        setUserLessonData(
+          list.data.map((l) => ({ LessonTitle: l.LessonTitle, course_id: l.course_id }))
+        );
 
         // list.data.forEach((listData) => {
         //   userLessonData.forEach((userLesson) => {
@@ -208,7 +218,7 @@ export default function ElearningCourseDetailsLessonsDialog({
     console.log('add lesson to user');
     // const requiredData = [...new Set([...userLessonData, { LessonTitle: id }])];
     const isMetaDataExisting = userLessonData.filter((details) => details.LessonTitle === id);
-    const requiredData = [...userLessonData, { LessonTitle: id }];
+    const requiredData = [...userLessonData, { LessonTitle: id, course_id: params.id }];
     if (isMetaDataExisting.length > 0 || !metaDataId) return;
     console.log({ requiredData });
     const requestBody = {
@@ -241,6 +251,7 @@ export default function ElearningCourseDetailsLessonsDialog({
         data: [
           {
             LessonTitle: id,
+            course_id: params.id,
           },
         ],
       },
@@ -479,7 +490,7 @@ export default function ElearningCourseDetailsLessonsDialog({
         // width: { xs: 1, md: '44%' },
         maxWidth: 450,
         height: 1,
-        mt: 8,
+        mt: 12,
       }}
     >
       {unitList}
@@ -538,22 +549,40 @@ export default function ElearningCourseDetailsLessonsDialog({
   );
 
   return (
-    <Stack direction={{ xs: 'column-reverse', md: 'row' }} sx={{ height: 1, overflow: 'hidden' }}>
-      <Link
-        component={RouterLink}
-        href="../"
-        color="inherit"
-        sx={{ position: 'fixed', top: 3, left: 24, zIndex: 9 }}
+    <Stack
+      direction={{ xs: 'column-reverse', md: 'row' }}
+      sx={{ height: 1, overflow: 'hidden' }}
+      // spacing={16}
+    >
+      <Stack
+        // direction="column-reverse"
+        sx={{ position: 'fixed', top: 3, left: 24, height: '4rem', maxWidth: 450, width: '21%' }}
       >
-        <Logo />
-      </Link>
-      <Link component={RouterLink} href="../" color="inherit">
+        <Link component={RouterLink} href="../" color="inherit">
+          <Logo />
+        </Link>
+        <Stack
+          direction="row"
+          sx={{ justifyContent: 'space-between', marginLeft: 5, width: '100%' }}
+        >
+          <Typography variant="subtitle1">{categoryMapping[params.id]}</Typography>
+          {userLessonData.length > 0 && (
+            <Typography>
+              <span style={{ fontWeight: 600, fontSize: '1rem' }}>Completed Lessons : </span>
+              <span style={{ color: '#ff541e' }}>
+                {userLessonData.filter((data) => data.course_id === params.id).length}
+              </span>
+            </Typography>
+          )}
+        </Stack>
+      </Stack>
+      <Link component={RouterLink} href="../" color="inherit" sx={{ top: 20 }}>
         <IconButton
           onClick={onClose}
           sx={{
-            top: 6,
+            top: 10,
             right: { xs: 4, md: 24 },
-            zIndex: 9,
+            // zIndex: 9,
             position: 'absolute',
           }}
         >
@@ -580,4 +609,5 @@ ElearningCourseDetailsLessonsDialog.propTypes = {
   units: PropTypes.array,
   // pauseVideo: PropTypes.func,
   hasBoughtCourse: PropTypes.bool,
+  params: PropTypes.object,
 };
