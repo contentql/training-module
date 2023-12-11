@@ -1,5 +1,6 @@
 'use client';
 
+import axios from 'axios';
 import { useQuery } from 'react-query';
 // import * as Yup from 'yup';
 import { useState, useEffect } from 'react';
@@ -31,6 +32,7 @@ import MyLearningCard from '../../../sections/_ecommerce/account/mylearning-card
 export default function AccountPersonalView() {
   const userData = useUserStore((state) => state.UserData);
   const [quizScore, setQuizScore] = useState([]);
+  const [userLessonData, setUserLessonData] = useState([]);
 
   useEffect(() => {
     const fetchScore = async () => {
@@ -47,6 +49,26 @@ export default function AccountPersonalView() {
       );
     };
     fetchScore();
+
+    const getUserProgress = async () => {
+      try {
+        const res = await axios.get(process.env.NEXT_PUBLIC_METADATA_URL, {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${userData.authToken}`,
+          },
+        });
+
+        res?.data.forEach((list) => {
+          setUserLessonData(
+            list.data.map((l) => ({ LessonTitle: l.LessonTitle, course_id: l.course_id }))
+          );
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getUserProgress();
   }, [userData.authToken, userData.username]);
 
   const { data } = useQuery(['repoData', userData.id], () =>
@@ -80,12 +102,12 @@ export default function AccountPersonalView() {
     {
       id: 1,
       title: 'Courses Enrolled',
-      score: data?.length,
+      score: data ? data.length : 0,
     },
     {
       id: 2,
       title: 'Lessons Completed',
-      score: '4',
+      score: userLessonData.length,
     },
     {
       id: 3,
