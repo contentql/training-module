@@ -96,7 +96,6 @@ export default function ElearningLandingHero() {
                   </Link>
                 </Stack>
 
-                <Divider sx={{ borderStyle: 'dashed', mt: 8, mb: 6 }} />
                 {/* 
                 <Stack
                   direction="row"
