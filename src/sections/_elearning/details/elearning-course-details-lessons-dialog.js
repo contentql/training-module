@@ -16,6 +16,7 @@ import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import ListItemText from '@mui/material/ListItemText';
+import LinearProgress from '@mui/material/LinearProgress';
 // import Dialog from '@mui/material/Dialog';
 import ListItemButton from '@mui/material/ListItemButton';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
@@ -490,7 +491,7 @@ export default function ElearningCourseDetailsLessonsDialog({
         // width: { xs: 1, md: '44%' },
         maxWidth: 450,
         height: 1,
-        mt: 12,
+        mt: 16,
       }}
     >
       {unitList}
@@ -548,6 +549,21 @@ export default function ElearningCourseDetailsLessonsDialog({
     </>
   );
 
+  // eslint-disable-next-line react/no-unstable-nested-components
+  const LinearProgressWithLabel = (props) => (
+    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+      <Box sx={{ width: '100%', mr: 1 }}>
+        <LinearProgress variant="determinate" {...props} />
+      </Box>
+      <Box sx={{ minWidth: 35 }}>
+        <Typography variant="body2" color="text.secondary">{`${Math.round(
+          // eslint-disable-next-line react/destructuring-assignment, react/prop-types
+          props.value
+        )}%`}</Typography>
+      </Box>
+    </Box>
+  );
+
   return (
     <Stack
       direction={{ xs: 'column-reverse', md: 'row' }}
@@ -558,22 +574,43 @@ export default function ElearningCourseDetailsLessonsDialog({
         // direction="column-reverse"
         sx={{ position: 'fixed', top: 3, left: 24, height: '4rem', maxWidth: 450, width: '21%' }}
       >
-        <Link component={RouterLink} href="../" color="inherit">
-          <Logo />
-        </Link>
+        <Stack direction="row">
+          <Link component={RouterLink} href="../" color="inherit">
+            <Logo />
+          </Link>
+          <Typography variant="subtitle1" color="primary" sx={{ mt: 2, ml: 8.5 }}>
+            {categoryMapping[params.id]}
+          </Typography>
+        </Stack>
         <Stack
           direction="row"
           sx={{ justifyContent: 'space-between', marginLeft: 5, width: '100%' }}
         >
-          <Typography variant="subtitle1">{categoryMapping[params.id]}</Typography>
-          {userLessonData.length > 0 && (
+          <Box
+            sx={{
+              border: 1,
+              borderRadius: 1,
+              borderColor: '#ff541e',
+              px: 2,
+              py: 1,
+              width: '100%',
+            }}
+          >
             <Typography>
-              <span style={{ fontWeight: 600, fontSize: '1rem' }}>Completed Lessons : </span>
+              <span style={{ fontWeight: 600, fontSize: '1rem', paddingRight: 4 }}>Progress: </span>
               <span style={{ color: '#ff541e' }}>
-                {userLessonData.filter((data) => data.course_id === params.id).length}
+                {userLessonData.filter((data) => data.course_id === params.id).length}/
+                {totalLessons}
               </span>
             </Typography>
-          )}
+            <LinearProgressWithLabel
+              value={
+                (userLessonData.filter((data) => data.course_id === params.id).length /
+                  totalLessons) *
+                100
+              }
+            />
+          </Box>
         </Stack>
       </Stack>
       <Link component={RouterLink} href="../" color="inherit" sx={{ top: 20 }}>
