@@ -95,7 +95,7 @@ export default function EcommerceAccountVoucherItem({ certificateData }) {
         > */}
         {/* <Iconify icon="carbon:time" width={16} sx={{ mr: 1 }} /> */}
         <Typography variant="h7" sx={{ mb: 1 }}>
-          Score : {certificateData?.attributes.score}/20
+          Score : {certificateData?.attributes.score}/10
         </Typography>
         <Button
           sx={{ bgcolor: '#FF774B', mb: 1 }}

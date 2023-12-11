@@ -155,9 +155,11 @@ export default function EcommerceAccountVouchersView() {
           md: 'repeat(2, 1fr)',
         }}
       >
-        {quizScore.map((data) => (
-          <EcommerceAccountVoucherItem key={data.id} certificateData={data} userData={userData} />
-        ))}
+        {quizScore
+          .filter((data) => (data.attributes.score / 10) * 100 >= 60)
+          .map((data) => (
+            <EcommerceAccountVoucherItem key={data.id} certificateData={data} userData={userData} />
+          ))}
       </Box>
     </>
   );
