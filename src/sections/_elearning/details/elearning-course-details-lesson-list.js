@@ -1,7 +1,9 @@
 'use client';
 
+import axios from 'axios';
 import PropTypes from 'prop-types';
 import { useState, useCallback } from 'react';
+import { useQuery, useQueryClient } from 'react-query';
 
 // import { useBoolean } from 'src/hooks/use-boolean';
 
@@ -17,9 +19,58 @@ export default function ElearningCourseDetailsLessonList({ lessons, hasBoughtCou
 
   const [selectedLesson, setSelectedLesson] = useState(null);
 
+  const [userLessonData, setUserLessonData] = useState([]);
+
+  const userToken = localStorage.getItem('token');
+
   // const handleReady = useCallback(() => {
   //   setTimeout(() => videoPlay.onTrue(), 500);
   // }, [videoPlay]);
+
+  const { data: userProgressData } = useQuery({
+    queryKey: ['userProgress'],
+    queryFn: () => getUserProgress(),
+    // enabled: !!lessonData?.id,
+    // refetchOnWindowFocus: false,
+  });
+
+  const getUserProgress = async () => {
+    try {
+      const res = await axios.get(process.env.NEXT_PUBLIC_METADATA_URL, {
+        // method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${userToken}`,
+        },
+      });
+
+      console.log('res', res.data);
+      res?.data.forEach((list) => {
+        setUserLessonData(
+          list.data.map((l) => ({ LessonTitle: l.LessonTitle, course_id: l.course_id }))
+        );
+
+        // list.data.forEach((listData) => {
+        //   userLessonData.forEach((userLesson) => {
+        //     if (userLesson.LessonTitle !== listData.LessonTitle) {
+        //       //
+        //       setUserLessonData((prev) => [...prev, { LessonTitle: listData.LessonTitle }]);
+        //     }
+        //   });
+        // });
+      });
+      if (res.data.length === 0) {
+        console.log('refetch');
+        // refetch();
+      }
+      // res?.data.map((list) =>
+      //   if(userLessons.LessonTitle)
+      //   updateLessons(list.data.map((l) => ({ LessonTitle: l.LessonTitle })))
+      // );
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleSelectedLesson = useCallback((lesson) => {
     if (lesson.unLocked) {
@@ -50,6 +101,7 @@ export default function ElearningCourseDetailsLessonList({ lessons, hasBoughtCou
           key={index}
           index={index}
           lesson={lesson}
+          userLessonData={userLessonData}
           expanded={expanded === lesson.title}
           onExpanded={handleExpandedLesson(lesson.title)}
           selected={selectedLesson?.title === lesson.title}

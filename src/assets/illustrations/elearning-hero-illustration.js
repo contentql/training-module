@@ -3,23 +3,23 @@ import { m } from 'framer-motion';
 import PropTypes from 'prop-types';
 
 import Box from '@mui/material/Box';
-// import Typography from '@mui/material/Typography';
-// import { useTheme } from '@mui/material/styles';
+import { useTheme } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
 
 import Image from 'src/components/image';
 
-// import Icon from './pattern/icon';
-// import Label from './pattern/label';
-// import Shape from './pattern/shape';
-// import Pattern01 from './pattern/pattern-01';
-// import Pattern02 from './pattern/pattern-02';
+import Icon from './pattern/icon';
+import Shape from './pattern/shape';
+import Label from './pattern/label';
+import Pattern02 from './pattern/pattern-02';
+import Pattern01 from './pattern/pattern-01';
 
 // ----------------------------------------------------------------------
 
-// const varUp = {
-//   animate: { y: [-8, 8, -8], x: [-4, 4, -4] },
-//   transition: { duration: 8, repeat: Infinity },
-// };
+const varUp = {
+  animate: { y: [-8, 8, -8], x: [-4, 4, -4] },
+  transition: { duration: 8, repeat: Infinity },
+};
 
 const varDown = {
   animate: { y: [8, -8, 8], x: [4, -4, 4] },
@@ -36,21 +36,21 @@ const varRight = {
 // ----------------------------------------------------------------------
 
 function ElearningHeroIllustration({ sx, ...other }) {
-  // const theme = useTheme();
+  const theme = useTheme();
 
-  // const GREEN = theme.palette.success.main;
+  const GREEN = theme.palette.success.main;
 
-  // const YELLOW = theme.palette.warning.main;
+  const YELLOW = theme.palette.warning.main;
 
-  // const BLUE = '#355EC9';
+  const BLUE = '#355EC9';
 
-  // const PURPLE = '#9B3AB1';
+  const PURPLE = '#9B3AB1';
 
-  // const styleIconContent = {
-  //   fontSize: 22,
-  //   color: 'common.black',
-  //   fontWeight: 'fontWeightBold',
-  // };
+  const styleIconContent = {
+    fontSize: 22,
+    color: 'common.black',
+    fontWeight: 'fontWeightBold',
+  };
 
   return (
     <Box
@@ -75,24 +75,24 @@ function ElearningHeroIllustration({ sx, ...other }) {
         />
       </Box>
 
-      {/* <Box
+      <Box
         {...varDown}
         component={m.div}
-        sx={{ position: 'absolute', left: 105, bottom: 100, zIndex: 8 }}
+        sx={{ position: 'absolute', left: 300, bottom: 100, zIndex: 8 }}
       >
         <Image
           visibleByDefault
           disabledEffect
           alt="book icon"
           src="/assets/icons/ic_book.png"
-          sx={{ width: 52, height: 62 }}
+          sx={{ width: 50, height: 62 }}
         />
       </Box>
 
       <Box
         {...varRight}
         component={m.div}
-        sx={{ position: 'absolute', left: 80, top: 120, zIndex: 8 }}
+        sx={{ position: 'absolute', left: 600, top: 10, zIndex: 8 }}
       >
         <Image
           visibleByDefault
@@ -101,7 +101,7 @@ function ElearningHeroIllustration({ sx, ...other }) {
           src="/assets/icons/ic_pencil.png"
           sx={{ width: 60, height: 77 }}
         />
-      </Box> */}
+      </Box>
 
       {/* <Box
         {...varUp}
@@ -159,9 +159,9 @@ function ElearningHeroIllustration({ sx, ...other }) {
           content={<Typography sx={{ ...styleIconContent, color: 'common.white' }}>Ae</Typography>}
           sx={{ transform: 'scale(1.2) translateY(20px) rotate(15deg)' }}
         />
-      </Box> */}
+      </Box>
 
-      {/* <Box {...varDown} component={m.div} sx={{ zIndex: 8, position: 'absolute' }}>
+      <Box {...varDown} component={m.div} sx={{ zIndex: 8, position: 'absolute' }}>
         <Icon
           color={BLUE}
           content={<Typography sx={{ ...styleIconContent, color: 'common.white' }}>Ps</Typography>}
@@ -171,9 +171,9 @@ function ElearningHeroIllustration({ sx, ...other }) {
         />
       </Box> */}
 
-      {/* <Pattern01 sx={{ left: 0, top: 0 }} /> */}
-      {/* <Pattern02 sx={{ top: 0, left: 0, opacity: 0.24, transform: 'scale(1.2)' }} /> */}
-      {/* <Shape sx={{ position: 'absolute', right: 32, bottom: 32 }} /> */}
+      <Pattern01 sx={{ left: 0, top: 0 }} />
+      <Pattern02 sx={{ top: 35, left: 280, opacity: 0.74, transform: 'scale(1.2)' }} />
+      <Shape sx={{ position: 'absolute', right: 120, bottom: 0 }} />
     </Box>
   );
 }

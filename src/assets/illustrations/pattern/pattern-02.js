@@ -9,12 +9,12 @@ import Circle from './circle';
 
 // ----------------------------------------------------------------------
 
-const animateDown = (duration = 60) => ({
+const animateDown = (duration = 20) => ({
   animate: { rotate: [360, 0] },
   transition: { duration, repeat: Infinity, ease: 'linear' },
 });
 
-const animateUp = (duration = 60) => ({
+const animateUp = (duration = 20) => ({
   animate: { rotate: [0, 360] },
   transition: { duration, repeat: Infinity, ease: 'linear' },
 });
@@ -23,10 +23,10 @@ function Pattern02({ sx, ...other }) {
   return (
     <Box
       sx={{
-        width: 1,
+        width: 2,
         height: 1,
         display: 'flex',
-        alignItems: 'center',
+        // alignItems: 'center',
         justifyContent: 'center',
         position: 'absolute',
         ...sx,
