@@ -182,6 +182,8 @@ export default function Header({ headerOnDark }) {
                           overflow: 'visible',
                           filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
                           mt: 1.5,
+                          padding: 2,
+                          width: 250,
                           '& .MuiAvatar-root': {
                             width: 32,
                             height: 32,
@@ -237,8 +239,8 @@ export default function Header({ headerOnDark }) {
                           userData.removeUserData();
                         }}
                       >
-                        <ListItemIcon>
-                          <Logout fontSize="small" />
+                        <ListItemIcon sx={{ mr: 0 }}>
+                          <Iconify icon="material-symbols:logout" />
                         </ListItemIcon>
                         Logout
                       </MenuItem>
