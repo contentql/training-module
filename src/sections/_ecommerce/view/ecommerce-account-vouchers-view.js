@@ -112,6 +112,24 @@ export default function EcommerceAccountVouchersView() {
     fetchScore();
   }, [userData.username]);
 
+  const coursesCertificatesFilter = () => {
+    const courseScores = [];
+
+    quizScore.forEach((quizData) => {
+      const { courseTitle, score } = quizData.attributes;
+
+      if (!courseScores[courseTitle] || score > courseScores[courseTitle].attributes.score) {
+        courseScores[courseTitle] = quizData;
+      }
+    });
+
+    const completedCourses = Object.values(courseScores).filter(
+      (quizData) => (quizData.attributes.score / 10) * 100 >= 60
+    );
+
+    return completedCourses;
+  };
+
   return (
     <>
       <Typography variant="h5" sx={{ mb: 3 }}>
@@ -155,7 +173,7 @@ export default function EcommerceAccountVouchersView() {
           md: 'repeat(2, 1fr)',
         }}
       >
-        {quizScore.map((data) => (
+        {coursesCertificatesFilter().map((data) => (
           <EcommerceAccountVoucherItem key={data.id} certificateData={data} userData={userData} />
         ))}
       </Box>

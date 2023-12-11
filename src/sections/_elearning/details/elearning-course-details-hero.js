@@ -65,7 +65,7 @@ export default function ElearningCourseDetailsHero({ course }) {
 
   const totalQuizzes = units?.data.length;
 
-  const languages = ['english'];
+  const languages = ['English'];
 
   // const handleSelectedLesson = useCallback((lesson) => {
   //   if (lesson.unLocked) {
@@ -185,7 +185,7 @@ export default function ElearningCourseDetailsHero({ course }) {
                     <Typography sx={{ fontSize: 14 }}>
                       {' '}
                       {fShortenNumber(users?.data.length)}{' '}
-                      {users?.data.length === 1 ? 'student' : 'students'} enrolled
+                      {users?.data.length === 1 ? 'Student' : 'Students'} Enrolled
                     </Typography>
                   </Stack>
                 </Stack>
@@ -224,12 +224,12 @@ export default function ElearningCourseDetailsHero({ course }) {
                     }}
                   >
                     <Stack direction="row" alignItems="center" sx={{ typography: 'body2' }}>
-                      <Iconify icon="carbon:time" sx={{ mr: 1 }} /> {`${time} hours`}
+                      <Iconify icon="carbon:time" sx={{ mr: 1 }} /> {`${time} Hours`}
                     </Stack>
 
                     <Stack direction="row" alignItems="center" sx={{ typography: 'body2' }}>
                       <Iconify icon="carbon:document" sx={{ mr: 1 }} />
-                      {`${totalLessons} lessons`}
+                      {`${totalLessons} Lessons`}
                     </Stack>
 
                     {/* <Stack direction="row" alignItems="center" sx={{ typography: 'body2' }}>
@@ -261,17 +261,17 @@ export default function ElearningCourseDetailsHero({ course }) {
                       {totalQuizzes > 0 ? (
                         <Stack direction="row">
                           <Iconify icon="carbon:help" sx={{ mr: 1 }} />
-                          {`${totalQuizzes} practice assessments`}
+                          {`${totalQuizzes} Practice Assessments`}
                         </Stack>
                       ) : (
-                        'No practice assessments'
+                        'No Practice Assessments'
                       )}
                     </Stack>
                   </Stack>
                   <Stack direction="row" alignItems="center" sx={{ typography: 'body2' }}>
                     <Stack direction="row">
                       <Iconify icon="carbon:certificate" sx={{ mr: 1 }} />
-                      <span>1 certification assessment</span>
+                      <span>1 Certification Assessment</span>
                     </Stack>
                   </Stack>
                 </Stack>

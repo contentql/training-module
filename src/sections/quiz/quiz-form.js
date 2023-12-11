@@ -1,12 +1,18 @@
 'use client';
 
-import { useState } from 'react';
 import { PropTypes } from 'prop-types';
 import { toast } from 'react-toastify';
+import { useRef, useState } from 'react';
 
 // import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
+import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
+import TextField from '@mui/material/TextField';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
 
 import { useResponsive } from 'src/hooks/use-responsive';
 import ElearningCourseDetailsLessonItem from 'src/sections/_elearning/details/elearning-course-details-quiz-item';
@@ -15,9 +21,21 @@ import QuizHookForm from './quiz-hook-form';
 import { shuffleArray } from './utils/shuffle-array';
 
 export default function QuizForm(props) {
-  const { _questions, hasBoughtCourse, courseName, score } = props;
+  const { _questions, hasBoughtCourse, courseName, score, finalQuiz } = props;
 
   const [quizOpen, setOpen] = useState(false);
+
+  const [popupOpen, setPopupOpen] = useState(false);
+
+  const inputRef = useRef();
+
+  const handlePopupOpen = () => {
+    setPopupOpen(true);
+  };
+
+  const handlePopupClose = () => {
+    setPopupOpen(false);
+  };
 
   const questions = shuffleArray(_questions).slice(0, 10);
 
@@ -66,7 +84,10 @@ export default function QuizForm(props) {
   return (
     <>
       <ElearningCourseDetailsLessonItem
-        handleClickOpen={handleClickOpen}
+        handleClickOpen={() => {
+          if (finalQuiz) handlePopupOpen();
+          else handleClickOpen();
+        }}
         questionsLength={questions?.length}
         isTest
         quizIcon
@@ -74,6 +95,39 @@ export default function QuizForm(props) {
         <img src="src/icons/note.svg" alt="quiz" height={20} width={20} />
         Start Test
       </ElearningCourseDetailsLessonItem>
+      {finalQuiz && (
+        <Dialog open={popupOpen} onClose={handlePopupClose}>
+          <DialogTitle>Alert</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              To successfully finish the course, a minimum score of 60% is required.
+            </DialogContentText>
+            {/* <TextField
+              autoFocus
+              margin="dense"
+              id="name"
+              label="Certificate Name"
+              type="text"
+              fullWidth
+              variant="outlined"
+              color="primary"
+              ref={inputRef}
+            /> */}
+          </DialogContent>
+          <DialogActions>
+            <Button
+              onClick={() => {
+                handlePopupClose();
+                handleClickOpen();
+              }}
+              color="primary"
+              variant="outlined"
+            >
+              Proceed
+            </Button>
+          </DialogActions>
+        </Dialog>
+      )}
       <BootstrapDialog
         fullScreen
         aria-labelledby="customized-dialog-title"
@@ -86,6 +140,7 @@ export default function QuizForm(props) {
           courseName={courseName}
           handleModalClose={handleModalClose}
           score={score}
+          name={inputRef.current}
         />
       </BootstrapDialog>
     </>
@@ -97,4 +152,5 @@ QuizForm.propTypes = {
   hasBoughtCourse: PropTypes.bool,
   courseName: PropTypes.any,
   score: PropTypes.bool,
+  finalQuiz: PropTypes.bool,
 };

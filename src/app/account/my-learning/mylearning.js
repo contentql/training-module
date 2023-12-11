@@ -58,6 +58,24 @@ export default function AccountPersonalView() {
     }).then((res) => res.json())
   );
 
+  const coursesCompletedFilter = () => {
+    const courseScores = {};
+
+    quizScore.forEach((quizData) => {
+      const { courseTitle, score } = quizData.attributes;
+
+      if (!courseScores[courseTitle] || score > courseScores[courseTitle].score) {
+        courseScores[courseTitle] = { score, courseTitle };
+      }
+    });
+
+    const completedCourses = Object.values(courseScores).filter(
+      (quizData) => (quizData.score / 10) * 100 >= 60
+    );
+
+    return completedCourses.length;
+  };
+
   const ProfileData = [
     {
       id: 1,
@@ -72,7 +90,7 @@ export default function AccountPersonalView() {
     {
       id: 3,
       title: 'Courses Completed',
-      score: quizScore.length,
+      score: coursesCompletedFilter(),
     },
   ];
 

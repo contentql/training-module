@@ -30,6 +30,25 @@ export default function EcommerceAccountVoucherItem({ certificateData }) {
     setOpen(false);
   };
 
+  const certificateImages = [
+    {
+      courseTitle: '8 Hour Initial Administrator Training Program',
+      image: '/assets/images/course/basic.png',
+    },
+    {
+      courseTitle: 'TX Administrator Basics & Beyond (16 Hours)',
+      image: '/assets/images/course/basicsandbeyond.png',
+    },
+    {
+      courseTitle: 'TX Administrator Advanced Level (12 Hours)',
+      image: '/assets/images/course/advanced.png',
+    },
+  ];
+
+  const imageUrl = certificateImages
+    .filter((data) => data.courseTitle === certificateData.attributes.courseTitle)
+    .at(0).image;
+
   return (
     <Stack
       direction="row"
@@ -53,7 +72,7 @@ export default function EcommerceAccountVoucherItem({ certificateData }) {
         <Box sx={{ flexShrink: { sm: 0 }, pt: 1 }}>
           <Image
             alt="images"
-            src="/assets/images/course/course_1.jpg"
+            src={imageUrl}
             sx={{
               height: 1,
               objectFit: 'cover',
@@ -95,7 +114,7 @@ export default function EcommerceAccountVoucherItem({ certificateData }) {
         > */}
         {/* <Iconify icon="carbon:time" width={16} sx={{ mr: 1 }} /> */}
         <Typography variant="h7" sx={{ mb: 1 }}>
-          Score : {certificateData?.attributes.score}/20
+          Score : {certificateData?.attributes.score}/10
         </Typography>
         <Button
           sx={{ bgcolor: '#FF774B', mb: 1 }}
