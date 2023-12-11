@@ -41,6 +41,7 @@ export default function ElearningCourseDetailsLessonList({
         courseName={courseName}
         score={score}
         hasBoughtCourse={hasBoughtCourse}
+        finalQuiz
       />
     </div>
   );
