@@ -118,7 +118,7 @@ export default function EcommerceAccountVouchersView() {
     quizScore.forEach((quizData) => {
       const { courseTitle, score } = quizData.attributes;
 
-      if (!courseScores[courseTitle] || score > courseScores[courseTitle].score) {
+      if (!courseScores[courseTitle] || score > courseScores[courseTitle].attributes.score) {
         courseScores[courseTitle] = quizData;
       }
     });
