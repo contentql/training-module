@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { useQuery } from 'react-query';
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
@@ -6,6 +7,7 @@ import Container from '@mui/material/Container';
 import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 
+import { getCoursesData } from 'src/queries/courses';
 import { useResponsive } from 'src/hooks/use-responsive';
 import Carousel, { useCarousel, CarouselArrows } from 'src/components/carousel';
 
@@ -13,7 +15,11 @@ import ElearningCourseItem from '../list/elearning-course-item';
 
 // ----------------------------------------------------------------------
 
-export default function ElearningLandingFeaturedCourses({ courses }) {
+export default function ElearningLandingFeaturedCourses() {
+  const { data, isLoading } = useQuery({
+    queryKey: ['courses'],
+    queryFn: getCoursesData,
+  });
   const theme = useTheme();
 
   const carousel = useCarousel({
@@ -85,7 +91,7 @@ export default function ElearningLandingFeaturedCourses({ courses }) {
           }}
         >
           <Carousel ref={carousel.carouselRef} {...carousel.carouselSettings}>
-            {courses.map((course) => (
+            {data?.map((course) => (
               <Box
                 key={course.id}
                 sx={{

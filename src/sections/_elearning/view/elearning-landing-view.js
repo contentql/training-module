@@ -22,14 +22,14 @@ import ElearningLandingServices from './elearning-landing-services';
 // ----------------------------------------------------------------------
 
 export default function ElearningLandingView() {
-  const { data, isLoading } = useQuery({
-    queryKey: ['courses'],
-    queryFn: getCoursesData,
-  });
+  // const { data, isLoading } = useQuery({
+  //   queryKey: ['courses'],
+  //   queryFn: getCoursesData,
+  // });
 
-  // console.log('landingData', data);
+  // // console.log('landingData', data);
 
-  if (isLoading) return <SplashScreen />;
+  // if (isLoading) return <SplashScreen />;
 
   return (
     <>
@@ -44,7 +44,7 @@ export default function ElearningLandingView() {
 
       {/* <ElearningLandingSummary /> */}
 
-      <ElearningLandingFeaturedCourses courses={data} />
+      <ElearningLandingFeaturedCourses />
 
       <ElearningTestimonial testimonials={_testimonials} />
 
