@@ -81,7 +81,7 @@ export default function LoginBackgroundView() {
       if (response.ok) {
         const userData = {
           authToken: resData.jwt,
-          isLoggedIn: true,
+          isLoggedIn: resData.user.confirmed,
           ...resData.user,
         };
         updateUserData(userData);
