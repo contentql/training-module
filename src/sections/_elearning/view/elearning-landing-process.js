@@ -110,6 +110,9 @@ function ServiceItem({ service, index }) {
         color,
         // bgcolor: (theme) => theme.palette[COLORS[index]].light,
         bgcolor,
+        '&:hover': {
+          boxShadow: (theme) => `-0px 0px 40px 1px ${color}`,
+        },
         // boxShadow: (theme) => `-8px 12px 32px 0px ${alpha(theme.palette[COLORS[index]].main, 0.2)}`,
         ...(index === 1 && {
           mb: { md: 2.5 },

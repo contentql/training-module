@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
+import { alpha } from '@mui/material/styles';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
@@ -27,6 +28,7 @@ const SERVICES = [
     path: paths.marketing.services,
     bgcolor: '#f7efff',
     color: '#b566ff',
+    hoverColor: '#dab3ff',
   },
   {
     name: 'Email Marketing',
@@ -37,6 +39,7 @@ const SERVICES = [
     path: paths.marketing.services,
     bgcolor: '#ffe0f2',
     color: '#ff6bc1',
+    hoverColor: '',
   },
   {
     name: 'Search Engine Oprimization',
@@ -45,6 +48,7 @@ const SERVICES = [
     path: paths.marketing.services,
     bgcolor: '#ffe2d3',
     color: '#f56025',
+    hoverColor: '',
   },
   {
     name: 'Social Marketing',
@@ -53,6 +57,7 @@ const SERVICES = [
     path: paths.marketing.services,
     bgcolor: '#d6eded',
     color: '#35b27c',
+    hoverColor: '',
   },
 ];
 
@@ -103,7 +108,7 @@ export default function ElearningLandingServices() {
 // ----------------------------------------------------------------------
 
 function ServiceItem({ service, index }) {
-  const { name, icon, content, path, color, bgcolor } = service;
+  const { icon, content, color, bgcolor } = service;
 
   return (
     <Card
@@ -112,15 +117,10 @@ function ServiceItem({ service, index }) {
         py: 5,
         textAlign: 'center',
         color,
-        // bgcolor: (theme) => theme.palette[COLORS[index]].light,
         bgcolor,
-        // ...(index === 1 && {
-        //   py: { xs: 5, md: 8 },
-        // }),
-        // ...(index === 2 && {
-        //   py: { xs: 5, md: 10 },
-        //   boxShadow: (theme) => ({ md: theme.customShadows.z24 }),
-        // }),
+        '&:hover': {
+          boxShadow: (theme) => `-0px 0px 40px 1px ${color}`,
+        },
       }}
     >
       <SvgColor
@@ -129,13 +129,11 @@ function ServiceItem({ service, index }) {
           width: 88,
           height: 88,
           mx: 'auto',
-          // color: (theme) => theme.palette[COLORS[index]].main,
           color,
         }}
       />
 
       <Stack spacing={1} sx={{ my: 2 }}>
-        {/* <TextMaxLine variant="h6">{name}</TextMaxLine> */}
         <Typography
           variant="body1"
           sx={{
@@ -145,19 +143,6 @@ function ServiceItem({ service, index }) {
           {content}
         </Typography>
       </Stack>
-
-      {/* <IconButton
-        component={RouterLink}
-        href={path}
-        color={
-          (index === 0 && 'primary') ||
-          (index === 1 && 'secondary') ||
-          (index === 2 && 'success') ||
-          'warning'
-        }
-      >
-        <Iconify icon="carbon:direction-straight-right" />
-      </IconButton> */}
     </Card>
   );
 }
