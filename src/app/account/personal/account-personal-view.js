@@ -1,7 +1,9 @@
 'use client';
 
 import * as Yup from 'yup';
+import 'react-toastify/dist/ReactToastify.css';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { toast, ToastContainer } from 'react-toastify';
 import {
   useForm,
   // Controller
@@ -36,10 +38,12 @@ import FormProvider, {
 // ----------------------------------------------------------------------
 
 export default function AccountPersonalView() {
-  // const [user, updateUser] = useUserStore((state) => [state.user, state.updateUser]);
+  const [userData, updateUserData] = useUserStore((state) => [
+    state.UserData,
+    state.updateUserData,
+  ]);
 
-  // const passwordShow = useBoolean();
-  const [userData, updateImage] = useUserStore((state) => [state.UserData, state.updateImage]);
+  console.log({ userData });
 
   const EcommerceAccountPersonalSchema = Yup.object().shape({
     firstName: Yup.string().required('First name is required'),
@@ -49,13 +53,16 @@ export default function AccountPersonalView() {
   });
 
   const defaultValues = {
-    username: userData.username,
-    emailAddress: userData.email,
-    phoneNumber: userData.phone,
+    username: userData?.username,
+    emailAddress: userData?.email,
+    phoneNumber: userData?.phoneNumber,
+    city: userData?.city,
+    country: userData?.country,
+    agency: userData?.agency,
   };
 
   const methods = useForm({
-    resolver: yupResolver(EcommerceAccountPersonalSchema),
+    // resolver: yupResolver(EcommerceAccountPersonalSchema),
     defaultValues,
   });
 
@@ -66,11 +73,58 @@ export default function AccountPersonalView() {
   } = methods;
 
   const onSubmit = handleSubmit(async (data) => {
+    // e.preventDefault();
+    console.log('onSubmit');
+    updateUserData({
+      ...userData,
+      username: data.username,
+      phoneNumber: data.phoneNumber,
+      country: data.country,
+      agency: data.agency,
+      city: data.city,
+      phone: data.phone,
+    });
+
     try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      reset();
-      // console.log('DATA', data);
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_STRAPI_URL}/api/users/${userData.id}`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${userData.authToken}`,
+          },
+          body: JSON.stringify({
+            phoneNumber: data.phoneNumber,
+            country: data.country,
+            agency: data.agency,
+            city: data.city,
+            phone: data.phone,
+          }),
+        }
+      );
+      toast.success('details saved Successfully', {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
+      const resData = await response.json();
     } catch (error) {
+      toast.error('error please try again', {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
       console.error(error);
     }
   });
@@ -87,127 +141,47 @@ export default function AccountPersonalView() {
         display="grid"
         gridTemplateColumns={{ xs: 'repeat(1, 1fr)', md: 'repeat(2, 1fr)' }}
       >
-        <RHFTextField name="username" label="User Name" value={userData.username} disabled />
+        <RHFTextField
+          name="username"
+          label="User Name"
+          // value={userData.username}
+          InputProps={{ readOnly: true }}
+        />
 
-        <RHFTextField name="emailAddress" label="Email Address" value={userData.email} disabled />
+        <RHFTextField
+          name="emailAddress"
+          label="Email Address"
+          value={userData?.email}
+          InputProps={{ readOnly: true }}
+        />
 
-        <RHFTextField name="phoneNumber" label="Phone Number" value={userData.phone} disabled />
+        <RHFTextField name="phoneNumber" label="Phone Number" />
 
-        {/* <Controller
-          name="birthday"
-          render={({ field, fieldState: { error } }) => (
-            <DatePicker
-              label="Birthday"
-              slotProps={{
-                textField: {
-                  helperText: error?.message,
-                  error: !!error?.message,
-                },
-              }}
-              {...field}
-              value={field.value}
-            />
-          )}
-        /> */}
+        <RHFTextField name="city" label="city" />
 
-        {/* <RHFSelect native name="gender" label="Gender">
-          {GENDER_OPTIONS.map((option) => (
-            <option key={option} value={option}>
-              {option}
-            </option>
-          ))}
-        </RHFSelect> */}
+        <RHFTextField name="country" label="country" />
 
-        <RHFTextField name="city" label="city" value={userData.city} disabled />
-
-        <RHFTextField name="country" label="country" value={userData.country} disabled />
-
-        <RHFTextField name="agency" label="agency" value={userData.agency} disabled />
+        <RHFTextField name="agency" label="agency" />
       </Box>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        closeOnClick
+        pauseOnHover
+        draggable
+      />
 
-      {/* <Stack spacing={3} sx={{ my: 5 }}>
-        <Typography variant="h5"> Change Password </Typography>
-
-        <Stack spacing={2.5}>
-          <RHFTextField
-            name="oldPassword"
-            label="Old Password"
-            type={passwordShow.value ? 'text' : 'password'}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton onClick={passwordShow.onToggle} edge="end">
-                    <Iconify icon={passwordShow.value ? 'carbon:view' : 'carbon:view-off'} />
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-          />
-
-          <RHFTextField
-            name="newPassword"
-            label="New Password"
-            type={passwordShow.value ? 'text' : 'password'}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton onClick={passwordShow.onToggle} edge="end">
-                    <Iconify icon={passwordShow.value ? 'carbon:view' : 'carbon:view-off'} />
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-          />
-
-          <RHFTextField
-            name="confirmNewPassword"
-            label="Confirm New Password"
-            type={passwordShow.value ? 'text' : 'password'}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton onClick={passwordShow.onToggle} edge="end">
-                    <Iconify icon={passwordShow.value ? 'carbon:view' : 'carbon:view-off'} />
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-          />
-        </Stack>
-      </Stack> */}
-
-      {/* <Stack spacing={2} sx={{ my: 5 }}>
-        <Typography variant="h5" sx={{ mb: 3 }}>
-          Avatar
-        </Typography>
-
-        <Grid container spacing={2.5} sx={{ marginLeft: 1.5 }}>
-          {[...Array(25)].map((arr, index) => {
-            let styles = { margin: 1, height: 60, width: 60 };
-            if (_mock.image.avatar(index) === userData.image)
-              styles = { ...styles, border: 4, borderRadius: '50%', borderColor: '#0d5992' };
-
-            return (
-              <Avatar
-                src={_mock.image.avatar(index)}
-                sx={styles}
-                key={index}
-                onClick={() => updateImage(_mock.image.avatar(index))}
-              />
-            );
-          })}
-        </Grid>
-      </Stack> */}
-
-      {/* <LoadingButton
+      <LoadingButton
         color="inherit"
         size="large"
         type="submit"
         variant="contained"
         loading={isSubmitting}
+        sx={{ my: 4 }}
       >
         Save Changes
-      </LoadingButton> */}
+      </LoadingButton>
     </FormProvider>
   );
 }

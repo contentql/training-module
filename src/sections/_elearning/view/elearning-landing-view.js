@@ -22,15 +22,6 @@ import ElearningLandingServices from './elearning-landing-services';
 // ----------------------------------------------------------------------
 
 export default function ElearningLandingView() {
-  // const { data, isLoading } = useQuery({
-  //   queryKey: ['courses'],
-  //   queryFn: getCoursesData,
-  // });
-
-  // // console.log('landingData', data);
-
-  // if (isLoading) return <SplashScreen />;
-
   return (
     <>
       <ElearningLandingHero />

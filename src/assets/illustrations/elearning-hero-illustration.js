@@ -71,7 +71,7 @@ function ElearningHeroIllustration({ sx, ...other }) {
           // disabledEffect
           alt="teacher"
           src="/assets/images/course/hero1.gif"
-          sx={{ width: 846, height: 490 }}
+          sx={{ width: 846, height: 490, opacity: 0.85 }}
         />
       </Box>
 
