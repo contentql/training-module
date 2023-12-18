@@ -143,15 +143,15 @@ export default function ElearningContactForm() {
                 >
                   Send Request
                 </LoadingButton>
-                <ToastContainer
-                  position="bottom-right"
-                  autoClose={3000}
-                  hideProgressBar={false}
-                  closeOnClick
-                  pauseOnHover
-                  draggable
-                />
               </Stack>
+              <ToastContainer
+                position="bottom-right"
+                autoClose={3000}
+                hideProgressBar={false}
+                closeOnClick
+                pauseOnHover
+                draggable
+              />
             </FormProvider>
           </Grid>
         </Grid>
