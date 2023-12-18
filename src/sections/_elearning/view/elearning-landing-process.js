@@ -20,6 +20,7 @@ const SERVICES = [
     content: 'Our exams cover a wide range of topics to ensure a thorough evaluation.',
     bgcolor: '#f7efff',
     color: '#b566ff',
+    hovercolor: '#dfc1fc',
   },
   {
     name: 'Convenient',
@@ -27,6 +28,7 @@ const SERVICES = [
     content: 'Take our online courses and examinations at a pace that suits your unique schedule.',
     bgcolor: '#ffe0f2',
     color: '#ff6bc1',
+    hovercolor: '#ffbce3',
   },
   {
     name: 'Certificate',
@@ -35,6 +37,7 @@ const SERVICES = [
       'Upon completion of the course certificate will be provided after completion of course.',
     bgcolor: '#ffe2d3',
     color: '#f56025',
+    hovercolor: '#ffaf90',
   },
   {
     name: 'Quality Assurance',
@@ -42,6 +45,7 @@ const SERVICES = [
     content: 'We set the bar for excellence in home and community support services.',
     bgcolor: '#d6eded',
     color: '#35b27c',
+    hovercolor: '#92d1b6',
   },
 ];
 
@@ -101,7 +105,7 @@ export default function ElearningLandingProcess() {
 // ----------------------------------------------------------------------
 
 function ServiceItem({ service, index }) {
-  const { name, icon, content, bgcolor, color } = service;
+  const { name, icon, content, bgcolor, color, hovercolor } = service;
 
   return (
     <Card
@@ -111,9 +115,9 @@ function ServiceItem({ service, index }) {
         // bgcolor: (theme) => theme.palette[COLORS[index]].light,
         bgcolor,
         '&:hover': {
-          boxShadow: (theme) => `-0px 0px 40px 1px ${color}`,
+          boxShadow: (theme) => `-0px 0px 30px ${hovercolor}`,
+          // boxShadow: alpha(color, 0.2),
         },
-        // boxShadow: (theme) => `-8px 12px 32px 0px ${alpha(theme.palette[COLORS[index]].main, 0.2)}`,
         ...(index === 1 && {
           mb: { md: 2.5 },
         }),
@@ -155,5 +159,6 @@ ServiceItem.propTypes = {
     content: PropTypes.string,
     color: PropTypes.string,
     bgcolor: PropTypes.string,
+    hovercolor: PropTypes.string,
   }),
 };

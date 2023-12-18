@@ -1,3 +1,4 @@
+import { m } from 'framer-motion';
 import PropTypes from 'prop-types';
 
 import Box from '@mui/material/Box';
@@ -6,14 +7,15 @@ import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
 import { alpha } from '@mui/material/styles';
 import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
 
 import { paths } from 'src/routes/paths';
 import Iconify from 'src/components/iconify';
 import SvgColor from 'src/components/svg-color';
 import { RouterLink } from 'src/routes/components';
 import TextMaxLine from 'src/components/text-max-line';
+import { varBounce, MotionContainer } from 'src/components/animate';
 
 // ----------------------------------------------------------------------
 
@@ -28,7 +30,7 @@ const SERVICES = [
     path: paths.marketing.services,
     bgcolor: '#f7efff',
     color: '#b566ff',
-    hoverColor: '#dab3ff',
+    hovercolor: '#dfc1fc',
   },
   {
     name: 'Email Marketing',
@@ -39,7 +41,7 @@ const SERVICES = [
     path: paths.marketing.services,
     bgcolor: '#ffe0f2',
     color: '#ff6bc1',
-    hoverColor: '',
+    hovercolor: '#ffbce3',
   },
   {
     name: 'Search Engine Oprimization',
@@ -48,7 +50,7 @@ const SERVICES = [
     path: paths.marketing.services,
     bgcolor: '#ffe2d3',
     color: '#f56025',
-    hoverColor: '',
+    hovercolor: '#ffaf90',
   },
   {
     name: 'Social Marketing',
@@ -57,93 +59,106 @@ const SERVICES = [
     path: paths.marketing.services,
     bgcolor: '#d6eded',
     color: '#35b27c',
-    hoverColor: '',
+    hovercolor: '#92d1b6',
   },
 ];
+
+const iconAnimate = () => {
+  // eslint-disable-next-line no-unused-expressions
+  varBounce().in;
+};
 
 // ----------------------------------------------------------------------
 
 export default function ElearningLandingServices() {
   return (
-    <Container
-      sx={{
-        py: { xs: 5, md: 4 },
-      }}
-    >
-      <Stack
-        spacing={3}
+    <MotionContainer>
+      <Container
         sx={{
-          maxWidth: 580,
-          mb: { xs: 8, md: 5 },
-          mx: { xs: 'auto', md: 'auto' },
-          mt: { xs: 8, md: 5 },
-          // textAlign: { xs: 'center', md: 'center' },
-          textAlign: 'center',
+          py: { xs: 5, md: 4 },
         }}
       >
-        <Typography variant="h2">Why Texas Administrators choose us</Typography>
-      </Stack>
+        <Stack
+          spacing={3}
+          sx={{
+            maxWidth: 580,
+            mb: { xs: 8, md: 5 },
+            mx: { xs: 'auto', md: 'auto' },
+            mt: { xs: 8, md: 5 },
+            // textAlign: { xs: 'center', md: 'center' },
+            textAlign: 'center',
+          }}
+        >
+          <Typography variant="h2">Why Texas Administrators choose us</Typography>
+        </Stack>
 
-      <Box
-        sx={{
-          gap: 4,
-          display: 'grid',
-          alignItems: 'center',
-          gridTemplateColumns: {
-            xs: 'repeat(1, 1fr)',
-            sm: 'repeat(2, 1fr)',
-            md: 'repeat(4, 1fr)',
-          },
-        }}
-      >
-        {SERVICES.map((service, index) => (
-          <ServiceItem key={service.name} service={service} index={index} />
-        ))}
-      </Box>
-      {/* <Divider sx={{ borderStyle: 'dashed', mt: 8, bgcolor: 'primary.main' }} /> */}
-    </Container>
+        <Box
+          sx={{
+            gap: 4,
+            display: 'grid',
+            alignItems: 'center',
+            gridTemplateColumns: {
+              xs: 'repeat(1, 1fr)',
+              sm: 'repeat(2, 1fr)',
+              md: 'repeat(4, 1fr)',
+            },
+          }}
+        >
+          {SERVICES.map((service, index) => (
+            <m.div variants={varBounce().in}>
+              <ServiceItem key={service.name} service={service} index={index} />
+            </m.div>
+          ))}
+        </Box>
+      </Container>
+    </MotionContainer>
   );
 }
 
 // ----------------------------------------------------------------------
 
 function ServiceItem({ service, index }) {
-  const { icon, content, color, bgcolor } = service;
+  const { icon, content, color, bgcolor, hovercolor } = service;
 
   return (
-    <Card
-      sx={{
-        px: 4,
-        py: 5,
-        textAlign: 'center',
-        color,
-        bgcolor,
-        '&:hover': {
-          boxShadow: (theme) => `-0px 0px 40px 1px ${color}`,
-        },
-      }}
-    >
-      <SvgColor
-        src={icon}
+    <MotionContainer>
+      <Card
         sx={{
-          width: 88,
-          height: 88,
-          mx: 'auto',
+          px: 4,
+          py: 5,
+          textAlign: 'center',
           color,
+          bgcolor,
+          '&:hover': {
+            boxShadow: (theme) => `-0px 0px 30px ${hovercolor}`,
+          },
         }}
-      />
+      >
+        <m.div variants={varBounce().in}>
+          <SvgColor
+            src={icon}
+            sx={{
+              width: 88,
+              height: 88,
+              mx: 'auto',
+              color,
+              // '&:hover': {}
+            }}
+          />
+        </m.div>
 
-      <Stack spacing={1} sx={{ my: 2 }}>
-        <Typography
-          variant="body1"
-          sx={{
-            color: (theme) => theme.palette[COLORS[index]].darker,
-          }}
-        >
-          {content}
-        </Typography>
-      </Stack>
-    </Card>
+        <Stack spacing={1} sx={{ my: 2 }}>
+          <Typography
+            variant="body1"
+            sx={{
+              color: (theme) => theme.palette[COLORS[index]].darker,
+            }}
+          >
+            {content}
+          </Typography>
+        </Stack>
+      </Card>
+    </MotionContainer>
   );
 }
 
@@ -156,5 +171,6 @@ ServiceItem.propTypes = {
     color: PropTypes.string,
     bgcolor: PropTypes.string,
     icon: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+    hovercolor: PropTypes.string,
   }),
 };

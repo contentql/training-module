@@ -1,11 +1,12 @@
 import * as Yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { toast, ToastContainer } from 'react-toastify';
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
-import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
+import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import LoadingButton from '@mui/lab/LoadingButton';
 
@@ -44,11 +45,45 @@ export default function ElearningContactForm() {
   } = methods;
 
   const onSubmit = handleSubmit(async (data) => {
+    const requestBody = {
+      data: {
+        fullname: data.fullName,
+        email: data.email,
+        subject: data.subject,
+        message: data.message,
+      },
+    };
     try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      const response = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/api/contacts`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestBody),
+      });
+      toast.success('Thank you for contacting us', {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
+      const resData = await response.json();
       reset();
-      // console.log('DATA', data);
     } catch (error) {
+      toast.error('error, please try again', {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
       console.error(error);
     }
   });
@@ -108,6 +143,14 @@ export default function ElearningContactForm() {
                 >
                   Send Request
                 </LoadingButton>
+                <ToastContainer
+                  position="bottom-right"
+                  autoClose={3000}
+                  hideProgressBar={false}
+                  closeOnClick
+                  pauseOnHover
+                  draggable
+                />
               </Stack>
             </FormProvider>
           </Grid>
