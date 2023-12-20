@@ -9,6 +9,7 @@ import Grid from '@mui/material/Unstable_Grid2';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import LoadingButton from '@mui/lab/LoadingButton';
+import { alpha, useTheme } from '@mui/material/styles';
 
 import Image from 'src/components/image';
 import { useResponsive } from 'src/hooks/use-responsive';
@@ -16,8 +17,32 @@ import FormProvider, { RHFTextField } from 'src/components/hook-form';
 
 // ----------------------------------------------------------------------
 
+export function bgGradient(props) {
+  const direction = props?.direction || 'to bottom';
+  const startColor = props?.startColor;
+  const endColor = props?.endColor;
+  // const imgUrl = props?.imgUrl;
+  // const color = props?.color;
+
+  // if (imgUrl) {
+  //   return {
+  //     background: `linear-gradient(${direction}, ${startColor || color}, ${
+  //       endColor || color
+  //     }), url(${imgUrl})`,
+  //     backgroundSize: 'cover',
+  //     backgroundRepeat: 'no-repeat',
+  //     backgroundPosition: 'center center',
+  //   };
+  // }
+
+  return {
+    background: `linear-gradient(${direction}, ${startColor}, ${endColor})`,
+  };
+}
+
 export default function ElearningContactForm() {
   const mdUp = useResponsive('up', 'md');
+  const theme = useTheme();
 
   const ElearningContactSchema = Yup.object().shape({
     fullName: Yup.string().required('Full name is required'),
@@ -91,8 +116,14 @@ export default function ElearningContactForm() {
   return (
     <Box
       sx={{
-        bgcolor: 'background.neutral',
-        py: { xs: 10, md: 15 },
+        // bgcolor: 'background.neutral',
+        ...bgGradient({
+          endColor: '#FFCEBD',
+          startColor: '#f7f5f4',
+          color: alpha(theme.palette.background.default, 0.1),
+          // imgUrl: '/assets/background/overlay_3.jpg',
+        }),
+        py: { xs: 10, md: 10 },
       }}
     >
       <Container>
@@ -131,19 +162,20 @@ export default function ElearningContactForm() {
                 <RHFTextField name="subject" label="Subject" />
 
                 <RHFTextField name="message" multiline rows={4} label="Message" sx={{ pb: 2.5 }} />
-
-                <LoadingButton
-                  size="large"
-                  type="submit"
-                  variant="contained"
-                  loading={isSubmitting}
-                  sx={{
-                    mx: { xs: 'auto !important', md: 'unset !important' },
-                  }}
-                >
-                  Send Request
-                </LoadingButton>
               </Stack>
+
+              <LoadingButton
+                size="large"
+                type="submit"
+                variant="contained"
+                loading={isSubmitting}
+                sx={{
+                  mx: { xs: 'auto !important', md: 'unset !important' },
+                }}
+              >
+                Send Request
+              </LoadingButton>
+
               <ToastContainer
                 position="bottom-right"
                 autoClose={3000}

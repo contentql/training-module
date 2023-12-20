@@ -35,24 +35,6 @@ import ElearningCourseDetailsSummary from '../details/elearning-course-details-s
 export default function ElearningCourseView({ courseId }) {
   const mdUp = useResponsive('up', 'md');
 
-  // const loading = useBoolean(true);
-
-  // const courseSimilar = _courses.slice(-3);
-
-  // const _mockCourse = _courses.filter((course) => course.id === courseId).at(0);
-
-  // if (!_mockCourse) {
-  //   redirect('/not-found');
-  // }
-
-  // useEffect(() => {
-  //   const fakeLoading = async () => {
-  //     await new Promise((resolve) => setTimeout(resolve, 500));
-  //     loading.onFalse();
-  //   };
-  //   fakeLoading();
-  // }, [loading]);
-
   const { data, isLoading } = useQuery({
     queryKey: ['course', courseId],
     queryFn: () => getCourseData(courseId),
@@ -83,39 +65,6 @@ export default function ElearningCourseView({ courseId }) {
 
           <Grid xs={12} md={7} lg={8}>
             <ElearningCourseDetailsSummary course={data?.attributes} />
-
-            {/* <Stack direction="row" flexWrap="wrap" sx={{ mt: 5 }}>
-              <Typography variant="subtitle2" sx={{ mt: 0.75, mr: 1.5 }}>
-                Share:
-              </Typography>
-
-              <Stack direction="row" alignItems="center" flexWrap="wrap">
-                {_socials.map((social) => (
-                  <Button
-                    key={social.value}
-                    size="small"
-                    variant="outlined"
-                    startIcon={<Iconify icon={social.icon} />}
-                    sx={{
-                      m: 0.5,
-                      flexShrink: 0,
-                      color: social.color,
-                      borderColor: social.color,
-                      '&:hover': {
-                        borderColor: social.color,
-                        bgcolor: alpha(social.color, 0.08),
-                      },
-                    }}
-                  >
-                    {social.label}
-                  </Button>
-                ))}
-              </Stack>
-            </Stack> */}
-
-            {/* <Divider sx={{ my: 5 }} /> */}
-
-            {/* <ElearningCourseDetailsTeachersInfo teachers={data.teachers} /> */}
           </Grid>
 
           <Grid xs={12} md={5} lg={4}>

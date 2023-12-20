@@ -55,7 +55,7 @@ export default function AccountPersonalView() {
   const defaultValues = {
     username: userData?.username,
     emailAddress: userData?.email,
-    phoneNumber: userData?.phoneNumber,
+    phoneNumber: userData?.phone,
     city: userData?.city,
     country: userData?.country,
     agency: userData?.agency,
@@ -78,11 +78,10 @@ export default function AccountPersonalView() {
     updateUserData({
       ...userData,
       username: data.username,
-      phoneNumber: data.phoneNumber,
       country: data.country,
       agency: data.agency,
       city: data.city,
-      phone: data.phone,
+      phone: data.phoneNumber,
     });
 
     try {
@@ -95,11 +94,10 @@ export default function AccountPersonalView() {
             Authorization: `Bearer ${userData.authToken}`,
           },
           body: JSON.stringify({
-            phoneNumber: data.phoneNumber,
             country: data.country,
             agency: data.agency,
             city: data.city,
-            phone: data.phone,
+            phone: data.phoneNumber,
           }),
         }
       );

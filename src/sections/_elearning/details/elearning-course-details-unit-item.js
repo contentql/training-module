@@ -85,6 +85,7 @@ export default function ElearningCourseDetailsUnitItem({
           courseName={courseName}
           score={score}
           hasBoughtCourse={hasBoughtCourse}
+          title="Start Test"
         />
       </AccordionDetails>
     </Accordion>
