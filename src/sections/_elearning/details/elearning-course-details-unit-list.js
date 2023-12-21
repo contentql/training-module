@@ -27,8 +27,6 @@ export default function ElearningCourseDetailsLessonList({
       {units?.map((unit, index) => (
         <ElearningCourseDetailsUnitItem
           hasBoughtCourse={hasBoughtCourse}
-          // eslint-disable-next-line no-undef
-          // unitQuiz={unitQuiz}
           courseName={courseName}
           key={index}
           unit={unit.attributes}
@@ -42,6 +40,7 @@ export default function ElearningCourseDetailsLessonList({
         score={score}
         hasBoughtCourse={hasBoughtCourse}
         finalQuiz
+        title="Final Test"
       />
     </div>
   );

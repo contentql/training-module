@@ -17,6 +17,7 @@ import Iconify from 'src/components/iconify';
 import { useCartStore } from 'src/states/cart';
 // import { useBoolean } from 'src/hooks/use-boolean';
 import { RouterLink } from 'src/routes/components';
+import { axiosClient } from 'src/utils/axiosClient';
 import { useUserStore } from 'src/states/auth-store';
 // import { SplashScreen } from 'src/components/loading-screen';
 import { varBounce, MotionContainer } from 'src/components/animate';
@@ -34,11 +35,11 @@ export default function ElearningPurchaseCompletedView() {
   const cart = useCartStore((state) => state.cart);
 
   const addUserToCourse = (itemId) => {
-    const apiUrl = process.env.NEXT_PUBLIC_COURSES_URL; // Your Strapi base URL
-    const contentType = 'courses'; // Replace with your actual content type
+    // const apiUrl = process.env.NEXT_PUBLIC_COURSES_URL; // Your Strapi base URL
+    // const contentType = 'courses'; // Replace with your actual content type
 
-    axios
-      .put(`${apiUrl}/${contentType}/${itemId}`, {
+    axiosClient
+      .put(`/api/courses/${itemId}`, {
         data: {
           users: {
             connect: [UserData.id],
@@ -46,23 +47,16 @@ export default function ElearningPurchaseCompletedView() {
         },
       })
       .then((res) => {
-        console.log('Array updated successfully:', res.data);
+        console.log('Array updated successfully ', res.data);
       })
-      .then((res) => {
-        emptyCart();
-      })
-      .catch((error) => {
-        console.error('Error updating array:', error);
-      });
+      .then((res) => emptyCart())
+      .catch((err) => console.log(err));
   };
 
-  // const { data } =
   useQuery({
     queryKey: ['payment'],
     queryFn: () => username === UserData.username && cart.forEach(({ id }) => addUserToCourse(id)),
   });
-
-  // console.log({ data });
 
   return (
     <Container

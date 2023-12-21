@@ -21,7 +21,7 @@ import QuizHookForm from './quiz-hook-form';
 import { shuffleArray } from './utils/shuffle-array';
 
 export default function QuizForm(props) {
-  const { _questions, hasBoughtCourse, courseName, score, finalQuiz } = props;
+  const { _questions, hasBoughtCourse, courseName, score, finalQuiz, title } = props;
 
   const [quizOpen, setOpen] = useState(false);
 
@@ -91,43 +91,34 @@ export default function QuizForm(props) {
         questionsLength={questions?.length}
         isTest
         quizIcon
-      >
-        <img src="src/icons/note.svg" alt="quiz" height={20} width={20} />
+        finalQuiz
+        title={title}
+      />
+      {/* <img src="src/icons/note.svg" alt="quiz" height={20} width={20} />
         Start Test
-      </ElearningCourseDetailsLessonItem>
-      {finalQuiz && (
-        <Dialog open={popupOpen} onClose={handlePopupClose}>
-          <DialogTitle>Alert</DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              To successfully finish the course, a minimum score of 60% is required.
-            </DialogContentText>
-            {/* <TextField
-              autoFocus
-              margin="dense"
-              id="name"
-              label="Certificate Name"
-              type="text"
-              fullWidth
-              variant="outlined"
-              color="primary"
-              ref={inputRef}
-            /> */}
-          </DialogContent>
-          <DialogActions>
-            <Button
-              onClick={() => {
-                handlePopupClose();
-                handleClickOpen();
-              }}
-              color="primary"
-              variant="outlined"
-            >
-              Proceed
-            </Button>
-          </DialogActions>
-        </Dialog>
-      )}
+      </ElearningCourseDetailsLessonItem> */}
+      {/* {finalQuiz && ( */}
+      <Dialog open={popupOpen} onClose={handlePopupClose}>
+        <DialogTitle>Alert</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            To successfully finish the course, a minimum score of 60% is required.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={() => {
+              handlePopupClose();
+              handleClickOpen();
+            }}
+            color="primary"
+            variant="outlined"
+          >
+            Proceed
+          </Button>
+        </DialogActions>
+      </Dialog>
+      {/* )} */}
       <BootstrapDialog
         fullScreen
         aria-labelledby="customized-dialog-title"
@@ -153,4 +144,5 @@ QuizForm.propTypes = {
   courseName: PropTypes.any,
   score: PropTypes.bool,
   finalQuiz: PropTypes.bool,
+  title: PropTypes.string,
 };

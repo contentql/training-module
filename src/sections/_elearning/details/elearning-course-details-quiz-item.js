@@ -13,6 +13,8 @@ export default function ElearningCourseDetailsLessonItem({
   handleClickOpen,
   questionsLength,
   isTest,
+  finalQuiz,
+  title,
 }) {
   const icon = isTest ? 'material-symbols:quiz-outline' : 'carbon:play';
 
@@ -52,7 +54,9 @@ export default function ElearningCourseDetailsLessonItem({
             flexGrow: 1,
           }}
         >
-          Start Test
+          {/* {finalQuiz ? 'Final Test' : 'Start Test'} */}
+          {title}
+          {/* Start Test */}
         </Typography>
 
         <Typography variant="body2">{questionsLength} questions</Typography>
@@ -68,4 +72,6 @@ ElearningCourseDetailsLessonItem.propTypes = {
   handleClickOpen: PropTypes.func,
   questionsLength: PropTypes.number,
   isTest: PropTypes.bool,
+  finalQuiz: PropTypes.bool,
+  title: PropTypes.string,
 };

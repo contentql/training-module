@@ -23,10 +23,11 @@ import Typography from '@mui/material/Typography';
 // import Iconify from 'src/components/iconify';
 // import { useRouter } from 'src/routes/hooks';
 import { useCartStore } from 'src/states/cart';
+import { axiosClient } from 'src/utils/axiosClient';
 // import { useBoolean } from 'src/hooks/use-boolean';
 import FormProvider from 'src/components/hook-form';
-import { getCourseInfo } from 'src/queries/checkout';
 import { useUserStore } from 'src/states/auth-store';
+import { getCourseInfo } from 'src/queries/checkout';
 import { SplashScreen } from 'src/components/loading-screen';
 
 import ElearningNewsletter from '../elearning-newsletter';
@@ -62,12 +63,6 @@ const stripePromise = loadStripe(
 // ----------------------------------------------------------------------
 
 export default function ElearningCheckoutView({ courseId }) {
-  // const loading = useBoolean(true);
-
-  // const router = useRouter();
-
-  // const formOpen = useBoolean();
-
   const { UserData } = useUserStore();
 
   const queryRes = useQuery({
@@ -149,56 +144,18 @@ export default function ElearningCheckoutView({ courseId }) {
       })),
     };
 
-    const response = await fetch(process.env.NEXT_PUBLIC_ORDER_URL, {
-      method: 'POST',
+    const response = await axiosClient.post('/api/orders', requestBody, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${userToken}`,
       },
-      body: JSON.stringify(requestBody),
     });
-    const session = await response.json();
+
+    console.log('orders', response);
     await stripe.redirectToCheckout({
-      sessionId: session.id,
+      sessionId: response.data.id,
     });
   }
-
-  // async function addUserToCourse(itemId) {
-  //   const apiUrl = process.env.NEXT_PUBLIC_COURSES_URL; // Your Strapi base URL
-  //   const contentType = 'courses'; // Replace with your actual content type
-  //   const arrayField = 'users'; // Replace with the name of your array field
-
-  //   // New string to add to the array
-  //   const newString = 'akhilnaidu';
-
-  //   // Make a GET request to fetch the existing data
-  //   axios
-  //     .get(`${apiUrl}/${contentType}/${itemId}?populate=users`)
-  //     .then((response) => {
-  //       const existingData = response.data;
-  //       // Extract the array field from the existing data
-
-  //       // Add the new string to the array
-  //       // Make a PUT request to update the item with the modified array
-  //       axios
-  //         .put(`${apiUrl}/${contentType}/${itemId}`, {
-  //           data: {
-  //             users: {
-  //               connect: [UserData.id],
-  //             },
-  //           },
-  //         })
-  //         .then((res) => {
-  //           console.log('Array updated successfully:', res.data);
-  //         })
-  //         .catch((error) => {
-  //           console.error('Error updating array:', error);
-  //         });
-  //     })
-  //     .catch((error) => {
-  //       console.error('Error fetching existing data:', error);
-  //     });
-  // }
 
   return (
     <>
@@ -221,30 +178,6 @@ export default function ElearningCheckoutView({ courseId }) {
                   <StepLabel title="Personal Details" step="1" />
                   <ElearningCheckoutPersonalDetails />
                 </div>
-
-                {/* <div>
-                  <StepLabel title="Payment Method" step="2" />
-
-                  <ElearningCheckoutPaymentMethod options={PAYMENT_OPTIONS} />
-
-                  <Divider sx={{ my: 3 }} />
-
-                  <Stack alignItems="flex-end">
-                    <Button
-                      color={formOpen.value ? 'error' : 'inherit'}
-                      startIcon={
-                        <Iconify icon={formOpen.value ? 'carbon:close' : 'carbon:add'} width={24} />
-                      }
-                      onClick={formOpen.onToggle}
-                    >
-                      {formOpen.value ? 'Cancel' : 'Add New Card'}
-                    </Button>
-                  </Stack>
-
-                  <Collapse in={formOpen.value} unmountOnExit>
-                    <ElearningCheckoutNewCardForm />
-                  </Collapse>
-                </div> */}
               </Stack>
             </Grid>
 

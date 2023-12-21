@@ -26,7 +26,7 @@ export default function ElearningContactInfo() {
             variant="h2"
             sx={{
               mb: 5,
-              textAlign: { xs: 'center', md: 'left' },
+              textAlign: { xs: 'center', md: 'center' },
             }}
           >
             Get In Touch
@@ -75,10 +75,10 @@ export default function ElearningContactInfo() {
             </Stack>
           </Stack>
         </Grid>
-
+        {/* 
         <Grid xs={12} md={6} lg={7}>
           <ContactMap offices={_offices} sx={{ borderRadius: 2 }} />
-        </Grid>
+        </Grid> */}
       </Grid>
     </Container>
   );

@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 import { useState, useCallback } from 'react';
 import { useQuery, useQueryClient } from 'react-query';
 
+import { useUserStore } from 'src/states/auth-store';
+
 // import { useBoolean } from 'src/hooks/use-boolean';
 
 import ElearningCourseDetailsLessonItem from './elearning-course-details-lesson-item';
@@ -14,6 +16,10 @@ import ElearningCourseDetailsLessonItem from './elearning-course-details-lesson-
 
 export default function ElearningCourseDetailsLessonList({ lessons, hasBoughtCourse, unitId }) {
   // const videoPlay = useBoolean();
+
+  const userData = useUserStore((state) => state.UserData);
+
+  const { isLoggedIn } = userData;
 
   const [expanded, setExpanded] = useState(false);
 
@@ -30,7 +36,7 @@ export default function ElearningCourseDetailsLessonList({ lessons, hasBoughtCou
   const { data: userProgressData } = useQuery({
     queryKey: ['userProgress'],
     queryFn: () => getUserProgress(),
-    // enabled: !!lessonData?.id,
+    enabled: !!isLoggedIn,
     // refetchOnWindowFocus: false,
   });
 

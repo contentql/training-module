@@ -10,12 +10,12 @@ import { useQuery, useQueryClient } from 'react-query';
 import Stack from '@mui/material/Stack';
 import { Box, styled } from '@mui/system';
 import { grey } from '@mui/material/colors';
-import { Link, Divider } from '@mui/material';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import ListItemText from '@mui/material/ListItemText';
+import { Link, Button, Divider } from '@mui/material';
 import LinearProgress from '@mui/material/LinearProgress';
 // import Dialog from '@mui/material/Dialog';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -25,6 +25,8 @@ import Accordion, { accordionClasses } from '@mui/material/Accordion';
 import AccordionSummary, { accordionSummaryClasses } from '@mui/material/AccordionSummary';
 
 import Quiz from 'src/sections/quiz';
+import { paths } from 'src/routes/paths';
+import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
 // import { paths } from 'src/routes/paths';
 // import Player from 'src/components/player';
 import Logo from 'src/components/logo';
@@ -60,6 +62,7 @@ export default function ElearningCourseDetailsLessonsDialog({
   units,
   // pauseVideo,
   hasBoughtCourse,
+  courseTitle,
   params,
 }) {
   const mdUp = useResponsive('up', 'md');
@@ -351,10 +354,6 @@ export default function ElearningCourseDetailsLessonsDialog({
           <Divider sx={{ mb: 6 }} />
 
           <Markdown content={content} />
-
-          {/* <PostTags tags={tags} /> */}
-
-          {/* <PostSocialsShare /> */}
         </Grid>
       </Grid>
     </Container>
@@ -476,7 +475,7 @@ export default function ElearningCourseDetailsLessonsDialog({
               </Link>
             );
           })}
-          <Quiz _questions={unit?.attributes?.quiz} hasBoughtCourse={hasBoughtCourse} />
+          {/* <Quiz _questions={unit?.attributes?.quiz} hasBoughtCourse={hasBoughtCourse} /> */}
         </AccordionDetails>
       </Accordion>
     );
@@ -566,69 +565,73 @@ export default function ElearningCourseDetailsLessonsDialog({
 
   return (
     <Stack
-      direction={{ xs: 'column-reverse', md: 'row' }}
       sx={{ height: 1, overflow: 'hidden' }}
       // spacing={16}
     >
       <Stack
+        // direction="row"
+        // spacing={2}
+        // justifyContent="space-between"
+        sx={{ py: 2, px: 6 }}
         // direction="column-reverse"
-        sx={{ position: 'fixed', top: 3, left: 24, height: '4rem', maxWidth: 450, width: '21%' }}
+        // sx={{ position: 'fixed', top: 100, left: 24, height: '4rem', maxWidth: 1150, width: '21%' }}
       >
-        <Stack direction="row">
-          <Link component={RouterLink} href="../" color="inherit">
-            <Logo />
-          </Link>
-          <Typography variant="subtitle1" color="primary" sx={{ mt: 2, ml: 8.5 }}>
-            {categoryMapping[params.id]}
-          </Typography>
-        </Stack>
-        <Stack
-          direction="row"
-          sx={{ justifyContent: 'space-between', marginLeft: 5, width: '100%' }}
+        {/* <CustomBreadcrumbs
+          links={[{ name: courseTitle, href: paths.eLearning.courses }]}
+          sx={{
+            pt: 5,
+            mb: { xs: 5, md: 2 },
+          }}
+        /> */}
+        <Typography variant="h6">{courseTitle}</Typography>
+        <Box
+          sx={{
+            border: 1,
+            borderRadius: 1,
+            borderColor: '#ff541e',
+            px: 2,
+            py: 1,
+            width: '25%',
+            mt: 2,
+          }}
         >
-          <Box
-            sx={{
-              border: 1,
-              borderRadius: 1,
-              borderColor: '#ff541e',
-              px: 2,
-              py: 1,
-              width: '100%',
-            }}
-          >
-            <Typography>
-              <span style={{ fontWeight: 600, fontSize: '1rem', paddingRight: 4 }}>Progress: </span>
-              <span style={{ color: '#ff541e' }}>
-                {userLessonData.filter((data) => data.course_id === params.id).length}/
-                {totalLessons}
-              </span>
-            </Typography>
-            <LinearProgressWithLabel
-              value={
-                (userLessonData.filter((data) => data.course_id === params.id).length /
-                  totalLessons) *
-                100
-              }
-            />
-          </Box>
-        </Stack>
+          <Typography>
+            <span style={{ fontWeight: 600, fontSize: '1rem', paddingRight: 4 }}>Progress: </span>
+            <span style={{ color: '#ff541e' }}>
+              {userLessonData.filter((data) => data.course_id === params.id).length}/{totalLessons}
+            </span>
+          </Typography>
+          <LinearProgressWithLabel
+            value={
+              (userLessonData.filter((data) => data.course_id === params.id).length /
+                totalLessons) *
+              100
+            }
+          />
+        </Box>
       </Stack>
-      <Link component={RouterLink} href="../" color="inherit" sx={{ top: 20 }}>
-        <IconButton
+      <Link component={RouterLink} href="../" color="inherit" sx={{}}>
+        <Button
           onClick={onClose}
           sx={{
-            top: 10,
-            right: { xs: 4, md: 24 },
+            top: 100,
+            right: { xs: 4, md: 74 },
             // zIndex: 9,
+            // bgcolor: 'black',
+            bgcolor: 'action.selected',
+            // color: 'white',
             position: 'absolute',
           }}
         >
           <Iconify icon="carbon:close" width="25px" height="25px" sx={{ color: 'red' }} />
-        </IconButton>
+          {/* Go Back */}
+        </Button>
       </Link>
 
-      {mdUp ? renderListDesktop : renderListMobile}
-      {!!lessonData && renderLesson}
+      <Stack direction={{ xs: 'column-reverse', md: 'row' }} sx={{ mt: -14 }}>
+        {mdUp ? renderListDesktop : renderListMobile}
+        {!!lessonData && renderLesson}
+      </Stack>
     </Stack>
   );
 }
@@ -647,4 +650,5 @@ ElearningCourseDetailsLessonsDialog.propTypes = {
   // pauseVideo: PropTypes.func,
   hasBoughtCourse: PropTypes.bool,
   params: PropTypes.object,
+  courseTitle: PropTypes.string,
 };

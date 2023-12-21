@@ -1,13 +1,15 @@
 import * as Yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { toast, ToastContainer } from 'react-toastify';
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
-import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
+import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import LoadingButton from '@mui/lab/LoadingButton';
+import { alpha, useTheme } from '@mui/material/styles';
 
 import Image from 'src/components/image';
 import { useResponsive } from 'src/hooks/use-responsive';
@@ -15,8 +17,32 @@ import FormProvider, { RHFTextField } from 'src/components/hook-form';
 
 // ----------------------------------------------------------------------
 
+export function bgGradient(props) {
+  const direction = props?.direction || 'to bottom';
+  const startColor = props?.startColor;
+  const endColor = props?.endColor;
+  // const imgUrl = props?.imgUrl;
+  // const color = props?.color;
+
+  // if (imgUrl) {
+  //   return {
+  //     background: `linear-gradient(${direction}, ${startColor || color}, ${
+  //       endColor || color
+  //     }), url(${imgUrl})`,
+  //     backgroundSize: 'cover',
+  //     backgroundRepeat: 'no-repeat',
+  //     backgroundPosition: 'center center',
+  //   };
+  // }
+
+  return {
+    background: `linear-gradient(${direction}, ${startColor}, ${endColor})`,
+  };
+}
+
 export default function ElearningContactForm() {
   const mdUp = useResponsive('up', 'md');
+  const theme = useTheme();
 
   const ElearningContactSchema = Yup.object().shape({
     fullName: Yup.string().required('Full name is required'),
@@ -44,11 +70,45 @@ export default function ElearningContactForm() {
   } = methods;
 
   const onSubmit = handleSubmit(async (data) => {
+    const requestBody = {
+      data: {
+        fullname: data.fullName,
+        email: data.email,
+        subject: data.subject,
+        message: data.message,
+      },
+    };
     try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      const response = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/api/contacts`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestBody),
+      });
+      toast.success('Thank you for contacting us', {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
+      const resData = await response.json();
       reset();
-      // console.log('DATA', data);
     } catch (error) {
+      toast.error('error, please try again', {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
       console.error(error);
     }
   });
@@ -56,8 +116,14 @@ export default function ElearningContactForm() {
   return (
     <Box
       sx={{
-        bgcolor: 'background.neutral',
-        py: { xs: 10, md: 15 },
+        // bgcolor: 'background.neutral',
+        ...bgGradient({
+          endColor: '#FFCEBD',
+          startColor: '#f7f5f4',
+          color: alpha(theme.palette.background.default, 0.1),
+          // imgUrl: '/assets/background/overlay_3.jpg',
+        }),
+        py: { xs: 10, md: 10 },
       }}
     >
       <Container>
@@ -96,19 +162,28 @@ export default function ElearningContactForm() {
                 <RHFTextField name="subject" label="Subject" />
 
                 <RHFTextField name="message" multiline rows={4} label="Message" sx={{ pb: 2.5 }} />
-
-                <LoadingButton
-                  size="large"
-                  type="submit"
-                  variant="contained"
-                  loading={isSubmitting}
-                  sx={{
-                    mx: { xs: 'auto !important', md: 'unset !important' },
-                  }}
-                >
-                  Send Request
-                </LoadingButton>
               </Stack>
+
+              <LoadingButton
+                size="large"
+                type="submit"
+                variant="contained"
+                loading={isSubmitting}
+                sx={{
+                  mx: { xs: 'auto !important', md: 'unset !important' },
+                }}
+              >
+                Send Request
+              </LoadingButton>
+
+              <ToastContainer
+                position="bottom-right"
+                autoClose={3000}
+                hideProgressBar={false}
+                closeOnClick
+                pauseOnHover
+                draggable
+              />
             </FormProvider>
           </Grid>
         </Grid>

@@ -7,6 +7,7 @@ import Stack from '@mui/material/Stack';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
+import { axiosClient } from 'src/utils/axiosClient';
 import { useUserStore } from 'src/states/auth-store';
 import { SplashScreen } from 'src/components/loading-screen';
 import ElearningCourseItem from 'src/sections/_elearning/list/elearning-course-item';
@@ -17,12 +18,11 @@ export default function ElearningLandingFeaturedCourses() {
   const userData = useUserStore((state) => state.UserData);
 
   const { isLoading, data } = useQuery(['repoData', userData.id], () =>
-    fetch(process.env.NEXT_PUBLIC_MY_LEARNING_URL, {
-      method: 'GET',
+    axiosClient.get('/api/user-courses', {
       headers: {
         Authorization: `Bearer ${userData.authToken}`,
       },
-    }).then((res) => res.json())
+    })
   );
 
   const ProfileData = [

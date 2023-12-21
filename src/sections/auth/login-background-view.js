@@ -7,12 +7,12 @@ import { useRouter } from 'next/navigation';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import Link from '@mui/material/Link';
-import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
+import Alert from '@mui/material/Alert';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
-import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
 import LoadingButton from '@mui/lab/LoadingButton';
 import InputAdornment from '@mui/material/InputAdornment';
 
@@ -20,6 +20,7 @@ import { paths } from 'src/routes/paths';
 import Iconify from 'src/components/iconify';
 import { useBoolean } from 'src/hooks/use-boolean';
 import { RouterLink } from 'src/routes/components';
+import { axiosClient } from 'src/utils/axiosClient';
 import { useUserStore } from 'src/states/auth-store';
 import FormProvider, { RHFTextField } from 'src/components/hook-form';
 
@@ -66,19 +67,20 @@ export default function LoginBackgroundView() {
   const onSubmit = handleSubmit(async (data) => {
     try {
       const { email: identifier, password } = data;
-      const response = await fetch(process.env.NEXT_PUBLIC_LOGIN_URL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ identifier, password }),
+      const response = await axiosClient.post('/api/auth/local/', {
+        identifier,
+        password,
       });
-      const resData = await response.json();
+      const resData = await response.data;
+
+      console.log({ resData });
 
       const { jwt } = resData;
       localStorage.setItem('token', jwt);
 
-      if (response.ok) {
+      console.log({ jwt });
+
+      if (resData.jwt) {
         const userData = {
           authToken: resData.jwt,
           isLoggedIn: resData.user.confirmed,
