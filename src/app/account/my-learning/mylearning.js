@@ -17,11 +17,12 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 // import LoadingButton from '@mui/lab/LoadingButton';
 
-import { paths } from 'src/routes/paths';
 // import { _mock } from 'src/_mock';
 import Image from 'src/components/image';
+import { paths } from 'src/routes/paths';
 import Iconify from 'src/components/iconify';
 import { RouterLink } from 'src/routes/components';
+import { axiosClient } from 'src/utils/axiosClient';
 import { useUserStore } from 'src/states/auth-store';
 import ElearningCourseItem from 'src/sections/_elearning/list/elearning-course-item';
 
@@ -36,16 +37,14 @@ export default function AccountPersonalView() {
 
   useEffect(() => {
     const fetchScore = async () => {
-      const res = await fetch(process.env.NEXT_PUBLIC_QUIZ_SCORE, {
-        method: 'GET',
+      const data = await axiosClient.get('/api/quiz-scores', {
         headers: {
           Authorization: `Bearer ${userData.authToken}`,
         },
       });
-      const data = await res.json();
 
       setQuizScore(
-        data.data.filter((scoreData) => userData.username === scoreData.attributes.username)
+        data?.data.data.filter((scoreData) => userData.username === scoreData.attributes.username)
       );
     };
     fetchScore();
@@ -72,12 +71,11 @@ export default function AccountPersonalView() {
   }, [userData.authToken, userData.username]);
 
   const { data } = useQuery(['repoData', userData.id], () =>
-    fetch(process.env.NEXT_PUBLIC_MY_LEARNING_URL, {
-      method: 'GET',
+    axiosClient.get('/api/user-courses', {
       headers: {
         Authorization: `Bearer ${userData.authToken}`,
       },
-    }).then((res) => res.json())
+    })
   );
 
   const coursesCompletedFilter = () => {
@@ -102,7 +100,7 @@ export default function AccountPersonalView() {
     {
       id: 1,
       title: 'Courses Enrolled',
-      score: data ? data.length : 0,
+      score: data ? data.data.length : 0,
     },
     {
       id: 2,
@@ -129,7 +127,7 @@ export default function AccountPersonalView() {
       </Stack>
 
       {data &&
-        (data?.length > 0 ? (
+        (data.data?.length > 0 ? (
           <Grid
             container
             spacing={2}
@@ -139,7 +137,7 @@ export default function AccountPersonalView() {
               mt: 5,
             }}
           >
-            {data.map((course) => {
+            {data.data.map((course) => {
               const newCourse = {
                 id: course.id,
                 attributes: course,

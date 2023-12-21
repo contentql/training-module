@@ -9,19 +9,20 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { toast, ToastContainer } from 'react-toastify';
 
 import Link from '@mui/material/Link';
-import Stack from '@mui/material/Stack';
 import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
-import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
 import LoadingButton from '@mui/lab/LoadingButton';
 import InputAdornment from '@mui/material/InputAdornment';
 
 import { paths } from 'src/routes/paths';
 import Iconify from 'src/components/iconify';
-import { useBoolean } from 'src/hooks/use-boolean';
 import { RouterLink } from 'src/routes/components';
+import { useBoolean } from 'src/hooks/use-boolean';
+import { axiosClient } from 'src/utils/axiosClient';
 import FormProvider, { RHFTextField } from 'src/components/hook-form';
 
 // import { useUserStore } from '../../states/auth-store';
@@ -67,8 +68,8 @@ export default function ChangePassword() {
     console.log(password, confirmPassword);
     try {
       // Request API.
-      axios
-        .post(process.env.NEXT_PUBLIC_RESET_PASSWORD_URL, {
+      axiosClient
+        .post('/api/auth/reset-password', {
           code, // code contained in the reset link of step 3.
           password,
           passwordConfirmation: confirmPassword,

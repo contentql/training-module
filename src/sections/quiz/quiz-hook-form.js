@@ -8,8 +8,8 @@ import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
+import Button from '@mui/material/Button';
 import Backdrop from '@mui/material/Backdrop';
 import IconButton from '@mui/material/IconButton';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -18,6 +18,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 
 import Iconify from 'src/components/iconify';
+import { axiosClient } from 'src/utils/axiosClient';
 import { useUserStore } from 'src/states/auth-store';
 import { useResponsive } from 'src/hooks/use-responsive';
 import ElearningCourseDetailsQuestionList from 'src/sections/_elearning/details/elearning-course-details-question-item';
@@ -103,15 +104,12 @@ export default function QuizHookForm(props) {
       },
     };
     try {
-      const response = await fetch(process.env.NEXT_PUBLIC_QUIZ_SCORE, {
-        method: 'POST',
+      const response = await axiosClient.post('/api/quiz-scores', requestBody, {
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${userToken}`,
         },
-        body: JSON.stringify(requestBody),
       });
-      console.log(response);
     } catch (error) {
       console.log(error);
     }

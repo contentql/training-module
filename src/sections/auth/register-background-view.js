@@ -11,16 +11,17 @@ import Link from '@mui/material/Link';
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 // import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 // import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
 import LoadingButton from '@mui/lab/LoadingButton';
 import InputAdornment from '@mui/material/InputAdornment';
 
 import { paths } from 'src/routes/paths';
 import Iconify from 'src/components/iconify';
-import { useBoolean } from 'src/hooks/use-boolean';
 import { RouterLink } from 'src/routes/components';
+import { useBoolean } from 'src/hooks/use-boolean';
+import { axiosClient } from 'src/utils/axiosClient';
 import FormProvider, { RHFTextField } from 'src/components/hook-form';
 
 import { useUserStore } from '../../states/auth-store';
@@ -92,28 +93,41 @@ export default function RegisterBackgroundView() {
       const { userName, email, password, agency, city, country, phone } = data;
       const image = `/assets/images/avatar/avatar_${Math.floor(Math.random() * 25 + 1)}.jpg`;
 
-      const response = await fetch(process.env.NEXT_PUBLIC_REGISTER_URL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email,
-          username: userName,
-          password,
-          agency,
-          city,
-          country,
-          phone,
-          image,
-        }),
+      // const response = await fetch(process.env.NEXT_PUBLIC_REGISTER_URL, {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      //   body: JSON.stringify({
+      //     email,
+      //     username: userName,
+      //     password,
+      //     agency,
+      //     city,
+      //     country,
+      //     phone,
+      //     image,
+      //   }),
+      // });
+
+      const response = await axiosClient.post('/api/auth/local/register', {
+        email,
+        username: userName,
+        password,
+        agency,
+        city,
+        country,
+        phone,
+        image,
       });
 
-      const resData = await response.json();
+      console.log(response);
+
+      const resData = await response.data;
       const { jwt } = resData;
       localStorage.setItem('token', jwt);
 
-      if (response.ok) {
+      if (response.status === 200) {
         const userData = {
           authToken: resData.jwt,
           userName: resData.user.username,
@@ -127,10 +141,8 @@ export default function RegisterBackgroundView() {
         updateUserData(userData);
         setSuccess(true);
         reset();
-      } else if (response.status === 400) {
-        setLoginError(resData.error.message);
       } else {
-        setLoginError('An error occured, plese try again');
+        setLoginError('username already exists');
       }
     } catch (error) {
       console.error(error);

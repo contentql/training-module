@@ -1,6 +1,5 @@
 'use client';
 
-import axios from 'axios';
 import * as Yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -14,6 +13,7 @@ import Image from 'src/components/image';
 import { paths } from 'src/routes/paths';
 import Iconify from 'src/components/iconify';
 import { RouterLink } from 'src/routes/components';
+import { axiosClient } from 'src/utils/axiosClient';
 import FormProvider, { RHFTextField } from 'src/components/hook-form';
 
 // import { toastSettings } from '../../states/toast-settings';
@@ -47,8 +47,8 @@ export default function ForgotPasswordView() {
     try {
       // Request API.
 
-      axios
-        .post(process.env.NEXT_PUBLIC_FORGET_PASSWORD_URL, {
+      axiosClient
+        .post('/api/auth/forgot-password', {
           email, // user's email
         })
         .then((response) => {

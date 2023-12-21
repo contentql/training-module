@@ -14,6 +14,7 @@ import Typography from '@mui/material/Typography';
 // import InputAdornment from '@mui/material/InputAdornment';
 
 // import { _mock } from 'src/_mock';
+import { axiosClient } from 'src/utils/axiosClient';
 // import { getScoreData } from 'src/queries/score';
 import { useUserStore } from 'src/states/auth-store';
 
@@ -91,22 +92,12 @@ export default function EcommerceAccountVouchersView() {
 
   const [quizScore, setQuizScore] = useState([]);
 
-  // const { data, isLoading } = useQuery({
-  //   queryKey: ['orders', userData.id],
-  //   queryFn: getScoreData,
-  //   select: (ordersData) =>
-  //     ordersData.filter((orderData) => userData.username === orderData.attributes.username),
-  // });
-
-  // console.log({ data });
-
   useEffect(() => {
     const fetchScore = async () => {
-      const res = await fetch(process.env.NEXT_PUBLIC_QUIZ_SCORE);
-      const data = await res.json();
+      const data = await axiosClient.get('/api/quiz-scores');
 
       setQuizScore(
-        data.data.filter((scoreData) => userData.username === scoreData.attributes.username)
+        data?.data.data.filter((scoreData) => userData.username === scoreData.attributes.username)
       );
     };
     fetchScore();
