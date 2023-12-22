@@ -5,15 +5,22 @@
 import { useState, useEffect } from 'react';
 
 import Box from '@mui/material/Box';
+import { Link } from '@mui/material';
+import Stack from '@mui/material/Stack';
 // import Tab from '@mui/material/Tab';
 // import Tabs from '@mui/material/Tabs';
-// import Button from '@mui/material/Button';
+import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 // import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
+
+import { paths } from 'src/routes/paths';
+import Image from 'src/components/image';
+import Iconify from 'src/components/iconify';
 // import InputAdornment from '@mui/material/InputAdornment';
 
 // import { _mock } from 'src/_mock';
+import { RouterLink } from 'src/routes/components';
 import { axiosClient } from 'src/utils/axiosClient';
 // import { getScoreData } from 'src/queries/score';
 import { useUserStore } from 'src/states/auth-store';
@@ -156,17 +163,60 @@ export default function EcommerceAccountVouchersView() {
         ))}
       </Tabs> */}
 
-      <Box
-        gap={3}
-        display="grid"
-        gridTemplateColumns={{
-          xs: 'repeat(1, 1fr)',
-          md: 'repeat(2, 1fr)',
-        }}
-      >
-        {coursesCertificatesFilter().map((data) => (
-          <EcommerceAccountVoucherItem key={data.id} certificateData={data} userData={userData} />
-        ))}
+      <Box>
+        {quizScore.length ? (
+          coursesCertificatesFilter().map((data) => (
+            <Box
+              gap={3}
+              display="grid"
+              gridTemplateColumns={{
+                xs: 'repeat(1, 1fr)',
+                md: 'repeat(2, 1fr)',
+              }}
+            >
+              <EcommerceAccountVoucherItem
+                key={data.id}
+                certificateData={data}
+                userData={userData}
+              />
+            </Box>
+          ))
+        ) : (
+          <Box>
+            <Stack
+              sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                textAlign: 'center',
+                position: 'relative',
+                ml: { md: -2 },
+                mt: { xs: 12, md: 4 },
+              }}
+            >
+              <Image
+                alt="Empty State My Learning"
+                src="/assets/images/empty-states/no-wishlist.png"
+                sx={{
+                  height: { xs: 122, md: 182 },
+                  width: { xs: 160, md: 220 },
+                  objectFit: 'cover',
+                }}
+              />
+
+              <Link component={RouterLink} href={paths.eLearning.courses} sx={{ pt: 10 }}>
+                <Button
+                  sx={{ bgcolor: '#FF774B' }}
+                  size="large"
+                  variant="contained"
+                  startIcon={<Iconify icon="carbon:chevron-left" />}
+                >
+                  Start Learning
+                </Button>
+              </Link>
+            </Stack>
+          </Box>
+        )}
       </Box>
     </>
   );

@@ -1,5 +1,6 @@
 import * as Yup from 'yup';
 import { useForm } from 'react-hook-form';
+import 'react-toastify/dist/ReactToastify.css';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { toast, ToastContainer } from 'react-toastify';
 
@@ -116,13 +117,13 @@ export default function ElearningContactForm() {
   return (
     <Box
       sx={{
-        // bgcolor: 'background.neutral',
-        ...bgGradient({
-          endColor: '#FFCEBD',
-          startColor: '#f7f5f4',
-          color: alpha(theme.palette.background.default, 0.1),
-          // imgUrl: '/assets/background/overlay_3.jpg',
-        }),
+        bgcolor: 'background.neutral',
+        // ...bgGradient({
+        //   endColor: '#FFCEBD',
+        //   startColor: '#f7f5f4',
+        //   color: alpha(theme.palette.background.default, 0.1),
+        //   // imgUrl: '/assets/background/overlay_3.jpg',
+        // }),
         py: { xs: 10, md: 10 },
       }}
     >
@@ -175,7 +176,6 @@ export default function ElearningContactForm() {
               >
                 Send Request
               </LoadingButton>
-
               <ToastContainer
                 position="bottom-right"
                 autoClose={3000}

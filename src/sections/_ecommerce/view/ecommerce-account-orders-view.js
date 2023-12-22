@@ -5,12 +5,17 @@ import { useState, useCallback } from 'react';
 
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
+import { Link } from '@mui/material';
+import Grid from '@mui/material/Grid';
 import Tabs from '@mui/material/Tabs';
 // import Stack from '@mui/material/Stack';
 import Table from '@mui/material/Table';
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
 // import Switch from '@mui/material/Switch';
 import TableRow from '@mui/material/TableRow';
 import TableBody from '@mui/material/TableBody';
+import Container from '@mui/material/Container';
 // import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 // import InputAdornment from '@mui/material/InputAdornment';
@@ -19,6 +24,11 @@ import TableContainer from '@mui/material/TableContainer';
 import TablePagination from '@mui/material/TablePagination';
 // import FormControlLabel from '@mui/material/FormControlLabel';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+
+import { paths } from 'src/routes/paths';
+import Image from 'src/components/image';
+import Iconify from 'src/components/iconify';
+import { RouterLink } from 'src/routes/components';
 
 // import { _productsTable } from 'src/_mock';
 // import Iconify from 'src/components/iconify';
@@ -147,123 +157,126 @@ export default function EcommerceAccountOrdersPage() {
         Orders
       </Typography>
 
-      <Tabs
-        value={tab}
-        scrollButtons="auto"
-        variant="scrollable"
-        allowScrollButtonsMobile
-        onChange={handleChangeTab}
-      >
-        {TABS.map((category) => (
-          <Tab key={category} value={category} label={category} />
-        ))}
-      </Tabs>
-
-      {/* <Stack direction={{ xs: 'column', md: 'row' }} spacing={2} sx={{ mt: 5, mb: 3 }}>
-        <TextField
-          fullWidth
-          hiddenLabel
-          placeholder="Search..."
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <Iconify icon="carbon:search" width={24} sx={{ color: 'text.disabled' }} />
-              </InputAdornment>
-            ),
-          }}
-        />
-        <Stack spacing={2} direction={{ xs: 'column', md: 'row' }} alignItems="center">
-          <DatePicker label="Start Date" sx={{ width: 1, minWidth: 180 }} />
-          <DatePicker label="End Date" sx={{ width: 1, minWidth: 180 }} />
-        </Stack>
-      </Stack> */}
-
-      <TableContainer
-        sx={{
-          overflow: 'unset',
-          [`& .${tableCellClasses.head}`]: {
-            color: 'text.primary',
-          },
-          [`& .${tableCellClasses.root}`]: {
-            bgcolor: 'background.default',
-            borderBottomColor: (theme) => theme.palette.divider,
-          },
-        }}
-      >
-        <EcommerceAccountOrdersTableToolbar
-          rowCount={data?.length}
-          numSelected={selected.length}
-          onSelectAllRows={handleSelectAllRows}
-        />
-
-        <Scrollbar>
-          <Table
-            sx={{
-              minWidth: 720,
-            }}
-            size={dense ? 'small' : 'medium'}
+      {data?.length ? (
+        <>
+          <Tabs
+            value={tab}
+            scrollButtons="auto"
+            variant="scrollable"
+            allowScrollButtonsMobile
+            onChange={handleChangeTab}
           >
-            <EcommerceAccountOrdersTableHead
-              order={order}
-              orderBy={orderBy}
-              onSort={handleSort}
-              headCells={TABLE_HEAD}
+            {TABS.map((category) => (
+              <Tab key={category} value={category} label={category} />
+            ))}
+          </Tabs>
+          <TableContainer
+            sx={{
+              overflow: 'unset',
+              [`& .${tableCellClasses.head}`]: {
+                color: 'text.primary',
+              },
+              [`& .${tableCellClasses.root}`]: {
+                bgcolor: 'background.default',
+                borderBottomColor: (theme) => theme.palette.divider,
+              },
+            }}
+          >
+            <EcommerceAccountOrdersTableToolbar
               rowCount={data?.length}
               numSelected={selected.length}
               onSelectAllRows={handleSelectAllRows}
             />
 
-            <TableBody>
-              {data &&
-                stableSort(data, getComparator(order, orderBy))
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((row) => (
-                    <EcommerceAccountOrdersTableRow
-                      key={row.id}
-                      row={row.attributes}
-                      selected={selected.includes(row.id)}
-                      onSelectRow={() => handleSelectRow(row.id)}
-                    />
-                  ))}
+            <Scrollbar>
+              <Table
+                sx={{
+                  minWidth: 720,
+                }}
+                size={dense ? 'small' : 'medium'}
+              >
+                <EcommerceAccountOrdersTableHead
+                  order={order}
+                  orderBy={orderBy}
+                  onSort={handleSort}
+                  headCells={TABLE_HEAD}
+                  rowCount={data?.length}
+                  numSelected={selected.length}
+                  onSelectAllRows={handleSelectAllRows}
+                />
 
-              {emptyRows > 0 && (
-                <TableRow
-                  sx={{
-                    height: (dense ? 36 : 57) * emptyRows,
-                  }}
-                >
-                  <TableCell colSpan={9} />
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </Scrollbar>
-      </TableContainer>
+                <TableBody>
+                  {data &&
+                    stableSort(data, getComparator(order, orderBy))
+                      .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                      .map((row) => (
+                        <EcommerceAccountOrdersTableRow
+                          key={row.id}
+                          row={row.attributes}
+                          selected={selected.includes(row.id)}
+                          onSelectRow={() => handleSelectRow(row.id)}
+                        />
+                      ))}
 
-      <Box sx={{ position: 'relative' }}>
-        <TablePagination
-          page={page}
-          component="div"
-          count={data ? data.length : 0}
-          rowsPerPage={rowsPerPage}
-          onPageChange={handleChangePage}
-          rowsPerPageOptions={[5, 10, 25]}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
-
-        {/* <FormControlLabel
-          control={<Switch checked={dense} onChange={handleChangeDense} />}
-          label="Dense padding"
+                  {emptyRows > 0 && (
+                    <TableRow
+                      sx={{
+                        height: (dense ? 36 : 57) * emptyRows,
+                      }}
+                    >
+                      <TableCell colSpan={9} />
+                    </TableRow>
+                  )}
+                </TableBody>
+              </Table>
+            </Scrollbar>
+          </TableContainer>
+          <Box sx={{ position: 'relative' }}>
+            <TablePagination
+              page={page}
+              component="div"
+              count={data ? data.length : 0}
+              rowsPerPage={rowsPerPage}
+              onPageChange={handleChangePage}
+              rowsPerPageOptions={[5, 10, 25]}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+            />
+          </Box>
+        </>
+      ) : (
+        <Stack
           sx={{
-            pl: 2,
-            py: 1.5,
-            top: 0,
-            position: {
-              sm: 'absolute',
-            },
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            textAlign: 'center',
+            position: 'relative',
+            ml: { md: -2 },
+            mt: { xs: 12, md: 4 },
           }}
-        /> */}
-      </Box>
+        >
+          <Image
+            alt="Empty State My Learning"
+            src="/assets/images/empty-states/empty-cart.png"
+            sx={{
+              height: { xs: 122, md: 300 },
+              width: { xs: 160, md: 300 },
+              objectFit: 'cover',
+            }}
+          />
+
+          <Link component={RouterLink} href={paths.eLearning.courses} sx={{ pt: 6 }}>
+            <Button
+              sx={{ bgcolor: '#FF774B' }}
+              size="large"
+              variant="contained"
+              startIcon={<Iconify icon="carbon:chevron-left" />}
+            >
+              Order now
+            </Button>
+          </Link>
+        </Stack>
+      )}
     </>
   );
 }

@@ -576,13 +576,6 @@ export default function ElearningCourseDetailsLessonsDialog({
         // direction="column-reverse"
         // sx={{ position: 'fixed', top: 100, left: 24, height: '4rem', maxWidth: 1150, width: '21%' }}
       >
-        {/* <CustomBreadcrumbs
-          links={[{ name: courseTitle, href: paths.eLearning.courses }]}
-          sx={{
-            pt: 5,
-            mb: { xs: 5, md: 2 },
-          }}
-        /> */}
         <Typography variant="h6">{courseTitle}</Typography>
         <Box
           sx={{
