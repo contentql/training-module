@@ -32,7 +32,7 @@ const SERVICES = [
   },
   {
     name: 'Certificate',
-    icon: '/assets/icons/service/certificate.svg',
+    icon: '/assets/icons/service/quality.svg',
     content:
       'Upon completion of the course certificate will be provided after completion of course.',
     bgcolor: '#ffe2d3',
@@ -41,7 +41,7 @@ const SERVICES = [
   },
   {
     name: 'Quality Assurance',
-    icon: '/assets/icons/service/quality.svg',
+    icon: '/assets/icons/service/certificate.svg',
     content: 'We set the bar for excellence in home and community support services.',
     bgcolor: '#d6eded',
     color: '#35b27c',
@@ -115,7 +115,24 @@ function ServiceItem({ service, index }) {
         // bgcolor: (theme) => theme.palette[COLORS[index]].light,
         bgcolor,
         '&:hover': {
-          boxShadow: (theme) => `-0px 0px 30px ${hovercolor}`,
+          transition: 'transform 0.6s ease-in-out',
+          boxShadow: () => `-0px 0px 14px ${hovercolor}`,
+          transform: 'scale(1.05)',
+          '& img': {
+            transition: 'transform 0.6s ease-in-out',
+            animation: 'bounce 1s',
+          },
+          '@keyframes bounce': {
+            '0%, 20%, 50%, 80%, 100%': {
+              transform: 'translateY(0)',
+            },
+            '40%': {
+              transform: 'translateY(-10px)',
+            },
+            '60%': {
+              transform: 'translateY(-10px)',
+            },
+          },
           // boxShadow: alpha(color, 0.2),
         },
         ...(index === 1 && {
@@ -129,14 +146,16 @@ function ServiceItem({ service, index }) {
         }),
       }}
     >
-      <SvgColor
+      {/* <SvgColor
         src={icon}
         sx={{
           width: 64,
           height: 64,
           // opacity: 0.48,
         }}
-      />
+      /> */}
+
+      <img src={icon} alt="icon" />
 
       <Typography variant="h5" sx={{ mt: 2, mb: 1, textAlign: 'left' }}>
         {name}
