@@ -7,14 +7,12 @@ import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useQuery, useQueryClient } from 'react-query';
 
-import List from '@mui/material/List';
 import Stack from '@mui/material/Stack';
 import { Box, styled } from '@mui/system';
 import { grey } from '@mui/material/colors';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
 import { Link, Button, Divider } from '@mui/material';
 import ListItemText from '@mui/material/ListItemText';
 // import Dialog from '@mui/material/Dialog';
@@ -90,11 +88,7 @@ export default function ElearningCourseDetailsLessonsDialog({
     refetchOnWindowFocus: false,
   });
 
-  // const lessonData =
-  //   data &&
-  //   data?.attributes.lesson.find(
-  //     (l) => l.title.toString() === searchParams.get('lesson').toString()
-  //   );
+  console.log('data', lessonData);
 
   const { data: userProgressData } = useQuery({
     queryKey: ['userProgress'],
@@ -141,43 +135,6 @@ export default function ElearningCourseDetailsLessonsDialog({
     setDrawerOpen(value);
   };
 
-  // const renderVideo = (
-  //   <Stack
-  //     alignItems="center"
-  //     justifyContent="center"
-  //     sx={{
-  //       width: 1,
-  //       height: 1,
-  //       aspectRatio: 16 / 9,
-  //     }}
-  //   >
-  //     {selectedLesson?.videoPath ? (
-  //       <Player
-  //         controls
-  //         url={selectedLesson?.videoPath}
-  //         playing={playing}
-  //         onReady={onReady}
-  //         onEnded={onEnded}
-  //         onPlay={onPlay}
-  //         onPause={onPause}
-  //       />
-  //     ) : (
-  //       <Stack
-  //         alignItems="center"
-  //         justifyContent="center"
-  //         sx={{
-  //           width: 1,
-  //           height: 1,
-  //           typography: 'h6',
-  //           color: 'text.disabled',
-  //           bgcolor: 'background.neutral',
-  //         }}
-  //       >
-  //         No Data
-  //       </Stack>
-  //     )}
-  //   </Stack>
-  // );
   const userToken = localStorage.getItem('token');
 
   const getUserProgress = async (lesson) => {
@@ -196,24 +153,11 @@ export default function ElearningCourseDetailsLessonsDialog({
         setUserLessonData(
           list.data.map((l) => ({ LessonTitle: l.LessonTitle, course_id: l.course_id }))
         );
-
-        // list.data.forEach((listData) => {
-        //   userLessonData.forEach((userLesson) => {
-        //     if (userLesson.LessonTitle !== listData.LessonTitle) {
-        //       //
-        //       setUserLessonData((prev) => [...prev, { LessonTitle: listData.LessonTitle }]);
-        //     }
-        //   });
-        // });
       });
       if (res.data.length === 0) {
         console.log('refetch');
         refetch();
       }
-      // res?.data.map((list) =>
-      //   if(userLessons.LessonTitle)
-      //   updateLessons(list.data.map((l) => ({ LessonTitle: l.LessonTitle })))
-      // );
     } catch (error) {
       console.log(error);
     }

@@ -3,11 +3,9 @@ import PropTypes from 'prop-types';
 
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
+import { Button } from '@mui/material';
 import Stack from '@mui/material/Stack';
-import Divider from '@mui/material/Divider';
-import { alpha } from '@mui/material/styles';
 import Container from '@mui/material/Container';
-import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 
 import { paths } from 'src/routes/paths';
@@ -62,11 +60,6 @@ const SERVICES = [
     hovercolor: '#92d1b6',
   },
 ];
-
-const iconAnimate = () => {
-  // eslint-disable-next-line no-unused-expressions
-  varBounce().in;
-};
 
 // ----------------------------------------------------------------------
 
@@ -130,22 +123,39 @@ function ServiceItem({ service, index }) {
           color,
           bgcolor,
           '&:hover': {
-            boxShadow: (theme) => `-0px 0px 30px ${hovercolor}`,
+            transition: 'transform 1s ease-in-out',
+            boxShadow: () => `-0px 0px 14px ${hovercolor}`,
+            transform: 'scale(1.05)',
+
+            '& img': {
+              animation: 'bounce 1s',
+              transition: 'transform 1s ease-in-out',
+            },
+            '@keyframes bounce': {
+              '0%, 20%, 50%, 80%, 100%': {
+                transform: 'translateY(0)',
+              },
+              '40%': {
+                transform: 'translateY(-10px)',
+              },
+              '60%': {
+                transform: 'translateY(-10px)',
+              },
+            },
           },
         }}
       >
-        <m.div variants={varBounce().in}>
-          <SvgColor
-            src={icon}
-            sx={{
-              width: 88,
-              height: 88,
-              mx: 'auto',
-              color,
-              // '&:hover': {}
-            }}
-          />
-        </m.div>
+        {/* <SvgColor
+          src={icon}
+          sx={{
+            width: 88,
+            height: 88,
+            mx: 'auto',
+            color,
+          }}
+        /> */}
+
+        <img src={icon} alt="icon" />
 
         <Stack spacing={1} sx={{ my: 2 }}>
           <Typography
