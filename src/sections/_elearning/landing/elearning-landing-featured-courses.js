@@ -7,6 +7,9 @@ import Container from '@mui/material/Container';
 import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 
+import { getOrdersData } from 'src/queries/orders';
+import { axiosClient } from 'src/utils/axiosClient';
+import { useUserStore } from 'src/states/auth-store';
 import { getCoursesData } from 'src/queries/courses';
 import { useResponsive } from 'src/hooks/use-responsive';
 import Carousel, { useCarousel, CarouselArrows } from 'src/components/carousel';
@@ -20,6 +23,62 @@ export default function ElearningLandingFeaturedCourses() {
     queryKey: ['courses'],
     queryFn: getCoursesData,
   });
+
+  const userData = useUserStore((state) => state.UserData);
+
+  const {
+    data: orders,
+    // isLoading
+  } = useQuery({
+    queryKey: ['orders', userData.id],
+    queryFn: getOrdersData,
+    select: (ordersData) =>
+      ordersData.filter((orderData) => userData.username === orderData.attributes.username),
+  });
+
+  const createdAt = orders?.map((order) => order.attributes.createdAt);
+
+  // const totalHours = 8760;
+
+  const givenDate = new Date(createdAt?.map((date) => date));
+
+  // console.log(givenDate);
+
+  const currentDate = new Date();
+
+  const timeDifference = givenDate.getTime() - currentDate.getTime();
+
+  const hoursDifference = Math.abs(timeDifference / (1000 * 60 * 60));
+
+  console.log(hoursDifference);
+
+  // console.log('orderDate', createdAt.substring(0, 4));
+
+  // console.log('orderDate', createdAt[0]);
+
+  const removeUserToCourse = () => {
+    orders?.map((order) =>
+      order.attributes.products.map((product) =>
+        axiosClient
+          .put(`/api/courses/${product.id}`, {
+            data: {
+              users: {
+                disconnect: [userData.id],
+              },
+            },
+          })
+          .then((res) => {
+            console.log('Array updated successfully ', res.data);
+          })
+          .catch((err) => console.log(err))
+      )
+    );
+  };
+
+  // if (hoursDifference > 0.15) {
+  //   removeUserToCourse();
+  // }
+
   const theme = useTheme();
 
   const carousel = useCarousel({

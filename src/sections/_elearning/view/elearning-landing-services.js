@@ -123,13 +123,13 @@ function ServiceItem({ service, index }) {
           color,
           bgcolor,
           '&:hover': {
-            transition: 'transform 0.6s ease-in-out',
+            transition: 'transform 1s ease-in-out',
             boxShadow: () => `-0px 0px 14px ${hovercolor}`,
             transform: 'scale(1.05)',
 
             '& img': {
               animation: 'bounce 1s',
-              transition: 'transform 0.6s ease-in-out',
+              transition: 'transform 1s ease-in-out',
             },
             '@keyframes bounce': {
               '0%, 20%, 50%, 80%, 100%': {
