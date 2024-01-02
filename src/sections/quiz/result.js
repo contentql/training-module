@@ -15,7 +15,9 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
 
-const Result = ({ answers, restartQuiz, questions }) => {
+const Result = ({ answers, restartQuiz, questions, endTime, startTime }) => {
+  console.log('startTime: ', startTime);
+  console.log('endTime: ', endTime);
   const correctAnswers = useMemo(
     () =>
       questions.filter((q, i) =>
@@ -60,6 +62,7 @@ const Result = ({ answers, restartQuiz, questions }) => {
               <span>Wrong Answer</span>
             </Box>
           </Typography>
+
           <Divider sx={{ my: 2, backgroundColor: 'divider' }} />
           <Typography variant="h5" gutterBottom>
             {correctAnswers} / {questions.length}
@@ -67,6 +70,23 @@ const Result = ({ answers, restartQuiz, questions }) => {
           <Typography variant="body1" color={messageColor} sx={{ mt: 2, mb: 3 }}>
             {message}
           </Typography>
+
+          <Box sx={{ p: 2 }}>
+            <Box sx={{ display: 'flex' }} textAlign="center">
+              <Typography variant="h6">Started on : </Typography>
+              <Typography sx={{ pt: 0.4, pl: 1 }} variant="body1">
+                {' '}
+                {startTime}
+              </Typography>
+            </Box>
+            <Box sx={{ display: 'flex' }} textAlign="center">
+              <Typography variant="h6">Completed on : </Typography>
+              <Typography sx={{ pt: 0.4, pl: 1 }} variant="body1">
+                {' '}
+                {endTime}
+              </Typography>
+            </Box>
+          </Box>
           <List sx={{ backgroundColor: 'background.paper' }}>
             {questions.map((q, i) => (
               <Accordion key={i} sx={{ my: 1 }}>
@@ -129,6 +149,8 @@ Result.propTypes = {
   answers: PropTypes.array.isRequired,
   restartQuiz: PropTypes.func.isRequired,
   questions: PropTypes.array.isRequired,
+  startTime: PropTypes.any,
+  endTime: PropTypes.any,
 };
 
 export default Result;

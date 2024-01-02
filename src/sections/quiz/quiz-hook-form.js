@@ -30,9 +30,13 @@ import QuestionCard from './question-card';
 // ----------------------------------------------------------------------
 
 export default function QuizHookForm(props) {
-  const { questions, handleModalClose, courseName, score } = props;
+  const currentDate = new Date();
+
+  const { questions, handleModalClose, courseName, score, startTime } = props;
 
   const { UserData } = useUserStore();
+
+  const [endTime, setEndTime] = useState(0);
 
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState([...Array(questions.length)]);
@@ -118,6 +122,9 @@ export default function QuizHookForm(props) {
   // console.log('correctAnswers', correctAnswers);
   const submitQuiz = () => {
     setFinishedQuiz(true);
+
+    setEndTime(currentDate.toLocaleString());
+
     if (score) {
       addScoreToStrapi();
     }
@@ -170,7 +177,13 @@ export default function QuizHookForm(props) {
       </IconButton>
       <div className="p-5">
         {finishedQuiz ? (
-          <Result restartQuiz={restartQuiz} answers={answers} questions={questions} />
+          <Result
+            restartQuiz={restartQuiz}
+            answers={answers}
+            questions={questions}
+            startTime={startTime}
+            endTime={endTime}
+          />
         ) : (
           <Grid direction={{ xs: 'column-reverse', md: 'row' }} container className="h-full">
             <Grid item md={4} className="md:px-5 h-fit">
@@ -253,4 +266,5 @@ QuizHookForm.propTypes = {
   handleModalClose: PropTypes.func.isRequired,
   courseName: PropTypes.any,
   score: PropTypes.bool,
+  startTime: PropTypes.any,
 };
