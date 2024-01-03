@@ -118,8 +118,7 @@ export const _faqs = [
   },
   {
     question: 'Can I download course materials for offline access?',
-    answer:
-      'No, we are not providing course materials for offline access. But you have lifetime access to the course once enrolled',
+    answer: 'No, we are not providing course materials for offline access.',
   },
   {
     question: 'Do you offer certificates upon course completion?',

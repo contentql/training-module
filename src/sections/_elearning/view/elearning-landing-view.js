@@ -7,12 +7,13 @@ import { useState, useEffect } from 'react';
 import { Box, Modal, Button, Typography } from '@mui/material';
 
 import { _testimonials } from 'src/_mock';
+import Iconify from 'src/components/iconify';
 import { getCoursesData } from 'src/queries/courses';
 import { SplashScreen } from 'src/components/loading-screen';
 
 import ElearningNewsletter from '../elearning-newsletter';
-import ElearningLandingFaqs from '../landing/elearning-landing-faqs';
 import ElearningLandingHero from '../landing/elearning-landing-hero';
+import ElearningLandingFaqs from '../landing/elearning-landing-faqs';
 import ElearningTestimonial from '../testimonial/elearning-testimonial';
 // import ElearningLatestPosts from '../../blog/elearning/elearning-latest-posts';
 import ElearningLandingFeaturedCourses from '../landing/elearning-landing-featured-courses';
@@ -55,8 +56,16 @@ export default function ElearningLandingView() {
             borderRadius: 2,
           }}
         >
-          <Button sx={{ left: '80%', color: 'red' }} onClick={() => handleClose()}>
-            closed
+          <Button
+            sx={{ left: '85%', color: 'red', borderRadius: 80 }}
+            onClick={() => handleClose()}
+          >
+            <Iconify
+              icon="carbon:close"
+              width="25px"
+              height="25px"
+              sx={{ color: 'red', left: '85%' }}
+            />
           </Button>
           <Box sx={{ p: 1, color: 'black', textAlign: 'center' }}>
             <Typography
