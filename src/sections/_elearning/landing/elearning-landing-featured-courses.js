@@ -52,7 +52,7 @@ export default function ElearningLandingFeaturedCourses() {
 
   const hoursDifference = Math.abs(timeDifference / (1000 * 60 * 60));
 
-  // console.log(hoursDifference);
+  console.log(hoursDifference);
 
   // console.log('orderDate', createdAt.substring(0, 4));
 
