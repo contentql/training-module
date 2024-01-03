@@ -77,9 +77,9 @@ export default function ElearningLandingFeaturedCourses() {
     );
   };
 
-  // if (hoursDifference > 0.15) {
-  //   removeUserToCourse();
-  // }
+  if (hoursDifference > 0.15) {
+    removeUserToCourse();
+  }
 
   const theme = useTheme();
 
