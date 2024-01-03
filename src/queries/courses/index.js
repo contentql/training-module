@@ -4,7 +4,7 @@ export const getCoursesData = async () => {
   const data = await fetchData(
     `
         query {
-            courses(sort: "id") {
+            courses(sort : "createdAt"){
                 data {
                     id
                     attributes {

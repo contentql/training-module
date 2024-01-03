@@ -37,6 +37,7 @@ export default function ElearningLandingView() {
 
   return (
     <>
+      {/* pop up */}
       <Modal open={open} onClose={handleClose}>
         <Box
           sx={{
@@ -76,24 +77,19 @@ export default function ElearningLandingView() {
         </Box>
       </Modal>
 
+      {/* pop up end */}
+
       <ElearningLandingHero />
 
-      {/* <ElearningLandingAbout /> */}
-
-      {/* <ElearningLandingIntroduce /> */}
       <ElearningLandingServices />
 
       <ElearningLandingProcess />
-
-      {/* <ElearningLandingSummary /> */}
 
       <ElearningLandingFeaturedCourses />
 
       <ElearningTestimonial testimonials={_testimonials} />
 
       <ElearningLandingFaqs />
-
-      {/* <ElearningLatestPosts posts={_coursePosts.slice(0, 4)} /> */}
 
       <ElearningNewsletter />
     </>
