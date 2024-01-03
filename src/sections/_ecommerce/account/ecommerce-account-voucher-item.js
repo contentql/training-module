@@ -36,18 +36,24 @@ export default function EcommerceAccountVoucherItem({ certificateData }) {
       image: '/assets/images/course/basic.png',
     },
     {
-      courseTitle: 'TX Administrator Basics & Beyond (16 Hours)',
+      courseTitle: '16 Hours for New Administrators and Alternates',
       image: '/assets/images/course/basicsandbeyond.png',
+      // image: '/assets/images/course/basic.png',
     },
     {
-      courseTitle: 'TX Administrator Advanced Level (12 Hours)',
+      courseTitle: '12 Hours for existing Administrators and Alternates',
       image: '/assets/images/course/advanced.png',
+      // image: '/assets/images/course/basic.png',
     },
   ];
 
   const imageUrl = certificateImages
     .filter((data) => data.courseTitle === certificateData.attributes.courseTitle)
-    .at(0).image;
+    .at(0)?.image;
+
+  console.log(imageUrl);
+
+  console.log(certificateData);
 
   return (
     <Stack

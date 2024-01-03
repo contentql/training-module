@@ -21,9 +21,13 @@ import QuizHookForm from './quiz-hook-form';
 import { shuffleArray } from './utils/shuffle-array';
 
 export default function QuizForm(props) {
+  const currentDate = new Date();
+
   const { _questions, hasBoughtCourse, courseName, score, finalQuiz, title } = props;
 
   const [quizOpen, setOpen] = useState(false);
+
+  const [startTime, setStartTime] = useState(0);
 
   const [popupOpen, setPopupOpen] = useState(false);
 
@@ -46,8 +50,10 @@ export default function QuizForm(props) {
   const mdUp = useResponsive('up', 'md');
 
   const handleClickOpen = () => {
-    if (hasBoughtCourse) setOpen(true);
-    else
+    if (hasBoughtCourse) {
+      setOpen(true);
+      setStartTime(currentDate.toLocaleString());
+    } else
       toast.error('Please buy the course to start the test', {
         position: 'bottom-right',
         autoClose: 5000,
@@ -130,6 +136,7 @@ export default function QuizForm(props) {
           questions={questions}
           courseName={courseName}
           handleModalClose={handleModalClose}
+          startTime={startTime}
           score={score}
           name={inputRef.current}
         />

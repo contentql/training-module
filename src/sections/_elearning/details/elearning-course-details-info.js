@@ -87,12 +87,12 @@ export default function ElearningCourseDetailsInfo({ course }) {
             <Box component="strong" sx={{ mr: 0.5 }}>
               {course.attributes.resources}
             </Box>
-            Downloadable resources
+            Multiple practice tests
           </Stack>
 
           <Stack direction="row" alignItems="center" sx={{ typography: 'body2' }}>
             <Iconify icon="carbon:data-accessor" sx={{ mr: 1 }} />
-            Full lifetime access
+            One year access of course
           </Stack>
 
           <Stack direction="row" alignItems="center" sx={{ typography: 'body2' }}>

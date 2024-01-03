@@ -15,10 +15,11 @@ import { SettingsDrawer, SettingsProvider } from 'src/components/settings';
 // ----------------------------------------------------------------------
 
 export const metadata = {
-  title: 'CQL Design UI Kit',
+  title: 'Ryzolve Training Module',
   description:
-    'The CQL Design is built on top of MUI, a powerful library that provides flexible, customizable, and easy-to-use components.',
-  keywords: 'react,material,kit,application,dashboard,admin,template',
+    'We facilitate the licensing and training processes for home care businesses. Embark on our Administrator/Manager Training programs in Texas, offering flexible durations of 8, 12, or 16 hours.',
+  keywords:
+    'ryzolve training module, ryzolve, training module,administrator/manager training programs in Texas ',
   themeColor: '#000000',
   manifest: '/manifest.json',
   icons: [

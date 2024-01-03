@@ -24,6 +24,8 @@ export default function ElearningLandingFeaturedCourses() {
     queryFn: getCoursesData,
   });
 
+  console.log('courses', data);
+
   const userData = useUserStore((state) => state.UserData);
 
   const {
@@ -50,7 +52,7 @@ export default function ElearningLandingFeaturedCourses() {
 
   const hoursDifference = Math.abs(timeDifference / (1000 * 60 * 60));
 
-  console.log(hoursDifference);
+  // console.log(hoursDifference);
 
   // console.log('orderDate', createdAt.substring(0, 4));
 
@@ -75,9 +77,9 @@ export default function ElearningLandingFeaturedCourses() {
     );
   };
 
-  // if (hoursDifference > 0.15) {
-  //   removeUserToCourse();
-  // }
+  if (hoursDifference > 0.15) {
+    removeUserToCourse();
+  }
 
   const theme = useTheme();
 
