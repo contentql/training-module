@@ -24,8 +24,6 @@ export default function ElearningLandingFeaturedCourses() {
     queryFn: getCoursesData,
   });
 
-  console.log('courses', data);
-
   const userData = useUserStore((state) => state.UserData);
 
   const {
@@ -38,48 +36,85 @@ export default function ElearningLandingFeaturedCourses() {
       ordersData.filter((orderData) => userData.username === orderData.attributes.username),
   });
 
-  const createdAt = orders?.map((order) => order.attributes.createdAt);
+  const removeUserToCourse = (orderId) => {
+    console.log('remove user to course', orderId);
+    // orders?.map((order) =>
+    //   order.attributes.products.map((product) =>
+    //     axiosClient
+    //       .put(`/api/courses/${product.id}`, {
+    //         data: {
+    //           users: {
+    //             disconnect: [userData.id],
+    //           },
+    //         },
+    //       })
+    //       .then((res) => {
+    //         console.log('Array updated successfully ', res.data);
+    //       })
+    //       .catch((err) => console.log(err))
+    //   )
+    // );
+    const expiredOrder = orders?.find((order) => order.id === orderId);
+    expiredOrder.attributes.products.map((product) =>
+      axiosClient
+        .put(`/api/courses/${product.id}`, {
+          data: {
+            users: {
+              disconnect: [userData.id],
+            },
+          },
+        })
+        .then((res) => {
+          // console.log('Array updated successfully ', res.data);
+        })
+        .catch((err) => console.log(err))
+    );
+  };
+
+  // const getExpiredOrder = () => {
+  //   const createdAt = orders?.map((order) => ({
+  //     date: new Date(order.attributes.createdAt),
+  //     id: order.attributes.id,
+  //   }));
+  // };
+
+  // const expiredOrderId = getExpiredOrder();
+
+  orders?.forEach((order) => {
+    const createdDate = new Date(order.attributes.createdAt);
+    const currentDate = new Date();
+
+    const timeDifference = createdDate.getTime() - currentDate.getTime();
+
+    const hoursDifference = Math.abs(timeDifference / (1000 * 60 * 60));
+    if (hoursDifference > 0.1) {
+      console.log('id', order);
+      removeUserToCourse(order.id);
+    }
+  });
+  // console.log(createdAt);
 
   // const totalHours = 8760;
 
-  const givenDate = new Date(createdAt?.map((date) => date));
+  // const givenDate = new Date(createdAt?.map((date) => date));
 
-  // console.log(givenDate);
+  // // console.log(givenDate);
 
-  const currentDate = new Date();
+  // const currentDate = new Date();
 
-  const timeDifference = givenDate.getTime() - currentDate.getTime();
+  // const timeDifference = givenDate.getTime() - currentDate.getTime();
 
-  const hoursDifference = Math.abs(timeDifference / (1000 * 60 * 60));
+  // const hoursDifference = Math.abs(timeDifference / (1000 * 60 * 60));
 
-  console.log(hoursDifference);
+  // console.log(hoursDifference);
 
   // console.log('orderDate', createdAt.substring(0, 4));
 
   // console.log('orderDate', createdAt[0]);
 
-  const removeUserToCourse = () => {
-    orders?.map((order) =>
-      order.attributes.products.map((product) =>
-        axiosClient
-          .put(`/api/courses/${product.id}`, {
-            data: {
-              users: {
-                disconnect: [userData.id],
-              },
-            },
-          })
-          .then((res) => {
-            console.log('Array updated successfully ', res.data);
-          })
-          .catch((err) => console.log(err))
-      )
-    );
-  };
-
-  if (hoursDifference > 0.15) {
-    removeUserToCourse();
-  }
+  // if (hoursDifference > 0.15) {
+  //   removeUserToCourse();
+  // }
 
   const theme = useTheme();
 
