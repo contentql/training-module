@@ -13,14 +13,15 @@ import { grey } from '@mui/material/colors';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
-import { Link, Button, Divider } from '@mui/material';
 import ListItemText from '@mui/material/ListItemText';
+import { Link, Button, Divider } from '@mui/material';
+import LinearProgress from '@mui/material/LinearProgress';
 // import Dialog from '@mui/material/Dialog';
 import ListItemButton from '@mui/material/ListItemButton';
-import LinearProgress from '@mui/material/LinearProgress';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Accordion, { accordionClasses } from '@mui/material/Accordion';
+import ArrowBackIosNewOutlinedIcon from '@mui/icons-material/ArrowBackIosNewOutlined';
 import AccordionSummary, { accordionSummaryClasses } from '@mui/material/AccordionSummary';
 
 import Quiz from 'src/sections/quiz';
@@ -521,7 +522,6 @@ export default function ElearningCourseDetailsLessonsDialog({
         // direction="column-reverse"
         // sx={{ position: 'fixed', top: 100, left: 24, height: '4rem', maxWidth: 1150, width: '21%' }}
       >
-        <Typography variant="h6">{courseTitle}</Typography>
         <Box
           sx={{
             border: 1,
@@ -529,7 +529,7 @@ export default function ElearningCourseDetailsLessonsDialog({
             borderColor: '#ff541e',
             px: 2,
             py: 1,
-            width: '25%',
+            width: '30%',
             mt: 2,
           }}
         >
@@ -559,10 +559,11 @@ export default function ElearningCourseDetailsLessonsDialog({
             bgcolor: 'action.selected',
             // color: 'white',
             position: 'absolute',
+            mt: 2,
           }}
         >
-          <Iconify icon="carbon:close" width="25px" height="25px" sx={{ color: 'red' }} />
-          {/* Go Back */}
+          <ArrowBackIosNewOutlinedIcon fontSize="medium" sx={{ pr: 1 }} />
+          {courseTitle}
         </Button>
       </Link>
 
