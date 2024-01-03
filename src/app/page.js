@@ -6,7 +6,7 @@ import ElearningLandingView from 'src/sections/_elearning/view/elearning-landing
 // ----------------------------------------------------------------------
 
 export const metadata = {
-  title: 'The starting point for your next project',
+  title: 'Ryzolve Training Module',
 };
 
 export default function HomePage() {

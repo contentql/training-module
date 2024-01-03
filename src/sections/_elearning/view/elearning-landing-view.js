@@ -55,16 +55,15 @@ export default function ElearningLandingView() {
           }}
         >
           <Button sx={{ left: '80%', color: 'red' }} onClick={() => handleClose()}>
-            close
+            closed
           </Button>
           <Box sx={{ p: 1, color: 'black', textAlign: 'center' }}>
             <Typography
               id="modal-modal-title"
-              variant="h6"
-              component="h2"
-              sx={{ color: '#0D5992' }}
+              variant="h4"
+              sx={{ color: '#0D5992', fontWeight: 'bold' }}
             >
-              New Offer
+              New Year Sale
             </Typography>
             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
               Buy now to get 20% discount.

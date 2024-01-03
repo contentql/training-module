@@ -110,6 +110,8 @@ export default function EcommerceAccountVouchersView() {
     fetchScore();
   }, [userData.username]);
 
+  console.log('Quiz Score', quizScore);
+
   const coursesCertificatesFilter = () => {
     const courseScores = [];
 
@@ -173,6 +175,7 @@ export default function EcommerceAccountVouchersView() {
                 xs: 'repeat(1, 1fr)',
                 md: 'repeat(2, 1fr)',
               }}
+              sx={{ mb: 2 }}
             >
               <EcommerceAccountVoucherItem
                 key={data.id}
