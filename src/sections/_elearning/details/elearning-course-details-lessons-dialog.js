@@ -263,7 +263,7 @@ export default function ElearningCourseDetailsLessonsDialog({
   );
 
   const renderLesson = (
-    <Container className="overflow-y-scroll py-14">
+    <Container className="py-14" sx={{ maxHeight: '100vh', overflowY: 'scroll' }}>
       <Stack
         alignItems="center"
         justifyContent="center"
@@ -433,10 +433,7 @@ export default function ElearningCourseDetailsLessonsDialog({
       sx={{
         p: 1,
         overflowY: 'scroll',
-        // width: { xs: 1, md: '44%' },
-        maxWidth: 450,
-        height: 1,
-        mt: 16,
+        maxHeight: '100vh',
       }}
     >
       {unitList}
@@ -510,15 +507,12 @@ export default function ElearningCourseDetailsLessonsDialog({
   );
 
   return (
-    <Stack
-      sx={{ height: 1, overflow: 'hidden' }}
-      // spacing={16}
-    >
+    <Stack sx={{ height: '100%', overflow: 'hidden' }}>
       <Stack
-        // direction="row"
+        direction="row"
         // spacing={2}
-        // justifyContent="space-between"
-        sx={{ py: 2, px: 6 }}
+        justifyContent="space-between"
+        sx={{ py: 2, px: 6, pt: 0, pb: 1 }}
         // direction="column-reverse"
         // sx={{ position: 'fixed', top: 100, left: 24, height: '4rem', maxWidth: 1150, width: '21%' }}
       >
@@ -530,7 +524,6 @@ export default function ElearningCourseDetailsLessonsDialog({
             px: 2,
             py: 1,
             width: '30%',
-            mt: 2,
           }}
         >
           <Typography>
@@ -547,27 +540,27 @@ export default function ElearningCourseDetailsLessonsDialog({
             }
           />
         </Box>
+        <Link component={RouterLink} href="../" color="inherit" sx={{}}>
+          <Button
+            onClick={onClose}
+            // sx={{
+            //   top: 66,
+            //   right: { xs: 4, md: 28 },
+            //   // zIndex: 9,
+            //   // bgcolor: 'black',
+            //   bgcolor: 'action.selected',
+            //   // color: 'white',
+            //   position: 'absolute',
+            //   mt: 2,
+            // }}
+          >
+            <ArrowBackIosNewOutlinedIcon fontSize="medium" sx={{ pr: 1 }} />
+            {courseTitle}
+          </Button>
+        </Link>
       </Stack>
-      <Link component={RouterLink} href="../" color="inherit" sx={{}}>
-        <Button
-          onClick={onClose}
-          sx={{
-            top: 100,
-            right: { xs: 4, md: 74 },
-            // zIndex: 9,
-            // bgcolor: 'black',
-            bgcolor: 'action.selected',
-            // color: 'white',
-            position: 'absolute',
-            mt: 2,
-          }}
-        >
-          <ArrowBackIosNewOutlinedIcon fontSize="medium" sx={{ pr: 1 }} />
-          {courseTitle}
-        </Button>
-      </Link>
 
-      <Stack direction={{ xs: 'column-reverse', md: 'row' }} sx={{ mt: -14 }}>
+      <Stack direction={{ xs: 'column-reverse', md: 'row' }}>
         {mdUp ? renderListDesktop : renderListMobile}
         {!!lessonData && renderLesson}
       </Stack>

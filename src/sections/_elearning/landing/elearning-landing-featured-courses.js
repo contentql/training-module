@@ -36,40 +36,40 @@ export default function ElearningLandingFeaturedCourses() {
       ordersData.filter((orderData) => userData.username === orderData.attributes.username),
   });
 
-  const removeUserToCourse = (orderId) => {
-    console.log('remove user to course', orderId);
-    // orders?.map((order) =>
-    //   order.attributes.products.map((product) =>
-    //     axiosClient
-    //       .put(`/api/courses/${product.id}`, {
-    //         data: {
-    //           users: {
-    //             disconnect: [userData.id],
-    //           },
-    //         },
-    //       })
-    //       .then((res) => {
-    //         console.log('Array updated successfully ', res.data);
-    //       })
-    //       .catch((err) => console.log(err))
-    //   )
-    // );
-    const expiredOrder = orders?.find((order) => order.id === orderId);
-    expiredOrder.attributes.products.map((product) =>
-      axiosClient
-        .put(`/api/courses/${product.id}`, {
-          data: {
-            users: {
-              disconnect: [userData.id],
-            },
-          },
-        })
-        .then((res) => {
-          // console.log('Array updated successfully ', res.data);
-        })
-        .catch((err) => console.log(err))
-    );
-  };
+  // const removeUserToCourse = (orderId) => {
+  //   console.log('remove user to course', orderId);
+  //   // orders?.map((order) =>
+  //   //   order.attributes.products.map((product) =>
+  //   //     axiosClient
+  //   //       .put(`/api/courses/${product.id}`, {
+  //   //         data: {
+  //   //           users: {
+  //   //             disconnect: [userData.id],
+  //   //           },
+  //   //         },
+  //   //       })
+  //   //       .then((res) => {
+  //   //         console.log('Array updated successfully ', res.data);
+  //   //       })
+  //   //       .catch((err) => console.log(err))
+  //   //   )
+  //   // );
+  //   const expiredOrder = orders?.find((order) => order.id === orderId);
+  //   expiredOrder.attributes.products.map((product) =>
+  //     axiosClient
+  //       .put(`/api/courses/${product.id}`, {
+  //         data: {
+  //           users: {
+  //             disconnect: [userData.id],
+  //           },
+  //         },
+  //       })
+  //       .then((res) => {
+  //         // console.log('Array updated successfully ', res.data);
+  //       })
+  //       .catch((err) => console.log(err))
+  //   );
+  // };
 
   // const getExpiredOrder = () => {
   //   const createdAt = orders?.map((order) => ({
@@ -80,18 +80,18 @@ export default function ElearningLandingFeaturedCourses() {
 
   // const expiredOrderId = getExpiredOrder();
 
-  orders?.forEach((order) => {
-    const createdDate = new Date(order.attributes.createdAt);
-    const currentDate = new Date();
+  // orders?.forEach((order) => {
+  //   const createdDate = new Date(order.attributes.createdAt);
+  //   const currentDate = new Date();
 
-    const timeDifference = createdDate.getTime() - currentDate.getTime();
+  //   const timeDifference = createdDate.getTime() - currentDate.getTime();
 
-    const hoursDifference = Math.abs(timeDifference / (1000 * 60 * 60));
-    if (hoursDifference > 0.1) {
-      console.log('id', order);
-      removeUserToCourse(order.id);
-    }
-  });
+  //   const hoursDifference = Math.abs(timeDifference / (1000 * 60 * 60));
+  //   if (hoursDifference > 0.1) {
+  //     console.log('id', order);
+  //     removeUserToCourse(order.id);
+  //   }
+  // });
   // console.log(createdAt);
 
   // const totalHours = 8760;
