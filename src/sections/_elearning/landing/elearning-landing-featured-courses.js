@@ -36,6 +36,8 @@ export default function ElearningLandingFeaturedCourses({ configuration }) {
       ordersData.filter((orderData) => userData.username === orderData.attributes.username),
   });
 
+  console.log('orders', orders);
+
   const removeUserToCourse = (orderId) => {
     // orders?.map((order) =>
     //   order.attributes.products.map((product) =>
@@ -54,25 +56,26 @@ export default function ElearningLandingFeaturedCourses({ configuration }) {
     //   )
     // );
     const expiredOrder = orders?.find((order) => order.id === orderId);
-    console.log('expired order', expiredOrder?.attributes.expired);
-    expiredOrder.attributes.products.map((product) =>
-      axiosClient
-        .put(`/api/courses/${product.id}`, {
-          data: {
-            users: {
-              disconnect: [userData.id],
-            },
-          },
-        })
-        .then((res) => {
-          axiosClient.put(`/api/orders/${orderId}`, {
+    if (expiredOrder.attributes.expired === false) {
+      expiredOrder.attributes.products.map((product) =>
+        axiosClient
+          .put(`/api/courses/${product.id}`, {
             data: {
-              expired: true,
+              users: {
+                disconnect: [userData.id],
+              },
             },
-          });
-        })
-        .catch((err) => console.log(err))
-    );
+          })
+          .then((res) => {
+            axiosClient.put(`/api/orders/${orderId}`, {
+              data: {
+                expired: true,
+              },
+            });
+          })
+          .catch((err) => console.log(err))
+      );
+    }
   };
 
   // const getExpiredOrder = () => {
@@ -91,7 +94,7 @@ export default function ElearningLandingFeaturedCourses({ configuration }) {
     const timeDifference = createdDate.getTime() - currentDate.getTime();
 
     const hoursDifference = Math.abs(timeDifference / (1000 * 60 * 60));
-    if (hoursDifference > 0.5) {
+    if (hoursDifference > 0.1) {
       removeUserToCourse(order.id);
     }
   });
