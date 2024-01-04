@@ -113,7 +113,7 @@ export default function QuizForm(props) {
         <DialogTitle>Alert</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            To successfully finish the course, a minimum score of 60% is required.
+            To successfully finish the course, a minimum score of 70% is required.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
