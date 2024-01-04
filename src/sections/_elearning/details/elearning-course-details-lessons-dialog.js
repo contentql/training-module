@@ -263,7 +263,31 @@ export default function ElearningCourseDetailsLessonsDialog({
   );
 
   const renderLesson = (
-    <Container className="py-14" sx={{ maxHeight: '100vh', overflowY: 'scroll' }}>
+    <Container
+      className="py-14"
+      sx={{
+        maxHeight: '100vh',
+        overflowY: 'scroll',
+        scrollbarWidth: 'thin',
+        '&::-webkit-scrollbar': {
+          width: '0.4em',
+        },
+        '&::-webkit-scrollbar-thumb': {
+          backgroundColor: '#888',
+          borderRadius: '6px',
+          '&:hover': {
+            backgroundColor: '#a0a0a0',
+          },
+        },
+        '&::-webkit-scrollbar-track': {
+          background: '#f1f1f1',
+          borderRadius: '6px',
+          '&:hover': {
+            backgroundColor: '#e6e6e6',
+          },
+        },
+      }}
+    >
       <Stack
         alignItems="center"
         justifyContent="center"
@@ -433,7 +457,26 @@ export default function ElearningCourseDetailsLessonsDialog({
       sx={{
         p: 1,
         overflowY: 'scroll',
+        maxWidth: 450,
         maxHeight: '100vh',
+        scrollbarWidth: 'thin',
+        '&::-webkit-scrollbar': {
+          width: '0.4em',
+        },
+        '&::-webkit-scrollbar-thumb': {
+          backgroundColor: '#888',
+          borderRadius: '6px',
+          '&:hover': {
+            backgroundColor: '#a0a0a0',
+          },
+        },
+        '&::-webkit-scrollbar-track': {
+          background: '#f1f1f1',
+          borderRadius: '6px',
+          '&:hover': {
+            backgroundColor: '#e6e6e6',
+          },
+        },
       }}
     >
       {unitList}
@@ -507,7 +550,7 @@ export default function ElearningCourseDetailsLessonsDialog({
   );
 
   return (
-    <Stack sx={{ height: '100%', overflow: 'hidden' }}>
+    <Stack sx={{ height: '100%', overflow: 'hidden', mb: 4 }}>
       <Stack
         direction="row"
         // spacing={2}
