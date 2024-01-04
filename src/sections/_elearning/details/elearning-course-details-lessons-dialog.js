@@ -570,10 +570,18 @@ export default function ElearningCourseDetailsLessonsDialog({
           }}
         >
           <Typography>
-            <span style={{ fontWeight: 600, fontSize: '1rem', paddingRight: 4 }}>Progress: </span>
-            <span style={{ color: '#ff541e' }}>
-              {userLessonData.filter((data) => data.course_id === params.id).length}/{totalLessons}
-            </span>
+            <Box display="flex" alignItems="center">
+              <Typography fontWeight={600} fontSize="1rem" paddingRight={1}>
+                Progress:
+              </Typography>
+              <Typography color="#ff541e">
+                {userLessonData.filter((data) => data.course_id === params.id).length}/
+                {totalLessons}
+              </Typography>
+              <Typography fontSize="0.9rem" paddingLeft={1}>
+                lessons finished
+              </Typography>
+            </Box>
           </Typography>
           <LinearProgressWithLabel
             value={
