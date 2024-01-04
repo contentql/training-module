@@ -15,6 +15,7 @@ export const getOrdersData = async () => {
               username
               products
               createdAt
+              expired
             }
           }
         }

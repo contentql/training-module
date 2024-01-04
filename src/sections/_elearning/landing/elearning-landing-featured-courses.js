@@ -18,8 +18,8 @@ import ElearningCourseItem from '../list/elearning-course-item';
 
 // ----------------------------------------------------------------------
 
-export default function ElearningLandingFeaturedCourses() {
-  const { data, isLoading } = useQuery({
+export default function ElearningLandingFeaturedCourses({ configuration }) {
+  const { data } = useQuery({
     queryKey: ['courses'],
     queryFn: getCoursesData,
   });
@@ -36,49 +36,31 @@ export default function ElearningLandingFeaturedCourses() {
       ordersData.filter((orderData) => userData.username === orderData.attributes.username),
   });
 
+  console.log('orders', orders);
+
   const removeUserToCourse = (orderId) => {
-    console.log('remove user to course', orderId);
-    // orders?.map((order) =>
-    //   order.attributes.products.map((product) =>
-    //     axiosClient
-    //       .put(`/api/courses/${product.id}`, {
-    //         data: {
-    //           users: {
-    //             disconnect: [userData.id],
-    //           },
-    //         },
-    //       })
-    //       .then((res) => {
-    //         console.log('Array updated successfully ', res.data);
-    //       })
-    //       .catch((err) => console.log(err))
-    //   )
-    // );
     const expiredOrder = orders?.find((order) => order.id === orderId);
-    expiredOrder.attributes.products.map((product) =>
-      axiosClient
-        .put(`/api/courses/${product.id}`, {
-          data: {
-            users: {
-              disconnect: [userData.id],
+    if (expiredOrder.attributes.expired === false) {
+      expiredOrder.attributes.products.map((product) =>
+        axiosClient
+          .put(`/api/courses/${product.id}`, {
+            data: {
+              users: {
+                disconnect: [userData.id],
+              },
             },
-          },
-        })
-        .then((res) => {
-          // console.log('Array updated successfully ', res.data);
-        })
-        .catch((err) => console.log(err))
-    );
+          })
+          .then((res) => {
+            axiosClient.put(`/api/orders/${orderId}`, {
+              data: {
+                expired: true,
+              },
+            });
+          })
+          .catch((err) => console.log(err))
+      );
+    }
   };
-
-  // const getExpiredOrder = () => {
-  //   const createdAt = orders?.map((order) => ({
-  //     date: new Date(order.attributes.createdAt),
-  //     id: order.attributes.id,
-  //   }));
-  // };
-
-  // const expiredOrderId = getExpiredOrder();
 
   orders?.forEach((order) => {
     const createdDate = new Date(order.attributes.createdAt);
@@ -87,8 +69,7 @@ export default function ElearningLandingFeaturedCourses() {
     const timeDifference = createdDate.getTime() - currentDate.getTime();
 
     const hoursDifference = Math.abs(timeDifference / (1000 * 60 * 60));
-    if (hoursDifference > 0.5) {
-      console.log('id', order);
+    if (hoursDifference > 0.1) {
       removeUserToCourse(order.id);
     }
   });
@@ -196,7 +177,7 @@ export default function ElearningLandingFeaturedCourses() {
                   pb: { xs: 6, md: 8 },
                 }}
               >
-                <ElearningCourseItem course={course} vertical />
+                <ElearningCourseItem course={course} configuration={configuration} vertical />
               </Box>
             ))}
           </Carousel>
@@ -208,4 +189,5 @@ export default function ElearningLandingFeaturedCourses() {
 
 ElearningLandingFeaturedCourses.propTypes = {
   courses: PropTypes.array,
+  configuration: PropTypes.any,
 };
