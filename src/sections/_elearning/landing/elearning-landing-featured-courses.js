@@ -19,7 +19,7 @@ import ElearningCourseItem from '../list/elearning-course-item';
 // ----------------------------------------------------------------------
 
 export default function ElearningLandingFeaturedCourses({ configuration }) {
-  const { data, isLoading } = useQuery({
+  const { data } = useQuery({
     queryKey: ['courses'],
     queryFn: getCoursesData,
   });
@@ -54,6 +54,7 @@ export default function ElearningLandingFeaturedCourses({ configuration }) {
     //   )
     // );
     const expiredOrder = orders?.find((order) => order.id === orderId);
+    console.log('expired order', expiredOrder?.attributes.expired);
     expiredOrder.attributes.products.map((product) =>
       axiosClient
         .put(`/api/courses/${product.id}`, {
@@ -64,7 +65,11 @@ export default function ElearningLandingFeaturedCourses({ configuration }) {
           },
         })
         .then((res) => {
-          // console.log('Array updated successfully ', res.data);
+          axiosClient.put(`/api/orders/${orderId}`, {
+            data: {
+              expired: true,
+            },
+          });
         })
         .catch((err) => console.log(err))
     );
@@ -86,7 +91,7 @@ export default function ElearningLandingFeaturedCourses({ configuration }) {
     const timeDifference = createdDate.getTime() - currentDate.getTime();
 
     const hoursDifference = Math.abs(timeDifference / (1000 * 60 * 60));
-    if (hoursDifference > 0.1) {
+    if (hoursDifference > 0.5) {
       removeUserToCourse(order.id);
     }
   });
