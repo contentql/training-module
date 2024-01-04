@@ -113,18 +113,23 @@ export default function EcommerceAccountVouchersView() {
   console.log('Quiz Score', quizScore);
 
   const coursesCertificatesFilter = () => {
-    const courseScores = [];
+    const courseScores = {};
 
     quizScore.forEach((quizData) => {
       const { courseTitle, score } = quizData.attributes;
 
-      if (!courseScores[courseTitle] || score > courseScores[courseTitle].attributes.score) {
-        courseScores[courseTitle] = quizData;
+      const numericScore = Number(score);
+
+      if (!courseScores[courseTitle] || numericScore > courseScores[courseTitle].numericScore) {
+        courseScores[courseTitle] = {
+          ...quizData,
+          numericScore,
+        };
       }
     });
 
     const completedCourses = Object.values(courseScores).filter(
-      (quizData) => (quizData.attributes.score / 10) * 100 >= 60
+      (quizData) => (quizData.attributes.score / 10) * 100 >= 70
     );
 
     return completedCourses;
@@ -166,7 +171,7 @@ export default function EcommerceAccountVouchersView() {
       </Tabs> */}
 
       <Box>
-        {quizScore.length ? (
+        {coursesCertificatesFilter().length ? (
           coursesCertificatesFilter().map((data) => (
             <Box
               gap={3}
