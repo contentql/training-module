@@ -23,23 +23,11 @@ import { fCurrency, fShortenNumber } from 'src/utils/format-number';
 
 // ----------------------------------------------------------------------
 
-export default function ElearningCourseItem({ course, vertical, isMyLearning }) {
+export default function ElearningCourseItem({ course, vertical, isMyLearning, configuration }) {
   const { id } = course;
 
-  const {
-    title,
-    price,
-    category,
-    priceSale,
-    bestSeller,
-    time,
-    description,
-    rating,
-    totalReviews,
-    totalStudents,
-    users,
-    image,
-  } = course.attributes;
+  const { title, price, category, priceSale, bestSeller, time, description, users, image } =
+    course.attributes;
 
   const [cart, addToCart, removeFromCart] = useCartStore((state) => [
     state.cart,
@@ -182,18 +170,20 @@ export default function ElearningCourseItem({ course, vertical, isMyLearning }) 
             )}
           </Stack> */}
 
-          <Stack
-            direction="row"
-            alignItems="center"
-            spacing={1.2}
-            divider={<Divider orientation="vertical" sx={{ height: 18 }} />}
-          >
-            <Iconify icon="heroicons-outline:users" />
-            <Typography sx={{ fontSize: 14 }}>
-              {' '}
-              {fShortenNumber(usersCount)} {usersCount === 1 ? 'student' : 'students'} enrolled
-            </Typography>
-          </Stack>
+          {configuration?.data.data.attributes.enrolledstudents && (
+            <Stack
+              direction="row"
+              alignItems="center"
+              spacing={1.2}
+              divider={<Divider orientation="vertical" sx={{ height: 18 }} />}
+            >
+              <Iconify icon="heroicons-outline:users" />
+              <Typography sx={{ fontSize: 14 }}>
+                {' '}
+                {fShortenNumber(usersCount)} {usersCount === 1 ? 'student' : 'students'} enrolled
+              </Typography>
+            </Stack>
+          )}
         </Stack>
 
         {/* <Stack direction="row" alignItems="center">
@@ -313,4 +303,5 @@ ElearningCourseItem.propTypes = {
   }),
   vertical: PropTypes.bool,
   isMyLearning: PropTypes.bool,
+  configuration: PropTypes.any,
 };

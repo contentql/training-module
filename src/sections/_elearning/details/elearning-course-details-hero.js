@@ -28,7 +28,7 @@ import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
 
 // ----------------------------------------------------------------------
 
-export default function ElearningCourseDetailsHero({ course }) {
+export default function ElearningCourseDetailsHero({ course, configuration }) {
   const {
     title,
     // level = 'Beginner',
@@ -175,19 +175,21 @@ export default function ElearningCourseDetailsHero({ course }) {
                     )}
                   </Stack> */}
 
-                  <Stack
-                    direction="row"
-                    alignItems="center"
-                    spacing={1.2}
-                    divider={<Divider orientation="vertical" sx={{ height: 18 }} />}
-                  >
-                    <Iconify icon="heroicons-outline:users" />
-                    <Typography sx={{ fontSize: 14 }}>
-                      {' '}
-                      {fShortenNumber(users?.data.length)}{' '}
-                      {users?.data.length === 1 ? 'Student' : 'Students'} Enrolled
-                    </Typography>
-                  </Stack>
+                  {configuration?.data.data.attributes.enrolledstudents && (
+                    <Stack
+                      direction="row"
+                      alignItems="center"
+                      spacing={1.2}
+                      divider={<Divider orientation="vertical" sx={{ height: 18 }} />}
+                    >
+                      <Iconify icon="heroicons-outline:users" />
+                      <Typography sx={{ fontSize: 14 }}>
+                        {' '}
+                        {fShortenNumber(users?.data.length)}{' '}
+                        {users?.data.length === 1 ? 'Student' : 'Students'} Enrolled
+                      </Typography>
+                    </Stack>
+                  )}
                 </Stack>
 
                 {/* <Stack direction="row" alignItems="center">
@@ -305,4 +307,5 @@ ElearningCourseDetailsHero.propTypes = {
     users: PropTypes.object,
     image: PropTypes.string,
   }),
+  configuration: PropTypes.any,
 };

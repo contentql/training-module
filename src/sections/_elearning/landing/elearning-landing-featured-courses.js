@@ -18,7 +18,7 @@ import ElearningCourseItem from '../list/elearning-course-item';
 
 // ----------------------------------------------------------------------
 
-export default function ElearningLandingFeaturedCourses() {
+export default function ElearningLandingFeaturedCourses({ configuration }) {
   const { data, isLoading } = useQuery({
     queryKey: ['courses'],
     queryFn: getCoursesData,
@@ -37,7 +37,6 @@ export default function ElearningLandingFeaturedCourses() {
   });
 
   const removeUserToCourse = (orderId) => {
-    console.log('remove user to course', orderId);
     // orders?.map((order) =>
     //   order.attributes.products.map((product) =>
     //     axiosClient
@@ -88,7 +87,6 @@ export default function ElearningLandingFeaturedCourses() {
 
     const hoursDifference = Math.abs(timeDifference / (1000 * 60 * 60));
     if (hoursDifference > 0.1) {
-      console.log('id', order);
       removeUserToCourse(order.id);
     }
   });
@@ -196,7 +194,7 @@ export default function ElearningLandingFeaturedCourses() {
                   pb: { xs: 6, md: 8 },
                 }}
               >
-                <ElearningCourseItem course={course} vertical />
+                <ElearningCourseItem course={course} configuration={configuration} vertical />
               </Box>
             ))}
           </Carousel>
@@ -208,4 +206,5 @@ export default function ElearningLandingFeaturedCourses() {
 
 ElearningLandingFeaturedCourses.propTypes = {
   courses: PropTypes.array,
+  configuration: PropTypes.any,
 };

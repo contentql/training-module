@@ -19,6 +19,7 @@ import Grid from '@mui/material/Unstable_Grid2';
 // import Iconify from 'src/components/iconify';
 // import { useBoolean } from 'src/hooks/use-boolean';
 import { getCourseData } from 'src/queries/course';
+import { axiosClient } from 'src/utils/axiosClient';
 import { useResponsive } from 'src/hooks/use-responsive';
 import { SplashScreen } from 'src/components/loading-screen';
 
@@ -35,6 +36,16 @@ import ElearningCourseDetailsSummary from '../details/elearning-course-details-s
 export default function ElearningCourseView({ courseId }) {
   const mdUp = useResponsive('up', 'md');
 
+  const adminConfiguration = () => {
+    const response = axiosClient.get('/api/configuration');
+    return response;
+  };
+
+  const { data: configuration } = useQuery({
+    queryKey: ['configuration'],
+    queryFn: adminConfiguration,
+  });
+
   const { data, isLoading } = useQuery({
     queryKey: ['course', courseId],
     queryFn: () => getCourseData(courseId),
@@ -47,7 +58,7 @@ export default function ElearningCourseView({ courseId }) {
 
   return (
     <>
-      <ElearningCourseDetailsHero course={data?.attributes} />
+      <ElearningCourseDetailsHero course={data?.attributes} configuration={configuration} />
 
       <Container
         sx={{
