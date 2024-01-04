@@ -6,7 +6,7 @@ import { useState, useCallback } from 'react';
 import { useQuery, useQueryClient } from 'react-query';
 
 import { useUserStore } from 'src/states/auth-store';
-
+import { quizProgress } from 'src/states/quiz-progress';
 // import { useBoolean } from 'src/hooks/use-boolean';
 
 import ElearningCourseDetailsLessonItem from './elearning-course-details-lesson-item';
@@ -18,6 +18,8 @@ export default function ElearningCourseDetailsLessonList({ lessons, hasBoughtCou
   // const videoPlay = useBoolean();
 
   const userData = useUserStore((state) => state.UserData);
+
+  const isQuizOpen = quizProgress((state) => state.isQuizOpen);
 
   const { isLoggedIn } = userData;
 
@@ -37,7 +39,7 @@ export default function ElearningCourseDetailsLessonList({ lessons, hasBoughtCou
     queryKey: ['userProgress'],
     queryFn: () => getUserProgress(),
     enabled: !!isLoggedIn,
-    // refetchOnWindowFocus: false,
+    refetchOnWindowFocus: !isQuizOpen,
   });
 
   const getUserProgress = async () => {
