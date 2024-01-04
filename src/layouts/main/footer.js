@@ -52,6 +52,7 @@ export default function Footer() {
     { title: 'Home', path: '/' },
     { title: 'Courses', path: '/courses' },
     { title: 'About Us', path: '/about-us' },
+    { title: 'Ryzolve', path: 'https://ryzolve-prod.vercel.app/' },
   ];
 
   const renderLists = mdUp ? desktopList : mobileList;

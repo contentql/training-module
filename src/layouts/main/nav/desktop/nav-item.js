@@ -30,7 +30,7 @@ export const NavItem = forwardRef(
     // ExternalLink
     if (externalLink) {
       return (
-        <Link href={item.path} target="_blank" rel="noopener" color="inherit" underline="none">
+        <Link href={item.path} rel="noopener" color="inherit" underline="none">
           {renderContent}
         </Link>
       );
