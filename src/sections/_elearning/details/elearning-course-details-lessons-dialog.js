@@ -629,7 +629,7 @@ export default function ElearningCourseDetailsLessonsDialog({
             // }}
           >
             <ArrowBackIosNewOutlinedIcon fontSize="medium" sx={{ pr: 1 }} />
-            {courseTitle}
+            {courseTitle.title}
           </Button>
         </Link>
       </Stack>
