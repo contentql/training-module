@@ -24,6 +24,7 @@ import { RouterLink } from 'src/routes/components';
 import { axiosClient } from 'src/utils/axiosClient';
 // import { getScoreData } from 'src/queries/score';
 import { useUserStore } from 'src/states/auth-store';
+import { coursesCertificatesFilter } from 'src/sections/quiz/utils/quiz-score-filter';
 
 import EcommerceAccountVoucherItem from '../account/ecommerce-account-voucher-item';
 
@@ -112,29 +113,6 @@ export default function EcommerceAccountVouchersView() {
 
   console.log('Quiz Score', quizScore);
 
-  const coursesCertificatesFilter = () => {
-    const courseScores = {};
-
-    quizScore.forEach((quizData) => {
-      const { courseTitle, score } = quizData.attributes;
-
-      const numericScore = Number(score);
-
-      if (!courseScores[courseTitle] || numericScore > courseScores[courseTitle].numericScore) {
-        courseScores[courseTitle] = {
-          ...quizData,
-          numericScore,
-        };
-      }
-    });
-
-    const completedCourses = Object.values(courseScores).filter(
-      (quizData) => (quizData.attributes.score / 10) * 100 >= 70
-    );
-
-    return completedCourses;
-  };
-
   return (
     <>
       <Typography variant="h5" sx={{ mb: 3 }}>
@@ -171,8 +149,8 @@ export default function EcommerceAccountVouchersView() {
       </Tabs> */}
 
       <Box>
-        {coursesCertificatesFilter().length ? (
-          coursesCertificatesFilter().map((data) => (
+        {coursesCertificatesFilter(quizScore).length ? (
+          coursesCertificatesFilter(quizScore).map((data) => (
             <Box
               gap={3}
               display="grid"
