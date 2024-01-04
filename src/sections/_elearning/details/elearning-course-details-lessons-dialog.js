@@ -37,6 +37,7 @@ import { RouterLink } from 'src/routes/components';
 import NumberDone from 'src/components/NumberDone';
 import { useUserStore } from 'src/states/auth-store';
 import { useDebounce } from 'src/hooks/use-debounce';
+import { quizProgress } from 'src/states/quiz-progress';
 import { useResponsive } from 'src/hooks/use-responsive';
 import { useUserProgress } from 'src/states/user-progress';
 // import PostTags from '../../blog/common/post-tags';
@@ -63,6 +64,7 @@ export default function ElearningCourseDetailsLessonsDialog({
   // pauseVideo,
   hasBoughtCourse,
   courseTitle,
+  courseQuiz,
   params,
 }) {
   const mdUp = useResponsive('up', 'md');
@@ -78,15 +80,20 @@ export default function ElearningCourseDetailsLessonsDialog({
   const userLessons = useUserProgress((state) => state.lessons);
   const addToLessons = useUserProgress((state) => state.addToLessons);
   const updateLessons = useUserProgress((state) => state.updateLessons);
+
+  const isQuizOpen = quizProgress((state) => state.isQuizOpen);
+
   // const query = router.query;
   // const reset = useUserProgress((state) => state.reset);
   // console.log({ userLessons });
+
+  const score = true;
 
   const { data: lessonData, isLoading } = useQuery({
     queryKey: ['unit', searchParams.get('unit'), searchParams.get('lesson')],
     queryFn: () =>
       getUnitData(Number(searchParams.get('unit')), String(searchParams.get('lesson'))),
-    refetchOnWindowFocus: false,
+    refetchOnWindowFocus: !isQuizOpen,
   });
 
   console.log('data', lessonData);
@@ -95,7 +102,7 @@ export default function ElearningCourseDetailsLessonsDialog({
     queryKey: ['userProgress'],
     queryFn: () => getUserProgress(),
     enabled: !!lessonData?.id,
-    refetchOnWindowFocus: false,
+    refetchOnWindowFocus: !isQuizOpen,
   });
 
   const { title, subtitle, content, id } = lessonData ?? {};
@@ -106,12 +113,14 @@ export default function ElearningCourseDetailsLessonsDialog({
     queryKey: ['userAddProgress', debouncedValue],
     queryFn: () => addingUserProgress(),
     enabled: false,
+    refetchOnWindowFocus: !isQuizOpen,
   });
 
   const { data: updateUserProgress } = useQuery({
     queryKey: ['updateUserProgress', debouncedValue],
     queryFn: () => addingLessonToUser(),
     enabled: !!debouncedValue,
+    refetchOnWindowFocus: !isQuizOpen,
   });
 
   useEffect(() => {
@@ -263,7 +272,31 @@ export default function ElearningCourseDetailsLessonsDialog({
   );
 
   const renderLesson = (
-    <Container className="overflow-y-scroll py-14">
+    <Container
+      className="py-14"
+      sx={{
+        maxHeight: '100vh',
+        overflowY: 'scroll',
+        scrollbarWidth: 'thin',
+        '&::-webkit-scrollbar': {
+          width: '0.4em',
+        },
+        '&::-webkit-scrollbar-thumb': {
+          backgroundColor: '#888',
+          borderRadius: '6px',
+          '&:hover': {
+            backgroundColor: '#a0a0a0',
+          },
+        },
+        '&::-webkit-scrollbar-track': {
+          background: '#f1f1f1',
+          borderRadius: '6px',
+          '&:hover': {
+            backgroundColor: '#e6e6e6',
+          },
+        },
+      }}
+    >
       <Stack
         alignItems="center"
         justifyContent="center"
@@ -421,7 +454,13 @@ export default function ElearningCourseDetailsLessonsDialog({
               </Link>
             );
           })}
-          {/* <Quiz _questions={unit?.attributes?.quiz} hasBoughtCourse={hasBoughtCourse} /> */}
+          <Quiz
+            _questions={unit?.attributes?.quiz}
+            courseName={courseTitle}
+            score={score}
+            hasBoughtCourse={hasBoughtCourse}
+            title="Start Test"
+          />
         </AccordionDetails>
       </Accordion>
     );
@@ -433,13 +472,37 @@ export default function ElearningCourseDetailsLessonsDialog({
       sx={{
         p: 1,
         overflowY: 'scroll',
-        // width: { xs: 1, md: '44%' },
         maxWidth: 450,
-        height: 1,
-        mt: 16,
+        maxHeight: '100vh',
+        scrollbarWidth: 'thin',
+        '&::-webkit-scrollbar': {
+          width: '0.4em',
+        },
+        '&::-webkit-scrollbar-thumb': {
+          backgroundColor: '#888',
+          borderRadius: '6px',
+          '&:hover': {
+            backgroundColor: '#a0a0a0',
+          },
+        },
+        '&::-webkit-scrollbar-track': {
+          background: '#f1f1f1',
+          borderRadius: '6px',
+          '&:hover': {
+            backgroundColor: '#e6e6e6',
+          },
+        },
       }}
     >
       {unitList}
+      <Quiz
+        _questions={courseQuiz}
+        courseName={courseTitle}
+        score={score}
+        hasBoughtCourse={hasBoughtCourse}
+        finalQuiz
+        title="Final Test"
+      />
     </Stack>
   );
 
@@ -510,15 +573,12 @@ export default function ElearningCourseDetailsLessonsDialog({
   );
 
   return (
-    <Stack
-      sx={{ height: 1, overflow: 'hidden' }}
-      // spacing={16}
-    >
+    <Stack sx={{ height: '100%', overflow: 'hidden', mb: 4 }}>
       <Stack
-        // direction="row"
+        direction="row"
         // spacing={2}
-        // justifyContent="space-between"
-        sx={{ py: 2, px: 6 }}
+        justifyContent="space-between"
+        sx={{ py: 2, px: 6, pt: 0, pb: 1 }}
         // direction="column-reverse"
         // sx={{ position: 'fixed', top: 100, left: 24, height: '4rem', maxWidth: 1150, width: '21%' }}
       >
@@ -530,14 +590,21 @@ export default function ElearningCourseDetailsLessonsDialog({
             px: 2,
             py: 1,
             width: '30%',
-            mt: 2,
           }}
         >
           <Typography>
-            <span style={{ fontWeight: 600, fontSize: '1rem', paddingRight: 4 }}>Progress: </span>
-            <span style={{ color: '#ff541e' }}>
-              {userLessonData.filter((data) => data.course_id === params.id).length}/{totalLessons}
-            </span>
+            <Box display="flex" alignItems="center">
+              <Typography fontWeight={600} fontSize="1rem" paddingRight={1}>
+                Progress:
+              </Typography>
+              <Typography color="#ff541e">
+                {userLessonData.filter((data) => data.course_id === params.id).length}/
+                {totalLessons}
+              </Typography>
+              <Typography fontSize="0.9rem" paddingLeft={1}>
+                lessons finished
+              </Typography>
+            </Box>
           </Typography>
           <LinearProgressWithLabel
             value={
@@ -547,27 +614,27 @@ export default function ElearningCourseDetailsLessonsDialog({
             }
           />
         </Box>
+        <Link component={RouterLink} href="../" color="inherit" sx={{}}>
+          <Button
+            onClick={onClose}
+            // sx={{
+            //   top: 66,
+            //   right: { xs: 4, md: 28 },
+            //   // zIndex: 9,
+            //   // bgcolor: 'black',
+            //   bgcolor: 'action.selected',
+            //   // color: 'white',
+            //   position: 'absolute',
+            //   mt: 2,
+            // }}
+          >
+            <ArrowBackIosNewOutlinedIcon fontSize="medium" sx={{ pr: 1 }} />
+            {courseTitle.title}
+          </Button>
+        </Link>
       </Stack>
-      <Link component={RouterLink} href="../" color="inherit" sx={{}}>
-        <Button
-          onClick={onClose}
-          sx={{
-            top: 100,
-            right: { xs: 4, md: 74 },
-            // zIndex: 9,
-            // bgcolor: 'black',
-            bgcolor: 'action.selected',
-            // color: 'white',
-            position: 'absolute',
-            mt: 2,
-          }}
-        >
-          <ArrowBackIosNewOutlinedIcon fontSize="medium" sx={{ pr: 1 }} />
-          {courseTitle}
-        </Button>
-      </Link>
 
-      <Stack direction={{ xs: 'column-reverse', md: 'row' }} sx={{ mt: -14 }}>
+      <Stack direction={{ xs: 'column-reverse', md: 'row' }}>
         {mdUp ? renderListDesktop : renderListMobile}
         {!!lessonData && renderLesson}
       </Stack>
@@ -590,4 +657,5 @@ ElearningCourseDetailsLessonsDialog.propTypes = {
   hasBoughtCourse: PropTypes.bool,
   params: PropTypes.object,
   courseTitle: PropTypes.string,
+  courseQuiz: PropTypes.array,
 };

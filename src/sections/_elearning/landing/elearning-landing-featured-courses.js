@@ -87,7 +87,7 @@ export default function ElearningLandingFeaturedCourses() {
     const timeDifference = createdDate.getTime() - currentDate.getTime();
 
     const hoursDifference = Math.abs(timeDifference / (1000 * 60 * 60));
-    if (hoursDifference > 0.1) {
+    if (hoursDifference > 0.5) {
       console.log('id', order);
       removeUserToCourse(order.id);
     }

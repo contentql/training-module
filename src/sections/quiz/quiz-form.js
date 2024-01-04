@@ -2,7 +2,7 @@
 
 import { PropTypes } from 'prop-types';
 import { toast } from 'react-toastify';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 
 // import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -14,11 +14,15 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 
+import { axiosClient } from 'src/utils/axiosClient';
+import { useUserStore } from 'src/states/auth-store';
+import { quizProgress } from 'src/states/quiz-progress';
 import { useResponsive } from 'src/hooks/use-responsive';
 import ElearningCourseDetailsLessonItem from 'src/sections/_elearning/details/elearning-course-details-quiz-item';
 
 import QuizHookForm from './quiz-hook-form';
 import { shuffleArray } from './utils/shuffle-array';
+import { coursesCertificatesFilter } from './utils/quiz-score-filter';
 
 export default function QuizForm(props) {
   const currentDate = new Date();
@@ -31,9 +35,42 @@ export default function QuizForm(props) {
 
   const [popupOpen, setPopupOpen] = useState(false);
 
+  const [quizScore, setQuizScore] = useState([]);
+
   const inputRef = useRef();
 
+  const toggleQuiz = quizProgress((state) => state.toggleQuiz);
+  const userData = useUserStore((state) => state.UserData);
+
+  useEffect(() => {
+    const fetchScore = async () => {
+      const data = await axiosClient.get('/api/quiz-scores');
+
+      setQuizScore(
+        data?.data.data.filter((scoreData) => userData.username === scoreData.attributes.username)
+      );
+    };
+    fetchScore();
+  }, [userData.username]);
+
   const handlePopupOpen = () => {
+    if (
+      coursesCertificatesFilter(quizScore).filter(
+        (data) => data.attributes.courseTitle === courseName.title
+      ).length
+    ) {
+      toast.info('Course completed, no access to final test.', {
+        position: 'bottom-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
+      return;
+    }
     setPopupOpen(true);
   };
 
@@ -51,6 +88,7 @@ export default function QuizForm(props) {
 
   const handleClickOpen = () => {
     if (hasBoughtCourse) {
+      toggleQuiz(true);
       setOpen(true);
       setStartTime(currentDate.toLocaleString());
     } else
@@ -66,6 +104,7 @@ export default function QuizForm(props) {
       });
   };
   const handleModalClose = () => {
+    toggleQuiz(false);
     setOpen(false);
   };
 
@@ -108,7 +147,7 @@ export default function QuizForm(props) {
         <DialogTitle>Alert</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            To successfully finish the course, a minimum score of 60% is required.
+            To successfully finish the course, a minimum score of 70% is required.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
