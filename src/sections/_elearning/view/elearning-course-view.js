@@ -19,6 +19,7 @@ import Grid from '@mui/material/Unstable_Grid2';
 // import Iconify from 'src/components/iconify';
 // import { useBoolean } from 'src/hooks/use-boolean';
 import { getCourseData } from 'src/queries/course';
+import { quizProgress } from 'src/states/quiz-progress';
 import { useResponsive } from 'src/hooks/use-responsive';
 import { SplashScreen } from 'src/components/loading-screen';
 
@@ -35,10 +36,12 @@ import ElearningCourseDetailsSummary from '../details/elearning-course-details-s
 export default function ElearningCourseView({ courseId }) {
   const mdUp = useResponsive('up', 'md');
 
+  const isQuizOpen = quizProgress((state) => state.isQuizOpen);
+
   const { data, isLoading } = useQuery({
     queryKey: ['course', courseId],
     queryFn: () => getCourseData(courseId),
-    refetchOnWindowFocus: false,
+    refetchOnWindowFocus: !isQuizOpen,
   });
 
   if (isLoading) {

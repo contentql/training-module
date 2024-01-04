@@ -60,6 +60,7 @@ export default function ElearningLessonsView({ params }) {
       hasBoughtCourse={hasBoughtCourse}
       params={params}
       courseTitle={data.attributes.title}
+      courseQuiz={data.attributes.quiz}
     />
   );
 }

@@ -37,6 +37,7 @@ import { RouterLink } from 'src/routes/components';
 import NumberDone from 'src/components/NumberDone';
 import { useUserStore } from 'src/states/auth-store';
 import { useDebounce } from 'src/hooks/use-debounce';
+import { quizProgress } from 'src/states/quiz-progress';
 import { useResponsive } from 'src/hooks/use-responsive';
 import { useUserProgress } from 'src/states/user-progress';
 // import PostTags from '../../blog/common/post-tags';
@@ -63,6 +64,7 @@ export default function ElearningCourseDetailsLessonsDialog({
   // pauseVideo,
   hasBoughtCourse,
   courseTitle,
+  courseQuiz,
   params,
 }) {
   const mdUp = useResponsive('up', 'md');
@@ -78,15 +80,20 @@ export default function ElearningCourseDetailsLessonsDialog({
   const userLessons = useUserProgress((state) => state.lessons);
   const addToLessons = useUserProgress((state) => state.addToLessons);
   const updateLessons = useUserProgress((state) => state.updateLessons);
+
+  const isQuizOpen = quizProgress((state) => state.isQuizOpen);
+
   // const query = router.query;
   // const reset = useUserProgress((state) => state.reset);
   // console.log({ userLessons });
+
+  const score = true;
 
   const { data: lessonData, isLoading } = useQuery({
     queryKey: ['unit', searchParams.get('unit'), searchParams.get('lesson')],
     queryFn: () =>
       getUnitData(Number(searchParams.get('unit')), String(searchParams.get('lesson'))),
-    refetchOnWindowFocus: false,
+    refetchOnWindowFocus: !isQuizOpen,
   });
 
   console.log('data', lessonData);
@@ -95,7 +102,7 @@ export default function ElearningCourseDetailsLessonsDialog({
     queryKey: ['userProgress'],
     queryFn: () => getUserProgress(),
     enabled: !!lessonData?.id,
-    refetchOnWindowFocus: false,
+    refetchOnWindowFocus: !isQuizOpen,
   });
 
   const { title, subtitle, content, id } = lessonData ?? {};
@@ -106,12 +113,14 @@ export default function ElearningCourseDetailsLessonsDialog({
     queryKey: ['userAddProgress', debouncedValue],
     queryFn: () => addingUserProgress(),
     enabled: false,
+    refetchOnWindowFocus: !isQuizOpen,
   });
 
   const { data: updateUserProgress } = useQuery({
     queryKey: ['updateUserProgress', debouncedValue],
     queryFn: () => addingLessonToUser(),
     enabled: !!debouncedValue,
+    refetchOnWindowFocus: !isQuizOpen,
   });
 
   useEffect(() => {
@@ -480,6 +489,14 @@ export default function ElearningCourseDetailsLessonsDialog({
       }}
     >
       {unitList}
+      <Quiz
+        _questions={courseQuiz}
+        courseName={courseTitle}
+        score={score}
+        hasBoughtCourse={hasBoughtCourse}
+        finalQuiz
+        title="Final Test"
+      />
     </Stack>
   );
 
@@ -634,4 +651,5 @@ ElearningCourseDetailsLessonsDialog.propTypes = {
   hasBoughtCourse: PropTypes.bool,
   params: PropTypes.object,
   courseTitle: PropTypes.string,
+  courseQuiz: PropTypes.array,
 };

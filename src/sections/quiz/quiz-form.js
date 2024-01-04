@@ -14,6 +14,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 
+import { quizProgress } from 'src/states/quiz-progress';
 import { useResponsive } from 'src/hooks/use-responsive';
 import ElearningCourseDetailsLessonItem from 'src/sections/_elearning/details/elearning-course-details-quiz-item';
 
@@ -33,6 +34,8 @@ export default function QuizForm(props) {
 
   const inputRef = useRef();
 
+  const toggleQuiz = quizProgress((state) => state.toggleQuiz);
+
   const handlePopupOpen = () => {
     setPopupOpen(true);
   };
@@ -51,6 +54,7 @@ export default function QuizForm(props) {
 
   const handleClickOpen = () => {
     if (hasBoughtCourse) {
+      toggleQuiz(true);
       setOpen(true);
       setStartTime(currentDate.toLocaleString());
     } else
@@ -66,6 +70,7 @@ export default function QuizForm(props) {
       });
   };
   const handleModalClose = () => {
+    toggleQuiz(false);
     setOpen(false);
   };
 
