@@ -104,12 +104,11 @@ export default function ElearningLandingView() {
       {/* pop up end */}
 
       <ElearningLandingHero />
+      <ElearningLandingFeaturedCourses configuration={configuration} />
 
       <ElearningLandingServices />
 
       <ElearningLandingProcess />
-
-      <ElearningLandingFeaturedCourses configuration={configuration} />
 
       <ElearningTestimonial testimonials={_testimonials} />
 

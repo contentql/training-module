@@ -75,7 +75,8 @@ export default function EcommerceWishlistView() {
 
           <Link component={RouterLink} href={paths.eLearning.courses} sx={{ pt: 10 }}>
             <Button
-              sx={{ bgcolor: '#FF774B' }}
+              // sx={{ bgcolor: '#FF774B' }}
+              color="primary"
               size="large"
               variant="contained"
               startIcon={<Iconify icon="carbon:chevron-left" />}
@@ -97,7 +98,7 @@ export default function EcommerceWishlistView() {
           <Button
             component={RouterLink}
             href={paths.eLearning.courses}
-            color="inherit"
+            color="primary"
             startIcon={<Iconify icon="carbon:chevron-left" />}
             sx={{ mt: 3 }}
           >
@@ -119,7 +120,7 @@ export default function EcommerceWishlistView() {
               component={RouterLink}
               href={paths.eLearning.cart}
               size="large"
-              color="inherit"
+              color="primary"
               variant="contained"
               startIcon={<Iconify icon="carbon:shopping-cart-plus" />}
               onClick={wishlist && addWishlistToCart}

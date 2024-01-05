@@ -34,40 +34,41 @@ const ROWS = [
 
 export default function ElearningLandingAbout() {
   return (
-    <Container
-      sx={{
-        py: { xs: 5, md: 10, width: '71%', textAlign: 'center' },
-      }}
-    >
-      <Grid
-        container
-        columnSpacing={{ xs: 0, md: 3 }}
-        rowSpacing={{ xs: 5, md: 0 }}
-        // justifyContent="space-between"
+    <Box sx={{ bgcolor: 'background.neutral' }}>
+      <Container
+        sx={{
+          py: { xs: 5, md: 10, width: '71%', textAlign: 'center' },
+        }}
       >
         <Grid
-          xs={12}
-          // md={5}
-          sx={{
-            textAlign: { xs: 'center', md: 'center' },
-          }}
+          container
+          columnSpacing={{ xs: 0, md: 3 }}
+          rowSpacing={{ xs: 5, md: 0 }}
+          // justifyContent="space-between"
         >
-          {/* <Typography component="div" variant="overline" sx={{ color: 'text.disabled' }}>
+          <Grid
+            xs={12}
+            // md={5}
+            sx={{
+              textAlign: { xs: 'center', md: 'center' },
+            }}
+          >
+            {/* <Typography component="div" variant="overline" sx={{ color: 'text.disabled' }}>
             About Us
           </Typography> */}
 
-          <Typography variant="h2" sx={{ my: 3, textAlign: 'center' }}>
-            Who We Are
-          </Typography>
+            <Typography variant="h2" sx={{ my: 3, textAlign: 'center' }}>
+              Who We Are
+            </Typography>
 
-          <Typography sx={{ color: 'text.secondary' }}>
-            We are passionate about nursing education and committed to your success. Ryzolve is
-            designed to provide you with the best learning experience. Whether you are an aspiring
-            nurse or a seasoned professional, we have the resources and expertise to help you thrive
-            in the field of nursing.
-          </Typography>
+            <Typography sx={{ color: 'text.secondary' }}>
+              We are passionate about nursing education and committed to your success. Ryzolve is
+              designed to provide you with the best learning experience. Whether you are an aspiring
+              nurse or a seasoned professional, we have the resources and expertise to help you
+              thrive in the field of nursing.
+            </Typography>
 
-          {/* <Button
+            {/* <Button
             size="large"
             color="inherit"
             endIcon={<Iconify icon="carbon:chevron-right" />}
@@ -75,9 +76,9 @@ export default function ElearningLandingAbout() {
           >
             Lean more
           </Button> */}
-        </Grid>
+          </Grid>
 
-        {/* <Grid xs={12} md={6}>
+          {/* <Grid xs={12} md={6}>
           <Stack spacing={5}>
             {ROWS.map((row) => (
               <Stack
@@ -112,8 +113,8 @@ export default function ElearningLandingAbout() {
             ))}
           </Stack>
         </Grid> */}
-      </Grid>
-      {/* <Image
+        </Grid>
+        {/* <Image
         alt="landing about"
         src="/assets/images/marketing/training-module-about.jpg"
         ratio="16/9"
@@ -122,7 +123,8 @@ export default function ElearningLandingAbout() {
           borderRadius: 1.5,
         }}
       /> */}
-      {/* <Divider sx={{ borderStyle: 'dashed', mt: 8, mb: 1, bgcolor: 'primary.main' }} /> */}
-    </Container>
+        {/* <Divider sx={{ borderStyle: 'dashed', mt: 8, mb: 1, bgcolor: 'primary.main' }} /> */}
+      </Container>
+    </Box>
   );
 }

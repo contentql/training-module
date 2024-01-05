@@ -52,7 +52,6 @@ export default function ElearningTestimonial({ testimonials }) {
   return (
     <Box
       sx={{
-        bgcolor: 'background.neutral',
         textAlign: 'center',
         overflow: 'hidden',
         py: { xs: 5, md: 6 },

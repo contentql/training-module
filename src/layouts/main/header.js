@@ -273,7 +273,7 @@ export default function Header({ headerOnDark }) {
                   </>
                 ) : (
                   <Link component={RouterLink} href={paths.loginBackground}>
-                    <Button variant="contained" color="inherit">
+                    <Button variant="contained" color="primary">
                       Login
                     </Button>
                   </Link>

@@ -117,73 +117,75 @@ export default function ElearningLandingFeaturedCourses({ configuration }) {
   const mdUp = useResponsive('up', 'md');
 
   return (
-    <Container
-      sx={{
-        pt: { xs: 3, md: 6 },
-      }}
-    >
-      <Stack
-        direction={{ xs: 'column', md: 'row' }}
-        alignItems={{ md: 'flex-end' }}
+    <Box sx={{ bgcolor: 'background.neutral' }}>
+      <Container
         sx={{
-          textAlign: { xs: 'center', md: 'unset' },
+          pt: { xs: 3, md: 6 },
         }}
       >
-        <Stack spacing={3} flexGrow={1}>
-          <Typography variant="h2">Featured Courses</Typography>
-        </Stack>
-
-        {mdUp && <CarouselArrows spacing={2} onNext={carousel.onNext} onPrev={carousel.onPrev} />}
-      </Stack>
-
-      <Box
-        sx={{
-          position: 'relative',
-          ml: { md: -2 },
-          width: { md: 'calc(100% + 32px)' },
-        }}
-      >
-        <CarouselArrows
-          onNext={carousel.onNext}
-          onPrev={carousel.onPrev}
-          leftButtonProps={{
-            sx: {
-              left: -16,
-              opacity: 1,
-              color: 'common.white',
-              bgcolor: 'primary.main',
-              '&:hover': { bgcolor: 'primary.dark' },
-              ...(mdUp && { display: 'none' }),
-            },
-          }}
-          rightButtonProps={{
-            sx: {
-              right: -16,
-              opacity: 1,
-              color: 'common.white',
-              bgcolor: 'primary.main',
-              '&:hover': { bgcolor: 'primary.dark' },
-              ...(mdUp && { display: 'none' }),
-            },
+        <Stack
+          direction={{ xs: 'column', md: 'row' }}
+          alignItems={{ md: 'flex-end' }}
+          sx={{
+            textAlign: { xs: 'center', md: 'unset' },
           }}
         >
-          <Carousel ref={carousel.carouselRef} {...carousel.carouselSettings}>
-            {data?.map((course) => (
-              <Box
-                key={course.id}
-                sx={{
-                  px: 2,
-                  pt: { xs: 6, md: 8 },
-                  pb: { xs: 6, md: 8 },
-                }}
-              >
-                <ElearningCourseItem course={course} configuration={configuration} vertical />
-              </Box>
-            ))}
-          </Carousel>
-        </CarouselArrows>
-      </Box>
-    </Container>
+          <Stack spacing={3} flexGrow={1} sx={{ textAlign: 'center' }}>
+            <Typography variant="h2">Featured Courses</Typography>
+          </Stack>
+
+          {mdUp && <CarouselArrows spacing={2} onNext={carousel.onNext} onPrev={carousel.onPrev} />}
+        </Stack>
+
+        <Box
+          sx={{
+            position: 'relative',
+            ml: { md: -2 },
+            width: { md: 'calc(100% + 32px)' },
+          }}
+        >
+          <CarouselArrows
+            onNext={carousel.onNext}
+            onPrev={carousel.onPrev}
+            leftButtonProps={{
+              sx: {
+                left: -16,
+                opacity: 1,
+                color: 'common.white',
+                bgcolor: 'primary.main',
+                '&:hover': { bgcolor: 'primary.dark' },
+                ...(mdUp && { display: 'none' }),
+              },
+            }}
+            rightButtonProps={{
+              sx: {
+                right: -16,
+                opacity: 1,
+                color: 'common.white',
+                bgcolor: 'primary.main',
+                '&:hover': { bgcolor: 'primary.dark' },
+                ...(mdUp && { display: 'none' }),
+              },
+            }}
+          >
+            <Carousel ref={carousel.carouselRef} {...carousel.carouselSettings}>
+              {data?.map((course) => (
+                <Box
+                  key={course.id}
+                  sx={{
+                    px: 2,
+                    pt: { xs: 6, md: 8 },
+                    pb: { xs: 6, md: 8 },
+                  }}
+                >
+                  <ElearningCourseItem course={course} configuration={configuration} vertical />
+                </Box>
+              ))}
+            </Carousel>
+          </CarouselArrows>
+        </Box>
+      </Container>
+    </Box>
   );
 }
 

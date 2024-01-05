@@ -169,6 +169,7 @@ export default function ElearningContactForm() {
                 size="large"
                 type="submit"
                 variant="contained"
+                color="primary"
                 loading={isSubmitting}
                 sx={{
                   mx: { xs: 'auto !important', md: 'unset !important' },

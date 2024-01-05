@@ -57,7 +57,7 @@ export default function RootLayout({ children }) {
               defaultSettings={{
                 themeMode: 'light', // 'light' | 'dark'
                 themeDirection: 'ltr', //  'rtl' | 'ltr'
-                themeColorPresets: 'default', // 'default' | 'cyan' | 'purple' | 'blue' | 'orange' | 'red'
+                themeColorPresets: 'blue', // 'default' | 'cyan' | 'purple' | 'blue' | 'orange' | 'red'
               }}
             >
               <ThemeProvider>

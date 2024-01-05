@@ -20,7 +20,8 @@ export default function MyLearningCard({ voucher }) {
       }}
     >
       <Stack direction="row" sx={{ p: 2.5, pl: 4, pr: 4 }}>
-        <Typography variant="h6" sx={{ color: '#0D5992' }}>
+        {/* <Typography variant="h6" sx={{ color: '#0D5992' }}> */}
+        <Typography variant="h6" color="primary">
           {voucher.title}
           {'  '} :
         </Typography>

@@ -40,13 +40,14 @@ export default function ElearningLandingHero() {
     <>
       <Box
         sx={{
-          ...bgGradient({
-            endColor: '#FFCEBD',
-            startColor: '#f7f5f4',
-            color: alpha(theme.palette.background.default, 0.1),
-            // imgUrl: '/assets/background/overlay_3.jpg',
-          }),
+          // ...bgGradient({
+          //   endColor: '#FFCEBD',
+          //   startColor: '#f7f5f4',
+          //   color: alpha(theme.palette.background.default, 0.1),
+          //   // imgUrl: '/assets/background/overlay_3.jpg',
+          // }),
           // background: 'linear-gradient(to right bottom, #F7F5F4, #FF7748)',
+          bgcolor: theme.palette.background.default,
           overflow: 'hidden',
           paddingTop: 4,
         }}
@@ -73,11 +74,16 @@ export default function ElearningLandingHero() {
                   {/* <Box component="span" sx={{ color: 'text.disabled' }}>
                     {`  `}
                   </Box> */}
-                  <Box component="span" sx={{ color: 'primary.main', textDecoration: 'underline' }}>
+                  <Typography
+                    variant="h2"
+                    color="primary"
+                    component="span"
+                    sx={{ textDecoration: 'underline' }}
+                  >
                     {' '}
                     Compliance
                     {` Training`}
-                  </Box>{' '}
+                  </Typography>{' '}
                   Experience{' '}
                 </Typography>
 
@@ -90,7 +96,7 @@ export default function ElearningLandingHero() {
 
                 <Stack spacing={3} alignItems="center" direction={{ xs: 'column', md: 'row' }}>
                   <Link component={RouterLink} href={paths.eLearning.courses}>
-                    <Button sx={{ bgcolor: '#FF774B' }} size="large" variant="contained">
+                    <Button color="primary" size="large" variant="contained">
                       Start Learning
                     </Button>
                   </Link>

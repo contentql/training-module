@@ -192,7 +192,8 @@ export default function EcommerceAccountVouchersView() {
 
               <Link component={RouterLink} href={paths.eLearning.courses} sx={{ pt: 10 }}>
                 <Button
-                  sx={{ bgcolor: '#FF774B' }}
+                  // sx={{ bgcolor: '#FF774B' }}
+                  color="primary"
                   size="large"
                   variant="contained"
                   startIcon={<Iconify icon="carbon:chevron-left" />}

@@ -171,7 +171,7 @@ export default function AccountPersonalView() {
       />
 
       <LoadingButton
-        color="inherit"
+        color="primary"
         size="large"
         type="submit"
         variant="contained"

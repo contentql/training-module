@@ -44,12 +44,12 @@ export default function ElearningAboutHero() {
         py: { xs: 10, md: 10 },
         overflow: 'hidden',
         // bgcolor: 'primary.lighter',
-        ...bgGradient({
-          endColor: '#FFCEBD',
-          startColor: '#f7f5f4',
-          color: alpha(theme.palette.background.default, 0.1),
-          // imgUrl: '/assets/background/overlay_3.jpg',
-        }),
+        // ...bgGradient({
+        //   endColor: '#FFCEBD',
+        //   startColor: '#f7f5f4',
+        //   color: alpha(theme.palette.background.default, 0.1),
+        //   // imgUrl: '/assets/background/overlay_3.jpg',
+        // }),
       }}
     >
       <Container>
@@ -79,7 +79,7 @@ export default function ElearningAboutHero() {
               Browse Courses
             </Button> */}
             <Link component={RouterLink} href={paths.eLearning.courses}>
-              <Button sx={{ bgcolor: '#FF774B' }} size="large" variant="contained">
+              <Button color="primary" size="large" variant="contained">
                 Start Learning
               </Button>
             </Link>

@@ -123,7 +123,8 @@ export default function EcommerceAccountVoucherItem({ certificateData }) {
           Score : {certificateData?.attributes.score}/10
         </Typography>
         <Button
-          sx={{ bgcolor: '#FF774B', mb: 1 }}
+          // sx={{ bgcolor: '#FF774B', mb: 1 }}
+          color="primary"
           size="large"
           variant="contained"
           onClick={() => handleClickOpen()}

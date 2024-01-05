@@ -10,7 +10,6 @@ export default function ElearningPrivacy() {
       <Box
         sx={{
           width: 'full',
-          bgcolor: 'background.neutral',
           display: 'flex',
           justifyContent: 'center',
         }}
@@ -48,6 +47,7 @@ export default function ElearningPrivacy() {
       </Box>
       <Box
         sx={{
+          bgcolor: 'background.neutral',
           width: 'full',
           display: 'flex',
           justifyContent: 'center',
