@@ -153,7 +153,7 @@ export default function ElearningCourseDetailsHero({ course }) {
                     {title}
                   </Typography>
 
-                  <Typography sx={{ color: 'text.secondary' }}>{description}</Typography>
+                  <Typography>{description}</Typography>
                 </Stack>
 
                 <Stack

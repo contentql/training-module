@@ -147,11 +147,9 @@ export default function ElearningContactForm() {
                 textAlign: { xs: 'center', md: 'left' },
               }}
             >
-              <Typography variant="h3">Drop Us A Line</Typography>
+              <Typography variant="h3">Drop us a line</Typography>
 
-              <Typography sx={{ color: 'text.secondary' }}>
-                We normally respond within 2 business days
-              </Typography>
+              <Typography>We normally respond within 2 business days</Typography>
             </Stack>
 
             <FormProvider methods={methods} onSubmit={onSubmit}>

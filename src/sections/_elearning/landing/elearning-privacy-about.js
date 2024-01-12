@@ -22,9 +22,9 @@ export default function ElearningPrivacy() {
           }}
         >
           <Typography variant="h2" sx={{ mb: 2 }}>
-            Privacy Policy
+            Privacy policy
           </Typography>
-          <Typography sx={{ color: 'text.secondary' }}>
+          <Typography>
             The company collects your name, email address, mailing address etc. so as to deliver the
             course details and mail the certificate. The company does not misuse or distribute or
             sell any client or student contact or other information for whatsoever reason other than
@@ -63,7 +63,7 @@ export default function ElearningPrivacy() {
           <Typography variant="h2" sx={{ mb: 2 }}>
             Security
           </Typography>
-          <Typography sx={{ color: 'text.secondary' }}>
+          <Typography>
             Security measures have been provided by this site to protect against loss, misuse of
             user information. Credit card information goes through secure socket layer (SSL) of
             paypal and is the best and safest way for online ecommerce transactions. The company

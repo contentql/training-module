@@ -43,7 +43,7 @@ export default function ElearningLandingFaqs() {
                 FAQS
               </Typography>
 
-              <Typography variant="h2">Frequently Asked Questions</Typography>
+              <Typography variant="h2">Frequently asked questions</Typography>
             </Stack>
 
             {_faqs.map((faq) => (

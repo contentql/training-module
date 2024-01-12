@@ -72,9 +72,9 @@ export default function ElearningLandingProcess() {
             Work Flow
           </Typography> */}
 
-          <Typography variant="h2">Why Choose Our Exams</Typography>
+          <Typography variant="h2">Why choose our exams</Typography>
 
-          <Typography sx={{ color: 'text.secondary' }}>
+          <Typography>
             Reliable assessment experience, combining rigorously crafted questions with a
             user-friendly interface, ensuring a comprehensive evaluation tailored to your learning
             journey.

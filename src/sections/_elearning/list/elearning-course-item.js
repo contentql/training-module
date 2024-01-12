@@ -152,7 +152,7 @@ export default function ElearningCourseItem({ course, vertical, isMyLearning, co
 
             <TextMaxLine
               variant="body2"
-              color="text.secondary"
+              // color="text.secondary"
               sx={{
                 ...(vertical && {
                   display: { sm: 'none' },

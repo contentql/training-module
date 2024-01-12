@@ -58,10 +58,10 @@ export default function ElearningLandingAbout() {
           </Typography> */}
 
             <Typography variant="h2" sx={{ my: 3, textAlign: 'center' }}>
-              Who We Are
+              Who we are
             </Typography>
 
-            <Typography sx={{ color: 'text.secondary' }}>
+            <Typography>
               We are passionate about nursing education and committed to your success. Ryzolve is
               designed to provide you with the best learning experience. Whether you are an aspiring
               nurse or a seasoned professional, we have the resources and expertise to help you

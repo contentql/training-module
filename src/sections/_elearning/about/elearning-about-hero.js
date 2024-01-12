@@ -63,7 +63,7 @@ export default function ElearningAboutHero() {
               textAlign: { xs: 'center', md: 'left' },
             }}
           >
-            <Typography variant="h1">Online Courses</Typography>
+            <Typography variant="h1">Online courses</Typography>
 
             <Typography sx={{ mt: 3, mb: 2 }}>
               Ryzolve is the education division of Ryzolve LLC. One of the pioneers in providing

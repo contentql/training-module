@@ -102,8 +102,8 @@ export const presetOptions = [
     primary: {
       lighter: '#CCF4FE',
       light: '#68CDF9',
-      main: '#078DEE',
-      dark: '#0351AB',
+      main: '#007aff',
+      dark: '#0956b5',
       darker: '#012972',
       contrastText: '#FFFFFF',
     },

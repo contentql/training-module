@@ -131,7 +131,7 @@ export default function ElearningLandingFeaturedCourses({ configuration }) {
           }}
         >
           <Stack spacing={3} flexGrow={1} sx={{ textAlign: 'center' }}>
-            <Typography variant="h2">Featured Courses</Typography>
+            <Typography variant="h2">Featured courses</Typography>
           </Stack>
 
           {mdUp && <CarouselArrows spacing={2} onNext={carousel.onNext} onPrev={carousel.onPrev} />}

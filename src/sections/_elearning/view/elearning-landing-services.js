@@ -82,7 +82,7 @@ export default function ElearningLandingServices() {
             textAlign: 'center',
           }}
         >
-          <Typography variant="h2">Why Texas Administrators choose us</Typography>
+          <Typography variant="h2">Why texas administrators choose us</Typography>
         </Stack>
 
         <Box

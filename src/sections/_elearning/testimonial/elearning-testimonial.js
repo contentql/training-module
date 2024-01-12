@@ -61,7 +61,7 @@ export default function ElearningTestimonial({ testimonials }) {
         <Grid container spacing={3} justifyContent="center">
           <Grid xs={12} md={6}>
             <Typography variant="h2" sx={{ mb: 5 }}>
-              What Our Customer Say
+              What our customer say
             </Typography>
 
             <CarouselArrows
