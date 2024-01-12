@@ -70,7 +70,7 @@ function ElearningHeroIllustration({ sx, ...other }) {
           visibleByDefault
           // disabledEffect
           alt="teacher"
-          src="/assets/images/course/hero1.gif"
+          src="/assets/images/course/hero2.gif"
           sx={{ width: 846, height: 490 }}
         />
       </Box>
@@ -92,7 +92,7 @@ function ElearningHeroIllustration({ sx, ...other }) {
       <Box
         {...varRight}
         component={m.div}
-        sx={{ position: 'absolute', left: 600, top: 10, zIndex: 8 }}
+        sx={{ position: 'absolute', left: 600, top: 20, zIndex: 8 }}
       >
         <Image
           visibleByDefault
@@ -103,9 +103,9 @@ function ElearningHeroIllustration({ sx, ...other }) {
         />
       </Box>
 
-      <Pattern01 sx={{ left: 0, top: 0 }} />
-      <Pattern02 sx={{ top: 35, left: 280, opacity: 0.74, transform: 'scale(1.2)' }} />
-      <Shape sx={{ position: 'absolute', right: 120, bottom: 0 }} />
+      {/* <Pattern01 sx={{ left: 0, top: 0 }} /> */}
+      <Pattern02 sx={{ top: 65, left: 280, opacity: 0.74, transform: 'scale(1.2)' }} />
+      <Shape sx={{ position: 'absolute', right: 120, bottom: 40 }} />
     </Box>
   );
 }

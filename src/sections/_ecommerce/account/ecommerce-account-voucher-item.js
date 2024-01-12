@@ -33,16 +33,16 @@ export default function EcommerceAccountVoucherItem({ certificateData }) {
   const certificateImages = [
     {
       courseTitle: '8 Hour Initial Administrator Training Program',
-      image: '/assets/images/course/basic.png',
+      image: '/assets/images/course/basics2.png',
     },
     {
       courseTitle: '16 Hours for New Administrators and Alternates',
-      image: '/assets/images/course/basicsandbeyond.png',
+      image: '/assets/images/course/basicsandbeyond2.png',
       // image: '/assets/images/course/basic.png',
     },
     {
       courseTitle: '12 Hours for existing Administrators and Alternates',
-      image: '/assets/images/course/advanced.png',
+      image: '/assets/images/course/advanced2.png',
       // image: '/assets/images/course/basic.png',
     },
   ];

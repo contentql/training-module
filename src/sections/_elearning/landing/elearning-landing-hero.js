@@ -50,15 +50,15 @@ export default function ElearningLandingHero() {
           bgcolor: theme.palette.background.default,
           overflow: 'hidden',
           paddingTop: 4,
+          paddongBottom: 1,
         }}
       >
         <Container
           sx={{
-            py: 6,
             pb: { xs: 2 },
             display: { md: 'flex' },
             alignItems: { md: 'center' },
-            height: { md: `100vh` },
+            height: { md: `80vh` },
           }}
         >
           <Grid container spacing={3}>

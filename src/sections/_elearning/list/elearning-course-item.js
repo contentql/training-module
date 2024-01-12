@@ -69,11 +69,6 @@ export default function ElearningCourseItem({ course, vertical, isMyLearning, co
 
   const usersCount = users.data ? users.data.length : users.length;
 
-  // console.log(id);
-  // console.log('Cart', cart, isCourseInCart);
-  // console.log(wishlist, isCourseInWishlist);
-  // console.log();
-
   return (
     <Card
       sx={{
