@@ -161,7 +161,7 @@ export default function RegisterBackgroundView() {
           component={RouterLink}
           href={paths.loginBackground}
           variant="subtitle2"
-          color="primary"
+          color="secondary"
         >
           Login
         </Link>
@@ -229,7 +229,7 @@ export default function RegisterBackgroundView() {
 
         <LoadingButton
           fullWidth
-          color="primary"
+          color="secondary"
           size="large"
           type="submit"
           variant="contained"

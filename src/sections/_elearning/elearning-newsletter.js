@@ -40,7 +40,7 @@ export default function ElearningNewsletter() {
               placeholder="Enter your email"
               endAdornment={
                 <InputAdornment position="end">
-                  <Button color="primary" size="large" variant="contained">
+                  <Button color="secondary" size="large" variant="contained">
                     Register
                   </Button>
                 </InputAdornment>

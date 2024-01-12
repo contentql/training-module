@@ -76,7 +76,7 @@ export default function EcommerceWishlistView() {
           <Link component={RouterLink} href={paths.eLearning.courses} sx={{ pt: 10 }}>
             <Button
               // sx={{ bgcolor: '#FF774B' }}
-              color="primary"
+              color="secondary"
               size="large"
               variant="contained"
               startIcon={<Iconify icon="carbon:chevron-left" />}

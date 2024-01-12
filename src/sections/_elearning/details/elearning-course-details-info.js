@@ -137,7 +137,7 @@ export default function ElearningCourseDetailsInfo({ course }) {
             <Button
               variant={isCourseInCart ? 'contained' : 'outlined'}
               size="large"
-              color="inherit"
+              color="secondary"
               sx={{ width: '80%' }}
               onClick={() => (isCourseInCart ? addToCart(course) : removeFromCart(course))}
             >

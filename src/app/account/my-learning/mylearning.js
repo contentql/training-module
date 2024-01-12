@@ -183,7 +183,7 @@ export default function AccountPersonalView() {
             <Link component={RouterLink} href={paths.eLearning.courses} sx={{ pt: 12, pl: 4 }}>
               <Button
                 // sx={{ bgcolor: '#FF774B' }}
-                color="primary"
+                color="secondary"
                 size="large"
                 variant="contained"
                 startIcon={<Iconify icon="carbon:chevron-left" />}

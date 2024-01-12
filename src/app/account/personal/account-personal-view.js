@@ -171,7 +171,7 @@ export default function AccountPersonalView() {
       />
 
       <LoadingButton
-        color="primary"
+        color="secondary"
         size="large"
         type="submit"
         variant="contained"

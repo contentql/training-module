@@ -79,7 +79,7 @@ export default function ElearningAboutHero() {
               Browse Courses
             </Button> */}
             <Link component={RouterLink} href={paths.eLearning.courses}>
-              <Button color="primary" size="large" variant="contained">
+              <Button color="secondary" size="large" variant="contained">
                 Start Learning
               </Button>
             </Link>

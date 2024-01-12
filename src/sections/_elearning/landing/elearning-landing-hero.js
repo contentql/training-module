@@ -96,7 +96,7 @@ export default function ElearningLandingHero() {
 
                 <Stack spacing={3} alignItems="center" direction={{ xs: 'column', md: 'row' }}>
                   <Link component={RouterLink} href={paths.eLearning.courses}>
-                    <Button color="primary" size="large" variant="contained">
+                    <Button color="secondary" size="large" variant="contained">
                       Start Learning
                     </Button>
                   </Link>

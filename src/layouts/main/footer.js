@@ -135,7 +135,7 @@ export default function Footer() {
                 <Typography variant="h6">Social</Typography>
                 <Stack direction="row" alignItems="center">
                   {_socials.map((social) => (
-                    <IconButton key={social.value} color="primary">
+                    <IconButton key={social.value} color="secondary">
                       <Iconify icon={social.icon} />
                     </IconButton>
                   ))}

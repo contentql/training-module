@@ -110,10 +110,11 @@ export const presetOptions = [
     secondary: {
       lighter: '#FFF3D8',
       light: '#FFD18B',
-      main: '#FFA03F',
+      main: '#FF5500',
       dark: '#B75D1F',
       darker: '#7A2D0C',
-      contrastText: palette.grey[800],
+      // contrastText: palette.grey[800],
+      contrastText: '#FFFFFF',
     },
   },
 
