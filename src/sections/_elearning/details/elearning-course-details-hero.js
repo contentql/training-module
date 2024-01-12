@@ -153,7 +153,7 @@ export default function ElearningCourseDetailsHero({ course }) {
                     {title}
                   </Typography>
 
-                  <Typography>{description}</Typography>
+                  <Typography variant="subtitle1">{description}</Typography>
                 </Stack>
 
                 <Stack
@@ -175,19 +175,19 @@ export default function ElearningCourseDetailsHero({ course }) {
                     )}
                   </Stack> */}
 
-                  <Stack
+                  {/* <Stack
                     direction="row"
                     alignItems="center"
                     spacing={1.2}
                     divider={<Divider orientation="vertical" sx={{ height: 18 }} />}
                   >
                     <Iconify icon="heroicons-outline:users" />
-                    <Typography sx={{ fontSize: 14 }}>
+                    <Typography sx={{ fontSize: 16 }}>
                       {' '}
                       {fShortenNumber(users?.data.length)}{' '}
                       {users?.data.length === 1 ? 'Student' : 'Students'} Enrolled
                     </Typography>
-                  </Stack>
+                  </Stack> */}
                 </Stack>
 
                 {/* <Stack direction="row" alignItems="center">
@@ -223,11 +223,11 @@ export default function ElearningCourseDetailsHero({ course }) {
                       '& > *': { my: 0.5, mr: 3 },
                     }}
                   >
-                    <Stack direction="row" alignItems="center" sx={{ typography: 'body2' }}>
+                    <Stack direction="row" alignItems="center" sx={{ typography: 'subtitle2' }}>
                       <Iconify icon="carbon:time" sx={{ mr: 1 }} /> {`${time} Hours`}
                     </Stack>
 
-                    <Stack direction="row" alignItems="center" sx={{ typography: 'body2' }}>
+                    <Stack direction="row" alignItems="center" sx={{ typography: 'subtitle2' }}>
                       <Iconify icon="carbon:document" sx={{ mr: 1 }} />
                       {`${totalLessons} Lessons`}
                     </Stack>
@@ -252,12 +252,12 @@ export default function ElearningCourseDetailsHero({ course }) {
                       '& > *': { my: 0.5, mr: 3 },
                     }}
                   >
-                    <Stack direction="row" alignItems="start" sx={{ typography: 'body2' }}>
+                    <Stack direction="row" alignItems="start" sx={{ typography: 'subtitle2' }}>
                       <Iconify icon="carbon:content-delivery-network" sx={{ mr: 1 }} />
                       {typeof languages === 'string' ? languages : languages?.join(', ')}
                     </Stack>
 
-                    <Stack direction="row" alignItems="center" sx={{ typography: 'body2' }}>
+                    <Stack direction="row" alignItems="center" sx={{ typography: 'subtitle2' }}>
                       {totalQuizzes > 0 ? (
                         <Stack direction="row">
                           <Iconify icon="carbon:help" sx={{ mr: 1 }} />
@@ -268,7 +268,7 @@ export default function ElearningCourseDetailsHero({ course }) {
                       )}
                     </Stack>
                   </Stack>
-                  <Stack direction="row" alignItems="center" sx={{ typography: 'body2' }}>
+                  <Stack direction="row" alignItems="center" sx={{ typography: 'subtitle2' }}>
                     <Stack direction="row">
                       <Iconify icon="carbon:certificate" sx={{ mr: 1 }} />
                       <span>1 Certification Assessment</span>

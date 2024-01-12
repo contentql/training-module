@@ -195,7 +195,7 @@ function Logo({ single = false, sx }) {
   return (
     <Link
       component={RouterLink}
-      href="/"
+      href="https://ryzolve-prod.vercel.app/"
       color="inherit"
       aria-label="go to homepage"
       sx={{ lineHeight: 0 }}

@@ -48,17 +48,19 @@ export default function ElearningLandingHero() {
           // }),
           // background: 'linear-gradient(to right bottom, #F7F5F4, #FF7748)',
           bgcolor: theme.palette.background.default,
-          overflow: 'hidden',
+          // overflow: 'hidden',
           paddingTop: 4,
-          paddongBottom: 1,
+          // paddongBottom: 1,
         }}
       >
         <Container
           sx={{
-            pb: { xs: 2 },
+            // pb: { xs: 2 },
             display: { md: 'flex' },
             alignItems: { md: 'center' },
-            height: { md: `80vh` },
+            height: { md: `75vh` },
+            pt: { md: 16 },
+            pb: { md: 10 },
           }}
         >
           <Grid container spacing={3}>
@@ -87,7 +89,7 @@ export default function ElearningLandingHero() {
                   experience{' '}
                 </Typography>
 
-                <Typography sx={{ mt: 3, mb: { xs: 0, md: 5 } }}>
+                <Typography variant="subtitle1" sx={{ mt: 3, mb: { xs: 0, md: 5 } }}>
                   We facilitate the licensing and training processes for home care businesses.
                   Embark on our Administrator/Manager Training programs in Texas, offering flexible
                   durations of 8, 12, or 16 hours. Experience the convenience of our training
@@ -133,7 +135,7 @@ export default function ElearningLandingHero() {
             </Grid>
 
             {mdUp && (
-              <Grid xs={12} md={6} lg={7}>
+              <Grid xs={12} md={2} lg={4}>
                 <ElearningHeroIllustration />
               </Grid>
             )}

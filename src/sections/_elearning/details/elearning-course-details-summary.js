@@ -54,7 +54,7 @@ export default function ElearningCourseDetailsSummary({ course }) {
                   sx={{ width: 16, height: 16, color: 'primary.main' }}
                 />
               </Box>
-              {learn.points}
+              <Typography variant="subtitle2">{learn.points}</Typography>
             </Stack>
           ))}
         </Stack>

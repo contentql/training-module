@@ -72,9 +72,9 @@ export default function ElearningCourseDetailsInfo({ course }) {
         </Stack>
 
         <Stack spacing={2}>
-          <Typography>This course includes:</Typography>
+          <Typography variant="subtitle2">This course includes:</Typography>
 
-          <Stack direction="row" alignItems="center" sx={{ typography: 'body2' }}>
+          <Stack direction="row" alignItems="center" sx={{ typography: 'subtitle2' }}>
             <Iconify icon="carbon:document" sx={{ mr: 1 }} />
             <Box component="strong" sx={{ mr: 0.5 }}>
               {totalLessons}
@@ -82,7 +82,7 @@ export default function ElearningCourseDetailsInfo({ course }) {
             Lessons
           </Stack>
 
-          <Stack direction="row" alignItems="center" sx={{ typography: 'body2' }}>
+          <Stack direction="row" alignItems="center" sx={{ typography: 'subtitle2' }}>
             <Iconify icon="carbon:document-download" sx={{ mr: 1 }} />
             <Box component="strong" sx={{ mr: 0.5 }}>
               {course.attributes.resources}
@@ -90,17 +90,17 @@ export default function ElearningCourseDetailsInfo({ course }) {
             Multiple practice tests
           </Stack>
 
-          <Stack direction="row" alignItems="center" sx={{ typography: 'body2' }}>
+          <Stack direction="row" alignItems="center" sx={{ typography: 'subtitle2' }}>
             <Iconify icon="carbon:data-accessor" sx={{ mr: 1 }} />
             One year access of course
           </Stack>
 
-          <Stack direction="row" alignItems="center" sx={{ typography: 'body2' }}>
+          <Stack direction="row" alignItems="center" sx={{ typography: 'subtitle2' }}>
             <Iconify icon="carbon:devices" sx={{ mr: 1 }} />
             Access on desktops, tablets, mobile
           </Stack>
 
-          <Stack direction="row" alignItems="center" sx={{ typography: 'body2' }}>
+          <Stack direction="row" alignItems="center" sx={{ typography: 'subtitle2' }}>
             <Iconify icon="carbon:certificate" sx={{ mr: 1 }} />
             Certificate of completion
           </Stack>

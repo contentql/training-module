@@ -74,7 +74,7 @@ export default function ElearningLandingProcess() {
 
           <Typography variant="h2">Why choose our exams</Typography>
 
-          <Typography>
+          <Typography variant="subtitle1">
             Reliable assessment experience, combining rigorously crafted questions with a
             user-friendly interface, ensuring a comprehensive evaluation tailored to your learning
             journey.
