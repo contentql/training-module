@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
@@ -32,7 +34,7 @@ const ROWS = [
 
 // ----------------------------------------------------------------------
 
-export default function ElearningLandingAbout() {
+export default function ElearningLandingAbout({ title, subtitle }) {
   return (
     <Box sx={{ bgcolor: 'background.neutral' }}>
       <Container
@@ -58,14 +60,16 @@ export default function ElearningLandingAbout() {
           </Typography> */}
 
             <Typography variant="h2" sx={{ my: 3, textAlign: 'center' }}>
-              Who we are
+              {/* Who we are */}
+              {title}
             </Typography>
 
             <Typography>
-              We are passionate about nursing education and committed to your success. Ryzolve is
+              {/* We are passionate about nursing education and committed to your success. Ryzolve is
               designed to provide you with the best learning experience. Whether you are an aspiring
               nurse or a seasoned professional, we have the resources and expertise to help you
-              thrive in the field of nursing.
+              thrive in the field of nursing. */}
+              {subtitle}
             </Typography>
 
             {/* <Button
@@ -128,3 +132,8 @@ export default function ElearningLandingAbout() {
     </Box>
   );
 }
+
+ElearningLandingAbout.propTypes = {
+  title: PropTypes.string,
+  subtitle: PropTypes.string,
+};

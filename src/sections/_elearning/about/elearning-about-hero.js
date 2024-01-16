@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 import Box from '@mui/material/Box';
 import { Link } from '@mui/material';
 import Button from '@mui/material/Button';
@@ -35,7 +37,7 @@ export function bgGradient(props) {
   };
 }
 
-export default function ElearningAboutHero() {
+export default function ElearningAboutHero({ title, description_one, description_two }) {
   const theme = useTheme();
 
   return (
@@ -63,16 +65,18 @@ export default function ElearningAboutHero() {
               textAlign: { xs: 'center', md: 'left' },
             }}
           >
-            <Typography variant="h1">Online courses</Typography>
+            <Typography variant="h1">{title}</Typography>
 
             <Typography sx={{ mt: 3, mb: 2 }}>
-              Ryzolve is the education division of Ryzolve LLC. One of the pioneers in providing
-              consultancy services to HCSSA agencies.
+              {/* Ryzolve is the education division of Ryzolve LLC. One of the pioneers in providing
+              consultancy services to HCSSA agencies. */}
+              {description_one}
             </Typography>
             <Typography sx={{ mt: 3, mb: 6 }}>
-              The courses that we have for Administrators and Alternate Administrators of Home
+              {/* The courses that we have for Administrators and Alternate Administrators of Home
               Health, Hospice and Personal Care Services have been created in an easy to study
-              method for the convenience and comfort of students.
+              method for the convenience and comfort of students. */}
+              {description_two}
             </Typography>
 
             {/* <Button variant="contained" size="large" color="primary">
@@ -93,3 +97,9 @@ export default function ElearningAboutHero() {
     </Box>
   );
 }
+
+ElearningAboutHero.propTypes = {
+  title: PropTypes.string,
+  description_one: PropTypes.string,
+  description_two: PropTypes.string,
+};

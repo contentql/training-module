@@ -1,5 +1,8 @@
 'use client';
 
+import { useQuery } from 'react-query';
+
+import { getAboutUsData } from 'src/queries/aboutUs/index';
 import { _members, _coursePosts, _brandsColor, _testimonials } from 'src/_mock';
 
 import ElearningAbout from '../about/elearning-about';
@@ -16,11 +19,13 @@ import ElearningLatestPosts from '../../blog/elearning/elearning-latest-posts';
 // ----------------------------------------------------------------------
 
 export default function ElearningAboutView() {
+  const { data: aboutUsData, isLoading } = useQuery(['aboutUsData'], () => getAboutUsData());
+
   return (
     <>
-      <ElearningAboutHero />
-      <ElearningLandingAbout />
-      <ElearningPrivacy />
+      <ElearningAboutHero {...aboutUsData?.heroData} />
+      <ElearningLandingAbout {...aboutUsData?.aboutData} />
+      <ElearningPrivacy privacyData={aboutUsData?.privacy} securityData={aboutUsData?.security} />
 
       {/* <ElearningAbout /> */}
 
