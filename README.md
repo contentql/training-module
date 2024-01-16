@@ -11,3 +11,4 @@
 
 - yarn add
 - yarn develop
+- deploy build
