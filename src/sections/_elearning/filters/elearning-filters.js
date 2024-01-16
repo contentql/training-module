@@ -131,7 +131,7 @@ export default function ElearningFilters({ open, onClose, filters, setFilters })
         width: { xs: 1, md: 280 },
       }}
     >
-      <TextField
+      {/* <TextField
         fullWidth
         hiddenLabel
         placeholder="Search..."
@@ -145,7 +145,7 @@ export default function ElearningFilters({ open, onClose, filters, setFilters })
         name="text"
         value={filters.text}
         onChange={handleFilterChange}
-      />
+      /> */}
       {/* 
       <Block title="Ratings">
         <FilterRating
