@@ -63,7 +63,7 @@ export default function ElearningLandingFaqs() {
               <Typography variant="h2">Frequently asked questions</Typography>
             </Stack>
 
-            {faqsData.map((faq) => (
+            {faqsData?.map((faq) => (
               <Accordion
                 key={faq.id}
                 expanded={expanded === faq.question}
