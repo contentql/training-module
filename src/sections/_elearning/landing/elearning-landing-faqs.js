@@ -1,3 +1,4 @@
+import { useQuery } from 'react-query';
 import { useState, useCallback } from 'react';
 
 import Box from '@mui/material/Box';
@@ -12,6 +13,7 @@ import AccordionSummary, { accordionSummaryClasses } from '@mui/material/Accordi
 import { _faqs } from 'src/_mock';
 import Image from 'src/components/image';
 import Iconify from 'src/components/iconify';
+import { axiosClient } from 'src/utils/axiosClient';
 import { useResponsive } from 'src/hooks/use-responsive';
 
 // ----------------------------------------------------------------------
@@ -20,6 +22,21 @@ export default function ElearningLandingFaqs() {
   const mdUp = useResponsive('up', 'md');
 
   const [expanded, setExpanded] = useState(false);
+
+  const getFaqs = () => {
+    const response = axiosClient.get('/api/faqs?populate=*');
+    return response;
+  };
+
+  const { data: faqs, isLoading } = useQuery({
+    queryKey: ['faqs'],
+    queryFn: getFaqs,
+  });
+
+  // console.log('faqs', faqs);
+
+  const faqsData = faqs?.data.data.map((list) => list.attributes.faq).flat();
+  console.log(faqsData);
 
   const handleChangeExpanded = useCallback(
     (panel) => (event, isExpanded) => {
@@ -46,7 +63,7 @@ export default function ElearningLandingFaqs() {
               <Typography variant="h2">Frequently asked questions</Typography>
             </Stack>
 
-            {_faqs.map((faq) => (
+            {faqsData.map((faq) => (
               <Accordion
                 key={faq.id}
                 expanded={expanded === faq.question}
