@@ -52,6 +52,12 @@ export default function ElearningContactForm() {
     message: Yup.string().required('Message is required'),
   });
 
+  const ELearningReviewSchema = Yup.object().shape({
+    name: Yup.string().required('Full name is required'),
+    company: Yup.string().required('Compnay is required'),
+    review: Yup.string().required('Review is required'),
+  });
+
   const defaultValues = {
     fullName: '',
     subject: '',
@@ -59,16 +65,28 @@ export default function ElearningContactForm() {
     message: '',
   };
 
+  const reviewDefaultValues = {
+    name: '',
+    company: '',
+    designation: '',
+    review: '',
+  };
+
   const methods = useForm({
     resolver: yupResolver(ElearningContactSchema),
     defaultValues,
+  });
+
+  const reviewMethods = useForm({
+    resolver: yupResolver(ELearningReviewSchema),
+    reviewDefaultValues,
   });
 
   const {
     reset,
     handleSubmit,
     formState: { isSubmitting },
-  } = methods;
+  } = reviewMethods;
 
   const onSubmit = handleSubmit(async (data) => {
     const requestBody = {
@@ -88,6 +106,51 @@ export default function ElearningContactForm() {
         body: JSON.stringify(requestBody),
       });
       toast.success('Thank you for contacting us', {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
+      const resData = await response.json();
+      reset();
+    } catch (error) {
+      toast.error('error, please try again', {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
+      console.error(error);
+    }
+  });
+
+  const onReviewSubmit = handleSubmit(async (data) => {
+    const requestBody = {
+      data: {
+        name: data.name,
+        company: data.company,
+        designation: data.designation,
+        review: data.review,
+        source: 'training',
+      },
+    };
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/api/reviews`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestBody),
+      });
+      toast.success('Thank you for submitting review', {
         position: 'bottom-right',
         autoClose: 3000,
         hideProgressBar: true,
@@ -147,20 +210,20 @@ export default function ElearningContactForm() {
                 textAlign: { xs: 'center', md: 'left' },
               }}
             >
-              <Typography variant="h3">Drop us a line</Typography>
+              <Typography variant="h3">Drop a Review For us</Typography>
 
-              <Typography>We normally respond within 2 business days</Typography>
+              {/* <Typography>We normally respond within 2 business days</Typography> */}
             </Stack>
 
-            <FormProvider methods={methods} onSubmit={onSubmit}>
+            <FormProvider methods={reviewMethods} onSubmit={onReviewSubmit}>
               <Stack spacing={2.5} alignItems="flex-start">
-                <RHFTextField name="fullName" label="Full name" />
+                <RHFTextField name="name" label="Name" />
 
-                <RHFTextField name="email" label="Email" />
+                <RHFTextField name="company" label="Company" />
 
-                <RHFTextField name="subject" label="Subject" />
+                <RHFTextField name="designation" label="Designation" />
 
-                <RHFTextField name="message" multiline rows={4} label="Message" sx={{ pb: 2.5 }} />
+                <RHFTextField name="review" multiline rows={4} label="Review" sx={{ pb: 2.5 }} />
               </Stack>
 
               <LoadingButton

@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useQuery } from 'react-query';
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
@@ -8,14 +9,21 @@ import Grid from '@mui/material/Unstable_Grid2';
 import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 
+import { getTestimonialData } from 'src/queries/testimonials/index';
 import Carousel, { useCarousel, CarouselArrows } from 'src/components/carousel';
 
 import { TestimonialItemContent, TestimonialItemThumbnail } from './testimonial-item';
 
 // ----------------------------------------------------------------------
 
-export default function ElearningTestimonial({ testimonials }) {
+export default function ElearningTestimonial() {
   const theme = useTheme();
+
+  const { data: testimonials, isLoading } = useQuery(['testimonialData'], () =>
+    getTestimonialData()
+  );
+
+  console.log(testimonials);
 
   const carouselLarge = useCarousel({
     slidesToShow: 1,
@@ -79,8 +87,11 @@ export default function ElearningTestimonial({ testimonials }) {
                 asNavFor={carouselThumb.nav}
                 ref={carouselLarge.carouselRef}
               >
-                {testimonials.map((testimonial) => (
-                  <TestimonialItemContent key={testimonial.id} testimonial={testimonial} />
+                {testimonials?.map((testimonial) => (
+                  <TestimonialItemContent
+                    key={testimonial.attributes.id}
+                    testimonial={testimonial.attributes}
+                  />
                 ))}
               </Carousel>
 
@@ -90,10 +101,10 @@ export default function ElearningTestimonial({ testimonials }) {
                   asNavFor={carouselLarge.nav}
                   ref={carouselThumb.carouselRef}
                 >
-                  {testimonials.map((testimonial, index) => (
+                  {testimonials?.map((testimonial, index) => (
                     <TestimonialItemThumbnail
-                      key={testimonial.id}
-                      testimonial={testimonial}
+                      key={testimonial.attributes.id}
+                      testimonial={testimonial.attributes}
                       selected={carouselLarge.currentIndex === index}
                     />
                   ))}
@@ -101,13 +112,13 @@ export default function ElearningTestimonial({ testimonials }) {
               </Box>
             </CarouselArrows>
 
-            {testimonials.map(
+            {testimonials?.map(
               (testimonial, index) =>
                 carouselLarge.currentIndex === index && (
-                  <Stack key={testimonial.id} spacing={0.5}>
-                    <Typography variant="h6">{testimonial.name}</Typography>
+                  <Stack key={testimonial.attributes.id} spacing={0.5}>
+                    <Typography variant="h6">{testimonial.attributes.name}</Typography>
                     <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                      {testimonial.role}
+                      {testimonial.attributes.company} , {testimonial.attributes.designation}
                     </Typography>
                   </Stack>
                 )
