@@ -215,15 +215,15 @@ export default function ElearningContactForm() {
               {/* <Typography>We normally respond within 2 business days</Typography> */}
             </Stack>
 
-            <FormProvider methods={reviewMethods} onSubmit={onReviewSubmit}>
+            <FormProvider methods={methods} onSubmit={onSubmit}>
               <Stack spacing={2.5} alignItems="flex-start">
                 <RHFTextField name="name" label="Name" />
 
-                <RHFTextField name="company" label="Company" />
+                <RHFTextField name="email" label="email" />
 
-                <RHFTextField name="designation" label="Designation" />
+                <RHFTextField name="subject" label="subject" />
 
-                <RHFTextField name="review" multiline rows={4} label="Review" sx={{ pb: 2.5 }} />
+                <RHFTextField name="message" multiline rows={4} label="message" sx={{ pb: 2.5 }} />
               </Stack>
 
               <LoadingButton

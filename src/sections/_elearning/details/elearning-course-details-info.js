@@ -21,7 +21,7 @@ import { RouterLink } from 'src/routes/components';
 import { fCurrency } from 'src/utils/format-number';
 import { useUserStore } from 'src/states/auth-store';
 import { useWishlistStore } from 'src/states/wishlist';
-import ElearningContactForm from 'src/sections/_elearning/contact/elearning-review-form';
+import ElearningReviewForm from 'src/sections/_elearning/contact/elearning-review-form';
 import FormProvider, {
   RHFSelect,
   RHFSwitch,
@@ -40,37 +40,6 @@ import { FormSchema } from './reviewschema';
 
 export default function ElearningCourseDetailsInfo({ course }) {
   const [reviewOpen, setReviewOpen] = useState(false);
-
-  const defaultValues = {
-    name: '',
-    email: '',
-    agency: '',
-    review: '',
-  };
-
-  const methods = useForm({
-    resolver: yupResolver(FormSchema),
-    defaultValues,
-  });
-
-  const {
-    reset,
-    handleSubmit,
-    formState: { isSubmitting },
-  } = methods;
-
-  const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    border: '1px solid #000',
-    borderRadius: '10px',
-    boxShadow: 10,
-    p: 4,
-  };
 
   const [cart, addToCart, removeFromCart] = useCartStore((state) => [
     state.cart,
@@ -212,7 +181,7 @@ export default function ElearningCourseDetailsInfo({ course }) {
               aria-labelledby="modal-modal-title"
               aria-describedby="modal-modal-description"
             >
-              <ElearningContactForm setReviewOpen={setReviewOpen} />
+              <ElearningReviewForm setReviewOpen={setReviewOpen} />
             </Modal>
             <Button
               onClick={() => setReviewOpen(true)}

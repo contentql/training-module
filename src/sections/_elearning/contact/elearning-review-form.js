@@ -6,9 +6,10 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { toast, ToastContainer } from 'react-toastify';
 
 import Box from '@mui/material/Box';
+import { Button } from '@mui/material';
 import Stack from '@mui/material/Stack';
-import Grid from '@mui/material/Unstable_Grid2';
 import Container from '@mui/material/Container';
+import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { alpha, useTheme } from '@mui/material/styles';
@@ -42,7 +43,7 @@ export function bgGradient(props) {
   };
 }
 
-export default function ElearningContactForm({ setReviewOpen }) {
+export default function ElearningReviewForm({ setReviewOpen }) {
   const mdUp = useResponsive('up', 'md');
   const theme = useTheme();
 
@@ -149,6 +150,9 @@ export default function ElearningContactForm({ setReviewOpen }) {
 
   return (
     <Box style={style} sx={{ bgcolor: 'background.neutral', p: 4 }}>
+      <Typography sx={{ mb: 4 }} variant="h3">
+        Drop a Review For us
+      </Typography>
       <FormProvider methods={reviewMethods} onSubmit={onReviewSubmit}>
         <Stack spacing={2.5} alignItems="flex-start">
           <RHFTextField name="name" label="Name" />
@@ -160,18 +164,18 @@ export default function ElearningContactForm({ setReviewOpen }) {
           <RHFTextField name="review" multiline rows={4} label="Review" sx={{ pb: 2.5 }} />
         </Stack>
 
-        <LoadingButton
-          size="large"
+        <Button
+          // size="large"
           type="submit"
           variant="contained"
           color="secondary"
-          loading={isSubmitting}
+          // loading={isSubmitting}
           sx={{
-            mx: { xs: 'auto !important', md: 'unset !important' },
+            mx: 16,
           }}
         >
           submit
-        </LoadingButton>
+        </Button>
         <ToastContainer
           position="bottom-right"
           autoClose={3000}
@@ -185,6 +189,6 @@ export default function ElearningContactForm({ setReviewOpen }) {
   );
 }
 
-ElearningContactForm.propTypes = {
+ElearningReviewForm.propTypes = {
   setReviewOpen: PropTypes.bool,
 };
