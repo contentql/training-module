@@ -7,12 +7,11 @@ export const getTestimonialData = async () => {
             reviews(filters: { source: { eq: "training" }}){
                 data{
                 attributes{
-                    id
                     name
                     review
                     designation
                     company
-                    
+                    display
                 }
             }
         }

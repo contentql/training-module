@@ -23,7 +23,7 @@ export default function ElearningTestimonial() {
     getTestimonialData()
   );
 
-  console.log(testimonials);
+  const newTestimonials = testimonials?.filter((list) => list.attributes.display);
 
   const carouselLarge = useCarousel({
     slidesToShow: 1,
@@ -87,7 +87,7 @@ export default function ElearningTestimonial() {
                 asNavFor={carouselThumb.nav}
                 ref={carouselLarge.carouselRef}
               >
-                {testimonials?.map((testimonial) => (
+                {newTestimonials?.map((testimonial) => (
                   <TestimonialItemContent
                     key={testimonial.attributes.id}
                     testimonial={testimonial.attributes}
@@ -101,7 +101,7 @@ export default function ElearningTestimonial() {
                   asNavFor={carouselLarge.nav}
                   ref={carouselThumb.carouselRef}
                 >
-                  {testimonials?.map((testimonial, index) => (
+                  {newTestimonials?.map((testimonial, index) => (
                     <TestimonialItemThumbnail
                       key={testimonial.attributes.id}
                       testimonial={testimonial.attributes}
@@ -112,7 +112,7 @@ export default function ElearningTestimonial() {
               </Box>
             </CarouselArrows>
 
-            {testimonials?.map(
+            {newTestimonials?.map(
               (testimonial, index) =>
                 carouselLarge.currentIndex === index && (
                   <Stack key={testimonial.attributes.id} spacing={0.5}>

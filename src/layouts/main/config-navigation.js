@@ -112,6 +112,5 @@ export const navConfig = [
   { title: 'Courses', path: '/courses' },
   { title: 'Contact', path: '/contact' },
   { title: 'About Us', path: '/about-us' },
-  { title: 'Reviews', path: '/reviews' },
   // { title: 'Ryzolve', path: 'https://ryzolve-prod.vercel.app/' },
 ];
