@@ -1,11 +1,18 @@
+import { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useForm, Controller } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { toast, ToastContainer } from 'react-toastify';
 
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
+import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
+import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
+import LoadingButton from '@mui/lab/LoadingButton';
 
 import { paths } from 'src/routes/paths';
 import Iconify from 'src/components/iconify';
@@ -14,10 +21,26 @@ import { RouterLink } from 'src/routes/components';
 import { fCurrency } from 'src/utils/format-number';
 import { useUserStore } from 'src/states/auth-store';
 import { useWishlistStore } from 'src/states/wishlist';
+import ElearningReviewForm from 'src/sections/_elearning/contact/elearning-review-form';
+import FormProvider, {
+  RHFSelect,
+  RHFSwitch,
+  RHFSlider,
+  RHFCheckbox,
+  RHFTextField,
+  RHFRadioGroup,
+  RHFMultiSelect,
+  RHFAutocomplete,
+  RHFMultiCheckbox,
+} from 'src/components/hook-form';
+
+import { FormSchema } from './reviewschema';
 
 // ----------------------------------------------------------------------
 
 export default function ElearningCourseDetailsInfo({ course }) {
+  const [reviewOpen, setReviewOpen] = useState(false);
+
   const [cart, addToCart, removeFromCart] = useCartStore((state) => [
     state.cart,
     state.addToCart,
@@ -114,7 +137,7 @@ export default function ElearningCourseDetailsInfo({ course }) {
           </Link>
         )} */}
 
-        {!hasBoughtCourse && (
+        {!hasBoughtCourse ? (
           <Box
             sx={{
               display: 'flex',
@@ -142,6 +165,31 @@ export default function ElearningCourseDetailsInfo({ course }) {
               onClick={() => (isCourseInCart ? addToCart(course) : removeFromCart(course))}
             >
               {isCourseInCart ? 'Add to cart' : 'Remove from cart'}
+            </Button>
+          </Box>
+        ) : (
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'space-around',
+              alignItems: 'center',
+            }}
+          >
+            <Modal
+              open={reviewOpen}
+              onClose={() => setReviewOpen(false)}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <ElearningReviewForm setReviewOpen={setReviewOpen} />
+            </Modal>
+            <Button
+              onClick={() => setReviewOpen(true)}
+              variant="contained"
+              size="large"
+              sx={{ width: '80%', backgroundColor: '#00031f', color: 'white' }}
+            >
+              Review
             </Button>
           </Box>
         )}
