@@ -10,7 +10,7 @@ export const getTestimonialData = async () => {
                     name
                     review
                     designation
-                    company
+                    company 
                     display
                 }
             }
@@ -23,5 +23,5 @@ export const getTestimonialData = async () => {
     }
   );
 
-  return data.data.reviews.data;
+  return data.data.reviews.data.filter((list) => list.attributes.display);
 };

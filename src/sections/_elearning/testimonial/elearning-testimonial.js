@@ -23,8 +23,6 @@ export default function ElearningTestimonial() {
     getTestimonialData()
   );
 
-  const newTestimonials = testimonials?.filter((list) => list.attributes.display);
-
   const carouselLarge = useCarousel({
     slidesToShow: 1,
     draggable: false,
@@ -87,9 +85,9 @@ export default function ElearningTestimonial() {
                 asNavFor={carouselThumb.nav}
                 ref={carouselLarge.carouselRef}
               >
-                {newTestimonials?.map((testimonial) => (
+                {testimonials?.map((testimonial) => (
                   <TestimonialItemContent
-                    key={testimonial.attributes.id}
+                    key={testimonial.attributes.review}
                     testimonial={testimonial.attributes}
                   />
                 ))}
@@ -101,9 +99,9 @@ export default function ElearningTestimonial() {
                   asNavFor={carouselLarge.nav}
                   ref={carouselThumb.carouselRef}
                 >
-                  {newTestimonials?.map((testimonial, index) => (
+                  {testimonials?.map((testimonial, index) => (
                     <TestimonialItemThumbnail
-                      key={testimonial.attributes.id}
+                      key={testimonial.attributes.review}
                       testimonial={testimonial.attributes}
                       selected={carouselLarge.currentIndex === index}
                     />
@@ -112,10 +110,10 @@ export default function ElearningTestimonial() {
               </Box>
             </CarouselArrows>
 
-            {newTestimonials?.map(
+            {testimonials?.map(
               (testimonial, index) =>
                 carouselLarge.currentIndex === index && (
-                  <Stack key={testimonial.attributes.id} spacing={0.5}>
+                  <Stack key={testimonial.attributes.review} spacing={0.5}>
                     <Typography variant="h6">{testimonial.attributes.name}</Typography>
                     <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                       {testimonial.attributes.company} , {testimonial.attributes.designation}
