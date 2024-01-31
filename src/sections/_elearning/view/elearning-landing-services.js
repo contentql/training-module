@@ -27,7 +27,7 @@ const SERVICES = [
       'Our programs not only meet but surpass the licensing standards mandated by the states of Texas.',
     path: paths.marketing.services,
     bgcolor: '#f7efff',
-    color: '#b566ff',
+    color: '#012972',
     hovercolor: '#dfc1fc',
   },
   {
@@ -38,7 +38,7 @@ const SERVICES = [
 
     path: paths.marketing.services,
     bgcolor: '#ffe0f2',
-    color: '#ff6bc1',
+    color: '#8c0353',
     hovercolor: '#ffbce3',
   },
   {
@@ -47,7 +47,7 @@ const SERVICES = [
     content: 'Enjoy 24/7 support through chat, text, email, and phone',
     path: paths.marketing.services,
     bgcolor: '#ffe2d3',
-    color: '#f56025',
+    color: '#7A4100',
     hovercolor: '#ffaf90',
   },
   {
@@ -56,7 +56,7 @@ const SERVICES = [
     content: 'Centralized account for all courses and for all certificates.',
     path: paths.marketing.services,
     bgcolor: '#d6eded',
-    color: '#35b27c',
+    color: '#0A5554',
     hovercolor: '#92d1b6',
   },
 ];
@@ -120,7 +120,6 @@ function ServiceItem({ service, index }) {
           px: 4,
           py: 5,
           textAlign: 'center',
-          color,
           bgcolor,
           '&:hover': {
             transition: 'transform 1s ease-in-out',
@@ -161,7 +160,8 @@ function ServiceItem({ service, index }) {
           <Typography
             variant="body1"
             sx={{
-              color: (theme) => theme.palette[COLORS[index]].darker,
+              // color: (theme) => theme.palette[COLORS[index]].darker,
+              color: { color },
             }}
           >
             {content}

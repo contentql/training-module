@@ -21,6 +21,7 @@ const SERVICES = [
     bgcolor: '#f7efff',
     color: '#b566ff',
     hovercolor: '#dfc1fc',
+    descriptionColor: '#012972',
   },
   {
     name: 'Convenient',
@@ -29,6 +30,7 @@ const SERVICES = [
     bgcolor: '#ffe0f2',
     color: '#ff6bc1',
     hovercolor: '#ffbce3',
+    descriptionColor: '#8c0353',
   },
   {
     name: 'Certificate',
@@ -38,6 +40,7 @@ const SERVICES = [
     bgcolor: '#ffe2d3',
     color: '#f56025',
     hovercolor: '#ffaf90',
+    descriptionColor: '#7A4100',
   },
   {
     name: 'Quality Assurance',
@@ -46,6 +49,7 @@ const SERVICES = [
     bgcolor: '#d6eded',
     color: '#35b27c',
     hovercolor: '#92d1b6',
+    descriptionColor: '#0A5554',
   },
 ];
 
@@ -105,13 +109,14 @@ export default function ElearningLandingProcess() {
 // ----------------------------------------------------------------------
 
 function ServiceItem({ service, index }) {
-  const { name, icon, content, bgcolor, color, hovercolor } = service;
+  const { name, icon, content, bgcolor, color, hovercolor, descriptionColor } = service;
 
   return (
     <Card
       sx={{
         p: 2,
         color,
+        descriptionColor,
         // bgcolor: (theme) => theme.palette[COLORS[index]].light,
         bgcolor,
         '&:hover': {
@@ -160,10 +165,7 @@ function ServiceItem({ service, index }) {
       <Typography variant="h5" sx={{ mt: 2, mb: 1, textAlign: 'left' }}>
         {name}
       </Typography>
-      <Typography
-        variant="body"
-        sx={{ mt: 2, textAlign: 'right', color: (theme) => theme.palette[COLORS[index]].darker }}
-      >
+      <Typography variant="body" sx={{ mt: 2, textAlign: 'right', color: descriptionColor }}>
         {content}
       </Typography>
     </Card>
@@ -179,5 +181,6 @@ ServiceItem.propTypes = {
     color: PropTypes.string,
     bgcolor: PropTypes.string,
     hovercolor: PropTypes.string,
+    descriptionColor: PropTypes.string,
   }),
 };
