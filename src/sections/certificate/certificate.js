@@ -1,6 +1,10 @@
 import PropTypes from 'prop-types';
 
 const Certificate = ({ certificateData }) => {
+  const certificatesUsername = JSON.parse(localStorage.getItem('user-data'));
+
+  // console.log('certificatesUsername', certificatesUsername.state.newUserName);
+
   const formattedDate = certificateData?.attributes.createdAt
     ? new Date(certificateData.attributes.updatedAt).toLocaleDateString('en-US', {
         month: '2-digit',
@@ -20,7 +24,7 @@ const Certificate = ({ certificateData }) => {
         <div className="absolute top-[calc(50%_-_397px)] left-[calc(50%_-_439.5px)] flex flex-row items-center justify-start gap-[83px]">
           <div className="flex flex-col items-start justify-start pt-[38px] px-0 pb-0 gap-[75px]">
             <div className="flex flex-col items-start justify-start gap-[18px]">
-              <img className="relative w-44 h-[35px]" alt="" src="/ryzolve-logo1.svg" />
+              <img className="relative w-44 h-[35px]" alt="" src="/logo.svg" />
               <div className="flex flex-col items-start justify-start gap-[14px]">
                 <div className="relative leading-[120%] capitalize inline-block w-[511px]">
                   <p className="m-0">Certificate</p>
@@ -31,7 +35,9 @@ const Certificate = ({ certificateData }) => {
                 </div>
               </div>
               <div className="flex flex-col items-start justify-start gap-[17px] text-26xl text-darkslateblue font-montserrat">
-                <div className="relative font-semibold">{certificateData?.attributes.username}</div>
+                <div className="relative font-semibold">
+                  {certificatesUsername.state.newUserName}
+                </div>
                 <div className="relative text-mini leading-[135%] font-medium text-dimgray inline-block w-[461px]">
                   For his/her completion of the course{' '}
                   <b>{certificateData?.attributes.courseTitle}</b> at Ryzolve from July to December
@@ -50,7 +56,7 @@ const Certificate = ({ certificateData }) => {
                   </div>
                 </div>
               </div>
-              <div className="flex flex-col items-start justify-start gap-[14px]">
+              {/* <div className="flex flex-col items-start justify-start gap-[14px]">
                 <img className="relative w-[72px] h-[73px]" alt="" src="/vector-14.svg" />
                 <img className="relative w-[117px] h-px" alt="" src="/vector-10.svg" />
                 <div className="flex flex-col items-start justify-start gap-[4px]">
@@ -59,7 +65,7 @@ const Certificate = ({ certificateData }) => {
                     Programme Manager
                   </div>
                 </div>
-              </div>
+              </div> */}
               <div className="flex flex-col items-start justify-start gap-[4px]">
                 <div className="relative leading-[135%] font-semibold">{formattedDate}</div>
                 <div className="relative text-mini leading-[135%] font-medium text-dimgray">

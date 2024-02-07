@@ -2,7 +2,7 @@
 
 // import axios from 'axios';
 import PropTypes from 'prop-types';
-import { useMemo, useState, useEffect } from 'react';
+import { useRef, useMemo, useState, useEffect } from 'react';
 
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
@@ -34,7 +34,7 @@ export default function QuizHookForm(props) {
 
   const { questions, handleModalClose, courseName, score, startTime } = props;
 
-  const { UserData } = useUserStore();
+  const { UserData, updateNewUserName } = useUserStore();
 
   const [endTime, setEndTime] = useState(0);
 
@@ -119,14 +119,14 @@ export default function QuizHookForm(props) {
     }
   }
 
-  // console.log('correctAnswers', correctAnswers);
-  const submitQuiz = () => {
+  const submitQuiz = (input) => {
     setFinishedQuiz(true);
-
     setEndTime(currentDate.toLocaleString());
-
     if (score) {
+      console.log('input', input);
       addScoreToStrapi();
+      updateNewUserName(input);
+      console.log(UserData);
     }
   };
 

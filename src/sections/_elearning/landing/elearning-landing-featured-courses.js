@@ -36,7 +36,7 @@ export default function ElearningLandingFeaturedCourses({ configuration }) {
       ordersData.filter((orderData) => userData.username === orderData.attributes.username),
   });
 
-  console.log('orders', orders);
+  // const certificatesUsername = localStorage.GetItem('user-data');
 
   const removeUserToCourse = (orderId) => {
     const expiredOrder = orders?.find((order) => order.id === orderId);
@@ -70,7 +70,7 @@ export default function ElearningLandingFeaturedCourses({ configuration }) {
 
     const hoursDifference = Math.abs(timeDifference / (1000 * 60 * 60));
     if (hoursDifference > 0.2) {
-      removeUserToCourse(order.id);
+      // removeUserToCourse(order.id);
       // console.log('course expired');
     }
   });

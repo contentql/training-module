@@ -8,10 +8,18 @@ const store = persist(
       userName: '',
       isLoggedIn: false,
       image: null,
+      newUserName: '',
     },
     updateUserData: (userData) => {
       set(() => ({
         UserData: userData,
+      }));
+    },
+    updateNewUserName: (name) => {
+      console.log('name', name);
+      set((state) => ({
+        ...state.UserData,
+        newUserName: name,
       }));
     },
     updateImage: (image) => {

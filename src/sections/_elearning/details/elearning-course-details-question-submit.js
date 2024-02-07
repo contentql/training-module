@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types';
+import { useRef, useState, forwardRef, useImperativeHandle } from 'react';
 
-import Button from '@mui/material/Button';
+import { TextField } from '@mui/material';
 import Dialog from '@mui/material/Dialog';
+import Button from '@mui/material/Button';
 import Backdrop from '@mui/material/Backdrop';
 import Accordion from '@mui/material/Accordion';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -9,6 +11,8 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import DialogContentText from '@mui/material/DialogContentText';
+
+import { useUserStore } from 'src/states/auth-store';
 
 // import Iconify from 'src/components/iconify';
 
@@ -20,6 +24,10 @@ export default function ElearningCourseDetailsQuestionSubmit({
   submitPopupOpen,
   handleSubmitPopupToggle,
 }) {
+  const userData = useUserStore((state) => state.UserData);
+
+  const [input, setInput] = useState(userData.username);
+
   return (
     <Accordion
       expanded
@@ -64,18 +72,45 @@ export default function ElearningCourseDetailsQuestionSubmit({
           open={submitPopupOpen}
           onClose={handleSubmitPopupToggle}
           aria-describedby="popup-confirmation"
+          // PaperProps={{
+          //   component: 'form',
+          //   onSubmit: (event) => {
+          //     event.preventDefault();
+          //     const formData = new FormData(event.currentTarget);
+          //     const formJson = Object.fromEntries(formData.entries());
+          //     const newUsername = formJson.username;
+          //     console.log(newUsername);
+          //     submitQuiz();
+          //   },
+          // }}
         >
           <DialogTitle>Submit Quiz?</DialogTitle>
           <DialogContent>
             <DialogContentText id="popup-confirmation">
-              All the questions will be submitted and Result will be displayed.
+              Please enter your name to display on certificate
             </DialogContentText>
+            {/* <TextField
+              autoFocus
+              required
+              margin="dense"
+              id="username"
+              name="username"
+              label="user name"
+              type="text"
+              variant="standard"
+            /> */}
+            <input
+              placeholder="Enter name"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              style={{ py: 2, my: 2 }}
+            />
           </DialogContent>
           <DialogActions>
             <Button onClick={handleSubmitPopupToggle} variant="outlined">
               Continue Quiz
             </Button>
-            <Button onClick={submitQuiz} variant="outlined" color="success">
+            <Button onClick={() => submitQuiz(input)} variant="outlined" color="success">
               Submit Quiz
             </Button>
           </DialogActions>

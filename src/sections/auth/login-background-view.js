@@ -85,6 +85,7 @@ export default function LoginBackgroundView() {
           authToken: resData.jwt,
           isLoggedIn: resData.user.confirmed,
           ...resData.user,
+          newUserName: '',
         };
         updateUserData(userData);
         router.push('/');

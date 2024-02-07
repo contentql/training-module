@@ -13,12 +13,17 @@ import CloseIcon from '@mui/icons-material/Close';
 import LoadingButton from '@mui/lab/LoadingButton';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 
-import Certificate from 'src/sections/certificate/certificate';
+// import Certificate from 'src/sections/certificate/certificate';
+import NewCertificate from 'src/sections/certificate/NewCerficate';
 
 // ----------------------------------------------------------------------
 
 export default function ElearningCertificateDialog({ open, handleClose, certificateData }) {
   const targetRef = useRef();
+
+  const certificatesUsername = JSON.parse(localStorage.getItem('user-data'));
+
+  console.log('certificatesUsername', certificatesUsername.state.newUserName);
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -27,7 +32,7 @@ export default function ElearningCertificateDialog({ open, handleClose, certific
       setIsLoading(true);
 
       await generatePDF(targetRef, {
-        filename: `${certificateData?.attributes.username}_${certificateData?.attributes.courseTitle}_Certificate.pdf`,
+        filename: `${certificatesUsername?.state.newUserName}_${certificateData?.attributes.courseTitle}_Certificate.pdf`,
         method: 'download',
         resolution: Resolution.HIGH,
         format: 'letter',
@@ -90,7 +95,7 @@ export default function ElearningCertificateDialog({ open, handleClose, certific
             </LoadingButton>
           </Stack>
           <Stack ref={targetRef}>
-            <Certificate certificateData={certificateData} />
+            <NewCertificate certificateData={certificateData} />
           </Stack>
         </Toolbar>
       </AppBar>
