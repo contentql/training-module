@@ -14,7 +14,7 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 
 // import Certificate from 'src/sections/certificate/certificate';
-import NewCertificate from 'src/sections/certificate/NewCerficate';
+import NewCertificate from 'src/sections/certificate/NewCertificate';
 
 // ----------------------------------------------------------------------
 
@@ -34,12 +34,18 @@ export default function ElearningCertificateDialog({ open, handleClose, certific
       await generatePDF(targetRef, {
         filename: `${certificatesUsername?.state.newUserName}_${certificateData?.attributes.courseTitle}_Certificate.pdf`,
         method: 'download',
-        resolution: Resolution.HIGH,
+        // resolution: Resolution.HIGH,
         format: 'letter',
         page: { orientation: 'landscape', margin: Margin.NONE },
-        canvas: {
-          mimeType: 'image/png',
-          qualityRatio: 1,
+        // canvas: {
+        //   mimeType: 'image/png',
+        //   qualityRatio: 1,
+        // },
+        overrides: {
+          // see https://artskydj.github.io/jsPDF/docs/jsPDF.html for more options
+          pdf: {
+            compress: true,
+          },
         },
       });
 
