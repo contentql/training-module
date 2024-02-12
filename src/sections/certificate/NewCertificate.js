@@ -16,11 +16,6 @@ const NewCertificate = ({ certificateData }) => {
   return (
     <div className="relative top-[calc(50%_-_397px)] left-[calc(50%_-_561.5px)] w-[1123px] h-[794px] text-left text-41xl text-black font-montaga">
       <div className="absolute top-[calc(50%_-_372px)] left-[calc(50%_-_536.5px)] rounded-21xl box-border w-[1073px] h-[744px] border-[2px] border-solid border-lightgray overflow-hidden">
-        {/* <img
-          src="https://certifier-production-amplify.s3.eu-west-1.amazonaws.com/public/565302e3-5bff-4e5c-8b76-a7f0246fcb4a%2Fcertificate-designs%2Fbackgrounds%2F04-08-22-7%3A08%3A57_Simple%20background.png"
-          alt="Certificate Background"
-          style={styles.backgroundImage}
-        /> */}
         <img
           className="absolute top-[calc(50%_-_397px)] left-[calc(50%_-_561.5px)] w-[1123px] h-[794px]"
           alt=""
@@ -36,14 +31,15 @@ const NewCertificate = ({ certificateData }) => {
           <p>
             by <span style={{ fontStyle: 'italic', fontWeight: '20px' }}>Ryzolve.</span>
           </p>
-          {/* <p>
-  by <span style={{ fontStyle: 'italic', fontWeight: '20px' }}>Ryzolve</span> for
-</p> */}
-          <p style={styles.content}>
-            In recognition of outstanding dedication, exceptional performance, and unwavering
-            commitment to excellence. Your contributions have made a significant impact, and we
-            deeply appreciate your efforts.
-          </p>
+
+          <div style={styles.content}>
+            <p>
+              The holder of this certficate has completed the required sequence of unit under 26 TAC
+              558.259(d) Part of the initial 24 hr.in.26.259(b) ,{' '}
+              {certificateData?.attributes.courseTitle}. This certficate is granted by{' '}
+              <span style={{ fontStyle: 'italic', fontWeight: '20px' }}>Ryzolve</span>
+            </p>
+          </div>
         </div>
         {/* <div style={styles.signature}>Signature</div>
 <div style={styles.issueDate}>Issue Date: {formattedDate}</div> */}
@@ -93,7 +89,7 @@ const styles = {
     fontFamily: 'Libre Baskerville',
     color: '#103754',
     textAlign: 'center',
-    marginTop: '150px',
+    marginTop: '120px',
   },
   content: {
     fontSize: '20px',
@@ -101,8 +97,8 @@ const styles = {
     lineHeight: '1.6',
     textAlign: 'center',
     marginTop: '10px',
-    marginLeft: '40px',
-    marginRight: '40px',
+    marginLeft: '60px',
+    marginRight: '60px',
     fontFamily: 'Poppins',
   },
   userName: {
@@ -111,7 +107,7 @@ const styles = {
     fontSize: '40px',
     fontStyle: 'italic',
     textDecoration: 'underline',
-    marginTop: '-5px',
+    marginTop: '-15px',
     marginBottom: '-5px',
   },
   // signature: {
