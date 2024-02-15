@@ -48,7 +48,14 @@ const NewCertificate = ({ certificateData }) => {
           <div style={styles.line} />
           <div style={styles.issueDateLabel}>Issue Date</div>
         </div>
-        <div style={styles.signature}>Signature</div>
+        <div style={styles.signature}>
+          <img className="m-2 " alt="" src="/vector-14.svg" />
+          {/* <img alt="" src="/vector-10.svg" /> */}
+          <div style={styles.line} />
+          <div className="ml-2">
+            <div style={styles.issueDateLabel}>Tunzi CEO</div>
+          </div>
+        </div>
       </div>
     </div>
   );

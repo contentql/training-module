@@ -5,6 +5,8 @@ const Certificate = ({ certificateData }) => {
 
   // console.log('certificatesUsername', certificatesUsername.state.newUserName);
 
+  console.log('certificateData', certificateData);
+
   const formattedDate = certificateData?.attributes.createdAt
     ? new Date(certificateData.attributes.updatedAt).toLocaleDateString('en-US', {
         month: '2-digit',
