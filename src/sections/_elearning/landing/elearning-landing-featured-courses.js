@@ -69,7 +69,7 @@ export default function ElearningLandingFeaturedCourses({ configuration }) {
     const timeDifference = createdDate.getTime() - currentDate.getTime();
 
     const hoursDifference = Math.abs(timeDifference / (1000 * 60 * 60));
-    if (hoursDifference > 0.2) {
+    if (hoursDifference > 1000) {
       removeUserToCourse(order.id);
       // console.log('course expired');
     }
