@@ -8,7 +8,6 @@ import Portal from '@mui/material/Portal';
 import Stack from '@mui/material/Stack';
 import Grid from '@mui/material/Unstable_Grid2';
 
-import Image from 'src/components/image';
 import Label from 'src/components/label';
 import { useBoolean } from 'src/hooks/use-boolean';
 import { RouterLink } from 'src/routes/components';
@@ -133,7 +132,7 @@ function NavSubList({ subheader, isNew, cover, items }) {
 
       {!commonList && (
         <Link component={RouterLink} href={coverPath}>
-          <Image
+          {/* <Image
             disabledEffect
             alt={cover}
             src={cover || '/assets/placeholder.svg'}
@@ -148,7 +147,7 @@ function NavSubList({ subheader, isNew, cover, items }) {
                 boxShadow: (theme) => theme.customShadows.z24,
               },
             }}
-          />
+          /> */}
         </Link>
       )}
 

@@ -105,19 +105,19 @@ export const pageLinks = [
       { title: 'Support', path: paths.support },
     ],
   },
-  // {
-  //   order: '7',
-  //   items: [
-  //     { title: 'Document Management', path: paths.marketing.root },
-  //     { title: 'Compliance Regulation', path: paths.marketing.services },
-  //     { title: 'Claims & Bills', path: paths.marketing.caseStudies },
-  //   ],
-  // },
+  {
+    order: '7',
+    items: [
+      { title: 'Document Management', path: paths.marketing.root },
+      { title: 'Compliance Regulation', path: paths.marketing.services },
+      { title: 'Claims & Bills', path: paths.marketing.caseStudies },
+    ],
+  },
 ];
 
 export const navConfig = [
   //{ title: 'Home', path: '/' },
-  { title: 'Our Products', path: '/', children: [pageLinks[2]] },
+  { title: 'Our Products', path: '/', children: [pageLinks[6]] },
   { title: 'Training', path: '/', children: [pageLinks[1]] },
   { title: 'Courses', path: '/courses' },
   { title: 'Contact', path: '/contact' },
