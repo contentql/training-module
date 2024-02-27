@@ -109,8 +109,18 @@ export const pageLinks = [
 
 export const navConfig = [
   { title: 'Home', path: '/' },
+  {
+    title: 'Our Products',
+    path: '#',
+    children: [
+      { title: 'Document management', path: '#' },
+      { title: 'Compliance regulation', path: '#' },
+      { title: 'Claims and Bills', path: '#' },
+    ],
+  },
   { title: 'Courses', path: '/courses' },
   { title: 'Contact', path: '/contact' },
   { title: 'About Us', path: '/about-us' },
+
   // { title: 'Ryzolve', path: 'https://ryzolve-prod.vercel.app/' },
 ];

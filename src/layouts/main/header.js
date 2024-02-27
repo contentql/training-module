@@ -71,6 +71,16 @@ const navigations = [
   },
 ];
 
+const defaultConfig = {
+  itemGap: 4,
+  iconSize: 24,
+  itemRootHeight: 44,
+  itemSubHeight: 36,
+  itemPadding: '4px 8px 4px 12px',
+  itemRadius: 8,
+  hiddenLabel: false,
+};
+
 export default function Header({ headerOnDark }) {
   // const [user, updateUser] = useUserStore((state) => [state.user, state.updateUser]);
   const userData = useUserStore();
@@ -128,7 +138,7 @@ export default function Header({ headerOnDark }) {
             <Logo />
           </Box>
 
-          {mdUp && <NavDesktop data={navConfig} />}
+          {mdUp && <NavDesktop data={navConfig} config={defaultConfig} />}
 
           <Stack
             spacing={{ xs: 0, md: 4 }}

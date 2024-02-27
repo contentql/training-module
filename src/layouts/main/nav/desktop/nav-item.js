@@ -5,13 +5,14 @@ import Link from '@mui/material/Link';
 
 import Iconify from 'src/components/iconify';
 import { RouterLink } from 'src/routes/components';
+import ListItemText from '@mui/material/ListItemText';
 
 import { StyledNavItem } from './styles';
 
 // ----------------------------------------------------------------------
 
-export const NavItem = forwardRef(
-  ({ item, open, active, subItem, externalLink, ...other }, ref) => {
+const NavItem = forwardRef(
+  ({ item, open, active, subItem, externalLink, config, ...other }, ref) => {
     const renderContent = (
       <StyledNavItem
         ref={ref}
@@ -26,6 +27,28 @@ export const NavItem = forwardRef(
         {!!item.children && <Iconify width={16} icon="carbon:chevron-down" sx={{ ml: 1 }} />}
       </StyledNavItem>
     );
+
+    // {
+    //   !(config.hiddenLabel && !subItem) && (
+    //     <ListItemText
+    //       sx={{
+    //         ...(!subItem && {
+    //           ml: 1,
+    //         }),
+    //       }}
+    //       primary={title}
+    //       primaryTypographyProps={{
+    //         noWrap: true,
+    //         typography: 'body2',
+    //         textTransform: 'capitalize',
+    //         fontWeight: active ? 'fontWeightBold' : 'fontWeightMedium',
+    //         ...(subItem && {
+    //           fontWeight: active ? 'fontWeightSemiBold' : 'fontWeightMedium',
+    //         }),
+    //       }}
+    //     />
+    //   );
+    // }
 
     // ExternalLink
     if (externalLink) {
@@ -49,6 +72,8 @@ export const NavItem = forwardRef(
     );
   }
 );
+
+export default NavItem;
 
 NavItem.propTypes = {
   active: PropTypes.bool,

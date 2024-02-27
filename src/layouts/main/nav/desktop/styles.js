@@ -14,14 +14,15 @@ export const StyledNavItem = styled(ListItemButton, {
     position: 'absolute',
     width: 6,
     height: 6,
-    left: -12,
+    left: -0.2,
     backgroundColor: theme.palette.primary.main,
   };
 
   return {
     ...theme.typography.body2,
     fontWeight: theme.typography.fontWeightMedium,
-    padding: 0,
+    paddingLeft: 20,
+    // gap: 10,
     height: '100%',
     transition: theme.transitions.create('opacity', {
       duration: theme.transitions.duration.shorter,
@@ -63,7 +64,7 @@ export const StyledNavItem = styled(ListItemButton, {
 // ----------------------------------------------------------------------
 
 export const StyledMenu = styled(Paper)(({ theme }) => ({
-  top: 62,
+  top: 82,
   width: '100%',
   borderRadius: 0,
   position: 'fixed',
@@ -78,5 +79,5 @@ export const StyledSubheader = styled(ListSubheader)(({ theme }) => ({
   ...theme.typography.h6,
   padding: 0,
   color: theme.palette.text.primary,
-  backgroundColor: 'transparent',
+  backgroundColor: 'red',
 }));
