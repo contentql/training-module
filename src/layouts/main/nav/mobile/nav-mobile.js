@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useEffect } from 'react';
 
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
@@ -10,13 +10,13 @@ import Button from '@mui/material/Button';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
 
-import Logo from 'src/components/logo';
-import { paths } from 'src/routes/paths';
 import Iconify from 'src/components/iconify';
-import { usePathname } from 'src/routes/hooks';
+import Logo from 'src/components/logo';
 import Scrollbar from 'src/components/scrollbar';
-import { RouterLink } from 'src/routes/components';
 import { useBoolean } from 'src/hooks/use-boolean';
+import { RouterLink } from 'src/routes/components';
+import { usePathname } from 'src/routes/hooks';
+import { paths } from 'src/routes/paths';
 import { useUserStore } from 'src/states/auth-store';
 
 import { NAV } from '../../../config-layout';
@@ -88,11 +88,22 @@ export default function NavMobile({ data }) {
                 </Button> */}
                 </>
               ) : (
-                <Link component={RouterLink} href={paths.loginBackground} sx={{ width: '80%' }}>
-                  <Button fullWidth variant="contained" color="inherit">
-                    Login
-                  </Button>
-                </Link>
+                <div className="space-y-3">
+                  <Link
+                    component={RouterLink}
+                    href="https://ryzolve.com/providerapp"
+                    sx={{ width: '80%' }}
+                  >
+                    <Button fullWidth variant="contained" color="inherit">
+                      Login
+                    </Button>
+                  </Link>
+                  <Link component={RouterLink} href={paths.loginBackground} sx={{ width: '80%' }}>
+                    <Button fullWidth variant="contained" color="inherit">
+                      Training Login
+                    </Button>
+                  </Link>
+                </div>
               )}
             </Box>
           </List>

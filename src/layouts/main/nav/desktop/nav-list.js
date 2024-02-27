@@ -1,18 +1,18 @@
 import PropTypes from 'prop-types';
-import { useEffect, useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 
 import Box from '@mui/material/Box';
-import Link from '@mui/material/Link';
 import Fade from '@mui/material/Fade';
-import Stack from '@mui/material/Stack';
+import Link from '@mui/material/Link';
 import Portal from '@mui/material/Portal';
+import Stack from '@mui/material/Stack';
 import Grid from '@mui/material/Unstable_Grid2';
 
 import Image from 'src/components/image';
 import Label from 'src/components/label';
-import { usePathname } from 'src/routes/hooks';
 import { useBoolean } from 'src/hooks/use-boolean';
 import { RouterLink } from 'src/routes/components';
+import { usePathname } from 'src/routes/hooks';
 import { useActiveLink } from 'src/routes/hooks/use-active-link';
 
 import { NavItem } from './nav-item';
@@ -73,7 +73,7 @@ export default function NavList({ item }) {
                       p: 5,
                       height: 1,
                       position: 'relative',
-                      bgcolor: 'background.neutral',
+                      //bgcolor: 'background.neutral',
                     }}
                   >
                     {mainList.map((list) => (

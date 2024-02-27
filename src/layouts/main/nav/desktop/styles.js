@@ -1,7 +1,7 @@
+import ListItemButton from '@mui/material/ListItemButton';
+import ListSubheader from '@mui/material/ListSubheader';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
-import ListSubheader from '@mui/material/ListSubheader';
-import ListItemButton from '@mui/material/ListItemButton';
 
 // ----------------------------------------------------------------------
 
@@ -64,7 +64,8 @@ export const StyledNavItem = styled(ListItemButton, {
 
 export const StyledMenu = styled(Paper)(({ theme }) => ({
   top: 62,
-  width: '100%',
+  width: '10%',
+  left: '35%',
   borderRadius: 0,
   position: 'fixed',
   zIndex: theme.zIndex.modal,
