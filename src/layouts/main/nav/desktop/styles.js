@@ -14,7 +14,7 @@ export const StyledNavItem = styled(ListItemButton, {
     position: 'absolute',
     width: 6,
     height: 6,
-    left: -0.2,
+    left: 0,
     backgroundColor: theme.palette.primary.main,
   };
 
@@ -48,15 +48,15 @@ export const StyledNavItem = styled(ListItemButton, {
       subItem && {
         color: theme.palette.text.primary,
         fontWeight: theme.typography.fontWeightSemiBold,
-        '&::before': {
-          ...dotActiveStyle,
-          color: theme.palette.primary.main,
-        },
+        // '&::before': {
+        //   ...dotActiveStyle,
+        //   color: theme.palette.primary.main,
+        // },
       }),
     // Open
     ...(open && {
       opacity: 0.48,
-      '&::before': dotActiveStyle,
+      // '&::before': dotActiveStyle,
     }),
   };
 });

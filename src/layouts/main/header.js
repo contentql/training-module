@@ -282,11 +282,18 @@ export default function Header({ headerOnDark }) {
                     </Button> */}
                   </>
                 ) : (
-                  <Link component={RouterLink} href={paths.loginBackground}>
-                    <Button variant="contained" color="secondary">
-                      Login
-                    </Button>
-                  </Link>
+                  <div className="flex gap-4">
+                    <Link component={RouterLink} href="https://ryzolve.com/providerapp/auth/login">
+                      <Button variant="contained" color="secondary">
+                        Login
+                      </Button>
+                    </Link>
+                    <Link component={RouterLink} href={paths.loginBackground}>
+                      <Button variant="text" color="secondary">
+                        Training Login
+                      </Button>
+                    </Link>
+                  </div>
                 )}
               </>
             )}
