@@ -1,5 +1,3 @@
-// ----------------------------------------------------------------------
-
 export const navVerticalConfig = (config) => ({
   itemGap: config?.itemGap || 4,
   iconSize: config?.iconSize || 24,

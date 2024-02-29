@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { useRef, useEffect } from 'react';
 
 import Stack from '@mui/material/Stack';
@@ -118,3 +119,16 @@ function NavSubList({ data, depth, config }) {
     </Stack>
   );
 }
+
+NavSubList.propTypes = {
+  config: PropTypes.any,
+  data: PropTypes.array,
+  depth: PropTypes.number,
+};
+
+NavList.propTypes = {
+  config: PropTypes.any,
+  data: PropTypes.object,
+  depth: PropTypes.number,
+  hasChild: PropTypes.bool,
+};

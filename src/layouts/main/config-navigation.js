@@ -1,7 +1,5 @@
 import { paths } from 'src/routes/paths';
 
-// ----------------------------------------------------------------------
-
 export const pageLinks = [
   {
     order: '1',

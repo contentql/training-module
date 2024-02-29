@@ -5,7 +5,6 @@ import Link from '@mui/material/Link';
 
 import Iconify from 'src/components/iconify';
 import { RouterLink } from 'src/routes/components';
-import ListItemText from '@mui/material/ListItemText';
 
 import { StyledNavItem } from './styles';
 
@@ -85,4 +84,5 @@ NavItem.propTypes = {
   }),
   open: PropTypes.bool,
   subItem: PropTypes.bool,
+  config: PropTypes.any,
 };
