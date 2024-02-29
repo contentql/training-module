@@ -93,6 +93,7 @@ export default function NavList({ data, depth, hasChild, config }) {
           }}
           sx={{
             pointerEvents: 'none',
+            ':before': 'none',
           }}
         >
           <NavSubList data={data.children} depth={depth} config={config} />

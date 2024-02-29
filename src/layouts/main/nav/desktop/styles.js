@@ -41,7 +41,7 @@ export const StyledNavItem = styled(ListItemButton, {
     ...(active && {
       color: theme.palette.text.primary,
       fontWeight: theme.typography.fontWeightBold,
-      '&::before': dotActiveStyle,
+      // '&::before': dotActiveStyle,
     }),
     // Active sub item
     ...(active &&

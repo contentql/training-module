@@ -111,9 +111,18 @@ export const navConfig = [
     title: 'Our Products',
     path: '#',
     children: [
-      { title: 'Document management', path: '#' },
-      { title: 'Compliance regulation', path: '#' },
-      { title: 'Claims and Bills', path: '#' },
+      {
+        title: 'Document management',
+        path: `${process.env.NEXT_PUBLIC_RYZOLVE_MAIN}/document-management`,
+      },
+      {
+        title: 'Compliance regulation',
+        path: `${process.env.NEXT_PUBLIC_RYZOLVE_MAIN}/compliance-regulation`,
+      },
+      {
+        title: 'Claims and Bills',
+        path: `${process.env.NEXT_PUBLIC_RYZOLVE_MAIN}/claims-and-bills`,
+      },
     ],
   },
   { title: 'Courses', path: '/courses' },

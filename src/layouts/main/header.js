@@ -289,7 +289,11 @@ export default function Header({ headerOnDark }) {
                       </Button>
                     </Link>
                     <Link component={RouterLink} href={paths.loginBackground}>
-                      <Button variant="text" color="secondary">
+                      <Button
+                        variant="outlined"
+                        color="secondary"
+                        sx={{ ':hover': { backgroundColor: '#f50', color: 'white' } }}
+                      >
                         Training Login
                       </Button>
                     </Link>
