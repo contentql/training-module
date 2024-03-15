@@ -10,7 +10,7 @@ import NavItem from './nav-item';
 
 // ----------------------------------------------------------------------
 
-export default function NavList({ item }) {
+export default function NavList({ item, navConfig }) {
   const pathname = usePathname();
 
   const externalLink = item.path.includes('http');
@@ -29,7 +29,7 @@ export default function NavList({ item }) {
 
       {!!item.children && (
         <Collapse in={listOpen.value} unmountOnExit>
-          <NavSectionVertical data={item.children} />
+          <NavSectionVertical data={item} navConfig={navConfig} />
         </Collapse>
       )}
     </>
@@ -41,4 +41,5 @@ NavList.propTypes = {
     children: PropTypes.array,
     path: PropTypes.string,
   }),
+  navConfig: PropTypes.any,
 };

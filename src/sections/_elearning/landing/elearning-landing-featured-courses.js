@@ -36,8 +36,6 @@ export default function ElearningLandingFeaturedCourses({ configuration }) {
       ordersData.filter((orderData) => userData.username === orderData.attributes.username),
   });
 
-  console.log('orders', orders);
-
   const removeUserToCourse = (orderId) => {
     const expiredOrder = orders?.find((order) => order.id === orderId);
     if (expiredOrder.attributes.expired === false) {
@@ -122,6 +120,7 @@ export default function ElearningLandingFeaturedCourses({ configuration }) {
       <Container
         sx={{
           pt: { xs: 3, md: 6 },
+          pb: { xs: 0, md: 6 },
         }}
       >
         <Stack

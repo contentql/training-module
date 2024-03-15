@@ -60,12 +60,13 @@ export default function ElearningTestimonial() {
       sx={{
         textAlign: 'center',
         overflow: 'hidden',
-        py: { xs: 5, md: 6 },
+        py: { xs: 4, md: 6 },
+        mt: { xs: 4, md: 5 },
       }}
     >
       <Container sx={{ position: 'relative' }}>
         <Grid container spacing={3} justifyContent="center">
-          <Grid xs={12} md={6}>
+          <Grid md={6}>
             <Typography variant="h2" sx={{ mb: 5 }}>
               What our customer say
             </Typography>
@@ -93,7 +94,7 @@ export default function ElearningTestimonial() {
                 ))}
               </Carousel>
 
-              <Box sx={{ mb: 3, mx: 'auto', maxWidth: { xs: 360, sm: 420 } }}>
+              {/* <Box sx={{ mb: 0, mx: 'auto', maxWidth: { xs: 360, sm: 420 } }}>
                 <Carousel
                   {...carouselThumb.carouselSettings}
                   asNavFor={carouselLarge.nav}
@@ -107,7 +108,7 @@ export default function ElearningTestimonial() {
                     />
                   ))}
                 </Carousel>
-              </Box>
+              </Box> */}
             </CarouselArrows>
 
             {testimonials?.map(

@@ -60,7 +60,7 @@ export default function ElearningLandingProcess() {
     <Box sx={{ bgcolor: 'background.neutral' }}>
       <Container
         sx={{
-          py: { xs: 5, md: 10 },
+          py: { xs: 4, md: 10 },
         }}
       >
         <Stack
@@ -69,6 +69,7 @@ export default function ElearningLandingProcess() {
             maxWidth: 480,
             mb: { xs: 8, md: 5 },
             mx: { xs: 'auto', md: 'auto' },
+            mt: { xs: 4, md: 5 },
             textAlign: { xs: 'center', md: 'center' },
           }}
         >

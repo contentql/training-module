@@ -68,7 +68,7 @@ export default function ElearningLandingServices() {
     <MotionContainer>
       <Container
         sx={{
-          py: { xs: 5, md: 4 },
+          py: { xs: 4, md: 4 },
         }}
       >
         <Stack
@@ -77,7 +77,7 @@ export default function ElearningLandingServices() {
             maxWidth: 580,
             mb: { xs: 8, md: 5 },
             mx: { xs: 'auto', md: 'auto' },
-            mt: { xs: 8, md: 5 },
+            mt: { xs: 4, md: 5 },
             // textAlign: { xs: 'center', md: 'center' },
             textAlign: 'center',
           }}

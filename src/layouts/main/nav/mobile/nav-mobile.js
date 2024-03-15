@@ -62,14 +62,8 @@ export default function NavMobile({ data }) {
 
           <List component="nav" disablePadding>
             {data.map((link) => (
-              <NavList key={link.title} item={link} />
+              <NavList key={link.title} item={link} navConfig={data} />
             ))}
-
-            {/* <Stack spacing={1.5} sx={{ p: 3 }}>
-            <Button fullWidth variant="contained" color="inherit">
-              Buy Now
-            </Button>
-          </Stack> */}
 
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               {isLoggedIn ? (

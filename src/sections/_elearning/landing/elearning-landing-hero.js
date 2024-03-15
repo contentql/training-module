@@ -59,8 +59,8 @@ export default function ElearningLandingHero() {
             display: { md: 'flex' },
             alignItems: { md: 'center' },
             height: { md: `75vh` },
-            pt: { md: 16 },
-            pb: { md: 10 },
+            pt: { md: 16, xs: 10 },
+            pb: { md: 10, xs: 10 },
           }}
         >
           <Grid container spacing={3}>
@@ -89,7 +89,7 @@ export default function ElearningLandingHero() {
                   experience{' '}
                 </Typography>
 
-                <Typography variant="subtitle1" sx={{ mt: 3, mb: { xs: 0, md: 5 } }}>
+                <Typography variant="subtitle1" sx={{ mt: 3, mb: { xs: 5, md: 5 } }}>
                   We facilitate the licensing and training processes for home care businesses.
                   Embark on our Administrator/Manager Training programs in Texas, offering flexible
                   durations of 8, 12, or 16 hours. Experience the convenience of our training
