@@ -15,14 +15,14 @@ import { StyledSubheader } from './styles';
 function NavSectionVertical({ data, config, sx, ...other }) {
   return (
     <Stack sx={sx} {...other}>
-      {data.map((group, index) => (
+      {/* {data.map((group, index) => (
         <Group
           key={group.subheader || index}
-          subheader={group.subheader}
           items={group.items}
           config={navVerticalConfig(config)}
         />
-      ))}
+      ))} */}
+      <Group items={data} config={navVerticalConfig(config)} />
     </Stack>
   );
 }
@@ -55,18 +55,8 @@ function Group({ subheader, items, config }) {
   ));
 
   return (
-    <List disablePadding sx={{ px: 2 }}>
-      {subheader ? (
-        <>
-          <StyledSubheader disableGutters disableSticky onClick={handleToggle} config={config}>
-            {subheader}
-          </StyledSubheader>
-
-          <Collapse in={open}>{renderContent}</Collapse>
-        </>
-      ) : (
-        renderContent
-      )}
+    <List disablePadding sx={{ px: 4 }}>
+      {renderContent}
     </List>
   );
 }
