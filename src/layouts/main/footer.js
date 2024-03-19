@@ -44,8 +44,6 @@ export default function Footer() {
 
   const year = new Date();
 
-  console.log(year.getFullYear());
-
   const pathname = usePathname();
 
   const mobileList = navConfig.find((i) => i.title === 'Pages')?.children || [];
@@ -56,7 +54,7 @@ export default function Footer() {
     { title: 'Home', path: '/' },
     { title: 'Courses', path: '/courses' },
     { title: 'About Us', path: '/about-us' },
-    { title: 'Ryzolve', path: 'https://ryzolve-prod.vercel.app/' },
+    { title: 'Ryzolve', path: 'https://s.ryzolve.com/' },
   ];
 
   const renderLists = mdUp ? desktopList : mobileList;

@@ -94,21 +94,21 @@ export default function ElearningTestimonial() {
                 ))}
               </Carousel>
 
-              {/* <Box sx={{ mb: 0, mx: 'auto', maxWidth: { xs: 360, sm: 420 } }}>
+              <Box sx={{ mb: 0, mx: 'auto', maxWidth: { xs: 360, sm: 420 } }}>
                 <Carousel
                   {...carouselThumb.carouselSettings}
                   asNavFor={carouselLarge.nav}
                   ref={carouselThumb.carouselRef}
                 >
-                  {testimonials?.map((testimonial, index) => (
+                  {/* {testimonials?.map((testimonial, index) => (
                     <TestimonialItemThumbnail
                       key={testimonial.attributes.review}
                       testimonial={testimonial.attributes}
                       selected={carouselLarge.currentIndex === index}
                     />
-                  ))}
+                  ))} */}
                 </Carousel>
-              </Box> */}
+              </Box>
             </CarouselArrows>
 
             {testimonials?.map(
