@@ -2,17 +2,18 @@
 
 import * as Yup from 'yup';
 import { useState } from 'react';
+import { useQuery } from 'react-query';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import Link from '@mui/material/Link';
-import Stack from '@mui/material/Stack';
 import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
+import IconButton from '@mui/material/IconButton';
 import LoadingButton from '@mui/lab/LoadingButton';
 import InputAdornment from '@mui/material/InputAdornment';
 
@@ -30,12 +31,23 @@ export default function LoginBackgroundView() {
   const passwordShow = useBoolean();
 
   const [loginError, setLoginError] = useState('');
+  const [userCourses, setUserCourses] = useState([]);
 
   const userdata = useUserStore((store) => store?.UserData);
 
   const updateUserData = useUserStore((store) => store?.updateUserData);
 
   const router = useRouter();
+
+  const { data: userCourse } = useQuery(['repoData', userdata.id], () =>
+    axiosClient.get('/api/user-courses', {
+      headers: {
+        Authorization: `Bearer ${userdata.authToken}`,
+      },
+    })
+  );
+
+  console.log(userCourses);
 
   const LoginSchema = Yup.object().shape({
     email: Yup.string().required('Email is required').email('That is not an email'),
@@ -55,7 +67,12 @@ export default function LoginBackgroundView() {
   });
 
   if (userdata.isLoggedIn) {
-    router.push('/');
+    if (userCourses?.length === 0) {
+      router.push('/account/my-learning');
+    } else {
+      router.push('/courses');
+    }
+
     return null;
   }
 
@@ -87,7 +104,7 @@ export default function LoginBackgroundView() {
           ...resData.user,
         };
         updateUserData(userData);
-        router.push('/');
+        setUserCourses(userCourse);
       } else {
         setLoginError(resData.message[0].messages[0].message);
       }

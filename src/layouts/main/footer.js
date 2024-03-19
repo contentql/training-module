@@ -49,12 +49,10 @@ export default function Footer() {
     return response;
   };
 
-  const { data, isLoading } = useQuery({
-    queryKey: ['socal'],
-    queryFn: socialLinks,
-  });
-
-  console.log('socal', data);
+  // const { data, isLoading } = useQuery({
+  //   queryKey: ['socal'],
+  //   queryFn: socialLinks,
+  // });
 
   const year = new Date();
 
@@ -151,7 +149,7 @@ export default function Footer() {
                 <Typography variant="h6">Social</Typography>
                 <Stack direction="row" alignItems="center">
                   {_socials.map((social) => (
-                    <IconButton href="https://www.google.com" key={social.value} color="secondary">
+                    <IconButton href={social.link} key={social.value} color="secondary">
                       <Iconify icon={social.icon} />
                     </IconButton>
                   ))}

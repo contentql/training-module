@@ -20,7 +20,7 @@ export const StyledNavItem = styled(ListItemButton, {
 
   return {
     ...theme.typography.body2,
-    fontWeight: theme.typography.fontWeightMedium,
+    fontWeight: theme.typography.fontWeightSemiBold,
     paddingLeft: 20,
     // gap: 10,
     height: '100%',
@@ -30,7 +30,7 @@ export const StyledNavItem = styled(ListItemButton, {
     '&:hover': {
       opacity: 0.8,
       backgroundColor: 'transparent',
-      '&::before': dotActiveStyle,
+      // '&::before': dotActiveStyle,
     },
     // Sub item
     ...(subItem && {
@@ -39,8 +39,9 @@ export const StyledNavItem = styled(ListItemButton, {
     }),
     // Active
     ...(active && {
-      color: theme.palette.text.primary,
+      color: '#007aff',
       fontWeight: theme.typography.fontWeightBold,
+
       // '&::before': dotActiveStyle,
     }),
     // Active sub item

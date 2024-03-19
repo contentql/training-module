@@ -31,24 +31,28 @@ export const _socials = [
     label: 'FaceBook',
     icon: 'carbon:logo-facebook',
     color: '#1877F2',
+    link: 'https://www.facebook.com/ryzolve',
   },
   {
     value: 'instagram',
     label: 'Instagram',
     icon: 'carbon:logo-instagram',
     color: '#E02D69',
+    link: 'http://www.instagram.com/',
   },
   {
-    value: 'linkedin',
-    label: 'Linkedin',
-    icon: 'carbon:logo-linkedin',
+    value: 'youtube',
+    label: 'YouTube',
+    icon: 'carbon:logo-youtube',
     color: '#007EBB',
+    link: 'https://www.youtube.com/@Ryzolve',
   },
   {
     value: 'twitter',
     label: 'Twitter',
     icon: 'carbon:logo-twitter',
     color: '#00AAEC',
+    link: 'https://www.twitter.com/',
   },
 ];
 
