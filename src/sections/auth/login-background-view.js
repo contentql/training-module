@@ -110,7 +110,7 @@ export default function LoginBackgroundView() {
           variant="subtitle2"
           color="secondary"
         >
-          Get started
+          Create account
         </Link>
       </Typography>
     </div>

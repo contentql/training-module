@@ -76,17 +76,17 @@ export default function ElearningCoursesView() {
         </Stack>
 
         <Stack direction={{ xs: 'column', md: 'row' }}>
-          <ElearningFilters
+          {/* <ElearningFilters
             open={mobileOpen.value}
             onClose={mobileOpen.onFalse}
             filters={filters}
             setFilters={setFilters}
-          />
+          /> */}
 
           <Box
             sx={{
               flexGrow: 1,
-              pl: { md: 8 },
+              pb: 6,
               width: { md: `calc(100% - ${280}px)` },
             }}
           >

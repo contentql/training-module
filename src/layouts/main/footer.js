@@ -42,6 +42,10 @@ const StyledAppStoreButton = styled(Button)(({ theme }) => ({
 export default function Footer() {
   const mdUp = useResponsive('up', 'md');
 
+  const year = new Date();
+
+  console.log(year.getFullYear());
+
   const pathname = usePathname();
 
   const mobileList = navConfig.find((i) => i.title === 'Pages')?.children || [];
@@ -156,7 +160,7 @@ export default function Footer() {
           sx={{ py: 3, textAlign: 'center' }}
         >
           <Typography variant="caption" sx={{ color: 'text.secondary' }}>
-            © 2023. All rights reserved
+            © {year.getFullYear()}. All rights reserved
           </Typography>
 
           <Stack direction="row" spacing={3} justifyContent="center">

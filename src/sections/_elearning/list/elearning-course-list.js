@@ -55,9 +55,11 @@ export default function ElearningCourseList({ courses, loading, filters }) {
   return (
     <>
       <Stack
-        spacing={4}
+        spacing={3}
+        direction={{ xs: 'column', md: 'row' }}
+        alignItems={{ md: 'flex-end' }}
         sx={{
-          mb: 10,
+          textAlign: { xs: 'center', md: 'unset' },
         }}
       >
         {courses
@@ -68,7 +70,7 @@ export default function ElearningCourseList({ courses, loading, filters }) {
           .filter(filterByFee)
           .map((course, index) =>
             course ? (
-              <ElearningCourseItem key={course.id} course={course} />
+              <ElearningCourseItem key={course.id} course={course} vertical />
             ) : (
               <ElearningCourseItemSkeleton key={index} />
             )
