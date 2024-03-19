@@ -273,7 +273,6 @@ export default function ElearningCourseDetailsLessonsDialog({
 
   const renderLesson = (
     <Container
-      className="py-14"
       sx={{
         maxHeight: '100vh',
         overflowY: 'scroll',
@@ -297,14 +296,6 @@ export default function ElearningCourseDetailsLessonsDialog({
         },
       }}
     >
-      <Stack
-        alignItems="center"
-        justifyContent="center"
-        sx={{ borderRadius: 2, overflow: 'hidden' }}
-      >
-        {/* {renderVideo} */}
-      </Stack>
-
       <Grid container spacing={3} justifyContent={{ md: 'center' }}>
         <Grid xs={12} md={10}>
           <Stack
@@ -573,12 +564,12 @@ export default function ElearningCourseDetailsLessonsDialog({
   );
 
   return (
-    <Stack sx={{ height: '100%', overflow: 'hidden', mb: 4 }}>
+    <Stack sx={{ height: '100%', overflow: 'hidden', mb: 8 }}>
       <Stack
         direction="row"
         // spacing={2}
         justifyContent="space-between"
-        sx={{ py: 2, px: 6, pt: 0, pb: 1 }}
+        sx={{ py: 2, px: 4, pt: 0, pb: 1 }}
         // direction="column-reverse"
         // sx={{ position: 'fixed', top: 100, left: 24, height: '4rem', maxWidth: 1150, width: '21%' }}
       >
@@ -589,6 +580,7 @@ export default function ElearningCourseDetailsLessonsDialog({
             borderColor: '#ff541e',
             px: 2,
             py: 1,
+            left: 24,
             width: '30%',
           }}
         >

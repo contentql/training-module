@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { useQuery } from 'react-query';
 
 import Link from '@mui/material/Link';
 import Masonry from '@mui/lab/Masonry';
@@ -20,6 +21,7 @@ import Iconify from 'src/components/iconify';
 import { usePathname } from 'src/routes/hooks';
 import { useBoolean } from 'src/hooks/use-boolean';
 import { RouterLink } from 'src/routes/components';
+import { axiosClient } from 'src/utils/axiosClient';
 import { useResponsive } from 'src/hooks/use-responsive';
 
 import { pageLinks, navConfig } from './config-navigation';
@@ -41,6 +43,18 @@ const StyledAppStoreButton = styled(Button)(({ theme }) => ({
 
 export default function Footer() {
   const mdUp = useResponsive('up', 'md');
+
+  const socialLinks = () => {
+    const response = axiosClient.get('/api/social-media-links');
+    return response;
+  };
+
+  const { data, isLoading } = useQuery({
+    queryKey: ['socal'],
+    queryFn: socialLinks,
+  });
+
+  console.log('socal', data);
 
   const year = new Date();
 
@@ -137,7 +151,7 @@ export default function Footer() {
                 <Typography variant="h6">Social</Typography>
                 <Stack direction="row" alignItems="center">
                   {_socials.map((social) => (
-                    <IconButton key={social.value} color="secondary">
+                    <IconButton href="https://www.google.com" key={social.value} color="secondary">
                       <Iconify icon={social.icon} />
                     </IconButton>
                   ))}
