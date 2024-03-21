@@ -1,5 +1,6 @@
 import { m } from 'framer-motion';
 import PropTypes from 'prop-types';
+import { useQuery } from 'react-query';
 
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
@@ -10,8 +11,10 @@ import Typography from '@mui/material/Typography';
 
 import { paths } from 'src/routes/paths';
 import Iconify from 'src/components/iconify';
+import { getHeroData } from 'src/queries/Home';
 import SvgColor from 'src/components/svg-color';
 import { RouterLink } from 'src/routes/components';
+import { axiosClient } from 'src/utils/axiosClient';
 import TextMaxLine from 'src/components/text-max-line';
 import { varBounce, MotionContainer } from 'src/components/animate';
 
@@ -64,6 +67,21 @@ const SERVICES = [
 // ----------------------------------------------------------------------
 
 export default function ElearningLandingServices() {
+  const { data: servicesData, isLoading } = useQuery(['heroData'], () => getHeroData());
+
+  const newServices = servicesData?.whyTexasChooseUs.map((service, index) => {
+    const { name, icon, path, bgcolor, color, hovercolor } = SERVICES[index];
+    return {
+      name,
+      icon,
+      path,
+      bgcolor,
+      color,
+      hovercolor,
+      service,
+    };
+  });
+
   return (
     <MotionContainer>
       <Container
@@ -97,9 +115,9 @@ export default function ElearningLandingServices() {
             },
           }}
         >
-          {SERVICES.map((service, index) => (
+          {newServices?.map((service, index) => (
             <m.div variants={varBounce().in}>
-              <ServiceItem key={service.name} service={service} index={index} />
+              <ServiceItem key={service.name} services={service} index={index} />
             </m.div>
           ))}
         </Box>
@@ -110,8 +128,8 @@ export default function ElearningLandingServices() {
 
 // ----------------------------------------------------------------------
 
-function ServiceItem({ service, index }) {
-  const { icon, content, color, bgcolor, hovercolor } = service;
+function ServiceItem({ services, index }) {
+  const { icon, service, color, bgcolor, hovercolor } = services;
 
   return (
     <MotionContainer>
@@ -160,11 +178,10 @@ function ServiceItem({ service, index }) {
           <Typography
             variant="body1"
             sx={{
-              // color: (theme) => theme.palette[COLORS[index]].darker,
               color: { color },
             }}
           >
-            {content}
+            {service?.description}
           </Typography>
         </Stack>
       </Card>
@@ -174,10 +191,10 @@ function ServiceItem({ service, index }) {
 
 ServiceItem.propTypes = {
   index: PropTypes.number,
-  service: PropTypes.shape({
+  services: PropTypes.shape({
     name: PropTypes.string,
     path: PropTypes.string,
-    content: PropTypes.string,
+    service: PropTypes.any,
     color: PropTypes.string,
     bgcolor: PropTypes.string,
     icon: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),

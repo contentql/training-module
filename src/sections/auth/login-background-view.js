@@ -67,7 +67,7 @@ export default function LoginBackgroundView() {
   });
 
   if (userdata.isLoggedIn) {
-    if (userCourses?.length === 0) {
+    if (userCourses?.data) {
       router.push('/account/my-learning');
     } else {
       router.push('/courses');
@@ -104,7 +104,6 @@ export default function LoginBackgroundView() {
           ...resData.user,
         };
         updateUserData(userData);
-        setUserCourses(userCourse);
       } else {
         setLoginError(resData.message[0].messages[0].message);
       }
