@@ -78,7 +78,7 @@ export default function ElearningCourseView({ courseId }) {
                 advertisement={{
                   title: 'Advertisement',
                   description: 'Duis leo. Donec orci lectus, aliquam ut, faucibus non',
-                  imageUrl: _mock.image.course(7),
+                  // imageUrl: _mock.image.course(7),
                   path: '',
                 }}
               /> */}

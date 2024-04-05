@@ -21,7 +21,7 @@ export default function ElearningCourseDetailsUnitItem({
   courseName,
   unitId,
 }) {
-  const [expanded, setExpanded] = useState(index === 0);
+  const [expanded, setExpanded] = useState(index === null);
 
   const score = false;
 
@@ -60,6 +60,8 @@ export default function ElearningCourseDetailsUnitItem({
         >
           {unit.title}
         </Typography>
+
+        <Typography variant="body2">{unit.time} minutes</Typography>
 
         <Iconify
           icon={unit.lesson.length && expanded ? 'carbon:chevron-down' : 'carbon:chevron-right'}

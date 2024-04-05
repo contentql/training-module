@@ -299,11 +299,10 @@ export default function ElearningCourseDetailsLessonsDialog({
       <Grid container spacing={3} justifyContent={{ md: 'center' }}>
         <Grid xs={12} md={10}>
           <Stack
-            spacing={3}
             sx={{
-              pb: 6,
+              pb: 4,
               textAlign: 'center',
-              pt: { xs: 6, md: 10 },
+              pt: { xs: 6, md: 4 },
             }}
           >
             <Typography variant="body2" sx={{ color: 'text.disabled' }}>

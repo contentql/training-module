@@ -43,6 +43,7 @@ const StyledMarkdown = styled('div', {
   // First Level Nested Unordered List
   'ul li': {
     listStyleType: 'disc',
+    padding: '8px',
   },
 
   // Second Level Nested Unordered List
