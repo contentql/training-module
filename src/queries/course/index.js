@@ -54,6 +54,10 @@ export const getCourseData = async (courseId) => {
                             id
                             points
                         }
+                        WhatDoesThisCourseCover{
+                            id
+                            points
+                        }
                         Skills {
                             id
                             points

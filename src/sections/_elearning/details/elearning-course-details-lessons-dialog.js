@@ -96,8 +96,6 @@ export default function ElearningCourseDetailsLessonsDialog({
     refetchOnWindowFocus: !isQuizOpen,
   });
 
-  console.log('data', lessonData);
-
   const { data: userProgressData } = useQuery({
     queryKey: ['userProgress'],
     queryFn: () => getUserProgress(),
@@ -366,15 +364,24 @@ export default function ElearningCourseDetailsLessonsDialog({
         >
           <img src="/icons/book.svg" alt="unit" />
 
-          <Typography
-            variant="subtitle1"
-            sx={{
-              pl: 2,
-              flexGrow: 1,
-            }}
-          >
-            {unit.attributes.title}
-          </Typography>
+          <Grid container direction="column" spacing={1}>
+            <Grid item>
+              <Typography
+                variant="subtitle1"
+                sx={{
+                  pl: 2,
+                  flexGrow: 1,
+                }}
+              >
+                {unit.attributes.title}
+              </Typography>
+            </Grid>
+            <Grid item>
+              <Typography variant="body1" sx={{ paddingLeft: 2, textDecoration: 'underline' }}>
+                {unit.attributes.time} minutes
+              </Typography>
+            </Grid>
+          </Grid>
 
           <Iconify
             icon={expandedUnits[index] ? 'carbon:chevron-down' : 'carbon:chevron-right'}

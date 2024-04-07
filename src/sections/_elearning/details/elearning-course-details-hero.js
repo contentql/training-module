@@ -156,6 +156,33 @@ export default function ElearningCourseDetailsHero({ course }) {
                   <Typography variant="subtitle1">{description}</Typography>
                 </Stack>
 
+                <Stack spacing={3}>
+                  <Typography variant="h4">What You Will Learn</Typography>
+                  <Stack spacing={1}>
+                    {course.WhatDoesThisCourseCover?.map((learn) => (
+                      <Stack key={learn.id} direction="row" alignItems="center">
+                        <Box
+                          sx={{
+                            mr: 1.5,
+                            width: 20,
+                            height: 20,
+                            display: 'flex',
+                            borderRadius: '50%',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                          }}
+                        >
+                          <Iconify
+                            icon="carbon:checkmark"
+                            sx={{ width: 16, height: 16, color: 'primary.main' }}
+                          />
+                        </Box>
+                        <Typography variant="subtitle2">{learn.points}</Typography>
+                      </Stack>
+                    ))}
+                  </Stack>
+                </Stack>
+
                 <Stack
                   spacing={1.5}
                   direction="row"
@@ -304,5 +331,6 @@ ElearningCourseDetailsHero.propTypes = {
     units: PropTypes.object,
     users: PropTypes.object,
     image: PropTypes.string,
+    WhatDoesThisCourseCover: PropTypes.any,
   }),
 };
