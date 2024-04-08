@@ -377,7 +377,7 @@ export default function ElearningCourseDetailsLessonsDialog({
               </Typography>
             </Grid>
             <Grid item>
-              <Typography variant="body1" sx={{ paddingLeft: 2, textDecoration: 'underline' }}>
+              <Typography variant="body1" sx={{ paddingLeft: 2, color: 'text.disabled' }}>
                 {unit.attributes.time} minutes
               </Typography>
             </Grid>

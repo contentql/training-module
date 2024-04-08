@@ -50,7 +50,7 @@ export default function ElearningCourseDetailsHero({ course }) {
 
   // const [selectedLesson, setSelectedLesson] = useState(null);
 
-  const theme = useTheme();
+  // const theme = useTheme();
 
   const mdUp = useResponsive('up', 'md');
 
@@ -157,7 +157,7 @@ export default function ElearningCourseDetailsHero({ course }) {
                 </Stack>
 
                 <Stack spacing={3}>
-                  <Typography variant="h4">What You Will Learn</Typography>
+                  <Typography variant="h4">What does this course cover</Typography>
                   <Stack spacing={1}>
                     {course.WhatDoesThisCourseCover?.map((learn) => (
                       <Stack key={learn.id} direction="row" alignItems="center">
@@ -170,6 +170,7 @@ export default function ElearningCourseDetailsHero({ course }) {
                             borderRadius: '50%',
                             alignItems: 'center',
                             justifyContent: 'center',
+                            bgcolor: (theme) => alpha(theme?.palette?.primary?.main, 0.08),
                           }}
                         >
                           <Iconify

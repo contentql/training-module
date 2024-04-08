@@ -38,7 +38,7 @@ export default function ElearningCourseDetailsUnitItem({
       <AccordionSummary
         sx={{
           pl: 2,
-          pr: 1,
+          pr: 2,
           minHeight: 64,
           [`&.${accordionSummaryClasses.content}`]: {
             p: 0,
@@ -50,7 +50,6 @@ export default function ElearningCourseDetailsUnitItem({
         }}
       >
         <img src="/icons/book.svg" alt="unit" />
-
         <Typography
           variant="subtitle1"
           sx={{
@@ -60,9 +59,9 @@ export default function ElearningCourseDetailsUnitItem({
         >
           {unit.title}
         </Typography>
-
-        <Typography variant="body2">{unit.time} minutes</Typography>
-
+        <Typography variant="body2" sx={{ color: 'text.disabled', paddingLeft: 4 }}>
+          {unit.time} minutes
+        </Typography>
         <Iconify
           icon={unit.lesson.length && expanded ? 'carbon:chevron-down' : 'carbon:chevron-right'}
           sx={{ ml: 2 }}
