@@ -17,6 +17,8 @@ import Grid from '@mui/material/Unstable_Grid2';
 
 // import { _socials } from 'src/_mock';
 // import Iconify from 'src/components/iconify';
+import { useRef } from 'react';
+
 // import { useBoolean } from 'src/hooks/use-boolean';
 import { getCourseData } from 'src/queries/course';
 import { quizProgress } from 'src/states/quiz-progress';
@@ -36,6 +38,10 @@ import ElearningCourseDetailsSummary from '../details/elearning-course-details-s
 export default function ElearningCourseView({ courseId }) {
   const mdUp = useResponsive('up', 'md');
 
+  const myRef = useRef(null);
+
+  const executeScroll = () => myRef.current.scrollIntoView();
+
   const isQuizOpen = quizProgress((state) => state.isQuizOpen);
 
   const { data, isLoading } = useQuery({
@@ -50,7 +56,7 @@ export default function ElearningCourseView({ courseId }) {
 
   return (
     <>
-      <ElearningCourseDetailsHero course={data?.attributes} />
+      <ElearningCourseDetailsHero executeScroll={executeScroll} course={data?.attributes} />
 
       <Container
         sx={{
@@ -67,7 +73,7 @@ export default function ElearningCourseView({ courseId }) {
           )}
 
           <Grid xs={12} md={7} lg={8}>
-            <ElearningCourseDetailsSummary course={data?.attributes} />
+            <ElearningCourseDetailsSummary refProp={myRef} course={data?.attributes} />
           </Grid>
 
           <Grid xs={12} md={5} lg={4}>

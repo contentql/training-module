@@ -15,7 +15,15 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
 
-const Result = ({ answers, restartQuiz, questions, endTime, startTime }) => {
+const Result = ({
+  answers,
+  restartQuiz,
+  questions,
+  endTime,
+  startTime,
+  setPopupOpenOne,
+  handleModalClose,
+}) => {
   console.log('startTime: ', startTime);
   console.log('endTime: ', endTime);
   const correctAnswers = useMemo(
@@ -139,6 +147,13 @@ const Result = ({ answers, restartQuiz, questions, endTime, startTime }) => {
           >
             Retry
           </Button>
+          <Button
+            onClick={handleModalClose}
+            // sx={{ bgcolor: '#FF774B', color: 'white', '&:hover': { bgcolor: '#FF5722' } }}\
+            variant="contained"
+          >
+            close
+          </Button>
         </CardActions>
       </Card>
     </div>
@@ -151,6 +166,8 @@ Result.propTypes = {
   questions: PropTypes.array.isRequired,
   startTime: PropTypes.any,
   endTime: PropTypes.any,
+  setPopupOpenOne: PropTypes.bool,
+  handleModalClose: PropTypes.any,
 };
 
 export default Result;

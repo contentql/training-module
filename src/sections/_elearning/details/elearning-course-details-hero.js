@@ -1,22 +1,23 @@
 import PropTypes from 'prop-types';
 // import { useState, useCallback } from 'react';
 
-import Box from '@mui/material/Box';
 import Fab from '@mui/material/Fab';
+import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
-import Stack from '@mui/material/Stack';
 // import Button from '@mui/material/Button';
+import { Button } from '@mui/material';
+import Stack from '@mui/material/Stack';
 // import Avatar from '@mui/material/Avatar';
 import Divider from '@mui/material/Divider';
-import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
+import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import { alpha, useTheme } from '@mui/material/styles';
 
 import { _mock } from 'src/_mock';
-import Image from 'src/components/image';
 import { paths } from 'src/routes/paths';
 import Label from 'src/components/label';
+import Image from 'src/components/image';
 import Iconify from 'src/components/iconify';
 import { useBoolean } from 'src/hooks/use-boolean';
 import { PlayerDialog } from 'src/components/player';
@@ -28,7 +29,7 @@ import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
 
 // ----------------------------------------------------------------------
 
-export default function ElearningCourseDetailsHero({ course }) {
+export default function ElearningCourseDetailsHero({ course, executeScroll }) {
   const {
     title,
     // level = 'Beginner',
@@ -103,27 +104,18 @@ export default function ElearningCourseDetailsHero({ course }) {
             }}
           />
 
-          <Grid container spacing={{ xs: 5, md: 10 }} direction="row-reverse">
+          <Grid container spacing={{ xs: 5, md: 6 }} direction="row-reverse">
             <Grid xs={12} md={5}>
               <Stack
                 alignItems="center"
                 justifyContent="center"
+                gap={8}
                 sx={{
                   position: 'relative',
                   borderRadius: 2,
                   overflow: 'hidden',
                 }}
               >
-                {/* <Fab
-                  color="primary"
-                  onClick={videoOpen.onTrue}
-                  sx={{
-                    zIndex: 9,
-                    position: 'absolute',
-                  }}
-                >
-                  <Iconify icon="carbon:play" width={24} />
-                </Fab> */}
                 <Image
                   alt="hero"
                   src={image}
@@ -133,6 +125,9 @@ export default function ElearningCourseDetailsHero({ course }) {
                   //   0
                   // )} 0%, ${theme.palette.common.black} 75%)`}
                 />
+                <Button color="secondary" size="large" variant="contained" onClick={executeScroll}>
+                  Start Learning
+                </Button>
               </Stack>
             </Grid>
 
@@ -156,10 +151,38 @@ export default function ElearningCourseDetailsHero({ course }) {
                   <Typography variant="subtitle1">{description}</Typography>
                 </Stack>
 
-                <Stack spacing={3}>
+                {/* <Stack spacing={3}>
                   <Typography variant="h4">What does this course cover</Typography>
                   <Stack spacing={1}>
                     {course.WhatDoesThisCourseCover?.map((learn) => (
+                      <Stack key={learn.id} direction="row" alignItems="center">
+                        <Box
+                          sx={{
+                            mr: 1.5,
+                            width: 20,
+                            height: 20,
+                            display: 'flex',
+                            borderRadius: '50%',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            bgcolor: (theme) => alpha(theme?.palette?.primary?.main, 0.08),
+                          }}
+                        >
+                          <Iconify
+                            icon="carbon:checkmark"
+                            sx={{ width: 16, height: 16, color: 'primary.main' }}
+                          />
+                        </Box>
+                        <Typography variant="subtitle2">{learn.points}</Typography>
+                      </Stack>
+                    ))}
+                  </Stack>
+                </Stack> */}
+
+                <Stack spacing={3}>
+                  <Typography variant="h4">What You Will Learn</Typography>
+                  <Stack spacing={1}>
+                    {course.WhatYouWillLearn?.map((learn) => (
                       <Stack key={learn.id} direction="row" alignItems="center">
                         <Box
                           sx={{
@@ -260,20 +283,29 @@ export default function ElearningCourseDetailsHero({ course }) {
                       {`${totalLessons} Lessons`}
                     </Stack>
 
-                    {/* <Stack direction="row" alignItems="center" sx={{ typography: 'body2' }}>
-                      <Iconify
-                        icon={
-                          (level === 'Beginner' && 'carbon:skill-level-basic') ||
-                          (level === 'Intermediate' && 'carbon:skill-level-intermediate') ||
-                          'carbon:skill-level-advanced'
-                        }
-                        sx={{ mr: 1 }}
-                      />
-                      {level}
-                    </Stack> */}
+                    <Stack direction="row" alignItems="start" sx={{ typography: 'subtitle2' }}>
+                      <Iconify icon="carbon:content-delivery-network" sx={{ mr: 1 }} />
+                      {typeof languages === 'string' ? languages : languages?.join(', ')}
+                    </Stack>
+
+                    <Stack direction="row" alignItems="center" sx={{ typography: 'subtitle2' }}>
+                      {totalQuizzes > 0 ? (
+                        <Stack direction="row">
+                          <Iconify icon="carbon:help" sx={{ mr: 1 }} />
+                          {`${totalQuizzes} Practice Assessments`}
+                        </Stack>
+                      ) : (
+                        'No Practice Assessments'
+                      )}
+                    </Stack>
+
+                    <Stack direction="row" sx={{ typography: 'subtitle2' }}>
+                      <Iconify icon="carbon:certificate" sx={{ mr: 1 }} />
+                      <span>1 Certification Assessment</span>
+                    </Stack>
                   </Stack>
 
-                  <Stack
+                  {/* <Stack
                     direction="row"
                     flexWrap="wrap"
                     sx={{
@@ -301,7 +333,7 @@ export default function ElearningCourseDetailsHero({ course }) {
                       <Iconify icon="carbon:certificate" sx={{ mr: 1 }} />
                       <span>1 Certification Assessment</span>
                     </Stack>
-                  </Stack>
+                  </Stack> */}
                 </Stack>
               </Stack>
             </Grid>
@@ -332,6 +364,7 @@ ElearningCourseDetailsHero.propTypes = {
     units: PropTypes.object,
     users: PropTypes.object,
     image: PropTypes.string,
-    WhatDoesThisCourseCover: PropTypes.any,
+    WhatYouWillLearn: PropTypes.any,
   }),
+  executeScroll: PropTypes.func,
 };

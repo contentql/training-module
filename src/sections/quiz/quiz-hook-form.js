@@ -32,7 +32,7 @@ import QuestionCard from './question-card';
 export default function QuizHookForm(props) {
   const currentDate = new Date();
 
-  const { questions, handleModalClose, courseName, score, startTime } = props;
+  const { questions, handleModalClose, courseName, score, startTime, setPopupOpenOne } = props;
 
   const { UserData } = useUserStore();
 
@@ -178,6 +178,8 @@ export default function QuizHookForm(props) {
       <div className="p-5">
         {finishedQuiz ? (
           <Result
+            setPopupOpenOne={setPopupOpenOne}
+            handleModalClose={handleModalClose}
             restartQuiz={restartQuiz}
             answers={answers}
             questions={questions}
@@ -267,4 +269,5 @@ QuizHookForm.propTypes = {
   courseName: PropTypes.any,
   score: PropTypes.bool,
   startTime: PropTypes.any,
+  setPopupOpenOne: PropTypes.bool,
 };

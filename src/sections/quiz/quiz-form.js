@@ -172,6 +172,7 @@ export default function QuizForm(props) {
         {...(!mdUp && bootstrapDialogProperties)}
       >
         <QuizHookForm
+          setPopupOpenOne={setPopupOpen}
           questions={questions}
           courseName={courseName}
           handleModalClose={handleModalClose}

@@ -16,11 +16,12 @@ export default function ElearningCourseDetailsLessonList({
   quiz,
   hasBoughtCourse,
   courseName,
+  refProp,
 }) {
   const score = true;
   return (
     <div>
-      <Typography variant="h4" sx={{ mb: 3 }}>
+      <Typography ref={refProp} variant="h4" sx={{ mb: 3 }}>
         Units
       </Typography>
 
@@ -51,4 +52,5 @@ ElearningCourseDetailsLessonList.propTypes = {
   hasBoughtCourse: PropTypes.bool,
   quiz: PropTypes.any,
   courseName: PropTypes.any,
+  refProp: PropTypes.any,
 };

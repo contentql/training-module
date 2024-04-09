@@ -13,7 +13,7 @@ import ElearningCourseDetailsUnitList from './elearning-course-details-unit-list
 
 // ----------------------------------------------------------------------
 
-export default function ElearningCourseDetailsSummary({ course }) {
+export default function ElearningCourseDetailsSummary({ course, refProp }) {
   const userData = useUserStore((state) => state.UserData);
 
   const { isLoggedIn } = userData;
@@ -25,6 +25,7 @@ export default function ElearningCourseDetailsSummary({ course }) {
   return (
     <Stack spacing={5}>
       <ElearningCourseDetailsUnitList
+        refProp={refProp}
         units={course.units?.data}
         quiz={course?.quiz}
         courseName={course}
@@ -32,7 +33,7 @@ export default function ElearningCourseDetailsSummary({ course }) {
         hasBoughtCourse={hasBoughtCourse}
       />
 
-      <Stack spacing={3}>
+      {/* <Stack spacing={3}>
         <Typography variant="h4">What You Will Learn</Typography>
         <Stack spacing={1}>
           {course.WhatYouWillLearn?.map((learn) => (
@@ -58,7 +59,7 @@ export default function ElearningCourseDetailsSummary({ course }) {
             </Stack>
           ))}
         </Stack>
-      </Stack>
+      </Stack> */}
 
       <Stack spacing={3}>
         <Typography variant="h4">Skills You Will Gain</Typography>
@@ -99,4 +100,5 @@ ElearningCourseDetailsSummary.propTypes = {
     WhatYouWillLearn: PropTypes.array,
     Skills: PropTypes.array,
   }),
+  refProp: PropTypes.any,
 };
