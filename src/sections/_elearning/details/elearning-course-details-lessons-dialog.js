@@ -159,7 +159,11 @@ export default function ElearningCourseDetailsLessonsDialog({
       res?.data.forEach((list) => {
         setMetaDataId(list);
         setUserLessonData(
-          list.data.map((l) => ({ LessonTitle: l.LessonTitle, course_id: l.course_id }))
+          list.data.map((l) => ({
+            LessonTitle: l.LessonTitle,
+            course_id: l.course_id,
+            unitId: l.unitId,
+          }))
         );
       });
       if (res.data.length === 0) {
@@ -328,6 +332,11 @@ export default function ElearningCourseDetailsLessonsDialog({
 
   const unitList = units?.map((unit, index) => {
     const idx = units?.findIndex((unitData) => unitData.id === searchParams.get('unit'));
+    const hasUnit = Boolean(userLessonData.find((a) => a.unitId === unit.id));
+    console.log(userLessonData);
+
+    console.log('hasUnit', hasUnit);
+
     return (
       <Accordion
         key={unit.id}
@@ -405,6 +414,7 @@ export default function ElearningCourseDetailsLessonsDialog({
             // const hasMatch = Boolean(userLessons.find((a) => a.LessonTitle === id));
 
             const hasMatch = Boolean(userLessonData.find((a) => a.LessonTitle === lesson.id));
+
             // console.log({ hasMatch });
 
             return (
@@ -426,6 +436,7 @@ export default function ElearningCourseDetailsLessonsDialog({
                       index={value}
                       sx={{ ml: 2 }}
                       lessonComplete={hasMatch}
+
                       // lessonComplete={metaData?.filter((l) => l.LessonTitle === lesson?.title)}
                     />
                   </Typography>
@@ -451,13 +462,18 @@ export default function ElearningCourseDetailsLessonsDialog({
               </Link>
             );
           })}
+          {/* <div style={{ backgroundColor: hasUnit ? 'black' : 'white' }}> */}
           <Quiz
+            unitId={unit.id}
+            metaDataId={metaDataId}
+            userLessonData={userLessonData}
             _questions={unit?.attributes?.quiz}
             courseName={courseTitle}
             score={score}
             hasBoughtCourse={hasBoughtCourse}
-            title="Start Test"
+            title={hasUnit ? 'Attempted. Click To Retry' : 'Start Test'}
           />
+          {/* </div> */}
         </AccordionDetails>
       </Accordion>
     );

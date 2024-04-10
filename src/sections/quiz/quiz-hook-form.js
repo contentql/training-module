@@ -1,5 +1,6 @@
 'use client';
 
+import axios from 'axios';
 // import axios from 'axios';
 import PropTypes from 'prop-types';
 import { useMemo, useState, useEffect } from 'react';
@@ -8,8 +9,8 @@ import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
-import Dialog from '@mui/material/Dialog';
 import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
 import Backdrop from '@mui/material/Backdrop';
 import IconButton from '@mui/material/IconButton';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -32,7 +33,17 @@ import QuestionCard from './question-card';
 export default function QuizHookForm(props) {
   const currentDate = new Date();
 
-  const { questions, handleModalClose, courseName, score, startTime, setPopupOpenOne } = props;
+  const {
+    questions,
+    handleModalClose,
+    courseName,
+    score,
+    startTime,
+    setPopupOpenOne,
+    unitId,
+    metaDataId,
+    userLessonData,
+  } = props;
 
   const { UserData } = useUserStore();
 
@@ -119,9 +130,39 @@ export default function QuizHookForm(props) {
     }
   }
 
+  const addingUnitToUser = async () => {
+    console.log({ unitId });
+    console.log(userLessonData);
+    console.log('add unit to user');
+    // const requiredData = [...new Set([...userLessonData, { LessonTitle: id }])];
+    // const isMetaDataExisting = userLessonData.filter((details) => details.LessonTitle === id);
+    // eslint-disable-next-line object-shorthand
+    const requiredData = [...userLessonData, { unitId }];
+
+    // if (isMetaDataExisting.length > 0 || !metaDataId) return;
+    console.log({ requiredData });
+    const requestBody = {
+      data: {
+        data: requiredData,
+      },
+    };
+    try {
+      await axios.put(`${process.env.NEXT_PUBLIC_METADATA_URL}/${metaDataId.id}`, requestBody, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${userToken}`,
+        },
+      });
+      // queryClient.invalidateQueries({ queryKey: ['userProgress'] });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   // console.log('correctAnswers', correctAnswers);
   const submitQuiz = () => {
     setFinishedQuiz(true);
+    addingUnitToUser();
 
     setEndTime(currentDate.toLocaleString());
 
@@ -178,6 +219,8 @@ export default function QuizHookForm(props) {
       <div className="p-5">
         {finishedQuiz ? (
           <Result
+            metaDataId={metaDataId}
+            unitId={unitId}
             setPopupOpenOne={setPopupOpenOne}
             handleModalClose={handleModalClose}
             restartQuiz={restartQuiz}
@@ -270,4 +313,7 @@ QuizHookForm.propTypes = {
   score: PropTypes.bool,
   startTime: PropTypes.any,
   setPopupOpenOne: PropTypes.bool,
+  metaDataId: PropTypes.string,
+  unitId: PropTypes.string,
+  userLessonData: PropTypes.any,
 };

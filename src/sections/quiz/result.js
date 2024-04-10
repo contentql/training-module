@@ -23,6 +23,8 @@ const Result = ({
   startTime,
   setPopupOpenOne,
   handleModalClose,
+  metaDataId,
+  unitId,
 }) => {
   console.log('startTime: ', startTime);
   console.log('endTime: ', endTime);
@@ -168,6 +170,8 @@ Result.propTypes = {
   endTime: PropTypes.any,
   setPopupOpenOne: PropTypes.bool,
   handleModalClose: PropTypes.any,
+  metaDataId: PropTypes.string,
+  unitId: PropTypes.string,
 };
 
 export default Result;

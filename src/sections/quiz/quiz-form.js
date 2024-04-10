@@ -27,7 +27,17 @@ import { coursesCertificatesFilter } from './utils/quiz-score-filter';
 export default function QuizForm(props) {
   const currentDate = new Date();
 
-  const { _questions, hasBoughtCourse, courseName, score, finalQuiz, title } = props;
+  const {
+    _questions,
+    hasBoughtCourse,
+    courseName,
+    score,
+    finalQuiz,
+    title,
+    metaDataId,
+    unitId,
+    userLessonData,
+  } = props;
 
   const [quizOpen, setOpen] = useState(false);
 
@@ -172,6 +182,9 @@ export default function QuizForm(props) {
         {...(!mdUp && bootstrapDialogProperties)}
       >
         <QuizHookForm
+          metaDataId={metaDataId}
+          userLessonData={userLessonData}
+          unitId={unitId}
           setPopupOpenOne={setPopupOpen}
           questions={questions}
           courseName={courseName}
@@ -192,4 +205,7 @@ QuizForm.propTypes = {
   score: PropTypes.bool,
   finalQuiz: PropTypes.bool,
   title: PropTypes.string,
+  metaDataId: PropTypes.string,
+  unitId: PropTypes.string,
+  userLessonData: PropTypes.any,
 };
