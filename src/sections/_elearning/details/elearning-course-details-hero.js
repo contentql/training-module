@@ -282,17 +282,17 @@ export default function ElearningCourseDetailsHero({ course, executeScroll }) {
                       <Iconify icon="carbon:document" sx={{ mr: 1 }} />
                       {`${totalLessons} Lessons`}
                     </Stack>
-
+                    {/* 
                     <Stack direction="row" alignItems="start" sx={{ typography: 'subtitle2' }}>
                       <Iconify icon="carbon:content-delivery-network" sx={{ mr: 1 }} />
                       {typeof languages === 'string' ? languages : languages?.join(', ')}
-                    </Stack>
+                    </Stack> */}
 
                     <Stack direction="row" alignItems="center" sx={{ typography: 'subtitle2' }}>
                       {totalQuizzes > 0 ? (
                         <Stack direction="row">
                           <Iconify icon="carbon:help" sx={{ mr: 1 }} />
-                          {`${totalQuizzes} Practice Assessments`}
+                          {`${totalQuizzes} Practice quizs`}
                         </Stack>
                       ) : (
                         'No Practice Assessments'

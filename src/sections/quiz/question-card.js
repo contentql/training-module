@@ -174,7 +174,7 @@ const QuestionCard = ({
                   borderRadius: 1,
                 }}
               >
-                Correct Answer (Option {String.fromCharCode(correctOption + 1 + 64)}):{' '}
+                Correct Answer :{' '}
                 <strong>
                   {Array.isArray(question.correctAnswer)
                     ? question.correctAnswer.join(', ')
