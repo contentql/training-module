@@ -142,6 +142,7 @@ export default function ElearningCheckoutView({ courseId }) {
         title: attributes.title,
         price: attributes.price,
       })),
+      discount: 20,
     };
 
     const response = await axiosClient.post('/api/orders', requestBody, {

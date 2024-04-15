@@ -35,7 +35,7 @@ export default function ElearningCartView() {
   const subTotal = cost;
   const discount = cost && cost * (discountPercent / -16.17);
   const tax = cost && cost * (taxPercent / 100);
-  const total = cost && subTotal + discount + tax;
+  const total = cost && subTotal + tax;
 
   const isEmpty = _courses.length === 0;
 

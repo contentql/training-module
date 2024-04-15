@@ -38,7 +38,7 @@ export default function ElearningCartSummary({
       <Stack spacing={2}>
         <Row label="Subtotal" value={fCurrency(subtotal)} />
 
-        <Row label={`Discount (${discountPercent}%)`} value={`${fCurrency(discount)}`} />
+        {/* <Row label={`Discount (${discountPercent}%)`} value={`${fCurrency(discount)}`} /> */}
 
         <Row label="Tax" value={fPercent(taxPercent)} />
       </Stack>
