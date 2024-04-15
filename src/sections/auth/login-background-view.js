@@ -39,15 +39,22 @@ export default function LoginBackgroundView() {
 
   const router = useRouter();
 
-  const { data: userCourse } = useQuery(['repoData', userdata.id], () =>
-    axiosClient.get('/api/user-courses', {
+  const getUserCourses = async () => {
+    const data = await axiosClient.get('/api/user-courses', {
       headers: {
         Authorization: `Bearer ${userdata.authToken}`,
       },
-    })
-  );
+    });
+    console.log('userdata working');
+    setUserCourses(data.data);
+    if (data?.data.length > 0) {
+      router.push('/account/my-learning');
+    } else {
+      router.push('/courses');
+    }
+  };
 
-  console.log(userCourses);
+  console.log('userCourses', userCourses);
 
   const LoginSchema = Yup.object().shape({
     email: Yup.string().required('Email is required').email('That is not an email'),
@@ -67,13 +74,7 @@ export default function LoginBackgroundView() {
   });
 
   if (userdata.isLoggedIn) {
-    if (userCourses?.data) {
-      router.push('/account/my-learning');
-    } else {
-      router.push('/courses');
-    }
-
-    return null;
+    getUserCourses();
   }
 
   const {

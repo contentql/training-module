@@ -189,7 +189,7 @@ export default function ElearningCourseDetailsInfo({ course }) {
               size="large"
               sx={{ width: '80%', backgroundColor: '#00031f', color: 'white' }}
             >
-              Review
+              provide feedback
             </Button>
           </Box>
         )}
