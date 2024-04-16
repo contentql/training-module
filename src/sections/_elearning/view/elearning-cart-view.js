@@ -26,8 +26,6 @@ import ElearningCartSummary from '../cart/elearning-cart-summary';
 export default function ElearningCartView() {
   const _courses = useCartStore((state) => state.cart);
 
-  // const loading = useBoolean(true);
-
   const cost = _courses.map((course) => course.attributes.price).reduce((a, b) => a + b, 0);
   const discountPercent = cost && 7;
   const taxPercent = cost && 18;
@@ -35,8 +33,7 @@ export default function ElearningCartView() {
   const subTotal = cost;
   const discount = cost && cost * (discountPercent / -16.17);
   const tax = cost && cost * (taxPercent / 100);
-  const total = cost && subTotal + tax;
-
+  const total = cost;
   const isEmpty = _courses.length === 0;
 
   return (

@@ -21,6 +21,8 @@ import Typography from '@mui/material/Typography';
 
 // import { paths } from 'src/routes/paths';
 // import Iconify from 'src/components/iconify';
+import { useState } from 'react';
+
 // import { useRouter } from 'src/routes/hooks';
 import { useCartStore } from 'src/states/cart';
 import { axiosClient } from 'src/utils/axiosClient';
@@ -42,28 +44,15 @@ const stripePromise = loadStripe(
   'pk_test_51O14wJSGKNDRcuJuUqGzWCeftvJOpycOZUjVgL5BoNzq82clRNztJYpNZw2mdqFtZrkRCCZVbIpSHSqYTIRpJe6t00WaGaXnpK'
 );
 
-// const PAYMENT_OPTIONS = [
-//   {
-//     label: 'Paypal',
-//     value: 'paypal',
-//     description: '**** **** **** 1234',
-//   },
-//   {
-//     label: 'MasterCard',
-//     value: 'mastercard',
-//     description: '**** **** **** 3456',
-//   },
-//   {
-//     label: 'Visa',
-//     value: 'visa',
-//     description: '**** **** **** 6789',
-//   },
-// ];
-
 // ----------------------------------------------------------------------
 
 export default function ElearningCheckoutView({ courseId }) {
   const { UserData } = useUserStore();
+
+  // const couponDiscount = localStorage.getItem('coupon');
+  const [couponDiscount, setCouponDiscount] = useState('');
+  const [coursesData, setCoursesData] = useState([]);
+  const [taxAmount, setTaxAmount] = useState(0);
 
   const queryRes = useQuery({
     queryKey: ['course', courseId],
@@ -78,7 +67,8 @@ export default function ElearningCheckoutView({ courseId }) {
   const cart = useCartStore((state) => state.cart);
 
   const _courses = courseId ? [queryData] : cartCourses;
-  console.log({ _courses });
+  // setCoursesData(_courses, { title: 'tax', price: taxAmount });
+  console.log('courses', _courses);
 
   const cost = _courses?.map((course) => course?.attributes.price).reduce((a, b) => a + b, 0);
   const discountPercent = cost && 7;
@@ -87,7 +77,7 @@ export default function ElearningCheckoutView({ courseId }) {
   const subTotal = cost;
   const discount = cost && cost * (discountPercent / -16.17);
   const tax = cost && cost * (taxPercent / 100);
-  const total = cost && subTotal + discount + tax;
+  const total = cost;
 
   const ElearningCheckoutSchema = Yup.object().shape({
     userName: Yup.string(),
@@ -142,7 +132,7 @@ export default function ElearningCheckoutView({ courseId }) {
         title: attributes.title,
         price: attributes.price,
       })),
-      discount: 20,
+      discount: Number(couponDiscount),
     };
 
     const response = await axiosClient.post('/api/orders', requestBody, {
@@ -184,6 +174,8 @@ export default function ElearningCheckoutView({ courseId }) {
 
             <Grid xs={12} md={4}>
               <ElearningCheckoutOrderSummary
+                setTaxAmount={setTaxAmount}
+                setCouponDiscountone={setCouponDiscount}
                 taxPercent={taxPercent}
                 total={total}
                 subtotal={subTotal}

@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import PropTypes from 'prop-types';
+import { useState, useEffect } from 'react';
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
@@ -15,12 +16,14 @@ import InputAdornment from '@mui/material/InputAdornment';
 import Image from 'src/components/image';
 import Iconify from 'src/components/iconify';
 import { useCartStore } from 'src/states/cart';
+import { axiosClient } from 'src/utils/axiosClient';
 import TextMaxLine from 'src/components/text-max-line';
 import { fPercent, fCurrency } from 'src/utils/format-number';
 
 // ----------------------------------------------------------------------
 
 export default function ElearningCheckoutOrderSummary({
+  setTaxAmount,
   taxPercent,
   total,
   subtotal,
@@ -28,7 +31,54 @@ export default function ElearningCheckoutOrderSummary({
   courses,
   loading,
   isDelete,
+  setCouponDiscountone,
 }) {
+  const getTaxAndCoupons = async () => {
+    const response = await axiosClient.get('/api/configuration?populate=*');
+    const { tax } = response.data.data.attributes;
+
+    setTaxs(tax);
+    const taxedAmount = (total * tax) / 100;
+    setTaxAmount(taxedAmount);
+    setTotalAmount(taxedAmount + total);
+  };
+
+  useEffect(() => {
+    getTaxAndCoupons();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const [coupon, setCoupon] = useState('');
+
+  const [couponApply, setCouponApply] = useState(false);
+
+  const [couponDiscount, setCouponDiscount] = useState('0');
+
+  const [couponMessage, setCouponMessage] = useState('No coupon');
+
+  const [taxs, setTaxs] = useState('');
+
+  const [totalAmount, setTotalAmount] = useState(0);
+
+  console.log(totalAmount);
+
+  const discountClick = async () => {
+    const response = await axiosClient.get('/api/configuration?populate=*');
+    const { coupons } = response.data.data.attributes;
+
+    if (coupon === coupons.coupon && coupons.active) {
+      setCouponDiscount(coupons.percentage);
+      setCouponMessage('Coupon applyed success');
+      setCouponDiscountone(coupons.percentage);
+      const Amount = totalAmount - (couponDiscount / 100) * totalAmount;
+      setTotalAmount(Amount);
+      setCouponApply(true);
+    } else {
+      setCouponDiscount(0);
+      setCouponMessage('Coupon not active');
+    }
+  };
+
   return (
     <Stack
       spacing={3}
@@ -53,16 +103,22 @@ export default function ElearningCheckoutOrderSummary({
       <Stack spacing={2}>
         <Row label="Subtotal" value={fCurrency(subtotal)} />
 
-        <Row label="Tax" value={fPercent(taxPercent)} />
+        <Row label={`${couponMessage}`} value={`%${couponDiscount}`} />
+
+        <Row label="Tax" value={fPercent(taxs)} />
       </Stack>
 
       <TextField
+        onChange={(e) => setCoupon(e.target.value)}
+        value={coupon}
         hiddenLabel
         placeholder="Discount Code"
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">
-              <Button>Apply</Button>
+              <Button disabled={couponApply} onClick={() => discountClick()}>
+                Apply
+              </Button>
             </InputAdornment>
           ),
         }}
@@ -72,7 +128,7 @@ export default function ElearningCheckoutOrderSummary({
 
       <Row
         label="Total"
-        value={fCurrency(total)}
+        value={fCurrency(totalAmount)}
         sx={{
           typography: 'h6',
           '& span': { typography: 'h6' },
@@ -93,6 +149,7 @@ export default function ElearningCheckoutOrderSummary({
 }
 
 ElearningCheckoutOrderSummary.propTypes = {
+  setTaxAmount: PropTypes.any,
   discount: PropTypes.number,
   loading: PropTypes.bool,
   courses: PropTypes.array,
@@ -100,6 +157,7 @@ ElearningCheckoutOrderSummary.propTypes = {
   taxPercent: PropTypes.number,
   total: PropTypes.number,
   isDelete: PropTypes.bool,
+  setCouponDiscountone: PropTypes.any,
 };
 
 // ----------------------------------------------------------------------

@@ -1,4 +1,6 @@
 import PropTypes from 'prop-types';
+import { useQuery } from 'react-query';
+import { useState, useEffect } from 'react';
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
@@ -11,19 +13,61 @@ import InputAdornment from '@mui/material/InputAdornment';
 
 import { paths } from 'src/routes/paths';
 import { RouterLink } from 'src/routes/components';
+import { axiosClient } from 'src/utils/axiosClient';
 import { fPercent, fCurrency } from 'src/utils/format-number';
 
 // ----------------------------------------------------------------------
 
 export default function ElearningCartSummary({
-  tax,
-  taxPercent,
   total,
+  taxPercent,
   subtotal,
   discountPercent,
   discount,
   isEmpty,
 }) {
+  const getTaxAndCoupons = async () => {
+    const response = await axiosClient.get('/api/configuration?populate=*');
+    const { tax } = response.data.data.attributes;
+
+    setTaxs(tax);
+    setTotalAmount((total * tax) / 100 + total);
+  };
+
+  useEffect(() => {
+    getTaxAndCoupons();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const [coupon, setCoupon] = useState('');
+
+  const [couponApply, setCouponApply] = useState(false);
+
+  const [couponDiscount, setCouponDiscount] = useState('');
+
+  const [couponMessage, setCouponMessage] = useState('');
+
+  const [taxs, setTaxs] = useState('');
+
+  const [totalAmount, setTotalAmount] = useState(0);
+
+  const discountClick = async () => {
+    const response = await axiosClient.get('/api/configuration?populate=*');
+    const { coupons } = response.data.data.attributes;
+
+    if (coupon === coupons.coupon && coupons.active) {
+      setCouponDiscount(coupons.percentage);
+      setCouponMessage('Coupon applyed success');
+      localStorage.setItem('coupon', coupons.percentage);
+      const Amount = totalAmount - (couponDiscount / 100) * totalAmount;
+      setTotalAmount(Amount);
+      setCouponApply(true);
+    } else {
+      setCouponDiscount(0);
+      setCouponMessage('Coupon not active');
+    }
+  };
+
   return (
     <Stack
       spacing={3}
@@ -38,28 +82,30 @@ export default function ElearningCartSummary({
       <Stack spacing={2}>
         <Row label="Subtotal" value={fCurrency(subtotal)} />
 
-        {/* <Row label={`Discount (${discountPercent}%)`} value={`${fCurrency(discount)}`} /> */}
-
-        <Row label="Tax" value={fPercent(taxPercent)} />
+        <Row label="Tax" value={`%${taxs}`} />
       </Stack>
 
-      <TextField
+      {/* <TextField
+        onChange={(e) => setCoupon(e.target.value)}
+        value={coupon}
         hiddenLabel
         placeholder="Discount Code"
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">
-              <Button>Apply</Button>
+              <Button disabled={couponApply} onClick={() => discountClick()}>
+                Apply
+              </Button>
             </InputAdornment>
           ),
         }}
-      />
+      /> */}
 
       <Divider sx={{ borderStyle: 'dashed' }} />
 
       <Row
         label="Total"
-        value={fCurrency(total)}
+        value={fCurrency(totalAmount)}
         sx={{
           typography: 'h6',
           '& span': { typography: 'h6' },
@@ -81,9 +127,8 @@ export default function ElearningCartSummary({
 }
 
 ElearningCartSummary.propTypes = {
-  tax: PropTypes.number,
+  total: PropTypes.any,
   taxPercent: PropTypes.number,
-  total: PropTypes.number,
   discount: PropTypes.number,
   discountPercent: PropTypes.number,
   subtotal: PropTypes.number,
