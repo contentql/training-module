@@ -15,7 +15,6 @@ export default function ElearningCoursePage({ params }) {
   return (
     <MainLayout>
       <ElearningCourseView courseId={params.id} />
-      <ToastContainer />
     </MainLayout>
   );
 }

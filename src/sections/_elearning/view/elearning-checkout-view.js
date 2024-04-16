@@ -79,6 +79,14 @@ export default function ElearningCheckoutView({ courseId }) {
   const tax = cost && cost * (taxPercent / 100);
   const total = cost;
 
+  const products = _courses.map(({ id, attributes }) => ({
+    id,
+    title: attributes.title,
+    price: attributes.price,
+  }));
+
+  const updatedProducts = [...products, { id: 'tax', title: 'tax', price: taxAmount }];
+
   const ElearningCheckoutSchema = Yup.object().shape({
     userName: Yup.string(),
     emailAddress: Yup.string(),
@@ -127,11 +135,7 @@ export default function ElearningCheckoutView({ courseId }) {
     const requestBody = {
       username: UserData.username,
       email: UserData.email,
-      products: _courses.map(({ id, attributes }) => ({
-        id,
-        title: attributes.title,
-        price: attributes.price,
-      })),
+      products: updatedProducts,
       discount: Number(couponDiscount),
     };
 

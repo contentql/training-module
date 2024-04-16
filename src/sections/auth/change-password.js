@@ -232,8 +232,6 @@ export default function ChangePassword() {
           {renderSocials}
         </>
       )}
-
-      <ToastContainer />
     </>
   );
 }

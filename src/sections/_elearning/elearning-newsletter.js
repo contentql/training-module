@@ -1,3 +1,6 @@
+import { useState } from 'react';
+import { toast } from 'react-toastify';
+
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Unstable_Grid2';
@@ -11,6 +14,55 @@ import Image from 'src/components/image';
 // ----------------------------------------------------------------------
 
 export default function ElearningNewsletter() {
+  const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
+
+  const handleSubmit = async () => {
+    const requestBody = {
+      data: {
+        email,
+        name,
+        source: 'training',
+      },
+    };
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/api/customers`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestBody),
+      });
+      setName('');
+      setEmail('');
+      toast.success('Email sent successfully', {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
+
+      const resData = await response.json();
+    } catch (error) {
+      console.error(error);
+      toast.error('Somthing went wrong', {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
+    }
+  };
+
+  console.log(name, email);
   return (
     <Box
       sx={{
@@ -37,14 +89,15 @@ export default function ElearningNewsletter() {
 
             <InputBase
               fullWidth
-              placeholder="Enter your email"
-              endAdornment={
-                <InputAdornment position="end">
-                  <Button color="secondary" size="large" variant="contained">
-                    Register
-                  </Button>
-                </InputAdornment>
-              }
+              placeholder="Enter your name"
+              onChange={(e) => setName(e.target.value)}
+              // endAdornment={
+              //   <InputAdornment position="end">
+              //     <Button color="secondary" size="large" variant="contained">
+              //       Register
+              //     </Button>
+              //   </InputAdornment>
+              // }
               sx={{
                 pr: 0.5,
                 pl: 1.5,
@@ -58,6 +111,34 @@ export default function ElearningNewsletter() {
                 },
               }}
             />
+            <InputBase
+              fullWidth
+              placeholder="Enter your email"
+              onChange={(e) => setEmail(e.target.value)}
+              type="email"
+              sx={{
+                pr: 0.5,
+                mt: 1,
+                pl: 1.5,
+                height: 56,
+                maxWidth: 560,
+                borderRadius: 1,
+                bgcolor: 'common.white',
+                transition: (theme) => theme.transitions.create(['box-shadow']),
+                [`&.${inputBaseClasses.focused}`]: {
+                  boxShadow: (theme) => theme.customShadows.z4,
+                },
+              }}
+            />
+            <Button
+              color="secondary"
+              size="large"
+              variant="contained"
+              sx={{ mt: 2 }}
+              onClick={() => handleSubmit()}
+            >
+              Register
+            </Button>
           </Grid>
 
           <Grid xs={12} md={5}>

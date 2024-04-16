@@ -4,9 +4,11 @@ import 'src/global.css';
 
 // ----------------------------------------------------------------------
 
+import { ToastContainer } from 'react-toastify';
+
 import ThemeProvider from 'src/theme';
-import { primaryFont } from 'src/theme/typography';
 import { LocalizationProvider } from 'src/locales';
+import { primaryFont } from 'src/theme/typography';
 import ProgressBar from 'src/components/progress-bar';
 import MotionLazy from 'src/components/animate/motion-lazy';
 import { ReactQueryProvider } from 'src/utils/ReactQueryProvider';
@@ -65,6 +67,7 @@ export default function RootLayout({ children }) {
                   <ProgressBar />
                   <SettingsDrawer />
                   {children}
+                  <ToastContainer />
                 </MotionLazy>
               </ThemeProvider>
             </SettingsProvider>

@@ -161,14 +161,6 @@ export default function AccountPersonalView() {
 
         <RHFTextField name="agency" label="agency" />
       </Box>
-      <ToastContainer
-        position="bottom-right"
-        autoClose={3000}
-        hideProgressBar={false}
-        closeOnClick
-        pauseOnHover
-        draggable
-      />
 
       <LoadingButton
         color="secondary"

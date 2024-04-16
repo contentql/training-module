@@ -176,14 +176,6 @@ export default function ElearningReviewForm({ setReviewOpen }) {
         >
           submit
         </Button>
-        <ToastContainer
-          position="bottom-right"
-          autoClose={3000}
-          hideProgressBar={false}
-          closeOnClick
-          pauseOnHover
-          draggable
-        />
       </FormProvider>
     </Box>
   );

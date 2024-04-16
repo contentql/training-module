@@ -131,7 +131,6 @@ export default function ForgotPasswordView() {
         <Iconify icon="carbon:chevron-left" width={16} sx={{ mr: 1 }} />
         Return to sign in!
       </Link>
-      <ToastContainer />
     </>
   );
 }
