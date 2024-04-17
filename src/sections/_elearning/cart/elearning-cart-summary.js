@@ -82,24 +82,8 @@ export default function ElearningCartSummary({
       <Stack spacing={2}>
         <Row label="Subtotal" value={fCurrency(subtotal)} />
 
-        <Row label="Tax" value={`%${taxs}`} />
+        <Row label="Tax" value={`${taxs}%`} />
       </Stack>
-
-      {/* <TextField
-        onChange={(e) => setCoupon(e.target.value)}
-        value={coupon}
-        hiddenLabel
-        placeholder="Discount Code"
-        InputProps={{
-          endAdornment: (
-            <InputAdornment position="end">
-              <Button disabled={couponApply} onClick={() => discountClick()}>
-                Apply
-              </Button>
-            </InputAdornment>
-          ),
-        }}
-      /> */}
 
       <Divider sx={{ borderStyle: 'dashed' }} />
 
