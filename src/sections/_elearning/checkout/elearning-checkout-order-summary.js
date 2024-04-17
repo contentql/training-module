@@ -103,7 +103,7 @@ export default function ElearningCheckoutOrderSummary({
       <Stack spacing={2}>
         <Row label="Subtotal" value={fCurrency(subtotal)} />
 
-        <Row label={`${couponMessage}`} value={`%${couponDiscount}`} />
+        <Row label={`${couponMessage}`} value={`${couponDiscount}%`} />
 
         <Row label="Tax" value={fPercent(taxs)} />
       </Stack>

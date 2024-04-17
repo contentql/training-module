@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+// eslint-disable-next-line perfectionist/sort-imports
 import { toast } from 'react-toastify';
 
 import Box from '@mui/material/Box';
@@ -10,12 +11,24 @@ import InputAdornment from '@mui/material/InputAdornment';
 import InputBase, { inputBaseClasses } from '@mui/material/InputBase';
 
 import Image from 'src/components/image';
+import { axiosClient } from 'src/utils/axiosClient';
 
 // ----------------------------------------------------------------------
 
 export default function ElearningNewsletter() {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
+  const [couponDiscount, setCouponDiscount] = useState('');
+
+  useEffect(() => {
+    const getCouponDiscount = async () => {
+      const response = await axiosClient.get('/api/configuration?populate=*');
+      const { coupons } = response.data.data.attributes;
+      setCouponDiscount(coupons.percentage);
+    };
+
+    getCouponDiscount();
+  }, []);
 
   const handleSubmit = async () => {
     const requestBody = {
@@ -80,7 +93,9 @@ export default function ElearningNewsletter() {
           direction={{ xs: 'column-reverse', md: 'row' }}
         >
           <Grid xs={12} md={5} sx={{ textAlign: 'center', color: 'grey.800' }}>
-            <Typography variant="h3">Register Now Forget 20% Discount Every Courses</Typography>
+            <Typography variant="h3">
+              Register Now Get {couponDiscount}% Discount For Every Course
+            </Typography>
 
             <Typography sx={{ mt: 2.5, mb: 5 }}>
               Embark on our Administrator/Manager Training programs in Texas, offering flexible
