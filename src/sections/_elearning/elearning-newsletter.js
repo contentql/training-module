@@ -105,6 +105,7 @@ export default function ElearningNewsletter() {
             <InputBase
               fullWidth
               placeholder="Enter your name"
+              value={name}
               onChange={(e) => setName(e.target.value)}
               // endAdornment={
               //   <InputAdornment position="end">
@@ -129,6 +130,7 @@ export default function ElearningNewsletter() {
             <InputBase
               fullWidth
               placeholder="Enter your email"
+              value={email}
               onChange={(e) => setEmail(e.target.value)}
               type="email"
               sx={{
