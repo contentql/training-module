@@ -21,10 +21,12 @@ import Certificate from 'src/sections/certificate/certificate';
 
 export default function ElearningCertificateDialog({ open, handleClose, certificateData }) {
   const targetRef = useRef();
-  const { data: certificateNames } = useQuery({
-    queryKey: ['certificateNames'],
-    queryFn: getCertificateData,
-  });
+  // const { data: certificateNames } = useQuery({
+  //   queryKey: ['certificateNames'],
+  //   queryFn: getCertificateData,
+  // });
+
+  const { data: certificateNames } = useQuery('certificateNames', getCertificateData);
 
   console.log('certificateNames', certificateNames);
 

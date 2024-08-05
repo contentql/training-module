@@ -28,5 +28,5 @@ query {
   );
   console.log('Fetched Data:', data);
 
-  return data.certificates.data.map((item) => item.attributes.certificate);
+  return data;
 };
