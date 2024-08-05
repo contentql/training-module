@@ -111,8 +111,6 @@ export default function EcommerceAccountVouchersView() {
     fetchScore();
   }, [userData.username]);
 
-  console.log('Quiz Score', quizScore);
-
   return (
     <>
       <Typography variant="h5" sx={{ mb: 3 }}>

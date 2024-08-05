@@ -43,8 +43,6 @@ export default function AccountPersonalView() {
     state.updateUserData,
   ]);
 
-  console.log({ userData });
-
   const EcommerceAccountPersonalSchema = Yup.object().shape({
     firstName: Yup.string().required('First name is required'),
     lastName: Yup.string().required('Last name is required'),
@@ -74,7 +72,6 @@ export default function AccountPersonalView() {
 
   const onSubmit = handleSubmit(async (data) => {
     // e.preventDefault();
-    console.log('onSubmit');
     updateUserData({
       ...userData,
       username: data.username,

@@ -75,7 +75,6 @@ export default function ElearningNewsletter() {
     }
   };
 
-  console.log(name, email);
   return (
     <Box
       sx={{

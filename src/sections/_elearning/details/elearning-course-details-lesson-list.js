@@ -52,7 +52,6 @@ export default function ElearningCourseDetailsLessonList({ lessons, hasBoughtCou
         },
       });
 
-      console.log('res', res.data);
       res?.data.forEach((list) => {
         setUserLessonData(
           list.data.map((l) => ({ LessonTitle: l.LessonTitle, course_id: l.course_id }))
@@ -68,7 +67,6 @@ export default function ElearningCourseDetailsLessonList({ lessons, hasBoughtCou
         // });
       });
       if (res.data.length === 0) {
-        console.log('refetch');
         // refetch();
       }
       // res?.data.map((list) =>

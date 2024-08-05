@@ -51,10 +51,6 @@ export default function EcommerceAccountVoucherItem({ certificateData }) {
     .filter((data) => data.courseTitle === certificateData.attributes.courseTitle)
     .at(0)?.image;
 
-  console.log(imageUrl);
-
-  console.log(certificateData);
-
   return (
     <Stack
       direction="row"

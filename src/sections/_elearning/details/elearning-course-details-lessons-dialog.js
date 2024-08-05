@@ -155,7 +155,6 @@ export default function ElearningCourseDetailsLessonsDialog({
         },
       });
 
-      console.log('res', res.data);
       res?.data.forEach((list) => {
         setMetaDataId(list);
         setUserLessonData(
@@ -167,7 +166,6 @@ export default function ElearningCourseDetailsLessonsDialog({
         );
       });
       if (res.data.length === 0) {
-        console.log('refetch');
         refetch();
       }
     } catch (error) {
@@ -176,12 +174,10 @@ export default function ElearningCourseDetailsLessonsDialog({
   };
   const addingLessonToUser = async () => {
     // console.log({ lessonId });
-    console.log('add lesson to user');
     // const requiredData = [...new Set([...userLessonData, { LessonTitle: id }])];
     const isMetaDataExisting = userLessonData.filter((details) => details.LessonTitle === id);
     const requiredData = [...userLessonData, { LessonTitle: id, course_id: params.id }];
     if (isMetaDataExisting.length > 0 || !metaDataId) return;
-    console.log({ requiredData });
     const requestBody = {
       data: {
         data: requiredData,
