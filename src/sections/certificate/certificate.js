@@ -42,11 +42,15 @@ const Certificate = ({ certificateData, certificateNames }) => {
             </div>
             <div className="flex flex-row items-end justify-start gap-[71px] text-base text-darkslategray font-montserrat">
               <div className="flex flex-col items-start justify-start gap-[14px]">
-                <img className="relative w-[72px] h-[73px]" alt="" src="/vector-14.svg" />
+                <img
+                  className="relative w-[72px] h-[73px]"
+                  alt="signature"
+                  src={certificateNames[0]?.signature.data.attributes.url}
+                />
                 <img className="relative w-[117px] h-px" alt="" src="/vector-10.svg" />
                 <div className="flex flex-col items-start justify-start gap-[4px]">
                   <div className="relative leading-[135%] font-semibold">
-                    {certificateNames[0].name}
+                    {certificateNames[0]?.name}
                   </div>
                   <div className="relative text-mini leading-[135%] font-medium text-dimgray inline-block w-[122px]">
                     CEO
@@ -54,11 +58,15 @@ const Certificate = ({ certificateData, certificateNames }) => {
                 </div>
               </div>
               <div className="flex flex-col items-start justify-start gap-[14px]">
-                <img className="relative w-[72px] h-[73px]" alt="" src="/vector-14.svg" />
+                <img
+                  className="relative w-[72px] h-[73px]"
+                  alt=""
+                  src={certificateNames[1]?.signature.data.attributes.url}
+                />
                 <img className="relative w-[117px] h-px" alt="" src="/vector-10.svg" />
                 <div className="flex flex-col items-start justify-start gap-[4px]">
                   <div className="relative leading-[135%] font-semibold">
-                    {certificateNames[1].name}
+                    {certificateNames[1]?.name}
                   </div>
                   <div className="relative text-mini leading-[135%] font-medium text-dimgray inline-block w-[165px]">
                     Programme Manager
