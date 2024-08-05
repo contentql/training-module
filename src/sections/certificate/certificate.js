@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-const Certificate = ({ certificateData }) => {
+const Certificate = ({ certificateData, certificateNames }) => {
   const formattedDate = certificateData?.attributes.createdAt
     ? new Date(certificateData.attributes.updatedAt).toLocaleDateString('en-US', {
         month: '2-digit',
@@ -9,6 +9,7 @@ const Certificate = ({ certificateData }) => {
       })
     : '';
 
+  console.log(certificateNames);
   return (
     <div className="relative top-[calc(50%_-_397px)] left-[calc(50%_-_561.5px)] w-[1123px] h-[794px] text-left text-41xl text-black font-montaga">
       <div className="absolute top-[calc(50%_-_372px)] left-[calc(50%_-_536.5px)] rounded-21xl box-border w-[1073px] h-[744px] border-[2px] border-solid border-lightgray overflow-hidden">
@@ -44,7 +45,9 @@ const Certificate = ({ certificateData }) => {
                 <img className="relative w-[72px] h-[73px]" alt="" src="/vector-14.svg" />
                 <img className="relative w-[117px] h-px" alt="" src="/vector-10.svg" />
                 <div className="flex flex-col items-start justify-start gap-[4px]">
-                  <div className="relative leading-[135%] font-semibold">Tunzi</div>
+                  <div className="relative leading-[135%] font-semibold">
+                    {certificateNames[0].name}
+                  </div>
                   <div className="relative text-mini leading-[135%] font-medium text-dimgray inline-block w-[122px]">
                     CEO
                   </div>
@@ -54,7 +57,9 @@ const Certificate = ({ certificateData }) => {
                 <img className="relative w-[72px] h-[73px]" alt="" src="/vector-14.svg" />
                 <img className="relative w-[117px] h-px" alt="" src="/vector-10.svg" />
                 <div className="flex flex-col items-start justify-start gap-[4px]">
-                  <div className="relative leading-[135%] font-semibold">Amar</div>
+                  <div className="relative leading-[135%] font-semibold">
+                    {certificateNames[1].name}
+                  </div>
                   <div className="relative text-mini leading-[135%] font-medium text-dimgray inline-block w-[165px]">
                     Programme Manager
                   </div>
@@ -68,7 +73,7 @@ const Certificate = ({ certificateData }) => {
               </div>
             </div>
           </div>
-          <div className="flex flex-col items-center justify-start gap-[60px] text-center text-[25.71px] text-white font-montserrat">
+          {/* <div className="flex flex-col items-center justify-start gap-[60px] text-center text-[25.71px] text-white font-montserrat">
             <div className="rounded-t-none rounded-b-xl bg-coral flex flex-col items-center justify-start pt-[174px] px-[65px] pb-[106px] gap-[167px]">
               <div className="relative leading-[120%] uppercase font-semibold">
                 <p className="m-0">Verified</p>
@@ -84,7 +89,7 @@ const Certificate = ({ certificateData }) => {
                 <div className="absolute top-[0px] left-[83px] font-semibold">{`Verify at `}</div>
               </div>
             </a>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
@@ -93,6 +98,7 @@ const Certificate = ({ certificateData }) => {
 
 Certificate.propTypes = {
   certificateData: PropTypes.object,
+  certificateNames: PropTypes.any,
 };
 
 export default Certificate;

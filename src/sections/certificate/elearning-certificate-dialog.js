@@ -1,6 +1,7 @@
 'use client';
 
 import PropTypes from 'prop-types';
+import { useQuery } from 'react-query';
 import { useRef, useState } from 'react';
 import generatePDF, { Margin, Resolution } from 'react-to-pdf';
 
@@ -13,12 +14,17 @@ import CloseIcon from '@mui/icons-material/Close';
 import LoadingButton from '@mui/lab/LoadingButton';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 
+import { getCertificateData } from 'src/queries/certificates';
 import Certificate from 'src/sections/certificate/certificate';
 
 // ----------------------------------------------------------------------
 
 export default function ElearningCertificateDialog({ open, handleClose, certificateData }) {
   const targetRef = useRef();
+  const { data: certificateNames } = useQuery({
+    queryKey: ['courses'],
+    queryFn: getCertificateData,
+  });
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -90,7 +96,7 @@ export default function ElearningCertificateDialog({ open, handleClose, certific
             </LoadingButton>
           </Stack>
           <Stack ref={targetRef}>
-            <Certificate certificateData={certificateData} />
+            <Certificate certificateData={certificateData} certificateNames={certificateNames} />
           </Stack>
         </Toolbar>
       </AppBar>
