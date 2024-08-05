@@ -99,7 +99,10 @@ export default function ElearningCertificateDialog({ open, handleClose, certific
           </Stack>
           <Stack ref={targetRef}>
             {certificateNames && (
-              <Certificate certificateData={certificateData} certificateNames={certificateNames} />
+              <Certificate
+                certificateData={certificateData}
+                certificateNames={certificateNames.data[0].attributes.certificate}
+              />
             )}
           </Stack>
         </Toolbar>
