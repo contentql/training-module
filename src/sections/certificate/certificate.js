@@ -81,7 +81,7 @@ const Certificate = ({ certificateData, certificateNames }) => {
               </div>
             </div>
           </div>
-          {/* <div className="flex flex-col items-center justify-start gap-[60px] text-center text-[25.71px] text-white font-montserrat">
+          <div className="flex flex-col items-center justify-start gap-[60px] text-center text-[25.71px] text-white font-montserrat">
             <div className="rounded-t-none rounded-b-xl bg-coral flex flex-col items-center justify-start pt-[174px] px-[65px] pb-[106px] gap-[167px]">
               <div className="relative leading-[120%] uppercase font-semibold">
                 <p className="m-0">Verified</p>
@@ -90,14 +90,14 @@ const Certificate = ({ certificateData, certificateNames }) => {
               <img className="relative w-[165.6px] h-[123.8px]" alt="" src="/mask-group1.svg" />
             </div>
             <a className="[text-decoration:none] relative w-[227px] h-10 text-sm text-black">
-              <div className="absolute top-[0px] left-[0px] w-[227px] h-10">
+              {/* <div className="absolute top-[0px] left-[0px] w-[227px] h-10">
                 <a className="[text-decoration:none] absolute top-[23px] left-[0px] font-medium text-[inherit]">
                   contentql.com/verify/DGF683DJ
                 </a>
                 <div className="absolute top-[0px] left-[83px] font-semibold">{`Verify at `}</div>
-              </div>
+              </div> */}
             </a>
-          </div> */}
+          </div>
         </div>
       </div>
     </div>
