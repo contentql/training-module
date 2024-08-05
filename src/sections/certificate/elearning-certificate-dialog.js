@@ -26,6 +26,8 @@ export default function ElearningCertificateDialog({ open, handleClose, certific
     queryFn: getCertificateData,
   });
 
+  console.log('certificateNames', certificateNames);
+
   const [isLoading, setIsLoading] = useState(false);
 
   const handleGeneratePDF = async () => {
@@ -96,7 +98,9 @@ export default function ElearningCertificateDialog({ open, handleClose, certific
             </LoadingButton>
           </Stack>
           <Stack ref={targetRef}>
-            <Certificate certificateData={certificateData} certificateNames={certificateNames} />
+            {certificateNames && (
+              <Certificate certificateData={certificateData} certificateNames={certificateNames} />
+            )}
           </Stack>
         </Toolbar>
       </AppBar>

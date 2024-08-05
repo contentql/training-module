@@ -3,7 +3,7 @@ import fetchData from 'src/utils/fetchData';
 export const getCertificateData = async () => {
   const data = await fetchData(
     `
-    query {
+query {
 	certificates{
     data{
       attributes{
