@@ -27,5 +27,5 @@ query {
     }
   );
 
-  return data.certificates.data[0].attributes.certificate;
+  return data.certificates;
 };
