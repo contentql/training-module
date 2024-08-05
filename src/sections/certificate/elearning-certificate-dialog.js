@@ -103,7 +103,7 @@ export default function ElearningCertificateDialog({ open, handleClose, certific
             {certificateNames && (
               <Certificate
                 certificateData={certificateData}
-                certificateNames={certificateNames.data[0].attributes.certificate}
+                certificateNames={certificateNames.data.certificates.data[0].attributes.certificate}
               />
             )}
           </Stack>
