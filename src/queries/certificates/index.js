@@ -1,6 +1,6 @@
 import fetchData from 'src/utils/fetchData';
 
-export const getCertificateData = async (section) => {
+export const getCertificateData = async () => {
   const data = await fetchData(
     `
         query{
@@ -27,7 +27,5 @@ export const getCertificateData = async (section) => {
     }
   );
 
-  return {
-    cetificateNames: data.certificates.data[0].attributes.certificate,
-  };
+  return data.certificates.data[0].attributes.certificate;
 };

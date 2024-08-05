@@ -9,7 +9,7 @@ const Certificate = ({ certificateData, certificateNames }) => {
       })
     : '';
 
-  console.log(certificateNames);
+  console.log('certificateNames', certificateNames);
   return (
     <div className="relative top-[calc(50%_-_397px)] left-[calc(50%_-_561.5px)] w-[1123px] h-[794px] text-left text-41xl text-black font-montaga">
       <div className="absolute top-[calc(50%_-_372px)] left-[calc(50%_-_536.5px)] rounded-21xl box-border w-[1073px] h-[744px] border-[2px] border-solid border-lightgray overflow-hidden">
