@@ -22,7 +22,7 @@ const Certificate = ({ certificateData, certificateNames }) => {
         <div className="flex flex-col text-center items-center justify-center pt-[38px] px-0 pb-0 gap-[75px]">
           <div className="flex flex-col items-center justify-center gap-[18px]">
             <img className="relative w-44 h-[35px]" alt="" src="/ryzolve-logo1.svg" />
-            <div className="flex flex-col items-center justify-center gap-[14px]">
+            <div className="flex flex-col items-center justify-center gap-[40px]">
               <div className="relative capitalize leading-[120%] inline-block w-[800px]">
                 <p className="m-0">CERTIFICATE OF RECOGNITION</p>
               </div>
@@ -30,7 +30,7 @@ const Certificate = ({ certificateData, certificateNames }) => {
                 This certificate is presented to
               </div>
             </div>
-            <div className="flex flex-col items-center justify-center gap-[17px] text-26xl text-darkslateblue font-montserrat">
+            <div className="flex flex-col items-center justify-center gap-[0px] text-26xl text-darkslateblue font-montserrat">
               <div className="relative font-semibold">{certificateData?.attributes.username}</div>
               <p className="text-base text-dimgray">for completing the course</p>
               <p className="text-[20px] font-semibold text-black">
@@ -44,7 +44,7 @@ const Certificate = ({ certificateData, certificateNames }) => {
             </div>
           </div>
           <div className="flex flex-row items-center justify-between gap-[500px] text-base text-darkslategray font-montserrat">
-            <div className="flex flex-col items-center justify-center gap-[14px]">
+            <div className="flex flex-col items-center justify-center gap-[4px]">
               <img
                 className="relative w-[120px] h-[63px]"
                 alt="signature"
