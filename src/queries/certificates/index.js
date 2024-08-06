@@ -9,6 +9,7 @@ query {
       attributes{
         certificate{
           name
+          designation
           signature{
             data{
               attributes{

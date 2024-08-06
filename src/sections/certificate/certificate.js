@@ -53,7 +53,7 @@ const Certificate = ({ certificateData, certificateNames }) => {
                     {certificateNames[0]?.name}
                   </div>
                   <div className="relative text-mini leading-[135%] font-medium text-dimgray inline-block w-[122px]">
-                    CEO
+                    {certificateNames[0]?.designation}
                   </div>
                 </div>
               </div>
@@ -69,7 +69,7 @@ const Certificate = ({ certificateData, certificateNames }) => {
                     {certificateNames[1]?.name}
                   </div>
                   <div className="relative text-mini leading-[135%] font-medium text-dimgray inline-block w-[165px]">
-                    Programme Manager
+                    {certificateNames[1]?.designation}
                   </div>
                 </div>
               </div>
