@@ -57,7 +57,7 @@ const Certificate = ({ certificateData, certificateNames }) => {
                   </div>
                 </div>
               </div>
-              <div className="flex flex-col items-start justify-start gap-[14px]">
+              {/* <div className="flex flex-col items-start justify-start gap-[14px]">
                 <img
                   className="relative w-[72px] h-[73px]"
                   alt=""
@@ -72,7 +72,7 @@ const Certificate = ({ certificateData, certificateNames }) => {
                     {certificateNames[1]?.designation}
                   </div>
                 </div>
-              </div>
+              </div> */}
               <div className="flex flex-col items-start justify-start gap-[4px]">
                 <div className="relative leading-[135%] font-semibold">{formattedDate}</div>
                 <div className="relative text-mini leading-[135%] font-medium text-dimgray">
