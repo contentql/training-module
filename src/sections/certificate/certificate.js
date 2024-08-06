@@ -46,7 +46,7 @@ const Certificate = ({ certificateData, certificateNames }) => {
           <div className="flex flex-row items-center justify-between gap-[500px] text-base text-darkslategray font-montserrat">
             <div className="flex flex-col items-center justify-center gap-[14px]">
               <img
-                className="relative w-[72px] h-[73px]"
+                className="relative w-[120px] h-[63px]"
                 alt="signature"
                 src={certificateNames[0]?.signature.data.attributes.url}
               />
