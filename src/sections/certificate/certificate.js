@@ -32,8 +32,8 @@ const Certificate = ({ certificateData, certificateNames }) => {
             </div>
             <div className="flex flex-col items-center justify-center gap-[17px] text-26xl text-darkslateblue font-montserrat">
               <div className="relative font-semibold">{certificateData?.attributes.username}</div>
-              <p>for completing the course</p>
-              <p className="text-26xl text-darkslateblue">
+              <p className="text-base">for completing the course</p>
+              <p className="text-[20px] text-darkslateblue">
                 {certificateData?.attributes.courseTitle}
               </p>
               <div className="relative text-base leading-[135%] font-medium text-dimgray inline-block w-[461px]">
@@ -43,7 +43,7 @@ const Certificate = ({ certificateData, certificateNames }) => {
               </div>
             </div>
           </div>
-          <div className="flex flex-row items-center justify-center gap-[100px] text-base text-darkslategray font-montserrat">
+          <div className="flex flex-row items-center justify-between gap-[100px] text-base text-darkslategray font-montserrat">
             <div className="flex flex-col items-center justify-center gap-[14px]">
               <img
                 className="relative w-[72px] h-[73px]"
