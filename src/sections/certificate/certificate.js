@@ -33,7 +33,7 @@ const Certificate = ({ certificateData, certificateNames }) => {
             <div className="flex flex-col items-center justify-center gap-[17px] text-26xl text-darkslateblue font-montserrat">
               <div className="relative font-semibold">{certificateData?.attributes.username}</div>
               <p className="text-base text-dimgray">for completing the course</p>
-              <p className="text-[20px] text-darkslateblue">
+              <p className="text-[20px] font-semibold text-black">
                 {certificateData?.attributes.courseTitle}
               </p>
               <div className="relative text-base leading-[135%] font-medium text-dimgray inline-block w-[861px]">
