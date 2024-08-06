@@ -11,7 +11,7 @@ const Certificate = ({ certificateData, certificateNames }) => {
 
   console.log('certificateNames', certificateNames);
   return (
-    <div className="relative top-[calc(50%_-_397px)] left-[calc(50%_-_561.5px)] w-[1123px] h-[794px] text-left text-41xl text-black font-montaga">
+    <div className="relative top-[calc(50%_-_397px)] left-[calc(50%_-_561.5px)] w-[1123px] h-[794px] text-26xl text-black font-montaga items-center text-center mx-auto">
       <div className="absolute top-[calc(50%_-_372px)] left-[calc(50%_-_536.5px)] rounded-21xl box-border w-[1073px] h-[744px] border-[2px] border-solid border-lightgray overflow-hidden">
         <img
           className="absolute top-[calc(50%_-_397px)] left-[calc(50%_-_561.5px)] w-[1123px] h-[794px]"
@@ -23,23 +23,23 @@ const Certificate = ({ certificateData, certificateNames }) => {
           <div className="flex flex-col items-start justify-start gap-[18px]">
             <img className="relative w-44 h-[35px]" alt="" src="/ryzolve-logo1.svg" />
             <div className="flex flex-col items-start justify-start gap-[14px]">
-              <div className="relative leading-[120%] capitalize inline-block w-[511px]">
+              <div className="relative capitalize leading-[120%] inline-block w-[800px]">
                 <p className="m-0">CERTIFICATE OF RECOGNITION</p>
               </div>
-              <div className="relative text-mini leading-[135%] font-medium font-montserrat text-dimgray">
-                This course completion certificate is proudly awarded to
+              <div className="relative text-base leading-[135%] font-medium font-montserrat text-dimgray">
+                This certificate is presented to
               </div>
             </div>
             <div className="flex flex-col items-start justify-start gap-[17px] text-26xl text-darkslateblue font-montserrat">
               <div className="relative font-semibold">{certificateData?.attributes.username}</div>
-              <div className="relative text-mini leading-[135%] font-medium text-dimgray inline-block w-[461px]">
+              <div className="relative text-base leading-[135%] font-medium text-dimgray inline-block w-[461px]">
                 The holder of this certficate has completed the required sequence of unit under 26
                 TAC 558.259d Part of the initial 24 hr.in.26.259(b) ,{' '}
                 {certificateData?.attributes.courseTitle}. This certficate is granted by Ryzolve
               </div>
             </div>
           </div>
-          <div className="flex flex-row items-end justify-start gap-[71px] text-base text-darkslategray font-montserrat">
+          <div className="flex flex-row items-end justify-start gap-[100px] text-base text-darkslategray font-montserrat">
             <div className="flex flex-col items-start justify-start gap-[14px]">
               <img
                 className="relative w-[72px] h-[73px]"
