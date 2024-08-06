@@ -32,18 +32,18 @@ const Certificate = ({ certificateData, certificateNames }) => {
             </div>
             <div className="flex flex-col items-center justify-center gap-[17px] text-26xl text-darkslateblue font-montserrat">
               <div className="relative font-semibold">{certificateData?.attributes.username}</div>
-              <p className="text-base">for completing the course</p>
+              <p className="text-base text-dimgray">for completing the course</p>
               <p className="text-[20px] text-darkslateblue">
                 {certificateData?.attributes.courseTitle}
               </p>
-              <div className="relative text-base leading-[135%] font-medium text-dimgray inline-block w-[461px]">
+              <div className="relative text-base leading-[135%] font-medium text-dimgray inline-block w-[861px]">
                 The holder of this certficate has completed the required sequence of unit under 26
                 TAC 558.259d Part of the initial 24 hr.in.26.259(b) ,{' '}
                 {certificateData?.attributes.courseTitle}. This certficate is granted by Ryzolve
               </div>
             </div>
           </div>
-          <div className="flex flex-row items-center justify-between gap-[100px] text-base text-darkslategray font-montserrat">
+          <div className="flex flex-row items-center justify-between gap-[500px] text-base text-darkslategray font-montserrat">
             <div className="flex flex-col items-center justify-center gap-[14px]">
               <img
                 className="relative w-[72px] h-[73px]"
