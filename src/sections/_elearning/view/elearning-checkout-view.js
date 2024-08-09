@@ -41,7 +41,7 @@ import ElearningCheckoutPersonalDetails from '../checkout/elearning-checkout-per
 // ----------------------------------------------------------------------
 
 const stripePromise = loadStripe(
-  'pk_test_51O14wJSGKNDRcuJuUqGzWCeftvJOpycOZUjVgL5BoNzq82clRNztJYpNZw2mdqFtZrkRCCZVbIpSHSqYTIRpJe6t00WaGaXnpK'
+  'pk_live_51IZKCmJZWHNdQWQL8OnhcYNkF2fmAxB3qzL4PmgxxvpJZWDEW6jFXHp8yCyv2QFOhBVQw0Xpjhql774TZde44qfm00JnGm23NB'
 );
 
 // ----------------------------------------------------------------------
