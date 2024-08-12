@@ -109,6 +109,8 @@ export default function QuizHookForm(props) {
     [answers, questions]
   );
 
+  console.log('UserData', UserData);
+
   async function addScoreToStrapi(itemId) {
     const requestBody = {
       data: {
@@ -116,6 +118,8 @@ export default function QuizHookForm(props) {
         courseTitle: courseName.title,
         score: String(correctAnswers),
         email: UserData.email,
+        firstname: UserData?.firstname,
+        lastname: UserData?.lastname,
       },
     };
     try {
@@ -137,7 +141,7 @@ export default function QuizHookForm(props) {
     // const requiredData = [...new Set([...userLessonData, { LessonTitle: id }])];
     // const isMetaDataExisting = userLessonData.filter((details) => details.LessonTitle === id);
     // eslint-disable-next-line object-shorthand
-    const requiredData = [...userLessonData, { unitId }];
+    const requiredData = [userLessonData, { unitId }];
 
     // if (isMetaDataExisting.length > 0 || !metaDataId) return;
     console.log({ requiredData });

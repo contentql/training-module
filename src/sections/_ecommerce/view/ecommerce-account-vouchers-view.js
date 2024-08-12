@@ -111,6 +111,8 @@ export default function EcommerceAccountVouchersView() {
     fetchScore();
   }, [userData.username]);
 
+  console.log('quizScore', quizScore);
+
   return (
     <>
       <Typography variant="h5" sx={{ mb: 3 }}>
@@ -150,6 +152,7 @@ export default function EcommerceAccountVouchersView() {
         {coursesCertificatesFilter(quizScore).length ? (
           coursesCertificatesFilter(quizScore).map((data) => (
             <Box
+              key={data.id}
               gap={3}
               display="grid"
               gridTemplateColumns={{

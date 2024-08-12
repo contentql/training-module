@@ -15,7 +15,7 @@ export const coursesCertificatesFilter = (quizScore) => {
   });
 
   const completedCourses = Object.values(courseScores).filter(
-    (quizData) => (quizData.attributes.score / 10) * 100 >= 70
+    (quizData) => (quizData.attributes.score / 10) * 100 >= 50
   );
 
   return completedCourses;

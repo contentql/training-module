@@ -50,7 +50,10 @@ export default function QuizForm(props) {
   const inputRef = useRef();
 
   const toggleQuiz = quizProgress((state) => state.toggleQuiz);
-  const userData = useUserStore((state) => state.UserData);
+  const [userData, updateUserData] = useUserStore((state) => [
+    state.UserData,
+    state.updateUserData,
+  ]);
 
   useEffect(() => {
     const fetchScore = async () => {
@@ -95,6 +98,39 @@ export default function QuizForm(props) {
   });
 
   const mdUp = useResponsive('up', 'md');
+
+  const handleSubmit = async (formJson) => {
+    updateUserData({
+      ...userData,
+      firstname: formJson.firstname,
+      lastname: formJson.lastname,
+    });
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_STRAPI_URL}/api/users/${userData.id}`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${userData.authToken}`,
+          },
+          body: JSON.stringify({
+            firstname: formJson.firstname,
+            lastname: formJson.lastname,
+          }),
+        }
+      );
+      console.log(response);
+      if (response.ok) {
+        handlePopupClose();
+        handleClickOpen();
+      } else {
+        toast.error('Please try again');
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleClickOpen = () => {
     if (hasBoughtCourse) {
@@ -153,19 +189,60 @@ export default function QuizForm(props) {
         Start Test
       </ElearningCourseDetailsLessonItem> */}
       {/* {finalQuiz && ( */}
-      <Dialog open={popupOpen} onClose={handlePopupClose}>
+      <Dialog
+        open={popupOpen}
+        onClose={handlePopupClose}
+        PaperProps={{
+          component: 'form',
+          onSubmit: (event) => {
+            event.preventDefault();
+            const formData = new FormData(event.currentTarget);
+            const formJson = Object.fromEntries(formData.entries());
+            handleSubmit(formJson);
+            handlePopupClose();
+          },
+        }}
+      >
         <DialogTitle>Alert</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            To successfully finish the course, a minimum score of 70% is required.
+            Please provide first name and last name, This details will be displayed on certificate.
+          </DialogContentText>
+
+          <TextField
+            autoFocus
+            required
+            margin="normal"
+            id="firstname"
+            name="firstname"
+            label="First Name"
+            type="text"
+            fullWidth
+            variant="outlined"
+          />
+          <TextField
+            autoFocus
+            required
+            margin="normal"
+            id="lastname"
+            name="lastname"
+            label="Last Name"
+            type="text"
+            fullWidth
+            variant="outlined"
+          />
+          <DialogContentText color="red">
+            *To successfully finish the course, a minimum score of 70% is required.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
+          <Button onClick={handlePopupClose}>Cancel</Button>
           <Button
-            onClick={() => {
-              handlePopupClose();
-              handleClickOpen();
-            }}
+            type="submit"
+            // onClick={(e) => {
+            //   handlePopupClose();
+            //   handleClickOpen();
+            // }}
             color="primary"
             variant="outlined"
           >

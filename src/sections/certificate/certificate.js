@@ -9,7 +9,6 @@ const Certificate = ({ certificateData, certificateNames }) => {
       })
     : '';
 
-  console.log('certificateNames', certificateNames);
   return (
     <div className="relative top-[calc(50%_-_397px)] left-[calc(50%_-_561.5px)] w-[1123px] h-[794px] text-26xl text-black font-montaga items-center text-center">
       <div className="absolute top-[calc(50%_-_372px)] left-[calc(50%_-_536.5px)] rounded-21xl box-border w-[1073px] h-[744px] border-[2px] border-solid border-lightgray overflow-hidden">
@@ -31,7 +30,10 @@ const Certificate = ({ certificateData, certificateNames }) => {
               </div>
             </div>
             <div className="flex flex-col items-center justify-center gap-[0px] text-26xl text-darkslateblue font-montserrat">
-              <div className="relative font-semibold">{certificateData?.attributes.username}</div>
+              <div className="relative font-semibold">
+                {certificateData?.attributes.firstname} {certificateData?.attributes.lastname}
+              </div>
+              {/* <div className="relative font-semibold">{certificateData?.attributes.lastname}</div> */}
               <p className="text-base text-dimgray">for completing the course</p>
               <p className="text-[20px] font-semibold text-black">
                 {certificateData?.attributes.courseTitle}
