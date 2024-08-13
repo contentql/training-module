@@ -78,6 +78,8 @@ export default function QuizHookForm(props) {
     setCurrentQuestionIndex((prevState) => prevState - 1);
   };
 
+  const capitalizeFirstLetter = (string) => string.replace(/\b\w/g, (char) => char.toUpperCase());
+
   const goToNext = () => {
     if (currentQuestionIndex + 1 !== questions.length) {
       setCurrentQuestionIndex((prevState) => prevState + 1);
@@ -118,8 +120,8 @@ export default function QuizHookForm(props) {
         courseTitle: courseName.title,
         score: String(correctAnswers),
         email: UserData.email,
-        firstname: UserData?.firstname,
-        lastname: UserData?.lastname,
+        firstname: capitalizeFirstLetter(UserData?.firstname),
+        lastname: capitalizeFirstLetter(UserData?.lastname),
       },
     };
     try {
