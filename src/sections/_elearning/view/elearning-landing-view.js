@@ -28,7 +28,7 @@ export default function ElearningLandingView() {
   const [open, setOpen] = useState(false);
 
   const adminConfiguration = () => {
-    const response = axiosClient.get('/api/configuration');
+    const response = axiosClient.get('/api/configuration?populate=*');
     return response;
   };
 
@@ -46,6 +46,8 @@ export default function ElearningLandingView() {
       setOpen(true);
     }, 3000);
   }, []);
+
+  console.log('configuration', configuration);
 
   return (
     <>
@@ -114,7 +116,7 @@ export default function ElearningLandingView() {
 
       <ElearningLandingFaqs />
 
-      <ElearningNewsletter />
+      {configuration?.data.data.attributes.coupons.active && <ElearningNewsletter />}
     </>
   );
 }
