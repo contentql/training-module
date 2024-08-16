@@ -2,8 +2,8 @@ import { useMemo } from 'react';
 import PropTypes from 'prop-types';
 
 import Box from '@mui/material/Box';
-import List from '@mui/material/List';
 import Card from '@mui/material/Card';
+import List from '@mui/material/List';
 import Button from '@mui/material/Button';
 import { areArraysEqual } from '@mui/base';
 import Divider from '@mui/material/Divider';
@@ -12,8 +12,10 @@ import Typography from '@mui/material/Typography';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+
+import { paths } from 'src/routes/paths';
 
 const Result = ({
   answers,
@@ -142,20 +144,28 @@ const Result = ({
             backgroundColor: 'background.default',
           }}
         >
-          <Button
-            onClick={restartQuiz}
-            sx={{ bgcolor: '#FF774B', color: 'white', '&:hover': { bgcolor: '#FF5722' } }}
-            variant="contained"
-          >
-            Retry
-          </Button>
-          <Button
-            onClick={handleModalClose}
-            // sx={{ bgcolor: '#FF774B', color: 'white', '&:hover': { bgcolor: '#FF5722' } }}\
-            variant="contained"
-          >
-            close
-          </Button>
+          {percentage >= 70 ? (
+            <Button href={paths.eLearning.account.vouchers} variant="contained">
+              Certificates
+            </Button>
+          ) : (
+            <>
+              <Button
+                onClick={restartQuiz}
+                sx={{ bgcolor: '#FF774B', color: 'white', '&:hover': { bgcolor: '#FF5722' } }}
+                variant="contained"
+              >
+                Retry
+              </Button>
+              <Button
+                onClick={handleModalClose}
+                // sx={{ bgcolor: '#FF774B', color: 'white', '&:hover': { bgcolor: '#FF5722' } }}\
+                variant="contained"
+              >
+                close
+              </Button>
+            </>
+          )}
         </CardActions>
       </Card>
     </div>
