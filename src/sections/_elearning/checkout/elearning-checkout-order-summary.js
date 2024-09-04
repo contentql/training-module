@@ -33,14 +33,28 @@ export default function ElearningCheckoutOrderSummary({
   isDelete,
   setCouponDiscountone,
 }) {
+  const [coupon, setCoupon] = useState('');
+
+  const [couponApply, setCouponApply] = useState(false);
+
+  const [couponDiscountPercentage, setCouponDiscountPercentage] = useState('0');
+
+  const [couponMessage, setCouponMessage] = useState('No coupon');
+
+  const [taxedAmount, setTaxedAmount] = useState('');
+
+  const [totalAmount, setTotalAmount] = useState(0);
+
   const getTaxAndCoupons = async () => {
     const response = await axiosClient.get('/api/configuration?populate=*');
     const { tax } = response.data.data.attributes;
 
-    setTaxs(tax);
-    const taxedAmount = (total * tax) / 100;
-    setTaxAmount(taxedAmount);
-    setTotalAmount(taxedAmount + total);
+    console.log(tax);
+
+    const taxedAmountOne = (total * tax) / 100;
+    setTaxedAmount(taxedAmountOne);
+    setTaxAmount(taxedAmountOne);
+    setTotalAmount(taxedAmountOne + total);
   };
 
   useEffect(() => {
@@ -48,33 +62,20 @@ export default function ElearningCheckoutOrderSummary({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const [coupon, setCoupon] = useState('');
-
-  const [couponApply, setCouponApply] = useState(false);
-
-  const [couponDiscount, setCouponDiscount] = useState('0');
-
-  const [couponMessage, setCouponMessage] = useState('No coupon');
-
-  const [taxs, setTaxs] = useState('');
-
-  const [totalAmount, setTotalAmount] = useState(0);
-
-  console.log(totalAmount);
-
   const discountClick = async () => {
     const response = await axiosClient.get('/api/configuration?populate=*');
     const { coupons } = response.data.data.attributes;
 
     if (coupon === coupons.coupon && coupons.active) {
-      setCouponDiscount(coupons.percentage);
-      setCouponMessage('Coupon applyed success');
+      setCouponDiscountPercentage(Math.round(totalAmount * (coupons.percentage / 100)));
+      setCouponMessage('Coupon applied success');
+      console.log(couponDiscountPercentage);
+      setTotalAmount((prev) => prev - Math.round(totalAmount * (coupons.percentage / 100)));
+      console.log(totalAmount);
       setCouponDiscountone(coupons.percentage);
-      const Amount = totalAmount - (couponDiscount / 100) * totalAmount;
-      setTotalAmount(Amount);
       setCouponApply(true);
     } else {
-      setCouponDiscount(0);
+      setCouponDiscountPercentage(0);
       setCouponMessage('Coupon not active');
     }
   };
@@ -103,9 +104,9 @@ export default function ElearningCheckoutOrderSummary({
       <Stack spacing={2}>
         <Row label="Subtotal" value={fCurrency(subtotal)} />
 
-        <Row label={`${couponMessage}`} value={`${couponDiscount}%`} />
+        <Row label={`${couponMessage}`} value={`- ${couponDiscountPercentage}`} />
 
-        <Row label="Tax" value={fPercent(taxs)} />
+        <Row label="Tax" value={`+ ${taxedAmount}`} />
       </Stack>
 
       <TextField
