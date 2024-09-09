@@ -82,7 +82,7 @@ export default function ElearningCartSummary({
       <Stack spacing={2}>
         <Row label="Subtotal" value={fCurrency(subtotal)} />
 
-        <Row label="Tax" value={`${taxs}%`} />
+        {/* <Row label="Tax" value={`${taxs}%`} /> */}
       </Stack>
 
       <Divider sx={{ borderStyle: 'dashed' }} />

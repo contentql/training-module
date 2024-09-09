@@ -104,9 +104,9 @@ export default function ElearningCheckoutOrderSummary({
       <Stack spacing={2}>
         <Row label="Subtotal" value={fCurrency(subtotal)} />
 
-        <Row label={`${couponMessage}`} value={`- ${couponDiscountPercentage}`} />
+        <Row label={`${couponMessage}`} value={`-$${couponDiscountPercentage}`} />
 
-        <Row label="Tax" value={`+ ${taxedAmount}`} />
+        <Row label="Tax" value={`+ $${taxedAmount}`} />
       </Stack>
 
       <TextField
@@ -181,9 +181,9 @@ function CourseItem({ course, isDelete, ...other }) {
       />
 
       <Stack flexGrow={1}>
-        <TextMaxLine variant="body2" line={1} sx={{ fontWeight: 'fontWeightMedium' }}>
+        <Typography variant="body2" line={1} sx={{ fontWeight: 'fontWeightMedium' }}>
           {course?.attributes.title}
-        </TextMaxLine>
+        </Typography>
 
         <Typography variant="subtitle2" sx={{ mt: 0.5, mb: 1.5 }}>
           {fCurrency(course?.attributes.price)}
