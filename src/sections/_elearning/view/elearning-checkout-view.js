@@ -137,6 +137,7 @@ export default function ElearningCheckoutView({ courseId }) {
       email: UserData.email,
       products: updatedProducts,
       discount: Number(couponDiscount),
+      user: UserData,
     };
 
     const response = await axiosClient.post('/api/orders', requestBody, {
@@ -146,7 +147,6 @@ export default function ElearningCheckoutView({ courseId }) {
       },
     });
 
-    console.log('orders', response);
     await stripe.redirectToCheckout({
       sessionId: response.data.id,
     });
