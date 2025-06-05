@@ -37,6 +37,8 @@ export default function ElearningCourseDetailsUnitItem({
     >
       <AccordionSummary
         sx={{
+          display: 'flex',
+          alignItems: 'center',
           pl: 2,
           pr: 2,
           minHeight: 64,
@@ -59,7 +61,10 @@ export default function ElearningCourseDetailsUnitItem({
         >
           {unit.title}
         </Typography>
-        <Typography variant="body2" sx={{ color: 'text.disabled', paddingLeft: 4 }}>
+        <Typography
+          variant="body2"
+          sx={{ color: 'text.disabled', pl: 4, whiteSpace: 'nowrap' }} // prevent line break
+        >
           {unit.time} minutes
         </Typography>
         <Iconify
