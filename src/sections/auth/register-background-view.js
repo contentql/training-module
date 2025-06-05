@@ -257,7 +257,7 @@ export default function RegisterBackgroundView() {
     <>
       {success ? (
         <Alert severity="success">
-          <Typography variant="h6"> verification link sent to regestered email.</Typography>
+          <Typography variant="h6"> verification link sent to registered email.</Typography>
           <br />
           Please verify your email before try{'  '}
           <Link
