@@ -102,10 +102,10 @@ export default function EcommerceAccountVouchersView() {
 
   useEffect(() => {
     const fetchScore = async () => {
-      const data = await axiosClient.get('/api/quiz-scores');
+      const data = await axiosClient.get(`/api/quiz-scores?filters[username][$eq]=${userData.username}`);
 
       setQuizScore(
-        data?.data.data.filter((scoreData) => userData.username === scoreData.attributes.username)
+        data?.data.data
       );
     };
     fetchScore();
