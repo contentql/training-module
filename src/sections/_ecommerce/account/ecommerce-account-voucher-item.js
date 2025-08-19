@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types */
+
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 // import { differenceInCalendarDays } from 'date-fns';
@@ -17,7 +17,7 @@ import ElearningCertificateDialog from 'src/sections/certificate/elearning-certi
 
 // ----------------------------------------------------------------------
 
-export default function EcommerceAccountVoucherItem({ certificateData }) {
+export default function EcommerceAccountVoucherItem({ certificateData, userData }) {
   // const dayLeft = differenceInCalendarDays(voucher.dueOn, new Date());
 
   const [open, setOpen] = useState(false);
@@ -32,7 +32,7 @@ export default function EcommerceAccountVoucherItem({ certificateData }) {
 
   const certificateImages = [
     {
-      courseTitle: '8 Hour Initial Administrator Training Program',
+      courseTitle: '8 Hours Initial Administrator Training Program',
       image: '/assets/images/course/basics2.png',
     },
     {
@@ -124,13 +124,24 @@ export default function EcommerceAccountVoucherItem({ certificateData }) {
           size="large"
           variant="contained"
           onClick={() => handleClickOpen()}
+          disabled={
+            !(certificateData?.attributes?.firstname && certificateData?.attributes?.lastname)
+          }
         >
           View
         </Button>
+
+        {!(certificateData?.attributes?.firstname && certificateData?.attributes?.lastname) && (
+          <Typography variant="caption" sx={{ mt: 1, color: 'error.main', fontStyle: 'italic' }}>
+            Please update your profile with your first and last name to view the certificate.
+          </Typography>
+        )}
+
         <ElearningCertificateDialog
           open={open}
           handleClose={handleClose}
           certificateData={certificateData}
+          userData={userData}
         />
       </Stack>
     </Stack>
@@ -140,6 +151,7 @@ export default function EcommerceAccountVoucherItem({ certificateData }) {
 
 EcommerceAccountVoucherItem.propTypes = {
   certificateData: PropTypes.object,
+  userData: PropTypes.object
 };
 
 // ----------------------------------------------------------------------

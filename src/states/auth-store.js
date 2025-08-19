@@ -8,6 +8,8 @@ const store = persist(
       userName: '',
       isLoggedIn: false,
       image: null,
+      firstname: '',
+      lastname: '',
     },
     updateUserData: (userData) => {
       set(() => ({
@@ -27,6 +29,8 @@ const store = persist(
           userName: '',
           isLoggedIn: false,
           image: null,
+          firstname: '',
+          lastname: '',
         },
       }));
     },

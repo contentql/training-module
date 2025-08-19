@@ -43,16 +43,18 @@ export default function AccountPersonalView() {
     state.updateUserData,
   ]);
 
-  const EcommerceAccountPersonalSchema = Yup.object().shape({
-    firstName: Yup.string().required('First name is required'),
-    lastName: Yup.string().required('Last name is required'),
-    emailAddress: Yup.string().required('Email address is required'),
-    phoneNumber: Yup.string().required('Phone number is required'),
-  });
+  // const EcommerceAccountPersonalSchema = Yup.object().shape({
+  //   firstName: Yup.string().required('First name is required'),
+  //   lastName: Yup.string().required('Last name is required'),
+  //   emailAddress: Yup.string().required('Email address is required'),
+  //   phoneNumber: Yup.string().required('Phone number is required'),
+  // });
 
   const defaultValues = {
     username: userData?.username,
     emailAddress: userData?.email,
+    firstname:userData?.firstname,
+    lastname:userData?.lastname,
     phoneNumber: userData?.phone,
     city: userData?.city,
     country: userData?.country,
@@ -79,6 +81,8 @@ export default function AccountPersonalView() {
       agency: data.agency,
       city: data.city,
       phone: data.phoneNumber,
+      firstname:data.firstname,
+      lastname:data.lastname
     });
 
     try {
@@ -91,6 +95,8 @@ export default function AccountPersonalView() {
             Authorization: `Bearer ${userData.authToken}`,
           },
           body: JSON.stringify({
+            firstname: data.firstname,
+            lastname: data.lastname,
             country: data.country,
             agency: data.agency,
             city: data.city,
@@ -146,9 +152,13 @@ export default function AccountPersonalView() {
         <RHFTextField
           name="emailAddress"
           label="Email Address"
-          value={userData?.email}
+          // value={userData?.email}
           InputProps={{ readOnly: true }}
         />
+
+         <RHFTextField name="firstname" label="First Name" />
+
+         <RHFTextField name="lastname" label="Last Name" />
 
         <RHFTextField name="phoneNumber" label="Phone Number" />
 

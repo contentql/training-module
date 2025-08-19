@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-const Certificate = ({ certificateData, certificateNames }) => {
+const Certificate = ({ certificateData, certificateNames, userData }) => {
   const formattedDate = certificateData?.attributes.createdAt
     ? new Date(certificateData.attributes.updatedAt).toLocaleDateString('en-US', {
         month: '2-digit',
@@ -30,9 +30,20 @@ const Certificate = ({ certificateData, certificateNames }) => {
               </div>
             </div>
             <div className="flex flex-col items-center justify-center gap-[0px] text-26xl text-darkslateblue font-montserrat">
+
               <div className="relative font-semibold">
-                {certificateData?.attributes.firstname} {certificateData?.attributes.lastname}
+                {
+                  (() => {
+                    if (certificateData?.attributes?.firstname && certificateData?.attributes?.lastname) {
+                      return `${certificateData.attributes.firstname} ${certificateData.attributes.lastname}`;
+                    }
+
+                      return `${userData.firstname} ${userData.lastname}`;
+
+                  })()
+                }
               </div>
+
               {/* <div className="relative font-semibold">{certificateData?.attributes.lastname}</div> */}
               <p className="text-base text-dimgray">for completing the course</p>
               <p className="text-[20px] font-semibold text-black">
@@ -95,6 +106,7 @@ const Certificate = ({ certificateData, certificateNames }) => {
 Certificate.propTypes = {
   certificateData: PropTypes.object,
   certificateNames: PropTypes.any,
+  userData: PropTypes.object
 };
 
 export default Certificate;

@@ -19,7 +19,7 @@ import Certificate from 'src/sections/certificate/certificate';
 
 // ----------------------------------------------------------------------
 
-export default function ElearningCertificateDialog({ open, handleClose, certificateData }) {
+export default function ElearningCertificateDialog({ open, handleClose, certificateData,userData }) {
   const targetRef = useRef();
   // const { data: certificateNames } = useQuery({
   //   queryKey: ['certificateNames'],
@@ -27,8 +27,6 @@ export default function ElearningCertificateDialog({ open, handleClose, certific
   // });
 
   const { data: certificateNames } = useQuery('certificateNames', getCertificateData);
-
-  console.log('certificateNames', certificateNames);
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -104,6 +102,7 @@ export default function ElearningCertificateDialog({ open, handleClose, certific
               <Certificate
                 certificateData={certificateData}
                 certificateNames={certificateNames.data.certificates.data[0].attributes.certificate}
+                userData={userData}
               />
             )}
           </Stack>
@@ -117,4 +116,5 @@ ElearningCertificateDialog.propTypes = {
   open: PropTypes.bool,
   handleClose: PropTypes.func,
   certificateData: PropTypes.object,
+    userData: PropTypes.object
 };
