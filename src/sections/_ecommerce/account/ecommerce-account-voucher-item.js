@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 // import { differenceInCalendarDays } from 'date-fns';
@@ -119,19 +118,24 @@ export default function EcommerceAccountVoucherItem({ certificateData, userData 
           Score : {certificateData?.attributes.score}/10
         </Typography>
         <Button
-          // sx={{ bgcolor: '#FF774B', mb: 1 }}
           color="primary"
           size="large"
           variant="contained"
           onClick={() => handleClickOpen()}
           disabled={
-            !(certificateData?.attributes?.firstname && certificateData?.attributes?.lastname)
+            !(
+              (certificateData?.attributes?.firstname && certificateData?.attributes?.lastname) ||
+              (userData?.firstname && userData?.lastname)
+            )
           }
         >
           View
         </Button>
 
-        {!(certificateData?.attributes?.firstname && certificateData?.attributes?.lastname) && (
+        {!(
+          (certificateData?.attributes?.firstname && certificateData?.attributes?.lastname) ||
+          (userData?.firstname && userData?.lastname)
+        ) && (
           <Typography variant="caption" sx={{ mt: 1, color: 'error.main', fontStyle: 'italic' }}>
             Please update your profile with your first and last name to view the certificate.
           </Typography>
@@ -151,7 +155,7 @@ export default function EcommerceAccountVoucherItem({ certificateData, userData 
 
 EcommerceAccountVoucherItem.propTypes = {
   certificateData: PropTypes.object,
-  userData: PropTypes.object
+  userData: PropTypes.object,
 };
 
 // ----------------------------------------------------------------------
