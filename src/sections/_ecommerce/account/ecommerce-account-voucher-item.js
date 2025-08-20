@@ -40,7 +40,7 @@ export default function EcommerceAccountVoucherItem({ certificateData, userData 
       // image: '/assets/images/course/basic.png',
     },
     {
-      courseTitle: '12 Hours for existing Administrators and Alternates',
+      courseTitle: '12 Hours for Existing Administrators and Alternates',
       image: '/assets/images/course/advanced2.png',
       // image: '/assets/images/course/basic.png',
     },
